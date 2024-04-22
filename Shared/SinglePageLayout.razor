@@ -1,0 +1,38 @@
+﻿@*@inherits TransitionableLayoutComponent
+
+    <div class="@transitioningClass">
+        @Body
+    </div>
+
+
+    @code {
+
+        //private string transitioningClass => Transition.FirstRender ? "" : Transition.IntoView
+        //    ?(!Transition.Backwards ?  $"slide-up" : $"slide-down")
+        //     :(!Transition.Backwards ? $"slide-up-out" :$"slide-down-out");
+
+        //for left-right
+        private string transitioningClass => Transition.FirstRender ? "" : Transition.IntoView
+    ? (!Transition.Backwards ? $"slide-left" : $"slide-right")
+    : (!Transition.Backwards ? $"slide-left-out" : $"slide-right-out");
+
+    }*@
+@inherits LayoutComponentBase
+<div class="page">
+    <div class="sidebar" style="display:none !important;">
+        <div class="container-fluid">
+            @*<a href="javascript:history.back()">
+                <Blazorise.Icon Name="Blazorise.IconName.StepBackward" IconSize="Blazorise.BlazorBootstrap.IconSize.Default" TextColor="Blazorise.TextColor.Danger"></Blazorise.Icon>
+                </a>*@
+        </div>
+    </div>
+    <main>
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+<Blazorise.PageProgressProvider />
+<Blazorise.Components.NotificationProvider />
+<Blazorise.MessageProvider />

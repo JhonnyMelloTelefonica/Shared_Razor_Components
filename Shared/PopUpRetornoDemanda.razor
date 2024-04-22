@@ -1,0 +1,124 @@
+﻿@using Shared_Static_Class.Model_DTO;
+@inject NavigationManager NavManager;
+@using Shared_Static_Class.Converters
+@using Radzen.Blazor;
+@using Microsoft.FluentUI.AspNetCore.Components;
+<RadzenStack Orientation="Radzen.Orientation.Vertical" AlignItems="Radzen.AlignItems.Center" Gap="5px">
+    <FluentCard>
+        <span class="d-inline-flex align-items-center align-middle gap-3">
+            <RadzenColumn Size="12" SizeMD="6" Class="rz-p-4 rz-border-radius-1" Style="border: none">
+                <RadzenStack Gap="0" Class="rz-text-truncate"
+                             Style="flex-direction: row !important; --rz-gap: none !important; justify-content: space-between !important; width: 700px">
+                    <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
+                        <b>
+                            @(chamado.Fila.NOME_SUB_FILA)
+                        </b>
+                    </RadzenText>
+                </RadzenStack>
+            </RadzenColumn>
+        </span>
+        <br />
+        <RadzenStack Orientation="Radzen.Orientation.Horizontal" AlignItems="Radzen.AlignItems.Center" JustifyContent="Radzen.JustifyContent.SpaceEvenly">
+            <RadzenStack Gap="0" Class="rz-text-truncate">
+                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-4 rz-mb-0" Style="color: var(--rz-text-tertiary-color);">Tipo de fila:</RadzenText>
+                <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@chamado.Fila.ID_TIPO_FILANavigation.NOME_TIPO_FILA</b></RadzenText>
+                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">Qtd campos:</RadzenText>
+                <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@chamado.Campos.Count()</b></RadzenText>
+            </RadzenStack>
+            <RadzenStack Gap="0" Class="rz-text-truncate">
+                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-4 rz-mb-0" Style="color: var(--rz-text-tertiary-color);">SLA médio:</RadzenText>
+                <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@chamado.Fila.SLA dias</b></RadzenText>
+                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">ir para demanda:</RadzenText>
+                <FluentButton BackgroundColor="#FFFFFF" OnClick="@(() => NavManager.NavigateTo($"/consultar/consultardemandasbyid/{chamado.ID}",true))">
+                    <FluentIcon Value="@(new Icons.Filled.Size24.ArrowRight().WithColor("#9b39d6"))" Slot="end">
+                    </FluentIcon>
+                    N° @chamado.ID
+                </FluentButton>
+            </RadzenStack>
+        </RadzenStack>
+    </FluentCard>
+    <FluentCard>
+        <span class="d-inline-flex align-items-center align-middle gap-3">
+            <RadzenImage Path=@(Responsavel?.UserAvatar != null ? "data:image/png;base64," + SharedConverter.ConvertFileToString(Responsavel.UserAvatar) : "images/usericon.png") class="rz-gravatar" />
+            <RadzenColumn Size="12" SizeMD="6" Class="rz-p-4 rz-border-radius-1" Style="border: none">
+                <RadzenStack Gap="0" Class="rz-text-truncate"
+                             Style="flex-direction: row !important; --rz-gap: none !important; justify-content: space-between !important; width: 700px">
+                    <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
+                        <b>
+                            @(Responsavel?.NOME)
+                        </b>
+                    </RadzenText>
+                </RadzenStack>
+            </RadzenColumn>
+        </span>
+        @if (Orientation == Radzen.Orientation.Horizontal)
+        {
+            <RadzenRow>
+                <RadzenColumn Size="12" SizeMD="6" Class="rz-p-4 rz-border-radius-1" Style="border: var(--rz-grid-cell-border)">
+                    <RadzenText TextStyle="TextStyle.Subtitle1">Informações do analista resposável</RadzenText>
+                    <RadzenStack Orientation="Radzen.Orientation.Horizontal" AlignItems="Radzen.AlignItems.Center">
+                        <RadzenStack Gap="0" Class="rz-text-truncate">
+                            <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-4 rz-mb-0" Style="color: var(--rz-text-tertiary-color);">Quantidade de demandas</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@(Responsavel != null ? Responsavel.DemandasResponsavel.Count() : "-")</b></RadzenText>
+                            <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">Cargo</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@(Responsavel != null ? ((Cargos)Responsavel.CARGO).GetDisplayName():"-")</b></RadzenText>
+                        </RadzenStack>
+                    </RadzenStack>
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="6" Class="rz-p-4 rz-border-radius-1" Style="border: var(--rz-grid-cell-border)">
+                    <RadzenText TextStyle="TextStyle.Subtitle1">Contato do analista responsável</RadzenText>
+                    <RadzenStack Gap="0" Class="rz-text-truncate">
+                        <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">Matricula</RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
+                            <b>
+                                @(Responsavel != null ? Responsavel.MATRICULA : "-")
+                            </b>
+                        </RadzenText>
+                        <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">E-mail</RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@(Responsavel != null ? Responsavel.EMAIL : "-")</b></RadzenText>
+                    </RadzenStack>
+                </RadzenColumn>
+            </RadzenRow>
+        }
+        else
+        {
+            <RadzenStack Orientation="Radzen.Orientation.Vertical" Gap="4px" Style="max-width:400px;">
+                <RadzenColumn Size="6" SizeMD="3" SizeLG="3" Class="rz-p-4 rz-border-radius-1" Style="border: var(--rz-grid-cell-border)">
+                    <RadzenText TextStyle="TextStyle.Subtitle1">Informações do analista resposável</RadzenText>
+                    <RadzenStack Orientation="Radzen.Orientation.Horizontal" AlignItems="Radzen.AlignItems.Center">
+                        <RadzenStack Gap="0" Class="rz-text-truncate">
+                            <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-4 rz-mb-0" Style="color: var(--rz-text-tertiary-color);">Quantidade de demandas</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@(Responsavel != null ? Responsavel.DemandasResponsavel.Count() : "-")</b></RadzenText>
+                            <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">Cargo</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@(Responsavel != null ? ((Cargos)Responsavel.CARGO).GetDisplayName():"-")</b></RadzenText>
+                        </RadzenStack>
+                    </RadzenStack>
+                </RadzenColumn>
+                <RadzenColumn Size="6" SizeMD="3" SizeLG="3" Class="rz-p-4 rz-border-radius-1" Style="border: var(--rz-grid-cell-border)">
+                    <RadzenText TextStyle="TextStyle.Subtitle1">Contato do analista responsável</RadzenText>
+                    <RadzenStack Gap="0" Class="rz-text-truncate">
+                        <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">Matricula</RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
+                            <b>
+                                @(Responsavel != null ? Responsavel.MATRICULA : "-")
+                            </b>
+                        </RadzenText>
+                        <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">E-mail</RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@(Responsavel != null ? Responsavel.EMAIL : "-")</b></RadzenText>
+                    </RadzenStack>
+                </RadzenColumn>
+            </RadzenStack>
+        }
+    </FluentCard>
+</RadzenStack>
+@code
+{
+    [Parameter] public ACESSOS_MOBILE_DTO Responsavel { get; set; } = new();
+    [Parameter] public Radzen.Orientation Orientation { get; set; } = Radzen.Orientation.Horizontal;
+    [Parameter] public DEMANDAS_CHAMADO_DTO chamado { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+}

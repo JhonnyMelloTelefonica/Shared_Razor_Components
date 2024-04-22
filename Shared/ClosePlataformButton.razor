@@ -1,0 +1,16 @@
+﻿@inject NavigationManager navigationManager
+@using Microsoft.FluentUI.AspNetCore.Components
+
+<Blazorise.Tooltip Text="Fechar plataforma" Placement="Blazorise.TooltipPlacement.RightEnd">
+    <a href="@viewoption.ActualPlataformUrl">
+        <FluentButton BackgroundColor="transparent"
+                      Style="z-index: 2; display: flex; border-radius: 50%;
+               padding: 0; max-width: 28px; ">
+            @*@onclick="@(() => navigationManager.NavigateTo("/"))"*@
+            @*background-image: linear-gradient(90deg, rgb(5, 39, 103) 0%, #3a0647 30%);*@
+            @*box-shadow: 1px 0px 12px 1px #0000005c;*@
+            <FluentIcon Value="@(new Icons.Filled.Size24.Dismiss().WithColor("#000000"))" Style="margin:auto;">
+            </FluentIcon>
+        </FluentButton>
+    </a>
+</Blazorise.Tooltip>

@@ -1,0 +1,191 @@
+﻿@inject IJSRuntime JSRuntime
+@using JustifyContent = Microsoft.FluentUI.AspNetCore.Components.JustifyContent;
+@using System.IO.Compression;
+@using Radzen.Blazor;
+@using Microsoft.FluentUI.AspNetCore.Components;
+@using Microsoft.JSInterop;
+@using Shared_Static_Class.Models 
+
+@if (AllowMulitple)
+{
+
+    <div style="display:flex; width:100%; justify-content:center; flex-direction:column;margin:auto">
+        <RadzenStack AlignItems="Radzen.AlignItems.Center" Orientation="Radzen.Orientation.Horizontal">
+            <input name="file" id="Xinputfile00" type="file" accept="@Filter" @onchange="UploadFile" multiple hidden />
+            <label class="form__input" for="file">
+                @if (!Files.Any())
+                {
+                    <span>
+                        Por favor muita atenção no envio de arquivos, <strong style="color: red; font-weight: bolder; font-family: Vivo-font-bold;">envie apenas arquivos que ajudem no tratamento da fila, por favor preste atenção!</strong>.
+                    </span>
+                    <br />
+                    <br />
+                    <br />
+                    if (!Busy)
+                    {
+
+                        <span id="test2" style="appearance: auto; writing-mode: horizontal-tb !important; font-family:Vivo-font;
+                                text-rendering: auto; color: white; background-color: #a9a9a9; letter-spacing: normal; word-spacing: normal; line-height: normal;
+                                text-transform: none; text-indent: 0px; text-shadow: none; display: inline-block; text-align: center; align-items: flex-start; cursor: default;
+                                box-sizing: border-box; margin: 0em; padding: 1px 6px; border-style: outset; border-color: transparent; border-image: initial; padding: 15px;"
+                              @onclick="ClickUpload">Insira aqui o seu arquivo. </span>
+                    }
+                    else
+                    {
+                        <span class="spinner-border spinner-border-sm" />
+                    }
+                }
+                else
+                {
+                    <RadzenStack Gap="4px" Orientation="Radzen.Orientation.Horizontal" Wrap="Radzen.FlexWrap.Wrap" Style="max-height: 100%; overflow-y: auto;">
+                        @foreach (var item in Files)
+                        {
+                            <FluentButton @onclick="() => RemoveItem(item)" BackgroundColor="#188d21" IconEnd="@(new Icons.Regular.Size24.DismissCircle().WithColor("#FFFFFF"))">
+                                <p style="width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin:0;padding:0;color:white;">
+                                    @item.FileName
+                                </p>
+                            </FluentButton>
+                        }
+                    </RadzenStack>
+                }
+                <br />
+            </label>
+        </RadzenStack>
+    </div>
+}
+else
+{
+    <input id="Xinputfile00" type="file" accept="@Filter" @onchange="UploadFile" hidden />
+    @if (!Busy)
+    {
+        <button class="btn btn-primary" @onclick="ClickUpload">@Title</button>
+    }
+    else
+    {
+        <button class="btn btn-primary">
+            <span class="spinner-border spinner-border-sm" />
+            @Title
+        </button>
+
+    }
+}
+
+<br />
+
+<style>
+    .form__input {
+        color: #333;
+        text-align: center;
+        font-size: 1.2rem;
+        padding: 1.5rem 2rem;
+        border-radius: 10px;
+        background-color: white;
+        border: dotted;
+        border-color: #cfcaca;
+        /*        box-shadow: 0 2px 2px 3px rgba(0, 0, 0, 0.1);*/
+        align-self: center;
+        /*display: block;*/
+        /*border-bottom: transparent;*/
+        transition: all 0.3s;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        margin: 0;
+        width: 550px;
+        height: 200px;
+    }
+
+        .form__input:placeholder-shown {
+            box-shadow: 0 2px 2px 3px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            height: 30px;
+        }
+
+        .form__input:valid {
+            color: green;
+        }
+
+        .form__input:invalid {
+            color: red;
+        }
+</style>
+@code
+{
+    [Parameter]
+    public List<FileDataModel> Files { get; set; } = new();
+
+    [Parameter]
+    public string Filter { get; set; }
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public bool AllowMulitple { get; set; }
+
+    [Parameter]
+    public Action Uploaded { get; set; }
+
+    // Define a delegate for the custom event
+    public delegate void DismissBadgeHandler();
+
+    // Define the custom event
+    public event DismissBadgeHandler DismissBadge;
+    public bool Busy { get; set; } = false;
+
+    async Task UploadFile()
+    {
+        Busy = true;
+        List<FileDataModel> results = new List<FileDataModel>();
+        try
+        {
+            var result = await JSRuntime.InvokeAsync<object>("blazorExtensions.GetFileData", "Xinputfile00");
+            if (result is not null)
+            {
+                FileData[] files = Newtonsoft.Json.JsonConvert.DeserializeObject<FileData[]>(result.ToString());
+                foreach (var file in files)
+                {
+                    byte[] compressedbytes;
+                    using (MemoryStream memoryStream = new MemoryStream())
+                    {
+                        using (GZipStream gzipStream = new GZipStream(memoryStream, CompressionLevel.Optimal))
+                        {
+                            gzipStream.Write(file.Bytes, 0, file.Bytes.Length);
+                        }
+                        compressedbytes = memoryStream.ToArray();
+                    }
+
+                    results.Add(new FileDataModel
+                    {
+                        FileName = file.FileName,
+                        Base64 = Convert.ToBase64String(compressedbytes),
+                        MIMEType = file.MIMEType,
+                        Bytes = compressedbytes
+                    });
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
+
+        this.Files = results.ToList();
+        if (Uploaded != null)
+        {
+            Uploaded();
+        }
+
+        Busy = false;
+    }
+
+    async Task RemoveItem(FileDataModel item)
+    {
+        Files.Remove(item);
+        DismissBadge.Invoke();
+    }
+
+    async Task ClickUpload()
+    {
+        await JSRuntime.InvokeVoidAsync("blazorExtensions.InvokeClick", "Xinputfile00");
+    }
+
+}

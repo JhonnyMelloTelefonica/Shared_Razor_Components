@@ -1,0 +1,30 @@
+﻿@if (IsOpen)
+{
+    <div class="alert alert-@AlertType" role="alert">
+        <button type="button" class="close" @onclick="Close">&times;</button>
+        <strong>@Title</strong> @Message
+    </div>
+}
+
+@code {
+    [Parameter]
+    public bool IsOpen { get; set; }
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string Message { get; set; }
+
+    [Parameter]
+    public string AlertType { get; set; } = "warning";
+
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    private async Task Close()
+    {
+        IsOpen = false;
+        await OnClose.InvokeAsync();
+    }
+}

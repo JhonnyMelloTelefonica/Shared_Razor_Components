@@ -1,0 +1,77 @@
+﻿@inject BlazorDownloadFile.IBlazorDownloadFileService _downloader;
+@using System.IO
+@using System.Net
+@using Newtonsoft.Json
+@using Shared_Static_Class.Model_DTO;
+@using Radzen.Blazor;
+@using Microsoft.FluentUI.AspNetCore.Components;
+@using Microsoft.JSInterop;
+@using Shared_Static_Class.Models
+@using Color = Blazorise.Color;
+
+@if (Anexos != null)
+{
+    @foreach (var item in Anexos)
+    {
+        @switch (item.EXT_ARQUIVO.ToLower())
+        {
+            case "jpg":
+            case "jpeg":
+            case "png":
+                <Blazorise.Button Color="Color.Primary" @onclick=@(async () => await SaveAs($"{(item.NOME_CAMPO is null ? $"Anexo[{item.ID_RESPOSTA} - {item.ID}]" : item.NOME_CAMPO)}.{item.EXT_ARQUIVO}", item.ARQUIVO))>
+                    <Blazorise.Icons.FontAwesome.Icon Name="Blazorise.IconName.Image"></Blazorise.Icons.FontAwesome.Icon>
+                </Blazorise.Button>
+                <img src="@("data:image/png;base64," + @Convert.ToBase64String(item.ARQUIVO))" width="600" height="400" alt="Pré-visualização do arquivo" />
+                break;
+            case "pdf":
+                <Blazorise.Button Color="Color.Primary" @onclick=@(async () => await SaveAs($"{(item.NOME_CAMPO is null ? $"Anexo[{item.ID_RESPOSTA} - {item.ID}]" : item.NOME_CAMPO)}.{item.EXT_ARQUIVO}", item.ARQUIVO))>
+                    <Blazorise.Icons.FontAwesome.Icon Name="Blazorise.IconName.FilePdf"></Blazorise.Icons.FontAwesome.Icon>
+                </Blazorise.Button>
+                <embed src="@Convert.ToBase64String(item.ARQUIVO)" width="600" height="400" type="application/pdf" />
+                break;
+            case "xlsx":
+            case "xls":
+            case "xlsm":
+            case "xlsb":
+            case "xltx":
+                <Blazorise.Button Color="Color.Primary" @onclick=@(async () => await SaveAs($"{(item.NOME_CAMPO is null ? $"Anexo[{item.ID_RESPOSTA} - {item.ID}]" : item.NOME_CAMPO)}.{item.EXT_ARQUIVO}", item.ARQUIVO))>
+                    <Blazorise.Icons.FontAwesome.Icon Name="Blazorise.IconName.Download"></Blazorise.Icons.FontAwesome.Icon>
+                </Blazorise.Button>
+                <iframe src="@Convert.ToBase64String(item.ARQUIVO)" width="600" height="400"></iframe>
+                break;
+            case "csv":
+            case "txt":
+                <Blazorise.Button Color="Color.Primary" @onclick=@(async () => await SaveAs($"{(item.NOME_CAMPO is null ? $"Anexo[{item.ID_RESPOSTA} - {item.ID}]" : item.NOME_CAMPO)}.{item.EXT_ARQUIVO}", item.ARQUIVO))>
+                    <Blazorise.Icons.FontAwesome.Icon Name="Blazorise.IconName.Code"></Blazorise.Icons.FontAwesome.Icon>
+                </Blazorise.Button>
+                <pre>@System.Text.Encoding.UTF8.GetString(item.ARQUIVO)</pre>
+                break;
+            default:
+                <Blazorise.Button Color="Color.Primary" @onclick=@(async () => await SaveAs($"{(item.NOME_CAMPO is null ? $"Anexo[{item.ID_RESPOSTA} - {item.ID}]" : item.NOME_CAMPO)}.{item.EXT_ARQUIVO}", item.ARQUIVO))>
+                    <Blazorise.Icons.FontAwesome.Icon Name="Blazorise.IconName.CloudDownloadAlt">
+                        @(item.NOME_CAMPO is null ? $"Anexo[{item.ID_RESPOSTA} - {item.ID}]" : $"{item.NOME_CAMPO}.{item.EXT_ARQUIVO}")
+                    </Blazorise.Icons.FontAwesome.Icon>
+                </Blazorise.Button>
+                break;
+        }
+    }
+}
+
+@code {
+    [Parameter]
+    public IEnumerable<DEMANDA_ARQUIVOS_RESPOSTA_DTO> Anexos { get; set; }
+
+
+    public async Task SaveAs(string fileName, byte[] content)
+    {
+        var byteArray = content ?? Array.Empty<byte>();
+
+        using (var memoryStream = new MemoryStream(byteArray))
+        {
+            await memoryStream.WriteAsync(byteArray, 0, byteArray.Length);
+            memoryStream.Seek(0, SeekOrigin.Begin);
+
+            await _downloader.DownloadFile(fileName, memoryStream, "application/octet-stream");
+        }
+    }
+}

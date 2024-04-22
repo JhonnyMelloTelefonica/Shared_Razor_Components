@@ -1,0 +1,26 @@
+﻿@using Microsoft.Fast.Components.FluentUI
+<FluentCounterBadge Count="@Count" Appearance="Appearance.Lightweight">
+    <FluentButton BackgroundColor="#9b39d6" OnClick="(e) => Opened = !Opened">
+        <FluentIcon Value="@(new Icons.Filled.Size20.FilterSync().WithColor("#ffffff"))">
+        </FluentIcon>
+    </FluentButton>
+</FluentCounterBadge>
+
+<Blazorise.Modal @ref="modalRef">
+    <Blazorise.ModalContent Centered>
+        <Blazorise.ModalHeader>
+            <Blazorise.ModalTitle>Filtros</Blazorise.ModalTitle>
+            <Blazorise.CloseButton />
+        </Blazorise.ModalHeader>
+        <Blazorise.ModalBody>
+            @if (ChildContent is not null)
+            {
+                @ChildContent
+            }
+            else
+            {
+                <h2>Não há filtros aplicados</h2>
+            }s
+        </Blazorise.ModalBody>
+    </Blazorise.ModalContent>
+</Blazorise.Modal>

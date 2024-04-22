@@ -1,0 +1,54 @@
+﻿@inject NavigationManager NavManager;
+@using Microsoft.FluentUI.AspNetCore.Components
+@using Radzen.Blazor
+@using Microsoft.AspNetCore.Components.Routing
+
+<RadzenStack AlignItems="Radzen.AlignItems.Center" Orientation="Radzen.Orientation.Horizontal" Gap="15px" Wrap="Radzen.FlexWrap.NoWrap" JustifyContent="Radzen.JustifyContent.Center">
+    @if (ShowHome)
+    {
+        <Blazorise.Tooltip Text="Home" @onclick="@(() => NavManager.NavigateTo("/"))">
+            <FluentButton IconEnd="@(new Icons.Filled.Size28.Home().WithColor("#FFFFFF"))" Color="#FFFFFF" BackgroundColor="#633696" Title="Home">
+            </FluentButton>
+        </Blazorise.Tooltip>
+    }
+    <Blazorise.Tooltip Text="Gerenciamento de filas" @onclick="@(() => NavManager.NavigateTo("demandas/filas"))">
+        <FluentButton IconEnd="@(new Icons.Filled.Size28.TableEdit().WithColor("#FFFFFF"))" Color="#FFFFFF" BackgroundColor="#633696" Title="Gerenciamento de filas">
+        </FluentButton>
+    </Blazorise.Tooltip>
+    <Blazorise.Tooltip Text="Operadores" @onclick="@(() => NavManager.NavigateTo("demandas/operadores"))">
+        <FluentButton IconEnd="@(new Icons.Filled.Size28.PersonSupport().WithColor("#FFFFFF"))" Color="#FFFFFF" BackgroundColor="#633696" Title="Operadores">
+        </FluentButton>
+    </Blazorise.Tooltip>
+    <Blazorise.Tooltip Text="Abertura de demanda" @onclick="@(() => NavManager.NavigateTo("demandas/solicitar"))">
+        <FluentButton IconEnd="@(new Icons.Filled.Size28.CommentAdd().WithColor("#FFFFFF"))" Color="#FFFFFF" BackgroundColor="#633696" Title="Abertura de demanda">
+        </FluentButton>
+    </Blazorise.Tooltip>
+    <Blazorise.Tooltip Text="Consultar demandas" @onclick="@(() => NavManager.NavigateTo("demandas"))">
+        <FluentButton IconEnd="@(new Icons.Filled.Size28.TasksApp().WithColor("#FFFFFF"))" Color="#FFFFFF" BackgroundColor="#633696" Title="Consultar demandas">
+        </FluentButton>
+    </Blazorise.Tooltip>
+    <Blazorise.Tooltip Text="Acessos - Outros Sistemas" @onclick="@(() => NavManager.NavigateTo("acessos"))">
+        <FluentButton IconEnd="@(new Icons.Filled.Size28.PersonAdd().WithColor("#FFFFFF"))" Color="#FFFFFF" BackgroundColor="#633696" Title="Acessos - Outros Sistemas">
+        </FluentButton>
+    </Blazorise.Tooltip>
+</RadzenStack>
+
+@code{
+    private bool ShowHome { get; set; }
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            NavManager.LocationChanged += LocationHasChanged;
+        }
+
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
+    private void LocationHasChanged(object? sender, LocationChangedEventArgs args)
+    {
+        string? actualroute = NavManager.Uri.Split('/')[3];
+        ShowHome = actualroute != string.Empty ? true : false;
+        StateHasChanged();
+    }
+}
