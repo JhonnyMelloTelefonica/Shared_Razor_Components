@@ -58,8 +58,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Oracle.EntityFrameworkCore" Version="8.21.121" />
-    <PackageReference Include="Oracle.ManagedDataAccess" Version="21.9.0" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.130" />
     <PackageReference Include="Oracle.ManagedDataAccess.EntityFramework" Version="21.9.0" />
     <PackageReference Include="Radzen.Blazor" Version="4.24.0" />

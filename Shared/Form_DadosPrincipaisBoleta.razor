@@ -1,0 +1,191 @@
+﻿@using Shared_Static_Class.Model_DTO
+@using Shared_Static_Class.Converters
+@using Blazorise
+@using Radzen.Blazor
+@using Radzen
+
+
+<ul class="list-group-flush">
+    @if (!Boleta.Dados_Solicitacao.Any())
+    {
+    }
+    else
+    {
+        @foreach (var (item, index) in Boleta.Dados_Solicitacao.Select((value, i) => (value, i + 1)))
+        {
+            <li class="list-group-item">
+                <Div Flex="Flex.InlineFlex.JustifyContent.Around" Gap="Gap.Is3" Width="Width.Is100">
+                    <div class="form-group">
+                        <label><b>Plataforma</b></label>
+                        <Blazorise.Validation>
+                            <ChildContent>
+                                <Blazorise.Select TValue="Plataforma" @bind-SelectedValue="item.Plataforma" Width="Blazorise.Width.Is100">
+                                    <ChildContent>
+                                        <Blazorise.SelectItem Value="@(string.Empty)">Selecione</Blazorise.SelectItem>
+                                        @foreach (var item in Enum.GetValues(typeof(Plataforma)).Cast<Plataforma>().ToList())
+                                        {
+                                            <Blazorise.SelectItem Value="@(item)">@item.GetDisplayName()</Blazorise.SelectItem>
+                                        }
+                                    </ChildContent>
+                                    <Feedback>
+                                        <Blazorise.ValidationError />
+                                    </Feedback>
+                                </Blazorise.Select>
+                            </ChildContent>
+                        </Blazorise.Validation>
+                    </div>
+                    <div class="form-group">
+                        <label><b>Categoria</b></label>
+                        <Blazorise.Validation>
+                            <Blazorise.Select TValue="Categoria?" @bind-SelectedValue="item.Categoria" Width="Blazorise.Width.Is100">
+                                <ChildContent>
+                                    <Blazorise.SelectItem Value="@(string.Empty)">Selecione</Blazorise.SelectItem>
+                                    @foreach (var cat in Categorias.Where(x => x.ID_PLATAFORMA.Contains(item.Plataforma)).Select(x => x.ID_CATEGORIA))
+                                    {
+                                        <Blazorise.SelectItem Value="cat"> @cat.GetDisplayName()</Blazorise.SelectItem>
+                                    }
+                                </ChildContent>
+                                <Feedback>
+                                    <Blazorise.ValidationError />
+                                </Feedback>
+                            </Blazorise.Select>
+                        </Blazorise.Validation>
+                    </div>
+                </Div>
+                <Div Flex="Flex.InlineFlex.JustifyContent.Around" Width="Width.Is100">
+                    @if (Categorias
+               .Where(x => x.ID_PLATAFORMA
+               .Contains(item.Plataforma)
+               && x.ID_CATEGORIA == item.Categoria)
+               .Select(x => x.MOVIMENTO)
+               .FirstOrDefault())
+                    {
+                        <div class="form-group">
+                            <label><b>Tipo de Movimento</b></label>
+                            <Blazorise.Validation>
+                                <Blazorise.Select TValue="Movimento?" @bind-SelectedValue="item.Movimento" Width="Blazorise.Width.Is100">
+                                    <ChildContent>
+                                        <Blazorise.SelectItem Value="@(string.Empty)">Selecione</Blazorise.SelectItem>
+                                        @foreach (var mov in Movimentos.Where(x => x.ID_CATEGORIA.Contains(item.Categoria.Value)).Select(x => x.ID_MOVIMENTO))
+                                        {
+                                            <Blazorise.SelectItem Value="mov"> @mov.GetDisplayName()</Blazorise.SelectItem>
+                                        }
+                                    </ChildContent>
+                                    <Feedback>
+                                        <Blazorise.ValidationError />
+                                    </Feedback>
+                                </Blazorise.Select>
+                            </Blazorise.Validation>
+                        </div>
+                    }
+                    @if (item.Plataforma != Plataforma.FIXA)
+                    {
+
+                        if (Movimentos
+                            .Where(x => x.ID_MOVIMENTO == item.Movimento)
+                            .Select(x => x.DESCRICAO)
+                            .FirstOrDefault())
+                        {
+                            <div class="form-group">
+                                <label><b>Descrição</b></label>
+                                <Blazorise.Validation>
+                                    <Blazorise.Select @bind-SelectedValue="item.Descricao" Width="Blazorise.Width.Is100">
+                                        <ChildContent>
+                                            <Blazorise.SelectItem Value="@(string.Empty)">Selecione</Blazorise.SelectItem>
+                                            <Blazorise.SelectItem Value="@("TITULAR")">TITULAR</Blazorise.SelectItem>
+                                            <Blazorise.SelectItem Value="@("DEPENDENTE")">DEPENDENTE</Blazorise.SelectItem>
+                                        </ChildContent>
+                                        <Feedback>
+                                            <Blazorise.ValidationError />
+                                        </Feedback>
+                                    </Blazorise.Select>
+                                </Blazorise.Validation>
+                            </div>
+                        }
+                    }
+                </Div>
+                <Div Flex="Flex.InlineFlex.JustifyContent.Around" Width="Width.Is100">
+                    @if (Movimentos
+               .Where(x => x.ID_MOVIMENTO == item.Movimento)
+               .Select(x => x.PLANO)
+               .FirstOrDefault())
+                    {
+                        <div class="form-group">
+                            <label><b>Plano</b></label>
+                            <Blazorise.Validation>
+                                <Blazorise.Select TValue="Planos?" @bind-SelectedValue="item.Plano" Width="Blazorise.Width.Is100">
+                                    <ChildContent>
+                                        <Blazorise.SelectItem Value="@(string.Empty)">Selecione</Blazorise.SelectItem>
+                                        @foreach (var plan in Planos.Where(x => x.ID_PLATAFORMA.Contains(item.Plataforma)).Select(x => x.ID_PLANO))
+                                        {
+                                            <Blazorise.SelectItem Value="plan"> @plan.GetDisplayName()</Blazorise.SelectItem>
+                                        }
+                                    </ChildContent>
+                                    <Feedback>
+                                        <Blazorise.ValidationError />
+                                    </Feedback>
+                                </Blazorise.Select>
+                            </Blazorise.Validation>
+                        </div>
+                    }
+                    <div class="form-group" style="width: 228.656px">
+                        @if (Movimentos
+                   .Where(x => x.ID_MOVIMENTO == item.Movimento)
+                   .Select(x => x.PORTABLIDADE)
+                   .FirstOrDefault())
+                        {
+                            <div class="form-group">
+                                <label><b>PORTABILIDADE</b></label>
+                                <Blazorise.Validation>
+                                    <Check @bind-Checked="item.Portabilidade"></Check>
+                                </Blazorise.Validation>
+                            </div>
+                        }
+                        @if (Movimentos
+                   .Where(x => x.ID_MOVIMENTO == item.Movimento)
+                   .Select(x => x.FIDELIZACAO)
+                   .FirstOrDefault())
+                        {
+                            <div class="form-group">
+                                <label><b>FIDELIZAÇÃO</b></label>
+                                <Validation>
+                                    <Check @bind-Checked="item.Fidelizacao"></Check>
+                                </Validation>
+                            </div>
+                        }
+                    </div>
+                </Div>
+            </li>
+            <Form_LinhasBoleta item="@item" />
+            <Form_EquipamentosBoleta item="@item" />
+            <Form_SvasBoleta item="@item" />
+        }
+    }
+</ul>
+<br />
+<div class="rz-p-12 rz-text-align-center">
+    <Blazorise.Button Color="Blazorise.Color.Success" @onclick="@(() => Boleta.Dados_Solicitacao.Add(new()))">
+        <Blazorise.Icon Name="Blazorise.IconName.Check">
+        </Blazorise.Icon>
+        Adicionar
+    </Blazorise.Button>
+    @if (Boleta.Dados_Solicitacao.Count > 1)
+    {
+        <Blazorise.Button Color="Blazorise.Color.Danger" @onclick="@(() => Boleta.Dados_Solicitacao.RemoveAt(Boleta.Dados_Solicitacao.Count - 1))">
+            <Blazorise.Icon Name="Blazorise.IconName.Times">
+            </Blazorise.Icon>
+            Remover
+        </Blazorise.Button>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public required BoletaModel Boleta { get; set; } = new();
+    [Parameter]
+    public required List<BOLETA_CATEGORIA_DTO> Categorias { get; set; } = new();
+    [Parameter]
+    public required List<BOLETA_MOVIMENTO_DTO> Movimentos { get; set; } = new();
+    [Parameter]
+    public required List<BOLETA_PLANO_DTO> Planos { get; set; } = new();
+}

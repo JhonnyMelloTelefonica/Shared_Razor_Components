@@ -44,7 +44,7 @@ namespace Shared_Razor_Components.Shared
         }
 
         [JSInvokable("CloseUserCard")]
-        public void StepClicked()
+        public void CloseCard()
         {
             User = null;
             Opened = false;

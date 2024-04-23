@@ -1,5 +1,6 @@
 ﻿@using Microsoft.JSInterop
 @using Shared_Static_Class.Converters 
+@using Microsoft.AspNetCore.Components.Web
 <style>
     #Full-page {
         position: fixed;
@@ -247,7 +248,8 @@
 @if (Opened)
 {
     <div id="Full-page">
-        <span id="CloseButton2" class="bi bi-x-circle" style="z-index: 1000;" @onclick="@(()=> JSRuntime.InvokeVoidAsync("CloseCardView",DotNetObjectReference.Create(this)))"></span>
+        <span id="CloseButton2" class="bi bi-x-circle" style="z-index: 1000;"
+        @onclick="@(()=> JSRuntime.InvokeVoidAsync("CloseCardView",DotNetObjectReference.Create(this)))"></span>
 
         <div class="wrapper">
 

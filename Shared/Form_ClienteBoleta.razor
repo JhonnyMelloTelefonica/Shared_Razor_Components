@@ -1,0 +1,62 @@
+﻿@using Blazorise
+@using Radzen.Blazor
+@using Radzen
+
+<ul class="list-group-flush">
+    <li class="list-group-item">
+        <Div Flex="Flex.InlineFlex.JustifyContent.Between" Gap="Gap.Is3" Width="Width.Is100">
+            <div class="form-group">
+                <Validation>
+                    <label><b>Nome</b></label>
+                    <TextEdit @bind-Text="Cliente.NOME">
+                        <Feedback>
+                            <Blazorise.ValidationError />
+                        </Feedback>
+                    </TextEdit>
+                </Validation>
+            </div>
+            <div class="form-group">
+                <label><b>Telefone</b></label>
+                <Validation>
+
+                    <TextEdit @bind-Text="Cliente.TELEFONE">
+                        <Feedback>
+                            <Blazorise.ValidationError />
+                        </Feedback>
+                    </TextEdit>
+                </Validation>
+            </div>
+        </Div>
+        <br />
+        <Div Flex="Flex.InlineFlex.JustifyContent.Between" Gap="Gap.Is3" Width="Width.Is100">
+
+            <div class="form-group">
+                <Validation>
+                    <label><b>CPF / CNPJ</b></label>
+                    <TextEdit @bind-Text="Cliente.CPF_CNPJ">
+                        <Feedback>
+                            <Blazorise.ValidationError />
+                        </Feedback>
+                    </TextEdit>
+                </Validation>
+            </div>
+            <div class="form-group">
+                <Validation>
+
+                    <label><b>Senha GSS</b></label>
+                    <TextEdit @bind-Text="Cliente.SENHA_GSS" MaxLength="9">
+                        <Feedback>
+                            <Blazorise.ValidationError />
+                        </Feedback>
+                    </TextEdit>
+                </Validation>
+            </div>
+        </Div>
+    </li>
+</ul>
+
+@code{
+
+    [Parameter]
+    public required Shared_Static_Class.Model_DTO.BOLETA_CLIENTE_DTO Cliente { get; set; }
+}
