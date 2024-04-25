@@ -95,7 +95,7 @@ namespace Shared_Razor_Components.Shared
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+
         }
     }
 }
