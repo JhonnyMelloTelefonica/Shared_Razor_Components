@@ -1,6 +1,9 @@
 ﻿@using Microsoft.JSInterop
 @using Shared_Static_Class.Converters 
-@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web         
+
+@if (Opened)
+{
 <style>
     #Full-page {
         position: fixed;
@@ -33,31 +36,85 @@
             transform: scale(1.3);
         }
 
-    /*style apenas do profile card*/
+        html, body {
+            height: 0% !important;
+            margin: 0;
+            padding: 0;
+        }
 
-    .card-container {
-        width: 300px;
-        height: 430px;
-        /* background: #FFF; */
-        background: linear-gradient(to top, #CB6CE6, #004AAD,#004AAD);
-        border-radius: 6px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-        box-shadow: 0px 1px 10px 1px #000;
-        overflow: hidden;
-        display: inline-block;
-    }
+        #FullCard {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(0,0,0,.9);
+            text-align: center;
+            z-index: 1000 !important;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
 
-    .image-container {
-        background: white;
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        padding: 5px;
-        transform: translate(100px,100px);
-    }
+            #FullCard.show {
+                opacity: 1;
+            }
+
+        #FullImage2 {
+            padding: 24px;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            /*  margin: auto;
+                        display: block; */
+            border-radius: 35px;
+        }
+
+        #CloseButton2 {
+            position: absolute;
+            top: 20px;
+            right: 35%;
+            padding-left: 5px;
+            font-size: 2rem;
+            color: #ffffff;
+            cursor: pointer;
+            transition: color 0.5s;
+        }
+
+            #CloseButton2:hover,
+            #CloseButton2:focus {
+                color: darkred;
+                transform: scale(1.3);
+            }
+
+        .card-container {
+            width: 300px;
+            height: 430px;
+            /* background: #FFF; */
+            background-color: #CB6CE6;
+            border-radius: 6px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            box-shadow: 0px 1px 10px 1px #000;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        /* .upper-container {
+                        height: 150px;
+                        background: #7F00FF;
+                    } */
+
+        .image-container {
+            background: white;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            padding: 5px;
+            transform: translate(100px,100px);
+        }
 
         .image-container img {
             width: 80px;
@@ -109,37 +166,38 @@
                 border: 2px solid #7F00FF;
             }
 
-    /*test flip*/
 
-    ::selection {
-        color: #fff;
-        background: linear-gradient(to top, #CB6CE6, #004AAD,#004AAD);
-    }
+        /*test flip*/
 
-    .wrapper {
-        height: 70%;
-        width: 25%;
-        left: 35%;
-        top: 15%;
-        position: relative;
-        transform-style: preserve-3d;
-        perspective: 1000px;
-    }
-
-        .wrapper .card {
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            /*   padding: 5px; */
-            /*  background: #fff; */
-            background: linear-gradient(to top, #CB6CE6,#004AAD,#004AAD );
-            border-radius: 10px;
-            transform: translateY(0deg);
-            transform-style: preserve-3d;
-            backface-visibility: hidden;
-            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+        ::selection {
+            color: #fff;
+            background-color: #CB6CE6;
         }
+
+        .wrapper {
+            height: 70%;
+            width: 25%;
+            left: 35%;
+            top: 15%;
+            position: absolute;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+            .wrapper .card {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                /*   padding: 5px; */
+                /*  background: #fff; */
+                background-color: #e231b3 !important;
+                border-radius: 10px;
+                transform: translateY(0deg);
+                transform-style: preserve-3d;
+                backface-visibility: hidden;
+                box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+                transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            }
 
         .wrapper:hover > .front-face {
             transform: rotateY(-180deg);
@@ -203,25 +261,25 @@
         display: flex;
     }
 
-        .front-face ul a {
-            display: block;
-            height: 40px;
-            width: 40px;
-            color: #fff;
-            text-align: center;
-            margin: 0 5px;
-            line-height: 38px;
-            border: 2px solid transparent;
-            border-radius: 50%;
-            background: linear-gradient(375deg, #004AAD, #004AAD);
-            transition: all 0.5s ease;
-        }
-
-            .front-face ul a:hover {
-                color: #004AAD;
-                border-color: #004AAD;
-                background: linear-gradient(375deg, transparent, transparent);
+            .front-face ul a {
+                display: block;
+                height: 40px;
+                width: 40px;
+                color: #fff;
+                text-align: center;
+                margin: 0 5px;
+                line-height: 38px;
+                border: 2px solid transparent;
+                border-radius: 50%;
+               @*  background: linear-gradient(375deg, #004AAD, #004AAD); *@
+                transition: all 0.5s ease;
             }
+
+                .front-face ul a:hover {
+                    color: #CB6CE6;
+                    border-color: #CB6CE6;
+                    background: linear-gradient(375deg, transparent, transparent);
+                }
 
     .front-face p {
         color: white;
@@ -237,37 +295,70 @@
         font-size: 12px;
     }
 
-    .info p {
-        font-size: 15px !important;
-    }
+        .infoTop {
+            font-size: 10px !important;
+        }
 
-    .info br {
-        font-size: 13px !important;
-    }
-</style>
-@if (Opened)
-{
+        .info br {
+            font-size: 10px !important;
+        }
+
+        .svg-icon {
+            fill: white !important;
+            height: 100px;
+            width: 40% !important;
+        }
+
+        .infoFrontCard {
+            padding: 5px;
+        }
+
+        .svg-icon {
+            margin-top: 65px;
+            margin-bottom: 15px;
+        }
+
+    </style>
     <div id="Full-page">
-        <span id="CloseButton2" class="bi bi-x-circle" style="z-index: 1000;"
-        @onclick="@(()=> JSRuntime.InvokeVoidAsync("CloseCardView",DotNetObjectReference.Create(this)))"></span>
+        <span id="CloseButton2" class="bi bi-x-circle" style="z-index: 1000;" @onclick="@(()=> JSRuntime.InvokeVoidAsync("CloseCardView",DotNetObjectReference.Create(this)))"></span>
 
         <div class="wrapper">
 
             <div class="card front-face">
+
+                <img class="svg-icon" style="border-radius: 0%; filter: grayscale(100%) invert(100%) brightness(110%);" src="cardLogoVivo.png">
+
                 <div class="" style="top: 20px!important">
                     <Blazorise.Image Style=" margin:auto" Border="Blazorise.Border.RoundedCircle"
                            Source="@(User.UserAvatar != null ? "data:image/png;base64," + SharedConverter.ConvertFileToString(User.UserAvatar) : "images/usericon.png")">
                     </Blazorise.Image>
                 </div>
 
-                <div class="info">
-                    <div class="title;" style="color:white; font-size: 30px !important;">
-                        <p>
-                            @(User.DISPLAY_NOME)
+                <div class="info" style=" width: 70%; padding-bottom: 10%;">
+                    <div class="title;" style="color:white;">
 
-                            <br style="font-size: 20px; "> @(User.MATRICULA.ToString("D3"))
-                        </p>
+                        <div class="infoFrontCard" style=" font-size: 23px!important; font-weight: 700;">
+                            @NomeCard(User.NOME)
+                        </div>
 
+                        <div class="infoFrontCard" style=" font-size: 18px!important;">
+                            RE @(User.MATRICULA)
+                        </div>
+
+                        <div class="infoFrontCard" style=" font-size: 18px!important; margin-bottom: 10px;">
+                           @*  @(User.CARGO.GetDisplayName()) *@
+                           @CargoCard(User.CARGO.GetDisplayName())
+                        </div>
+
+                        <div class="infoFrontCard" style=" font-size: 15px!important; margin-right: 18px;">
+                            <i class="bi bi-telephone-fill" style="margin-right: 8px;"></i> 81-982505210
+                        </div>
+
+                        <div class="infoFrontCard" style="display: flex; justify-content: center; flex-direction: column; align-items: baseline !important;">                   
+                            <div style="font-size: 14px!important; display:flex">
+                                <i class="bi bi-envelope" style="margin-right: 17px;"></i> @(User.EMAIL.ToLower())
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -276,33 +367,36 @@
                         <br style="font-size: 20px!important; margin-bottom: 0rem !important;">
                     </p>
                 </div>
-
-                <img class="logoCard" src="/icone-vivox.png">
             </div>
 
             <div class="card back-face">
 
-                <p>
-                    Nome <br> @(User.NOME.ToLower())
-                </p>
-                <p>
-                    Email <br> @(User.EMAIL.Split()[0].ToLower())
-                </p>
-                <p>
-                    Cargo <br> @(User.CARGO.GetDisplayName())
-                </p>
-                <p>
-                    PDV <br>@(User.PDV.Split()[0].ToLower())
-                </p>
-                <p>
-                    CANAL <br>@(User.CANAL.GetDisplayName())
-                </p>
-
-                <p style="font-size: 10px!important; height: 0px!important;">
-                    Automação NE
-                </p>
+                
 
             </div>
         </div>
     </div>
+}
+@code{
+    public class UserInfo
+    {
+        public string Nome { get; set; }
+    }
+
+    
+    UserInfo nome = new UserInfo() { Nome = "Nome Sobrenome" };
+
+    
+    string NomeCard(string nomeCompleto)
+    {
+        string[] partesNome = nomeCompleto.Split(' ');
+        return partesNome[0] + " " + partesNome[partesNome.Length - 1]; 
+    }
+
+    string CargoCard(string CargoCompleto)
+    {
+        string[] partesNome = CargoCompleto.Split(' ');
+        return partesNome[0];
+    }
+
 }
