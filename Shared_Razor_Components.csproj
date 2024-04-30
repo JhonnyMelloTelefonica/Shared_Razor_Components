@@ -7,7 +7,11 @@
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
   </PropertyGroup>
 
-  <ItemGroup>
+	<ItemGroup>
+		<None Update="Templates/*.razor.css" CssScope="custom-scope-identifier" />
+	</ItemGroup>
+
+	<ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
@@ -69,6 +73,8 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Shared_Static_Class\Shared_Static_Class.csproj" />
 	</ItemGroup>
+
+  <Import Project="..\Shared_Class_Vivo_Apps\Shared_Class_Vivo_Apps\Shared_Class_Vivo_Apps.projitems" Label="Shared" />
 
 
 
