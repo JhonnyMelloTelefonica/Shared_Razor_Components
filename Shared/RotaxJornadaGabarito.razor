@@ -1,4 +1,23 @@
 ﻿@using Shared_Static_Class.Models
+@using Microsoft.AspNetCore.Components.Web
+@using Shared_Static_Class.Converters
+@using System.ComponentModel
+@using System.Globalization
+@using Shared_Class_Vivo_Apps.ModelDTO
+@using Shared_Static_Class.Model_DTO
+@using Shared_Razor_Components.Shared
+@using DividerType = Blazorise.DividerType
+@using IconName = Blazorise.IconName
+@using IconSize = BlazorBootstrap.IconSize
+@using Modal = BlazorBootstrap.Modal
+@using Offcanvas = BlazorBootstrap.Offcanvas
+@using Placement = BlazorBootstrap.Placement
+@using Size = BlazorBootstrap.Size
+@using TextAlignment = Blazorise.TextAlignment
+@using TextColor = Blazorise.TextColor
+@using Radzen.Blazor;
+@using Blazorise;
+@using Microsoft.FluentUI.AspNetCore.Components;
 
 <Blazorise.Steps @ref="stepsRef" VerticalAlignment="Blazorise.VerticalAlignment.TextBottom" @bind-SelectedStep="selectedStep">
     <Items>
@@ -315,6 +334,7 @@
     public Formulario? data { get; set; }
     [Parameter]
     public BlazorBootstrap.Offcanvas Filter { get; set; }
+
     string selectedStep = "1";
     private Blazorise.Steps stepsRef;
 
