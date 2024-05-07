@@ -2,15 +2,19 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.RenderTree;
+using Microsoft.JSInterop;
+using Shared_Static_Class.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 
 namespace Shared_Razor_Components.VivoCustomComponents
 {
-    public partial class VivoFieldSet
+    public partial class VivoFieldSet<T> : ComponentBase
     {
         [Parameter]
         public RenderFragment Body { get; set; }
@@ -18,45 +22,28 @@ namespace Shared_Razor_Components.VivoCustomComponents
         public RenderFragment? Header { get; set; } = null;
         [Parameter]
         public RenderFragment? ClosedBody { get; set; } = null;
-
         [Parameter]
         public bool IsOpened { get; set; } = false;
+        [Parameter]
+        public T? Model { get; set; }
+        [Inject]
+        public IJSRuntime JSRuntime { get; set; }
+        public IJSObjectReference _jsmodule { get; set; }
         public bool? FormValidated { get; set; } = null;
 
-        protected override Task OnAfterRenderAsync(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            bool has = HasInput();
-
-            return base.OnAfterRenderAsync(firstRender);
+            if (firstRender)
+            {
+                _jsmodule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Shared_Razor_Components/VivoCustomComponents.js");
+                FormValidated = await _jsmodule.InvokeAsync<bool>("areInputsValid","form");                
+            }
+            await base.OnAfterRenderAsync(firstRender);
         }
 
-        private bool HasInput()
+        public async void IsValid()
         {
-            var hasInput = false;
-
-            // Create a RenderTreeBuilder
-            var builder = new RenderTreeBuilder();
-
-            // Build the render tree for the Body
-            Body(builder);
-
-            // Traverse the render tree
-            var frames = builder.GetFrames();
-            
-            foreach (var frame in frames.Array)
-            {
-                if (frame.FrameType == RenderTreeFrameType.Element)
-                {
-                    var tagName = frame.ElementName.ToLowerInvariant();
-                    if (tagName == "input" || tagName == "select" || tagName == "textarea")
-                    {
-                        hasInput = true;
-                        break;
-                    }
-                }
-            }
-
-            return hasInput;
+            FormValidated = await _jsmodule.InvokeAsync<bool>("areInputsValid", "form");
         }
     }
 }

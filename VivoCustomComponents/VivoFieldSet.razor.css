@@ -8,7 +8,20 @@
     border: 1.5px solid #dbdbdb;
     border-radius: 10px;
     padding: 0 0.5rem;
+    padding-top:15px;
+    position:relative;
 }
+    .apply-component ::deep fieldset legend {
+        position: absolute;
+        width:auto;
+        padding-inline:10px;
+        background-color: white;
+        top: -20px;
+        left: 10px;
+        font-family: Vivo-font-bold;
+        display: inline-flex;
+        gap: 2px;
+    }
 
     .apply-component ::deep fieldset.closed {
         height: 10%;
@@ -24,11 +37,6 @@
         min-width: 200px;
     }
 
-    .apply-component ::deep fieldset legend {
-        font-family: Vivo-font-bold;
-        display: inline-flex;
-        gap: 2px;
-    }
 
         .apply-component ::deep .opened legend::before {
             content: '+';
