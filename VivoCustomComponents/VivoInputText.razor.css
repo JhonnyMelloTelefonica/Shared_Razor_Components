@@ -1,0 +1,137 @@
+﻿p_tratativa {
+    font-size: 13px;
+}
+
+input, section {
+    clear: both;
+    padding-top: 10px;
+    display: none;
+}
+
+.label_tratativa {
+    font-weight: bold;
+    font-size: 14px;
+    display: block;
+    float: left;
+    padding: 10px 30px;
+    border-top: 2px solid transparent;
+    border-right: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid #DDD;
+}
+
+    .label_tratativa:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+#tt01:checked ~ #content1, #tt02:checked ~ #content2, #tt03:checked ~ #content3, #tt04:checked ~ #content4, #tt05:checked ~ #content5 {
+    display: block;
+}
+
+input:checked + label {
+    border-top-color: #843dff;
+    border-right-color: #DDD;
+    border-left-color: #DDD;
+    border-bottom-color: transparent;
+    text-decoration: none;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input:checked + .option {
+    /* border-color: #c000d9; */
+    /*  background: #c000d9; */
+    background: linear-gradient(to top, #CB6CE6, #004AAD,#004AAD);
+}
+
+    input:checked + .option .dot {
+        background: #fff;
+    }
+
+        input:checked + .option .dot::before {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+.option span {
+    font-size: 13px;
+    color: #808080;
+}
+
+input:checked + .option span {
+    color: #fff;
+}
+
+/* inicio style input */
+
+
+.centered.unique-class {
+    width: 550px;
+    height: 110px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.group.unique-class {
+    /*  width: 35%; */
+    height: 70px;
+    overflow: hidden;
+    position: relative;
+}
+
+label.unique-class {
+    position: absolute;
+    top: 30%;
+    color: rgba(52, 49, 49, 0.5);
+    font: 18px Roboto;
+    cursor: text;
+    transition: 0.25s ease;
+}
+
+
+input.unique-class {
+    display: block;
+    width: 85%;
+    padding-top: 30px;
+    border: none;
+    border-radius: 0;
+    color: rgb(35, 33, 33);
+    background: #ffffff;
+    font-size: 17px;
+    transition: 0.3s ease;
+}
+
+
+    input.unique-class:focus {
+        border: none !important;
+        outline: none !important;
+    }
+
+
+    input.unique-class:valid ~ label.unique-class {
+        top: 0;
+        font: 700 16px Roboto;
+        color: rgba(147, 142, 142, 0.5);
+    }
+
+    input.unique-class:focus ~ label.unique-class {
+        top: 0;
+        font: 700 16px Roboto;
+        color: #004AAD;
+    }
+
+    input.unique-class:focus ~ .bar.unique-class:before {
+        transform: translateX(0);
+    }
+
+    input.unique-class:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px #333 inset;
+        -webkit-text-fill-color: white !important;
+    }

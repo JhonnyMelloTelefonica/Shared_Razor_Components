@@ -1,11 +1,8 @@
 ﻿
 
-function GetInputs() {
-    // Get the form element
-    const form = document.querySelector('form');
-
+function GetInputs(id) {
     // Get the specific div within the form
-    const specificDiv = form.querySelector('.apply-component');
+    const specificDiv = document.getElementById(id);
 
     // Get all input elements inside the specific div
     const inputsInsideDiv = specificDiv.querySelectorAll('input.invalid');
@@ -25,13 +22,9 @@ function GetInputs() {
     return inputNames;
 }
 
-export function areInputsValid(formId) {
-    var form = document.getElementById(formId);
-    if (!form || !form.checkValidity) {
-        return false;
-    }
+export function areInputsValid(id) {
 
-    var inputsToCheck = GetInputs();
+    var inputsToCheck = GetInputs(id);
 
     if (inputsToCheck.length > 0) {
         return false;

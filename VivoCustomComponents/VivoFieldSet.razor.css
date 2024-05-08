@@ -1,20 +1,30 @@
 ﻿.apply-component ::deep .closed,
-.apply-component ::deep .opened{
+.apply-component ::deep .opened {
     transition: all 0.4s linear;
 }
-
 
 .apply-component ::deep fieldset {
     border: 1.5px solid #dbdbdb;
     border-radius: 10px;
     padding: 0 0.5rem;
-    padding-top:15px;
-    position:relative;
+    padding-top: 15px;
+    position: relative;
 }
+
+    .apply-component ::deep .icon-check-invaild {
+        position: absolute;
+        top: -20px;
+        left: -10px;
+        color: red;
+        fill: red;
+        width:auto;
+        font-size:20px;
+    }
+
     .apply-component ::deep fieldset legend {
         position: absolute;
-        width:auto;
-        padding-inline:10px;
+        width: auto;
+        padding-inline: 10px;
         background-color: white;
         top: -20px;
         left: 10px;
@@ -37,16 +47,24 @@
         min-width: 200px;
     }
 
+    .apply-component ::deep fieldset.check-invaild {
+        border-color: red;
+    }
 
-        .apply-component ::deep .opened legend::before {
-            content: '+';
-            margin-right: 2px;
-            left: 0;
+        .apply-component ::deep fieldset.check-invaild legend svg {
+            fill: red !important;
         }
 
-    .apply-component ::deep .closed legend::before {
-        margin-right: 2px;
-        bottom: 50%;
-        left: 0;
-        content: '-';
-    }
+
+.apply-component ::deep .opened legend::before {
+    content: '+';
+    margin-right: 2px;
+    left: 0;
+}
+
+.apply-component ::deep .closed legend::before {
+    margin-right: 2px;
+    bottom: 50%;
+    left: 0;
+    content: '-';
+}
