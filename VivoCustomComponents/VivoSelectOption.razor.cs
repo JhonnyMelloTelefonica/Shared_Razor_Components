@@ -14,23 +14,22 @@ using System.Threading.Tasks;
 
 namespace Shared_Razor_Components.VivoCustomComponents
 {
-    public partial class VivoInputText : InputBase<string>
+    public partial class VivoSelectOption<T> : ComponentBase
     {
         [Parameter]
-        public required string LabelText { get; set; }
+        public required string Text { get; set; }
         [Parameter] public string? Id { get; set; }
         [Parameter] public string? Style { get; set; }
-        [Parameter, EditorRequired] public Expression<Func<string>> ValidationFor { get; set; } = default!;
-
+        [Parameter] public T Option { get; set; }
         [Inject]
         public IJSRuntime JSRuntime { get; set; }
 
-        protected override bool TryParseValueFromString(string value, out string result, out string validationErrorMessage)
-        {
-            result = value;
-            validationErrorMessage = null;
-            return true;
-        }
+        //protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
+        //{
+        //    result = value;
+        //    validationErrorMessage = null;
+        //    return true;
+        //}
 
     }
 }

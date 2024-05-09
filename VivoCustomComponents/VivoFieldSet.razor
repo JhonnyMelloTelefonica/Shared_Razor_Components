@@ -7,13 +7,20 @@
 @using Shared_Static_Class.Models
 @using Microsoft.AspNetCore.Components.Web
 
-<div class="apply-component">
-    <fieldset class="@($"{(IsOpened ? "opened" : "closed")} {(FormValidated ? "" : "check-invaild")}")" id="@this.GetHashCode()">
-        <span style="@(!FormValidated ? "" : "display:none")" class="icon-check-invaild">
+<div class="apply-component @Class" style="@Style">
+    <fieldset class="@ClassField" id="@this.GetHashCode()">
+        <span style="@(!FormValidated ? "" : "display:none")" class="icon-check-invalid">
             *
         </span>
-        <legend @onclick=@(() => IsOpened = !IsOpened )>
-            @Header
+        <legend @onclick=OpenAction>
+            @if (Locked)
+            {
+                <FluentIcon Value="@(new Icons.Filled.Size24.LockClosed().WithColor("#617ad9"))" />
+            }
+            else
+            {
+                @Header
+            }
         </legend>
         <div style="@(!IsOpened ? "display:none" : "")">
             @Body
@@ -21,5 +28,5 @@
         <div style="@(IsOpened ? "display:none" : "")">
             @ClosedBody
         </div>
-    </fieldset> 
+    </fieldset>
 </div>

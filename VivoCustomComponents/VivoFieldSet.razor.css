@@ -11,49 +11,55 @@
     position: relative;
 }
 
-    .apply-component ::deep .icon-check-invaild {
-        position: absolute;
-        top: -20px;
-        left: -10px;
-        color: red;
-        fill: red;
-        width:auto;
-        font-size:20px;
+.apply-component ::deep .icon-check-invalid {
+    position: absolute;
+    top: -20px;
+    left: -10px;
+    color: red;
+    fill: red;
+    width: auto;
+    font-size: 20px;
+}
+
+.apply-component ::deep fieldset legend {
+    position: absolute;
+    width: auto;
+    padding-inline: 10px;
+    background-color: white;
+    top: -20px;
+    left: 10px;
+    font-family: Vivo-font-bold;
+    display: inline-flex;
+    gap: 2px;
+}
+
+.apply-component ::deep fieldset.closed {
+    height: 10%;
+    width: 10%;
+    min-height: 50px;
+    min-width: 200px;
+}
+
+.apply-component ::deep fieldset.opened {
+    height: auto;
+    width: 100%;
+    min-height: 50px;
+    min-width: 200px;
+}
+
+
+.apply-component ::deep fieldset.check-invalid {
+    border-color: red;
+}
+
+
+    .apply-component ::deep fieldset.check-invalid legend svg {
+        fill: red !important;
     }
 
-    .apply-component ::deep fieldset legend {
-        position: absolute;
-        width: auto;
-        padding-inline: 10px;
-        background-color: white;
-        top: -20px;
-        left: 10px;
-        font-family: Vivo-font-bold;
-        display: inline-flex;
-        gap: 2px;
-    }
-
-    .apply-component ::deep fieldset.closed {
-        height: 10%;
-        width: 10%;
-        min-height: 50px;
-        min-width: 200px;
-    }
-
-    .apply-component ::deep fieldset.opened {
-        height: auto;
-        width: 100%;
-        min-height: 50px;
-        min-width: 200px;
-    }
-
-    .apply-component ::deep fieldset.check-invaild {
-        border-color: red;
-    }
-
-        .apply-component ::deep fieldset.check-invaild legend svg {
-            fill: red !important;
-        }
+.apply-component ::deep .all-valid {
+    border-color: #617ad9;
+}
 
 
 .apply-component ::deep .opened legend::before {

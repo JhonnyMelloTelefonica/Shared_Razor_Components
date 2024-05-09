@@ -5,6 +5,7 @@
     min-height: 20px;
     height: auto;
     width: auto;
+    min-width: 171.200px;
     margin-block: 15px;
     margin-inline: 20px;
     display:flex;
@@ -12,7 +13,7 @@
     align-items:end;
 }
 
-::deep input {
+::deep select {
     border: none !important;
     transition: all 1s linear;
     padding: 0;
@@ -20,7 +21,7 @@
     width: 100%;
 }
 
-    ::deep input:focus, ::deep input:active {
+    ::deep select:focus, ::deep select:active {
         border: none !important;
         transition: all 1s linear;
         outline: none;
@@ -48,9 +49,9 @@
     outline: none;
 }
 
-::deep input.valid,
-::deep input.invalid,
-::deep input.modified {
+::deep select.valid,
+::deep select.invalid,
+::deep select.modified {
     border: none !important;
     outline: none !important;
 }
@@ -62,7 +63,7 @@
     color: #b4b3b3;
 }
 
-.input-area:has(input:focus) label, .input-area:has(input:active) label {
+.input-area:has(select:focus) label, .input-area:has(select:active) label {
     top: -20px;
     font-size: 10px;
     color: #c1c1c1;
@@ -94,8 +95,8 @@
     background-color: #617ad9;
 }
 
-::deep input:focus + .bar,
-::deep input:active + .bar {
+::deep select:focus + .bar,
+::deep select:active + .bar {
     background-image: linear-gradient(0deg, #617ad9 0%, #9f32ff 70%);
     animation: ChangeBarColor 1.5s linear forwards;
     height: 1.5px;
@@ -137,4 +138,22 @@
 .text-danger {
     font-family: Vivo-font-light !important;
     font-size: 10px !important;
+}
+
+.icon-select {
+    position: absolute;
+    right: 0;
+    bottom: 25%;
+    margin: auto;
+    height: auto;
+    width: auto;
+    margin-inline: auto;
+}
+
+.input-area:has(select:focus) .icon-select {
+    transform: rotate(180deg);
+    transition: all 0.5s ease-in-out;
+}
+.input-area:not(select:focus) .icon-select {
+    transition: all 0.5s ease-out;
 }

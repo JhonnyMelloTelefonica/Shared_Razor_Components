@@ -5,21 +5,10 @@ function GetInputs(id) {
     const specificDiv = document.getElementById(id);
 
     // Get all input elements inside the specific div
-    const inputsInsideDiv = specificDiv.querySelectorAll('input.invalid');
-
-    const inputNames = [];
-
-    // Loop through each valid input element
-    inputsInsideDiv.forEach((input) => {
-        // Get the 'name' attribute of the input
-        const inputName = input.getAttribute('name');
-        if (inputName) {
-            inputNames.push(inputName);
-        }
-    });
+    const inputsInsideDiv = specificDiv.querySelectorAll('.invalid');
 
     // Return the array of input names
-    return inputNames;
+    return inputsInsideDiv;
 }
 
 export function areInputsValid(id) {
@@ -33,3 +22,12 @@ export function areInputsValid(id) {
     return true;
 }
 
+export function CheckEveryValidation(isvalid, id) {
+    // Get the specific div within the form
+    const specificDiv = document.getElementById(id);
+    if (isvalid) {
+        specificDiv.classList.add('all-valid');
+    } else {
+        specificDiv.classList.remove('all-valid');
+    }
+}

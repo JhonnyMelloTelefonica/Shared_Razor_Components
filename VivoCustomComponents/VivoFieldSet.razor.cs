@@ -26,16 +26,35 @@ namespace Shared_Razor_Components.VivoCustomComponents
         public RenderFragment? ClosedBody { get; set; } = null;
         [Parameter]
         public T? Model { get; set; }
+        [Parameter]
+        public string? Style { get; set; } = string.Empty;
+        [Parameter]
+        public string? Class { get; set; } = string.Empty;
+        [Parameter]
+        public bool Locked { get; set; } = true;
         [Inject]
         public IJSRuntime JSRuntime { get; set; }
+        public string ClassField => $"{(IsOpened ? "opened" : "closed")} {(FormValidated ? "all-valid" : "check-invalid")}";
         public IJSObjectReference _jsmodule { get; set; }
         public bool FormValidated { get; set; } = true;
-        public bool IsOpened { get; set; } = true;
+        public bool IsOpened { get => Locked ? false : isOpened; set => isOpened = value; }
+
+        private bool isOpened = true;
+
+        public event Action Render;
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+        }
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
                 Model.PropertyChanged += Update;
+                Render += UpdatePage;
+
                 _jsmodule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Shared_Razor_Components/VivoCustomComponents.js");
                 //FormValidated = await _jsmodule.InvokeAsync<bool>("areInputsValid", this.GetHashCode());
             }
@@ -46,16 +65,30 @@ namespace Shared_Razor_Components.VivoCustomComponents
             await base.OnAfterRenderAsync(firstRender);
         }
 
+        private async void OpenAction()
+        {
+            if (!Locked)
+                IsOpened = !IsOpened;
+        }
         private async void Update(object? sender, PropertyChangedEventArgs e)
         {
             if (_jsmodule is not null)
             {
                 var check = FormValidated;
-                await Task.Delay(500);
+                await Task.Delay(100);
                 FormValidated = await _jsmodule.InvokeAsync<bool>("areInputsValid", this.GetHashCode());
+                Render.Invoke();
                 if (check != FormValidated)
-                    this.StateHasChanged();
+                {
+                    await Task.Delay(100);
+                    await _jsmodule.InvokeVoidAsync("CheckEveryValidation", FormValidated, this.GetHashCode());
+                }
             }
+        }
+
+        public void UpdatePage()
+        {
+            StateHasChanged();
         }
     }
 }

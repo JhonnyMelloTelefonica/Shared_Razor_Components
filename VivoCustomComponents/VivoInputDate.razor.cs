@@ -14,20 +14,20 @@ using System.Threading.Tasks;
 
 namespace Shared_Razor_Components.VivoCustomComponents
 {
-    public partial class VivoInputText : InputBase<string>
+    public partial class VivoInputDate : InputBase<DateTime?>
     {
         [Parameter]
         public required string LabelText { get; set; }
         [Parameter] public string? Id { get; set; }
         [Parameter] public string? Style { get; set; }
-        [Parameter, EditorRequired] public Expression<Func<string>> ValidationFor { get; set; } = default!;
+        [Parameter, EditorRequired] public Expression<Func<DateTime?>> ValidationFor { get; set; } = default!;
 
         [Inject]
         public IJSRuntime JSRuntime { get; set; }
 
-        protected override bool TryParseValueFromString(string value, out string result, out string validationErrorMessage)
+        protected override bool TryParseValueFromString(string value, out DateTime? result, out string validationErrorMessage)
         {
-            result = value;
+            result = DateTime.TryParse(value, out DateTime saida) ? saida: null;
             validationErrorMessage = null;
             return true;
         }
