@@ -65,7 +65,7 @@ namespace Shared_Razor_Components.VivoCustomComponents
             await base.OnAfterRenderAsync(firstRender);
         }
 
-        private async void OpenAction()
+        private void OpenAction()
         {
             if (!Locked)
                 IsOpened = !IsOpened;
@@ -86,9 +86,25 @@ namespace Shared_Razor_Components.VivoCustomComponents
             }
         }
 
-        public void UpdatePage()
+        public async void UpdatePage()
         {
             StateHasChanged();
+        }
+
+        public async void ExecuteCheckValidation()
+        {
+            if (_jsmodule is not null)
+            {
+                var check = FormValidated;
+                await Task.Delay(100);
+                FormValidated = await _jsmodule.InvokeAsync<bool>("areInputsValid", this.GetHashCode());
+                Render.Invoke();
+                if (check != FormValidated)
+                {
+                    await Task.Delay(100);
+                    await _jsmodule.InvokeVoidAsync("CheckEveryValidation", FormValidated, this.GetHashCode());
+                }
+            }
         }
     }
 }

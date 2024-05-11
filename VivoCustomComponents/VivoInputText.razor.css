@@ -62,9 +62,10 @@
     color: #b4b3b3;
 }
 
-.input-area:has(input:focus) label, .input-area:has(input:active) label {
+.input-area:has(input:focus) label
+, .input-area:has(input:active) label {
     top: -20px;
-    font-size: 10px;
+    font-size: 13px;
     color: #c1c1c1;
     left: 0;
     transition: all 1s linear;

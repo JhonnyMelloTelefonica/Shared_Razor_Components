@@ -1,7 +1,8 @@
 ﻿@inject NavigationManager NavManager;
-@using Microsoft.FluentUI.AspNetCore.Components
 @using Radzen.Blazor
 @using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Web
 
 <RadzenStack AlignItems="Radzen.AlignItems.Center" Orientation="Radzen.Orientation.Horizontal" Gap="15px" Wrap="Radzen.FlexWrap.NoWrap" JustifyContent="Radzen.JustifyContent.Center">
     @if (ShowHome)
@@ -27,7 +28,7 @@
         <FluentButton IconEnd="@(new Icons.Filled.Size28.TasksApp().WithColor("#FFFFFF"))" Color="#FFFFFF" BackgroundColor="#633696" Title="Consultar demandas">
         </FluentButton>
     </Blazorise.Tooltip>
-    <Blazorise.Tooltip Text="Acessos - Outros Sistemas" @onclick="@(() => NavManager.NavigateTo("acessos"))">
+    <Blazorise.Tooltip Text="Acessos - Outros Sistemas" @onclick="@(() => NavManager.NavigateTo("demanda_acessos/create"))">
         <FluentButton IconEnd="@(new Icons.Filled.Size28.PersonAdd().WithColor("#FFFFFF"))" Color="#FFFFFF" BackgroundColor="#633696" Title="Acessos - Outros Sistemas">
         </FluentButton>
     </Blazorise.Tooltip>
