@@ -32,10 +32,10 @@
                 <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-4 rz-mb-0" Style="color: var(--rz-text-tertiary-color);">SLA médio:</RadzenText>
                 <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@chamado.Fila.SLA dias</b></RadzenText>
                 <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">ir para demanda:</RadzenText>
-                <FluentButton BackgroundColor="#FFFFFF" OnClick="@(() => NavManager.NavigateTo($"/consultar/consultardemandasbyid/{chamado.ID}",true))">
+                <FluentButton BackgroundColor="#FFFFFF" OnClick="@(() => NavManager.NavigateTo($"/demandas/consultar/{relacao_chamado.ID}",true))">
                     <FluentIcon Value="@(new Icons.Filled.Size24.ArrowRight().WithColor("#9b39d6"))" Slot="end">
                     </FluentIcon>
-                    N° @chamado.ID
+                    N° @relacao_chamado.Sequence
                 </FluentButton>
             </RadzenStack>
         </RadzenStack>
@@ -54,7 +54,7 @@
                 </RadzenStack>
             </RadzenColumn>
         </span>
-        @if (Orientation == Radzen.Orientation.Horizontal)
+        @if (this.Orientation == Radzen.Orientation.Horizontal)
         {
             <RadzenRow>
                 <RadzenColumn Size="12" SizeMD="6" Class="rz-p-4 rz-border-radius-1" Style="border: var(--rz-grid-cell-border)">
