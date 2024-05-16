@@ -6,9 +6,9 @@
 @using Microsoft.AspNetCore.Components.Forms
 @inherits InputBase<string>
 
-<div class="input-area @CssClass" style="@Style" >
+<div class="input-area @CssClass" style="@Style">
     <label for="@Id">@LabelText</label>
-    <InputText id="@Id" @attributes="AdditionalAttributes" @bind-Value="@CurrentValue" />
+    <InputText id="@Id" @attributes="AdditionalAttributes" @bind-Value="@CurrentValue" disabled=@Disable />
     <div class="bar"></div>
 </div>
 <ValidationMessage For="ValidationFor" class="text-danger" />
