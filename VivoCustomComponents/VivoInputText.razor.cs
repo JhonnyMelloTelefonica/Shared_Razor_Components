@@ -20,6 +20,7 @@ namespace Shared_Razor_Components.VivoCustomComponents
         public required string LabelText { get; set; }
         [Parameter] public string? Id { get; set; }
         [Parameter] public string? Style { get; set; }
+        [Parameter] public bool Disable { get; set; } = false;
         [Parameter, EditorRequired] public Expression<Func<string>> ValidationFor { get; set; } = default!;
 
         [Inject]
