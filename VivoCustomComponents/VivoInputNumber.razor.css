@@ -1,0 +1,141 @@
+﻿/* inicio style input */
+
+.input-area {
+    position: relative;
+    min-height: 20px;
+    height: auto;
+    width: auto;
+    margin-block: 15px;
+    margin-inline: 20px;
+    display:flex;
+    flex-direction:row;
+    align-items:end;
+}
+
+::deep input {
+    border: none !important;
+    transition: all 1s linear;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+    ::deep input:focus, ::deep input:active {
+        border: none !important;
+        transition: all 1s linear;
+        outline: none;
+    }
+
+.input-area.valid.modified label {
+    color: #617ad9;
+}
+
+    .input-area.valid.modified label::before {
+        position: absolute;
+        top: 0px;
+        font-size: 10px;
+        color: #c1c1c1;
+        fill: #c1c1c1;
+        left: -15px;
+        content: '💜';
+        transition: all 1s linear;
+    }
+
+.input-area.valid.modified,
+.input-area.invalid.modified,
+.input-area.invalid,
+.input-area.valid {
+    outline: none;
+}
+
+::deep input.valid,
+::deep input.invalid,
+::deep input.modified {
+    border: none !important;
+    outline: none !important;
+}
+
+::deep label[for] {
+    transition: all 1s linear;
+    position: absolute;
+    left: 0;
+    color: #b4b3b3;
+}
+
+.input-area:has(input:focus) label
+, .input-area:has(input:active) label {
+    top: -20px;
+    font-size: 13px;
+    color: #c1c1c1;
+    left: 0;
+    transition: all 1s linear;
+}
+
+.input-area.valid label, .input-area.valid label,
+.input-area.invalid label, .input-area.invalid label {
+    top: -20px;
+    font-size: 10px;
+    color: #c1c1c1;
+    left: 5px;
+    transition: all 1s linear;
+}
+/*.input-area:not(input:focus) label
+, .input-area:not(input:active)  label {
+    top: 0;
+    transition: all 1s linear;
+}*/
+
+.input-area .bar {
+    position: absolute;
+    bottom: -1px;
+    height: 1px;
+    border-radius: 0.5px;
+    width: 100%;
+    transition: all 1s linear;
+    background-color: #617ad9;
+}
+
+::deep input:focus + .bar,
+::deep input:active + .bar {
+    background-image: linear-gradient(0deg, #617ad9 0%, #9f32ff 70%);
+    animation: ChangeBarColor 1.5s linear forwards;
+    height: 1.5px;
+    border-radius: 0.75px;
+}
+
+.input-area.valid.modified .bar {
+    background-image: linear-gradient(0deg, #617ad9 0%, #9f32ff 70%);
+}
+
+.input-area.invalid.modified .bar,
+.input-area.invalid .bar {
+    background-image: none;
+    background-color: red;
+}
+
+@keyframes ChangeBarColor {
+    0% {
+        width: 100%;
+    }
+
+    20% {
+        width: 10%;
+    }
+
+    25% {
+        width: 30%;
+    }
+
+    50% {
+        width: 70%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+.text-danger {
+    font-family: Vivo-font-light !important;
+    font-size: 10px !important;
+}
