@@ -32,7 +32,7 @@
                 <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-4 rz-mb-0" Style="color: var(--rz-text-tertiary-color);">SLA médio:</RadzenText>
                 <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@chamado.Fila.SLA dias</b></RadzenText>
                 <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">ir para demanda:</RadzenText>
-                <FluentButton BackgroundColor="#FFFFFF" OnClick="@(() => NavManager.NavigateTo($"/demandas/consultar/{relacao_chamado.ID}",true))">
+                <FluentButton BackgroundColor="#FFFFFF" OnClick="@(() => NavManager.NavigateTo($"/demandas/consultar/{relacao_chamado.ID_RELACAO}",true))">
                     <FluentIcon Value="@(new Icons.Filled.Size24.ArrowRight().WithColor("#9b39d6"))" Slot="end">
                     </FluentIcon>
                     N° @relacao_chamado.Sequence
