@@ -1,0 +1,33 @@
+.apply-component ::deep .li-opened {
+    height: auto;
+    width: auto;
+    transition: ease 0.4s linear;
+}
+
+.apply-component ::deep .li-closed {
+    height: auto;
+    transition: ease 0.4s linear;
+}
+
+.apply-component ::deep li {
+    position: relative;
+    list-style-type: none;
+    margin-block:20px;
+}
+
+    .apply-component ::deep li .selected {
+        background-color: #0094ff6b;
+        transition: ease 0.4s linear;
+    }
+
+    .apply-component ::deep li .not-selected {
+        background-color: white;
+        color: black;
+        transition: ease 0.4s linear;
+    }
+    .apply-component ::deep li .not-selected:hover {
+        background-color: #cccccc;
+        transition: ease 0.4s linear;
+        transform:scale(1.1);
+        cursor:pointer;
+    }
