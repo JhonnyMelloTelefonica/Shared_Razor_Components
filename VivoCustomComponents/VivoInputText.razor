@@ -11,4 +11,7 @@
     <InputText id="@Id" @attributes="AdditionalAttributes" @bind-Value="@CurrentValue" disabled=@Disable />
     <div class="bar"></div>
 </div>
-<ValidationMessage For="ValidationFor" class="text-danger" />
+@if (Context != null)
+{
+    <ValidationMessage For="ValidationFor" class="text-danger" />
+}
