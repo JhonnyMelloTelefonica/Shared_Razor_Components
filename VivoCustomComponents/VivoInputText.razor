@@ -13,5 +13,8 @@
 </div>
 @if (Context != null)
 {
-    <ValidationMessage For="ValidationFor" class="text-danger" />
+    @if (ValidationFor != default!)
+    {
+        <ValidationMessage For="ValidationFor" class="text-danger" />
+    }
 }

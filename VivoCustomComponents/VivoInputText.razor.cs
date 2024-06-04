@@ -21,7 +21,7 @@ namespace Shared_Razor_Components.VivoCustomComponents
         [Parameter] public string? Id { get; set; }
         [Parameter] public string? Style { get; set; }
         [Parameter] public bool Disable { get; set; } = false;
-        [Parameter, EditorRequired] public Expression<Func<string>> ValidationFor { get; set; } = default!;
+        [Parameter] public Expression<Func<string>> ValidationFor { get; set; } = default!;
         [Inject]public IJSRuntime JSRuntime { get; set; }
         /** Este parametro serve apenas para validar se o componente está dentro de um EDITFORM
          * caso sim ele executa funcionalidades de validação de propriedade **/
