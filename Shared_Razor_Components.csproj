@@ -52,7 +52,7 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="3.6.1" />
 		<PackageReference Include="Microsoft.Fast.Components.FluentUI.Icons" Version="3.6.1" />
-		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.6.1" />
+		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.7.2" />
 		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter" Version="4.6.1" />
 		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.6.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -76,7 +76,7 @@
 	  <None Include="wwwroot\VivoCustomComponents.js" />
 	</ItemGroup>
 
-	<Import Project="..\Shared_Class_Vivo_Apps\Shared_Class_Vivo_Apps\Shared_Class_Vivo_Apps.projitems" Label="Shared" />
+	<Import Project="..\Shared_Class_Vivo_Apps\Shared_Class_Vivo_Apps.projitems" Label="Shared" />
 
 
 
