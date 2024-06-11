@@ -3,8 +3,8 @@
 @using Radzen.Blazor;
 @using Microsoft.FluentUI.AspNetCore.Components;
 @using Microsoft.JSInterop;
-@using Shared_Static_Class.Models 
-@using Microsoft.AspNetCore.Components.Web  
+@using Shared_Static_Class.Models
+@using Microsoft.AspNetCore.Components.Web
 
 @if (AllowMulitple)
 {
@@ -57,7 +57,15 @@ else
     <input id="Xinputfile00" type="file" accept="@Filter" @onchange="UploadFile" hidden />
     @if (!Busy)
     {
-        <button class="btn btn-primary" @onclick="ClickUpload">@Title</button>
+        @if (!Files.Any())
+        {
+            <button class="btn btn-primary" @onclick="ClickUpload">@Title</button>
+        }
+        else
+        {
+            var file = Files.First();
+            <button class="btn btn-primary" @onclick="ClickUpload">@file.FileName</button>
+        }
     }
     else
     {
