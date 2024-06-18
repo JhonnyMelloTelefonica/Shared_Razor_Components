@@ -1,0 +1,69 @@
+﻿<div class="apply-component">
+    <FluentStack Orientation="Microsoft.FluentUI.AspNetCore.Components.Orientation.Horizontal" Wrap HorizontalAlignment="HorizontalAlignment.Center" VerticalAlignment="Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Top"
+                 Class="flex-stack-route p-2">
+        @if (Produtos.Any())
+        {
+            foreach (var Produto in Produtos)
+            {
+                <FluentCard AreaRestricted=false>
+                    <div class="stack-route">
+                        <a href="#">
+                            <div class="nav-button">
+                                <FluentIcon Value="@(new Icons.Filled.Size24.ShoppingBagAdd().WithColor("#ffffff"))">
+                                </FluentIcon>
+                            </div>
+                        </a>
+                        <aside>
+
+                            @{
+                                var image = Produto.Imagens.FirstOrDefault();
+                            }
+
+                            @if (image is not null)
+                            {
+                                <img src="@("data:image/png;base64," + SharedConverter.ConvertFileToString(image.Imagem))" class="w-100 h-100" style="object-fit: fill;" />
+                            }
+                        </aside>
+                        <div>
+                            @{
+                                int roundAvaliacao = (int)Math.Round((Produto.Avaliacao / 10.0) / 2, 0);
+                            }
+                            <p style="font-family:Vivo-font-bold; margin:0;">
+                                @Produto.Nome
+                            </p>
+                            <Rating Color="@("#f45294")" SelectedValue="roundAvaliacao" Class="w-100" MaxValue="5" Disabled />
+                            <div class="inline-flex g-2">
+                                <p style="font-family: Vivo-font; font-size: 15px;">
+                                    @Produto.Descrição
+                                </p>
+                                <div>
+                                    <h6 style="font-family: Vivo-font-light;">
+                                        <b>Principais vantagens</b>
+                                    </h6>
+                                    <ul>
+                                        @foreach (var PrimaryInfo in Produto.Ficha.Where(x => x.IsImportant == true))
+                                        {
+                                            <li>
+                                                <p>
+                                                    <b>@PrimaryInfo.Especificação</b>: @PrimaryInfo.Valor
+                                                </p>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </FluentCard>
+            }
+        }
+        else
+        {
+            <label>
+                <span class="spinner-border spinner-border-sm" />
+            </label>
+        }
+    </FluentStack>
+
+
+</div>

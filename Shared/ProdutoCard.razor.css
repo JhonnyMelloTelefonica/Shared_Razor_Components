@@ -1,0 +1,175 @@
+﻿.apply-component ::deep .fluentcard-body {
+    display: inline-flex;
+    flex-flow: column wrap;
+    gap: 10vh;
+    width: auto;
+    max-width: 100%;
+}
+
+.apply-component ::deep .tablist {
+    gap: 25px;
+}
+
+.apply-component ::deep .historico .rz-g {
+    flex-direction: row;
+}
+
+.apply-component ::deep .button-icon,
+.apply-component ::deep #QuillToolBar,
+.apply-component ::deep #QuillEditor {
+    border: none;
+}
+
+.apply-component ::deep .textarea .ql-editor {
+    width: 100%;
+    background-color: white !important;
+    font-family: 'Vivo-font-light';
+    font-size: 15px;
+    color: #000;
+    min-height: 150px;
+    border-radius: 25px;
+    padding: 12px 30px;
+    border: solid 0.3px;
+    border-color: #cdc9c9;
+}
+
+.apply-component ::deep .footer-image {
+    position: sticky;
+    bottom: -1px;
+    padding: 0 1.5rem 0 1.5rem;
+    width: 50vh;
+    height: 100px;
+    transition: 0s;
+    left: 75px;
+}
+
+.apply-component ::deep .flex-stack-route {
+    height: auto;
+    min-height: 88.8vh;
+    display: inline-flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 0;
+    width: auto;
+    margin: auto;
+}
+
+    .apply-component ::deep .flex-stack-route fluent-card {
+        border-radius: 20px;
+    }
+
+    .apply-component ::deep .flex-stack-route .stack-route {
+        position: relative;
+        font-family: Vivo-font;
+        display: block;
+        align-items: center;
+        vertical-align: middle;
+        text-align: center;
+        margin: 0;
+        height: auto;
+        border-radius: 20px;
+        /*background: #8c0dac;*/
+        background-image: linear-gradient(90deg, #73168a 0%, #9d17be 50%);
+    }
+
+        .apply-component ::deep .flex-stack-route .stack-route.disabled .nav-button {
+            background: transparent;
+            box-shadow: none;
+            width: 60px;
+            height: 60px;
+        }
+
+        .apply-component ::deep .flex-stack-route .stack-route.disabled img {
+            opacity: 0.7;
+        }
+
+    .apply-component ::deep .flex-stack-route fluent-card {
+        transition: all 0.7s ease;
+    }
+
+        .apply-component ::deep .flex-stack-route fluent-card:hover {
+            transform: scale(1.1,1.1);
+            transition: 0.3s ease-in;
+        }
+
+    .apply-component ::deep .flex-stack-route:has(fluent-card:hover) fluent-card:not(:hover) {
+        transform: scale(0.8,0.8);
+        opacity: 0.6;
+        transition: all 0.7s ease;
+    }
+
+
+    .apply-component ::deep .flex-stack-route .stack-route .nav-button {
+        box-shadow: 1px 0px 12px 1px rgba(0, 0, 92, 0);
+        border-radius: 50%;
+        display: flex;
+        top: 5px;
+        right: 5px;
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background: #b612df;
+        padding: 8px;
+        z-index: 1;
+        margin: auto;
+    }
+
+    .apply-component ::deep .flex-stack-route .stack-route aside {
+        margin: 0;
+        padding: 0;
+        height: 70%;
+    }
+
+        .apply-component ::deep .flex-stack-route .stack-route aside img {
+            border-radius: 20px;
+        }
+
+    .apply-component ::deep .flex-stack-route .stack-route div {
+        padding: 13px;
+        width: 100%;
+    }
+
+.apply-component ::deep .stack-route div p {
+    color: #f7f7f7;
+    font-family: Vivo-font-light;
+    text-align: center;
+}
+
+    .apply-component ::deep .stack-route div p:first-child {
+        /*text-align: center;*/
+        color: #f7f7f7;
+        font-family: Vivo-font-bold;
+        font-size: 17px !important;
+        text-shadow: 1px 0px 12px 1px rgba(0, 0, 92, 0);
+        letter-spacing: 1.5px !important;
+    }
+
+.apply-component ::deep .flex-stack-route fluent-card {
+    min-height: 200px;
+    height: 65vh;
+    max-height: 65vh;
+    padding: 0;
+}
+
+@media (min-width: 640px) {
+    .apply-component ::deep .flex-stack-route fluent-card {
+        width: 90% !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .apply-component ::deep .flex-stack-route {
+        gap: 30px;
+    }
+
+        .apply-component ::deep .flex-stack-route fluent-card {
+            width: 35% !important;
+        }
+}
+
+@media (min-width: 1024px) {
+    .apply-component ::deep .flex-stack-route fluent-card {
+        width: 45%;
+        max-width: 320px;
+    }
+}

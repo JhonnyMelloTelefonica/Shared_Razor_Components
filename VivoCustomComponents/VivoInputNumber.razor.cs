@@ -15,20 +15,47 @@ using System.Threading.Tasks;
 
 namespace Shared_Razor_Components.VivoCustomComponents
 {
-    public partial class VivoInputNumber : InputBase<int>
+    public partial class VivoInputNumber<T> : InputNumber<T> where T : struct
     {
+        static VivoInputNumber()
+        {
+            if (!IsNumericType())
+            {
+                throw new InvalidOperationException("T deve ser um tipo númerico.");
+            }
+        }
         [Parameter] public required string LabelText { get; set; }
         [Parameter] public string? Id { get; set; }
         [Parameter] public string? Style { get; set; }
         [Parameter] public bool Disable { get; set; } = false;
-        [Parameter, EditorRequired] public Expression<Func<int>> ValidationFor { get; set; } = default!;
+        [Parameter, EditorRequired] public Expression<Func<T>> ValidationFor { get; set; } = default!;
         [Inject] public IJSRuntime JSRuntime { get; set; }
 
-        protected override bool TryParseValueFromString(string value, out int result, out string validationErrorMessage)
+        private static bool IsNumericType()
         {
-            result = int.TryParse(value, out int numbervalue) ? numbervalue : 0;
+            var type = typeof(T);
+            return type == typeof(int) ||
+                   type == typeof(long) ||
+                   type == typeof(short) ||
+                   type == typeof(float) ||
+                   type == typeof(double) ||
+                   type == typeof(decimal);
+        }
+
+        protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
+        {
             validationErrorMessage = null;
-            return true;
+            try
+            {
+                result = (T)Convert.ChangeType(value, typeof(T));
+                return true;
+            }
+            catch
+            {
+                result = default;
+                validationErrorMessage = $"The {LabelText} field is not valid.";
+                return false;
+            }
         }
 
     }

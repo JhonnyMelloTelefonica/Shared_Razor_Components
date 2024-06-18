@@ -1,14 +1,16 @@
-﻿@using System.Globalization
+﻿@namespace Shared_Razor_Components.VivoCustomComponents
+@typeparam T
+@using System.Globalization
 @using Shared_Class_Vivo_Apps.Services
 @using Newtonsoft.Json
 @using System.ComponentModel
 @using BlazorBootstrap
 @using Microsoft.AspNetCore.Components.Forms
-@inherits InputBase<int>
+@inherits InputNumber<T>
 
 <div class="input-area @CssClass" style="@Style">
     <label for="@Id">@LabelText</label>
-    <InputNumber id="@Id" @attributes="AdditionalAttributes" @bind-Value="@CurrentValue" disabled=@Disable />
+    <InputNumber id="@Id" TValue="T" @attributes="AdditionalAttributes" @bind-Value="@CurrentValue" disabled=@Disable />
     <div class="bar"></div>
 </div>
 <ValidationMessage For="ValidationFor" class="text-danger" />

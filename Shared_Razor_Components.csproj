@@ -9,7 +9,6 @@
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
-
 	<ItemGroup>
 		<None Update="Templates/*.razor.css" CssScope="custom-scope-identifier" />
 	</ItemGroup>
