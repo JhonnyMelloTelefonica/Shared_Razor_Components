@@ -8,7 +8,7 @@
 
 @if (AllowMulitple)
 {
-    <div style="display:flex; width:100%; justify-content:center; flex-direction:column;margin:auto">
+    <div class="w-100 m-auto justify-content-center align-items-center d-flex">
         <RadzenStack AlignItems="Radzen.AlignItems.Center" Orientation="Radzen.Orientation.Horizontal">
             <input name="file" id="Xinputfile00" type="file" accept="@Filter" @onchange="UploadFile" multiple hidden />
             <label class="form__input" for="file">
@@ -59,20 +59,34 @@ else
     {
         @if (!Files.Any())
         {
-            <button class="btn btn-primary" @onclick="ClickUpload">@Title</button>
+            <FluentButton Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2" @onclick="ClickUpload">
+                <p class="m-2">
+                    @if (Icon is not null)
+                    {
+                        @Icon
+                    }
+                    @Title
+                </p>
+            </FluentButton>
         }
         else
         {
             var file = Files.First();
-            <button class="btn btn-primary" @onclick="ClickUpload">Arquivo: @file.FileName</button>
+            <FluentButton Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2" @onclick="ClickUpload">
+                <p class="m-2">
+                    Arquivo: @file.FileName
+                </p>
+            </FluentButton>
         }
     }
     else
     {
-        <button class="btn btn-primary">
-            <span class="spinner-border spinner-border-sm" />
-            @Title
-        </button>
+        <FluentButton Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2">
+            <p class="m-2">
+                <span class="spinner-border spinner-border-sm" />
+                @Title
+            </p>
+        </FluentButton>
 
     }
 }

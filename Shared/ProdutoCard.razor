@@ -21,7 +21,7 @@
 
                             @if (image is not null)
                             {
-                                <img src="@("data:image/png;base64," + SharedConverter.ConvertFileToString(image.Imagem))" class="w-100 h-100" style="object-fit: fill;" />
+                                <img src="@("data:image/png;base64," + SharedConverter.ConvertFileToString(image.Imagem))" class="w-100 h-100" style="object-fit: fill; max-height:350px;min-height:250px;" />
                             }
                         </aside>
                         <div>

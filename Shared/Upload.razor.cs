@@ -14,26 +14,24 @@ namespace Shared_Razor_Components.Shared
     public partial class Upload : ComponentBase, IDisposable
     {
         [Inject] IJSRuntime JSRuntime { get; set; }
-        [Parameter]
-        public List<FileDataModel> Files { get; set; } = new();
+        [Parameter]public List<FileDataModel> Files { get; set; } = new();
 
-        [Parameter]
-        public string Filter { get; set; }
+        [Parameter]public string Filter { get; set; }
 
-        [Parameter]
-        public string Title { get; set; }
+        [Parameter]public string Title { get; set; }
 
-        [Parameter]
-        public bool AllowMulitple { get; set; }
+        [Parameter]public bool AllowMulitple { get; set; }
 
-        [Parameter]
-        public Action Uploaded { get; set; }
+        [Parameter]public Action Uploaded { get; set; }
+        [Parameter] public string BackgroundColor { get; set; } = "#7719aa";
+        [Parameter]public string Color { get; set; } = "white";
+        [Parameter]public RenderFragment? Icon { get; set; } = default!;
 
         // Define a delegate for the custom event
         public delegate void DismissBadgeHandler();
 
         // Define the custom event
-        public event DismissBadgeHandler DismissBadge;
+        public event DismissBadgeHandler DismissBadge = default!;
         public bool Busy { get; set; } = false;
 
         async Task UploadFile()
@@ -85,7 +83,10 @@ namespace Shared_Razor_Components.Shared
         async Task RemoveItem(FileDataModel item)
         {
             Files.Remove(item);
-            DismissBadge.Invoke();
+            if (DismissBadge != null)
+            {
+                DismissBadge.Invoke();
+            }
         }
 
         async Task ClickUpload()
@@ -95,7 +96,6 @@ namespace Shared_Razor_Components.Shared
 
         public void Dispose()
         {
-
         }
     }
 }
