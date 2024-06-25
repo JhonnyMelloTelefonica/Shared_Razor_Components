@@ -14,6 +14,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Shared_Static_Class.Converters;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 
 namespace Shared_Razor_Components.Shared
@@ -22,6 +24,7 @@ namespace Shared_Razor_Components.Shared
     {
         [Inject] public Radzen.DialogService _DialogService { get; set; }
         [Inject] public IConfiguration _config { get; set; }
+        [Inject] public IWebHostEnvironment _Environment { get; set; }
         public HttpClient _client { get; set; } = new HttpClient();
         private List<AnalistaOption> Analistas { get; set; } = [];
         public bool IsBusy { get; private set; } = true;
@@ -48,7 +51,8 @@ namespace Shared_Razor_Components.Shared
         {
             if (firstRender)
             {
-                var response = await _client.GetAsync($"{_config.GetConnectionString("api_host_link")}AnalistaSuporte/Get/IsSuporte={IsSuporte}/IsAcessoLogico={IsAcessoLogico}/SubFila={SubFila}/regional={_user.REGIONAL}/matricula={_user.MATRICULA}");
+                var host = _Environment.IsDevelopment() ? _config.GetConnectionString("api_host_link") : "http://brtdtbgs0090sl:9090/";
+                var response = await _client.GetAsync($"{host}api/Demandas/AnalistaSuporte/Get/{IsSuporte}/{IsAcessoLogico}/{SubFila}/{_user.REGIONAL}/{_user.MATRICULA}");
                 string responseString;
 
                 try

@@ -3,13 +3,13 @@
                  Class="flex-stack-route p-2">
         @if (Produtos.Any())
         {
-            foreach (var Produto in Produtos)
+            foreach (var Produto in ProdutosModel)
             {
-                <FluentCard AreaRestricted=false>
+                <FluentCard AreaRestricted=false Class="@(Produto.IsOpened ? "produto-card-opened" : "abc")">
                     <div class="stack-route">
-                        <a href="#">
+                        <a @onclick="() => Produto.OpenClose()">
                             <div class="nav-button">
-                                <FluentIcon Value="@(new Icons.Filled.Size24.ShoppingBagAdd().WithColor("#ffffff"))">
+                                <FluentIcon Value="@(new Icons.Filled.Size24.ArrowRight().WithColor("#ffffff"))">
                                 </FluentIcon>
                             </div>
                         </a>
@@ -21,10 +21,10 @@
 
                             @if (image is not null)
                             {
-                                <img src="@("data:image/png;base64," + SharedConverter.ConvertFileToString(image.Imagem))" class="w-100 h-100" style="object-fit: fill; max-height:350px;min-height:250px;" />
+                                <img src="@("data:image/png;base64," + SharedConverter.ConvertFileToString(image.Imagem))" class="w-100" />
                             }
                         </aside>
-                        <div>
+                        <div class="product-description">
                             @{
                                 int roundAvaliacao = (int)Math.Round((Produto.Avaliacao / 10.0) / 2, 0);
                             }
@@ -32,25 +32,29 @@
                                 @Produto.Nome
                             </p>
                             <Rating Color="@("#f45294")" SelectedValue="roundAvaliacao" Class="w-100" MaxValue="5" Disabled />
-                            <div class="inline-flex g-2">
-                                <p style="font-family: Vivo-font; font-size: 15px;">
+                            <div class="inline-flex g-2 w-100">
+                                <span style="font-family: Vivo-font; font-size: 15px; color:white;">
                                     @Produto.Descrição
-                                </p>
-                                <div>
-                                    <h6 style="font-family: Vivo-font-light;">
-                                        <b>Principais vantagens</b>
-                                    </h6>
-                                    <ul>
-                                        @foreach (var PrimaryInfo in Produto.Ficha.Where(x => x.IsImportant == true))
-                                        {
-                                            <li>
-                                                <p>
-                                                    <b>@PrimaryInfo.Especificação</b>: @PrimaryInfo.Valor
-                                                </p>
-                                            </li>
-                                        }
-                                    </ul>
-                                </div>
+                                </span>
+                                <br/>
+                                @if (Produto.IsOpened)
+                                {
+                                    <div>
+                                        <FluentHorizontalScroll Class="both-gradient" Duration="600" Easing="ScrollEasing.Linear">
+                                            @foreach (var PrimaryInfo in Produto.Ficha.Where(x => x.IsImportant == true))
+                                            {
+                                                <div class="card p-2" >
+                                                    <RadzenBadge BadgeStyle="Radzen.BadgeStyle.Light"
+                                                                 Text=@(@PrimaryInfo.Especificação) class="me-1" Style="text-overflow:ellipsis;background:#9d17be;color:white" />
+                                                    <hr style="border: none; background-color: rgba(0,0,0,.08); height: 1px; margin: 0.5rem 0;" />
+                                                    <div class="d-flex flex-row align-items-center p-0 m-0">
+                                                        <h5 class="mb-0">@(PrimaryInfo.Valor)</h5>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </FluentHorizontalScroll>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>

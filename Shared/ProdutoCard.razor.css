@@ -6,52 +6,15 @@
     max-width: 100%;
 }
 
-.apply-component ::deep .tablist {
-    gap: 25px;
-}
-
-.apply-component ::deep .historico .rz-g {
-    flex-direction: row;
-}
-
-.apply-component ::deep .button-icon,
-.apply-component ::deep #QuillToolBar,
-.apply-component ::deep #QuillEditor {
-    border: none;
-}
-
-.apply-component ::deep .textarea .ql-editor {
-    width: 100%;
-    background-color: white !important;
-    font-family: 'Vivo-font-light';
-    font-size: 15px;
-    color: #000;
-    min-height: 150px;
-    border-radius: 25px;
-    padding: 12px 30px;
-    border: solid 0.3px;
-    border-color: #cdc9c9;
-}
-
-.apply-component ::deep .footer-image {
-    position: sticky;
-    bottom: -1px;
-    padding: 0 1.5rem 0 1.5rem;
-    width: 50vh;
-    height: 100px;
-    transition: 0s;
-    left: 75px;
-}
-
 .apply-component ::deep .flex-stack-route {
     height: auto;
-    min-height: 88.8vh;
     display: inline-flex;
     flex-direction: row;
     gap: 10px;
     padding: 0;
     width: auto;
     margin: auto;
+    row-gap: 140px !important;
 }
 
     .apply-component ::deep .flex-stack-route fluent-card {
@@ -66,7 +29,8 @@
         vertical-align: middle;
         text-align: center;
         margin: 0;
-        height: auto;
+        height: 100%;
+        min-height: 300px;
         border-radius: 20px;
         /*background: #8c0dac;*/
         background-image: linear-gradient(90deg, #73168a 0%, #9d17be 50%);
@@ -84,16 +48,16 @@
         }
 
     .apply-component ::deep .flex-stack-route fluent-card {
-        transition: all 0.7s ease;
+        transition: all 0.7s linear;
     }
 
         .apply-component ::deep .flex-stack-route fluent-card:hover {
-            transform: scale(1.1,1.1);
-            transition: 0.3s ease-in;
+            transform: scale(1.05,1.05);
+            transition: all 0.7s ease-in;
         }
 
     .apply-component ::deep .flex-stack-route:has(fluent-card:hover) fluent-card:not(:hover) {
-        transform: scale(0.8,0.8);
+        transform: scale(0.98,0.98);
         opacity: 0.6;
         transition: all 0.7s ease;
     }
@@ -122,12 +86,10 @@
 
         .apply-component ::deep .flex-stack-route .stack-route aside img {
             border-radius: 20px;
+            object-fit: fill;
+            max-height: 250px;
+            min-height: 225px;
         }
-
-    .apply-component ::deep .flex-stack-route .stack-route div {
-        padding: 13px;
-        width: 100%;
-    }
 
 .apply-component ::deep .stack-route div p {
     color: #f7f7f7;
@@ -151,25 +113,105 @@
     padding: 0;
 }
 
+.apply-component ::deep .produto-card-opened {
+    width: 90%;
+    transition: width 2s ease-out, all 0.7s linear !important;
+}
+
+    .apply-component ::deep .produto-card-opened .stack-route {
+        display: inline-flex;
+        width: 100%;
+        height: 100%;
+    }
+
+        .apply-component ::deep .produto-card-opened .stack-route .card {
+            background-color: #4c1d57;
+            color: white;
+            min-width: 250px;
+            width: auto;
+            max-width: 300px;
+        }
+
+        .apply-component ::deep .produto-card-opened .stack-route aside img {
+            height: 100%;
+            max-height: none;
+        }
+
+        .apply-component ::deep .produto-card-opened .stack-route .nav-button {
+            transform: rotate(180deg);
+            transition: all 0.7s linear !important;
+        }
+
+        .apply-component ::deep .produto-card-opened .stack-route aside {
+            height: 100%;
+            width: 435px;
+        }
+
+.apply-component ::deep .produto-card-opened {
+    width: 90%;
+}
+
+    .apply-component ::deep .product-description {
+        padding: 13px;
+        width: 100%;
+    }
+
+    .apply-component ::deep .produto-card-opened .product-description {
+        width: 75%;
+    }
+
+
 @media (min-width: 640px) {
-    .apply-component ::deep .flex-stack-route fluent-card {
+    .apply-component ::deep .flex-stack-route fluent-card:not(.produto-card-opened) {
         width: 90% !important;
+    }
+
+    .apply-component ::deep .flex-stack-route .produto-card-opened {
+        height: 35vh;
+        max-height: 35vh;
+    }
+
+    .apply-component ::deep .produto-card-opened .product-description {
+        width: 45%;
     }
 }
 
 @media (min-width: 768px) {
+
+    .apply-component ::deep .produto-card-opened .product-description {
+        width: 60%;
+    }
+
+    .apply-component ::deep .flex-stack-route .produto-card-opened {
+        height: 55vh;
+        max-height: 55vh;
+    }
+
     .apply-component ::deep .flex-stack-route {
         gap: 30px;
     }
 
-        .apply-component ::deep .flex-stack-route fluent-card {
+        .apply-component ::deep .flex-stack-route fluent-card:not(.produto-card-opened) {
             width: 35% !important;
         }
 }
 
 @media (min-width: 1024px) {
-    .apply-component ::deep .flex-stack-route fluent-card {
+    .apply-component ::deep .flex-stack-route fluent-card:not(.produto-card-opened) {
         width: 45%;
         max-width: 320px;
     }
+
+    .apply-component ::deep .produto-card-opened .product-description {
+        width: 75%;
+    }
+}
+
+
+::deep > .right-gradient {
+    
+}
+
+.apply-component ::deep .both-gradient #shadow-root .scroll-area .scroll-view {
+    border-radius: 20px;
 }
