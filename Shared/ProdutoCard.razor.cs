@@ -35,7 +35,7 @@ namespace Shared_Razor_Components.Shared
                 Nome = item.Nome;
                 Descrição = item.Descrição;
                 Avaliacao = item.Avaliacao;
-                Categoria = item.Categoria;
+                Categoria_Produto = item.Categoria_Produto;
                 Fabricante = item.Fabricante;
                 Cor = item.Cor;
                 IsOferta = item.IsOferta;
