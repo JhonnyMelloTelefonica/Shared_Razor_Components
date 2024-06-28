@@ -14,10 +14,11 @@
         @Icon
     </div>
     <label for="@Id">@LabelText</label>
-    <InputSelect id="@Id" @bind-Value="CurrentValue" TValue=T class="form-control">
+    <InputSelect ValueChanged="ValueChanged" ValueExpression="ValueExpression" Value="Value"
+                 DisplayName="@DisplayName" id="@Id" TValue=T class="form-control">
         @foreach (var item in Data)
         {
-            <VivoSelectOption T="T" Option="item.Value" Text="@item.Key" />
+            <VivoSelectOption T="T" Option="item.Value.Value" Text="@item.Value.Text" />
         }
     </InputSelect>
     <div class="bar"></div>

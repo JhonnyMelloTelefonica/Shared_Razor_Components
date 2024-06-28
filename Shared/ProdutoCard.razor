@@ -36,14 +36,14 @@
                                 <span style="font-family: Vivo-font; font-size: 15px; color:white;">
                                     @Produto.Descrição
                                 </span>
-                                <br/>
+                                <br />
                                 @if (Produto.IsOpened)
                                 {
                                     <div>
                                         <FluentHorizontalScroll Class="both-gradient" Duration="600" Easing="ScrollEasing.Linear">
                                             @foreach (var PrimaryInfo in Produto.Ficha.Where(x => x.IsImportant == true))
                                             {
-                                                <div class="card p-2" >
+                                                <div class="card p-2">
                                                     <RadzenBadge BadgeStyle="Radzen.BadgeStyle.Light"
                                                                  Text=@(@PrimaryInfo.Especificação) class="me-1" Style="text-overflow:ellipsis;background:#9d17be;color:white" />
                                                     <hr style="border: none; background-color: rgba(0,0,0,.08); height: 1px; margin: 0.5rem 0;" />

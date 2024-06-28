@@ -27,7 +27,7 @@ namespace Shared_Razor_Components.Shared
 
         event Action? PropertyChanged;
 
-        class ProdutoCardModel : PRODUTOS_CARDAPIO
+        protected class ProdutoCardModel : PRODUTOS_CARDAPIO
         {
             public ProdutoCardModel(PRODUTOS_CARDAPIO item, Action? propertyChanged, bool isOpened = false)
             {

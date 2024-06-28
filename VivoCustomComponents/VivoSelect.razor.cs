@@ -21,22 +21,22 @@ namespace Shared_Razor_Components.VivoCustomComponents
         [Parameter] public string? Id { get; set; }
         [Parameter] public string? Style { get; set; }
         [Parameter] public bool Multiple { get; set; } = false;
-        [Parameter] public RenderFragment? Icon { get;  set; }
-        [Parameter] public IDictionary<string,T> Data { get; set; }
-        [Parameter, EditorRequired] public Expression<Func<T>> ValidationFor { get; set; } = default!;
+        [Parameter] public RenderFragment? Icon { get; set; }
+        [Parameter] public IDictionary<string, ElementValue<T>> Data { get; set; }
+        [Parameter] public Expression<Func<T>> ValidationFor { get; set; } = default!;
         /** Este parametro serve apenas para validar se o componente está dentro de um EDITFORM
          * caso sim ele executa funcionalidades de validação de propriedade **/
-        [CascadingParameter] public EditContext Context { get; set; } = null; 
+        [CascadingParameter] public EditContext Context { get; set; } = null;
+        [Inject] public IJSRuntime JSRuntime { get; set; }
 
-        [Inject]
-        public IJSRuntime JSRuntime { get; set; }
-
-        //protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
-        //{
-        //    result = value;
-        //    validationErrorMessage = null;
-        //    return true;
-        //}
+        protected override string? FormatValueAsString(T? value)
+        {
+            if (value == null)
+            {
+                return string.Empty;
+            }
+            return base.FormatValueAsString(value);
+        }
 
         protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
         {
@@ -66,5 +66,10 @@ namespace Shared_Razor_Components.VivoCustomComponents
             throw new InvalidOperationException($"não suporta o tipo '{typeof(T)}'.");
         }
 
+    }
+    public class ElementValue<T>(string text, T value)
+    {
+        public string Text { get; set; } = text;
+        public T Value { get; set; } = value;
     }
 }
