@@ -24,7 +24,7 @@
         <RadzenStack Orientation="Radzen.Orientation.Horizontal" AlignItems="Radzen.AlignItems.Center" JustifyContent="Radzen.JustifyContent.SpaceEvenly">
             <RadzenStack Gap="0" Class="rz-text-truncate">
                 <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-4 rz-mb-0" Style="color: var(--rz-text-tertiary-color);">Tipo de fila:</RadzenText>
-                <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@chamado.Fila.ID_TIPO_FILANavigation.NOME_TIPO_FILA</b></RadzenText>
+                <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@chamado.Fila.ID_TIPO_FILANavigation?.NOME_TIPO_FILA</b></RadzenText>
                 <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">Qtd campos:</RadzenText>
                 <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@chamado.Campos.Count()</b></RadzenText>
             </RadzenStack>

@@ -32,6 +32,10 @@
         <FluentButton IconEnd="@(new Icons.Filled.Size28.PersonAdd().WithColor("#FFFFFF"))" Color="#FFFFFF" BackgroundColor="#633696" Title="Acessos - Outros Sistemas">
         </FluentButton>
     </Blazorise.Tooltip>
+    <Blazorise.Tooltip Text="Desligamentos - Outros Sistemas" @onclick="@(() => NavManager.NavigateTo("demanda_desligamento/create"))">
+        <FluentButton IconEnd="@(new Icons.Filled.Size28.Power().WithColor("#FFFFFF"))" Color="#FFFFFF" BackgroundColor="#633696" Title="Desligamentos - Outros Sistemas">
+        </FluentButton>
+    </Blazorise.Tooltip>
 </RadzenStack>
 
 @code{

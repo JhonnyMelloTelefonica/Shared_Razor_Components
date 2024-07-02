@@ -1,0 +1,31 @@
+﻿<div class="apply-component">
+    <section>
+        <Image Style="width:30px; margin:auto;cursor:pointer" Border="Blazorise.Border.RoundedCircle"
+               Source="@(User.User.UserAvatar != null ? "data:image/png;base64," + SharedConverter.ConvertFileToString(User.User.UserAvatar) : "images/usericon.png" )">
+        </Image>
+        <div>
+            <span class="name">@User.User.NOME</span>
+            <span class="cargo">@User.User.CARGO.GetDisplayName()</span>
+        </div>
+    </section>
+    <div class="list-itens">
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <FluentCard AreaRestricted="false">
+                    <label>@item.DATA.ToShortDateString()</label>
+                    <p>
+                        @item.OBSERVACAO
+                    </p>
+                </FluentCard>
+            }
+        }
+        else
+        {
+            <div class="w-100 m-auto align-itens-center justify-content-center">
+                <span style="max-width:20px;" class="spinner-border spinner-border-sm"></span>
+            </div>
+        }
+    </div>
+</div>

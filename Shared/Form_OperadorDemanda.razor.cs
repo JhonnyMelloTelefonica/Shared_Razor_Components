@@ -13,18 +13,13 @@ using static Blazorise.Licensing.Constants;
 
 namespace Shared_Razor_Components.Shared
 {
-    public partial class Form_OperadorDemanda : ComponentBase, IDisposable
+    public partial class Form_OperadorDemanda : ComponentBase
     {
         public List<ACESSOS_MOBILE_DTO> NewOperador { get; set; } = new();
         [Parameter]
         public List<ACESSOS_MOBILE_DTO> EnableOperadores { get; set; }
         [Parameter]
         public Radzen.DialogService Dialogservice { get; set; }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
 
