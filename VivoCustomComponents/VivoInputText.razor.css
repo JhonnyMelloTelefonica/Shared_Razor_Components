@@ -139,3 +139,28 @@
     font-family: Vivo-font-light !important;
     font-size: 10px !important;
 }
+
+.input-area .bar-rounded {
+    position: absolute;
+    border-radius: 0.5px;
+    width: 110%;
+    height: 130%;
+    left: -10px;
+    transition: all 1s linear;
+    border: 1px solid #893aaf;
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+::deep select:focus + .bar-rounded,
+::deep select:active + .bar-rounded {
+    animation: ChangeBarColor 1.5s linear forwards;
+    height: 1.5px;
+    border-radius: 0.75px;
+}
+
+.input-area.invalid.modified .bar-rounded,
+.input-area.invalid .bar-rounded {
+    background-image: none;
+    border: 1px solid red;
+}

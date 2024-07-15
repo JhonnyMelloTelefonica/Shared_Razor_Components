@@ -6,15 +6,25 @@
 @using Microsoft.AspNetCore.Components.Forms
 @inherits InputBase<string>
 
-<div class="input-area @CssClass" style="@Style">
-    <label for="@Id">@LabelText</label>
-    <InputText id="@Id" @attributes="AdditionalAttributes" @bind-Value="@CurrentValue" disabled=@Disable />
-    <div class="bar"></div>
-</div>
-@if (Context != null)
-{
-    @if (ValidationFor != default!)
+<div>
+    <div class="input-area @CssClass" style="@Style">
+        <label for="@Id">@LabelText</label>
+        <input id="@Id" @attributes="AdditionalAttributes" @bind="@CurrentValue" disabled=@Disable type="@Type" />
+        @if (Rounded)
+        {
+            <div class="bar-rounded">
+            </div>
+        }
+        else
+        {
+            <div class="bar"></div>
+        }
+    </div>
+    @if (Context != null)
     {
-        <ValidationMessage For="ValidationFor" class="text-danger" />
+        @if (ValidationFor != default!)
+        {
+            <ValidationMessage For="ValidationFor" class="text-danger" />
+        }
     }
-}
+</div>

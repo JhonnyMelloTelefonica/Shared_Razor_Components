@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using Shared_Static_Class.Models;
 using System;
@@ -14,18 +16,24 @@ namespace Shared_Razor_Components.Shared
     public partial class Upload : ComponentBase, IDisposable
     {
         [Inject] IJSRuntime JSRuntime { get; set; }
-        [Parameter]public List<FileDataModel> Files { get; set; } = new();
+        [Parameter] public List<FileDataModel> Files { get; set; } = new();
 
-        [Parameter]public string Filter { get; set; }
+        [Parameter] public string Filter { get; set; }
 
-        [Parameter]public string Title { get; set; }
+        [Parameter] public string Title { get; set; }
 
-        [Parameter]public bool AllowMulitple { get; set; }
+        [Parameter] public bool AllowMulitple { get; set; }
 
-        [Parameter]public Action Uploaded { get; set; }
+        [Parameter] public Action Uploaded { get; set; }
         [Parameter] public string BackgroundColor { get; set; } = "#7719aa";
-        [Parameter]public string Color { get; set; } = "white";
-        [Parameter]public RenderFragment? Icon { get; set; } = default!;
+        [Parameter] public string Color { get; set; } = "white";
+        [Parameter] public RenderFragment? Icon { get; set; } = default!;
+
+        ElementReference dropZoneElement;
+        IJSObjectReference _module;
+        IJSObjectReference _dropZoneInstance;
+        ElementReference inputFile;
+
 
         // Define a delegate for the custom event
         public delegate void DismissBadgeHandler();
@@ -33,14 +41,24 @@ namespace Shared_Razor_Components.Shared
         // Define the custom event
         public event DismissBadgeHandler DismissBadge = default!;
         public bool Busy { get; set; } = false;
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                // Load the JS file
+                _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Shared_Razor_Components/dropZone.js");
 
+                // Initialize the drop zone
+                _dropZoneInstance = await _module.InvokeAsync<IJSObjectReference>("initializeFileDropZone", dropZoneElement, inputFile);
+            }
+        }
         async Task UploadFile()
         {
             Busy = true;
             List<FileDataModel> results = new List<FileDataModel>();
             try
             {
-                var result = await JSRuntime.InvokeAsync<object>("blazorExtensions.GetFileData", "Xinputfile00");
+                var result = await JSRuntime.InvokeAsync<object>("blazorExtensions.GetFileData", inputFile);
                 if (result is not null)
                 {
                     FileData[] files = Newtonsoft.Json.JsonConvert.DeserializeObject<FileData[]>(result.ToString());
@@ -91,7 +109,10 @@ namespace Shared_Razor_Components.Shared
 
         async Task ClickUpload()
         {
-            await JSRuntime.InvokeVoidAsync("blazorExtensions.InvokeClick", "Xinputfile00");
+            if (!Busy)
+            {
+                await JSRuntime.InvokeVoidAsync("blazorExtensions.InvokeClick", "Xinputfile00");
+            }
         }
 
         public void Dispose()

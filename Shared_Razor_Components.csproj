@@ -6,6 +6,10 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Remove="wwwroot\dropZone.js" />
+	</ItemGroup>
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
@@ -72,6 +76,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Include="wwwroot\dropZone.js" />
 	  <None Include="wwwroot\VivoCustomComponents.js" />
 	</ItemGroup>
 

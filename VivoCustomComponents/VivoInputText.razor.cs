@@ -19,8 +19,10 @@ namespace Shared_Razor_Components.VivoCustomComponents
         [Parameter]
         public required string LabelText { get; set; }
         [Parameter] public string? Id { get; set; }
+        [Parameter] public string Type { get; set; } = "Text";
         [Parameter] public string? Style { get; set; }
         [Parameter] public bool Disable { get; set; } = false;
+        [Parameter] public bool Rounded { get; set; } = true;
         [Parameter] public Expression<Func<string>> ValidationFor { get; set; } = default!;
         [Inject]public IJSRuntime JSRuntime { get; set; }
         /** Este parametro serve apenas para validar se o componente está dentro de um EDITFORM

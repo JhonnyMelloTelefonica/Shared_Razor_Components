@@ -21,6 +21,7 @@ namespace Shared_Razor_Components.VivoCustomComponents
         [Parameter] public string? Id { get; set; }
         [Parameter] public string? Style { get; set; }
         [Parameter] public bool Multiple { get; set; } = false;
+        [Parameter] public bool Rounded { get; set; } = false;
         [Parameter] public RenderFragment? Icon { get; set; }
         [Parameter] public IDictionary<string, ElementValue<T>> Data { get; set; }
         [Parameter] public Expression<Func<T>> ValidationFor { get; set; } = default!;

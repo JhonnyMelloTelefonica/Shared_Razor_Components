@@ -8,9 +8,9 @@
     min-width: 171.200px;
     margin-block: 15px;
     margin-inline: 20px;
-    display:flex;
-    flex-direction:row;
-    align-items:end;
+    display: flex;
+    flex-direction: row;
+    align-items: end;
 }
 
 ::deep select {
@@ -85,6 +85,51 @@
     transition: all 1s linear;
 }*/
 
+.input-area .bar-rounded {
+    position: absolute;
+    border-radius: 0.5px;
+    width: 110%;
+    height: 100%;
+    left: -10px;
+    transition: all 1s linear;
+    border: 1px solid #893aaf;
+    border-radius: 4px;
+    pointer-events:none;
+}
+
+::deep select:focus + .bar-rounded,
+::deep select:active + .bar-rounded {
+    animation: ChangeBarColor 1.5s linear forwards;
+    height: 1.5px;
+    border-radius: 0.75px;
+}
+
+.input-area.invalid.modified .bar-rounded,
+.input-area.invalid .bar-rounded {
+    background-image: none;
+    border: 1px solid red;
+}
+/*
+::deep select:focus + .bar-rounded,
+::deep select:active + .bar-rounded {
+    background-image: linear-gradient(0deg, #617ad9 0%, #9f32ff 70%);
+    animation: ChangeBarColor 1.5s linear forwards;
+    height: 1.5px;
+    border-radius: 0.75px;
+}
+
+.input-area.valid.modified .bar-rounded {
+    background-image: linear-gradient(0deg, #617ad9 0%, #9f32ff 70%);
+}
+
+.input-area.invalid.modified .bar-rounded,
+.input-area.invalid .bar-rounded {
+    background-image: none;
+    background-color: red;
+}*/
+
+
+
 .input-area .bar {
     position: absolute;
     bottom: -1px;
@@ -154,6 +199,12 @@
     transform: rotate(180deg);
     transition: all 0.5s ease-in-out;
 }
+
 .input-area:not(select:focus) .icon-select {
     transition: all 0.5s ease-out;
+}
+
+.input-area ::deep .form-control:focus {
+    border: none !important;
+    box-shadow: none !important;
 }
