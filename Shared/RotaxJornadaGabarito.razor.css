@@ -1,20 +1,20 @@
-﻿ .bagde , .fas{
+﻿.bagde, .fas {
     display: flex !important;
     align-items: center !important;
-    vertical-align:middle !important;
+    vertical-align: middle !important;
 }
 
-.true-false > .list-group-item {
+/*.true-false > .list-group-item {
     align-self: center;
     width: 50%;
-}
+}*/
 
-.selected-form {
+/*.selected-form {
     transform: scale(1.3) !important;
     border-radius: 10px !important;
     -webkit-transition: all 0.4s ease !important;
     transition: all 0.4s ease !important;
-}
+}*/
 
 #app {
     padding: 25px !important;
@@ -264,6 +264,77 @@ hr {
     }
 }
 
+.notSelected-form {
+    width: 90% !important;
+    height: 90% !important;
+    margin: 0 !important;
+    padding: 8% !important;
+    border-radius: 10px !important;
+}
+
+.selected-form {
+    width: 90% !important;
+    height: 90% !important;
+    margin: 0 !important;
+    padding: 8% !important;
+    border-radius: 10px !important;
+}
+
+.defaultVF {
+}
+
+.selectedGreen {
+    font-weight: bold !important;
+    border-color: #198754 !important;
+    border-width: 1.9px !important;
+    color: #198754 !important;
+}
+
+    .selectedGreen > span {
+        color: #198754 !important;
+    }
+
+.selectedRed {
+    font-weight: bold !important;
+    border-color: #b21b2b !important;
+    border-width: 1.9px !important;
+    color: #b21b2b !important;
+}
+
+    .selectedRed > span {
+        color: #b21b2b !important;
+    }
+
+.QuestionGreen {
+    font-weight: bold !important;
+    display: flex !important;
+    border: solid !important;
+    border-color: #198754 !important;
+    padding: 1% !important;
+    border-radius: 10px !important;
+    border-width: 2px !important;
+    text-align: center !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-direction: row !important;
+    margin: 2% 0% 0% 0% !important;
+}
+
+.QuestionRed {
+    font-weight: bold !important;
+    display: flex !important;
+    border: solid !important;
+    border-color: #b21b2b !important;
+    padding: 1% !important;
+    border-radius: 10px !important;
+    border-width: 2px !important;
+    text-align: center !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-direction: row !important;
+    margin: 2% 0% 0% 0% !important;
+}
+
 .list-group-item {
     margin-block: 20px;
     -webkit-box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 5px 0 rgba(0, 0, 0, 0.19) !important;
@@ -273,6 +344,9 @@ hr {
     flex-wrap: wrap;
     justify-content: space-between;
     align-content: center;
+    border-radius: 10px !important;
+}
+
 }
 
 .activeted {
@@ -581,8 +655,8 @@ article {
 }
 
 .true-false {
-    display:inline-flex !important;
-    flex-direction:column;
+    display: inline-flex !important;
+    flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     width: 100%;
@@ -592,14 +666,15 @@ article {
 }
 
     .true-false label {
-    margin-inline:5px;
+        margin-inline: 5px;
     }
+
     .true-false span {
-        display:inline-block;
+        display: inline-block;
         width: 200px;
         text-align: center;
-        align-content:center;
-        margin:0;
+        align-content: center;
+        margin: 0;
     }
 
     .true-false hr {
@@ -609,4 +684,3 @@ article {
         height: 100%;
         margin: 0 !important;
     }
-
