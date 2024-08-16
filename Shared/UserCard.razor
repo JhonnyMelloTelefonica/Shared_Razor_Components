@@ -320,7 +320,13 @@
 
     </style>
     <div id="Full-page">
-        <span id="CloseButton2" class="bi bi-x-circle" style="z-index: 1000;" @onclick="@(()=> JSRuntime.InvokeVoidAsync("CloseCardView",DotNetObjectReference.Create(this)))"></span>
+
+        <a id="CloseButton4" class="bi bi-person-lock" style="z-index: 1000; right: 39%;!important" href="update-senha-user" @onclick="@(()=> JSRuntime.InvokeVoidAsync("CloseCardView",DotNetObjectReference.Create(this)))"> </a>
+
+        <div id="CloseButton2" class="bi bi-x-circle" style="z-index: 1000;" @onclick="@(()=> JSRuntime.InvokeVoidAsync("CloseCardView",DotNetObjectReference.Create(this)))"></div>
+
+        <a id="CloseButton3" class="bi bi-pencil-square" style="z-index: 1000; right: 31%;" href="edit-user" @onclick="@(()=> JSRuntime.InvokeVoidAsync("CloseCardView",DotNetObjectReference.Create(this)))"> </a>
+
 
         <div class="wrapper">
             <div class="card front-face">
