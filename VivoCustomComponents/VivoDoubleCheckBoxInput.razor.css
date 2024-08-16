@@ -1,0 +1,104 @@
+﻿.apply-component label {
+    font-size: 13px;
+    White-space: nowrap;
+    text-align: center;
+    margin: auto;
+}
+
+.apply-component .input-area {
+    cursor: pointer;
+}
+
+.apply-component .input-area {
+    width: auto;
+    align-content: center;
+}
+
+    .apply-component .input-area ::deep #input-animation {
+        max-height: 150px;
+        width: 260.2px;
+        height: 40px;
+        margin: auto;
+        border-radius: 5px;
+        position: relative;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        content: '';
+        transition: linear ease 1s;
+        -webkit-transition: all ease 0.6s;
+        -moz-transition: all ease 0.6s;
+        -ms-transition: all ease 0.6s;
+        -o-transition: all ease 0.6s;
+        transition: all ease 0.6s;
+        box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+        background-color: white;
+    }
+
+        .apply-component .input-area ::deep #input-animation:has(#first-text-input.input-activated)::after {
+            transition: all ease 0.6s;
+            -webkit-transition: all ease 0.6s;
+            -moz-transition: all ease 0.6s;
+            -ms-transition: all ease 0.6s;
+            -o-transition: all ease 0.6s;
+            transition: all ease 0.6s;
+            content: '';
+            position: absolute;
+            width: 55%;
+            height: 100%;
+            background-color: green;
+            border-radius: 5px;
+            left: 0;
+        }
+
+        .apply-component .input-area ::deep #input-animation:has(#second-text-input.input-activated)::after {
+            transition: all ease 0.6s;
+            -webkit-transition: all ease 0.6s;
+            -moz-transition: all ease 0.6s;
+            -ms-transition: all ease 0.6s;
+            -o-transition: all ease 0.6s;
+            transition: all ease 0.6s;
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            background-color: green;
+            border-radius: 5px;
+            right:0;
+        }
+
+.apply-component ::deep #first-text-input {
+    transition: all ease 0.6s;
+    -webkit-transition: all ease 0.6s;
+    -moz-transition: all ease 0.6s;
+    -ms-transition: all ease 0.6s;
+    -o-transition: all ease 0.6s;
+    transition: all ease 0.6s;
+    content: 'Off';
+    font-size: 9px;
+    font-family: Vivo-font-bold;
+    color: #817777;
+    margin: auto;
+    z-index: 1;
+}
+    .apply-component ::deep #first-text-input.input-activated,
+    .apply-component ::deep #second-text-input.input-activated {
+        color: white;
+    }
+
+
+.apply-component ::deep #second-text-input {
+    transition: all ease 0.6s;
+    -webkit-transition: all ease 0.6s;
+    -moz-transition: all ease 0.6s;
+    -ms-transition: all ease 0.6s;
+    -o-transition: all ease 0.6s;
+    transition: all ease 0.6s;
+    margin: auto;
+    font-size: 9px;
+    font-family: Vivo-font-bold;
+    content: 'On';
+    color: #817777;
+    z-index: 1;
+}
+

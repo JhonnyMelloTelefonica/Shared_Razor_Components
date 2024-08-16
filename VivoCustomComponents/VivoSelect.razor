@@ -10,7 +10,7 @@
 @using Microsoft.AspNetCore.Components.Forms;
 
 <div class="input-area @CssClass" style="@Style">
-    <div class="icon-select">
+     <div class="icon-select">
         @Icon
     </div>
     <label for="@Id">@LabelText</label>
@@ -19,7 +19,8 @@
         <div class="bar-rounded">
         </div>
     }
-    <InputSelect ValueChanged="ValueChanged" ValueExpression="ValueExpression" Value="Value"
+
+    <InputSelect ValueChanged="@ValueChanged" ValueExpression="@ValueExpression" Value="@CurrentValue"
                  DisplayName="@DisplayName" id="@Id" TValue=T class="form-control">
         <option value="" selected>Selecione</option>
         @foreach (var item in Data)
@@ -27,6 +28,7 @@
             <VivoSelectOption T="T" Option="item.Value.Value" Text="@item.Value.Text" />
         }
     </InputSelect>
+
     @if (!Rounded)
     {
         <div class="bar"></div>

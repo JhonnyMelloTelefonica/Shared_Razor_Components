@@ -80,6 +80,12 @@
 	  <None Include="wwwroot\VivoCustomComponents.js" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Content Update="VivoCustomComponents\VivoDoubleCheckBoxInput.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	</ItemGroup>
+
 	<Import Project="..\Shared_Class_Vivo_Apps\Shared_Class_Vivo_Apps.projitems" Label="Shared" />
 
 

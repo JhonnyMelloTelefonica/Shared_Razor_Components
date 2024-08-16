@@ -18,7 +18,6 @@ namespace Shared_Razor_Components.Shared
 
         protected override void OnInitialized()
         {
-
             Update();
             base.OnInitialized();
         }

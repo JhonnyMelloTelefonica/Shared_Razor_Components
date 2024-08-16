@@ -25,10 +25,10 @@ namespace Shared_Razor_Components.VivoCustomComponents
         [Parameter] public RenderFragment? Icon { get; set; }
         [Parameter] public IDictionary<string, ElementValue<T>> Data { get; set; }
         [Parameter] public Expression<Func<T>> ValidationFor { get; set; } = default!;
-        /** Este parametro serve apenas para validar se o componente está dentro de um EDITFORM
-         * caso sim ele executa funcionalidades de validação de propriedade **/
         [CascadingParameter] public EditContext Context { get; set; } = null;
         [Inject] public IJSRuntime JSRuntime { get; set; }
+        /** Este parametro serve apenas para validar se o componente está dentro de um EDITFORM
+         * caso sim ele executa funcionalidades de validação de propriedade **/
 
         protected override string? FormatValueAsString(T? value)
         {

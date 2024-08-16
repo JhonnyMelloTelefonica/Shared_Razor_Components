@@ -31,3 +31,7 @@ export function CheckEveryValidation(isvalid, id) {
         specificDiv.classList.remove('all-valid');
     }
 }
+
+export function Executedotnetfunction(dotNetObject, value) {
+    dotNetObject.invokeMethodAsync('ChangeBooleanValue', value);
+}

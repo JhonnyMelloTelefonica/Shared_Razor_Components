@@ -9,7 +9,7 @@
 <div>
     <div class="input-area @CssClass" style="@Style">
         <label for="@Id">@LabelText</label>
-        <input id="@Id" @attributes="AdditionalAttributes" @bind="@CurrentValue" disabled=@Disable type="@Type" />
+        <input id="@Id" @attributes="AdditionalAttributes" @bind="@CurrentValue" disabled=@Disable type="@Type" placeholder="@Placeholder" />
         @if (Rounded)
         {
             <div class="bar-rounded">

@@ -1,0 +1,107 @@
+﻿.apply-component label {
+    font-size: 11px;
+    White-space: nowrap;
+    text-align:center;
+    margin:auto;
+}
+
+.apply-component .input-area {
+    cursor: pointer;
+}
+
+.apply-component .inputchecked #input-animation {
+    background: #37BF44;
+}
+
+.apply-component .inputunchecked #input-animation {
+    background-color: #E63427;
+}
+
+.apply-component .input-area {
+    width: auto;
+    align-content:center;
+}
+
+.apply-component .input-area ::deep #input-animation {
+    max-height: 150px;
+    margin:auto;
+    border-radius: 30px;
+    position: relative;
+    content: '';
+    transition: linear ease 1s;
+    -webkit-transition: all ease 0.6s;
+    -moz-transition: all ease 0.6s;
+    -ms-transition: all ease 0.6s;
+    -o-transition: all ease 0.6s;
+    transition: all ease 0.6s;
+    width: 53.6px;
+    height: 21px;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.apply-component .inputchecked #input-animation::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    bottom: 2.5px;
+    border-radius: 15px;
+    transition: all ease 0.6s;
+    -webkit-transition: all ease 0.6s;
+    -moz-transition: all ease 0.6s;
+    -ms-transition: all ease 0.6s;
+    -o-transition: all ease 0.6s;
+    transition: all ease 0.6s;
+    border-radius: 15px;
+    width: 18.4px;
+    height: 15.56px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.apply-component .inputunchecked #input-animation::before {
+    transition: all ease 0.6s;
+    -webkit-transition: all ease 0.6s;
+    -moz-transition: all ease 0.6s;
+    -ms-transition: all ease 0.6s;
+    -o-transition: all ease 0.6s;
+    transition: all ease 0.6s;
+    content: '';
+    position: absolute;
+    right: 3px;
+    bottom: 2.5px;
+    width: 18.4px;
+    height: 15.56px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+}
+
+.apply-component .inputunchecked #label-text-input {
+    position: absolute;
+    transition: all ease 0.6s;
+    -webkit-transition: all ease 0.6s;
+    -moz-transition: all ease 0.6s;
+    -ms-transition: all ease 0.6s;
+    -o-transition: all ease 0.6s;
+    transition: all ease 0.6s;
+    left: 5px;
+    bottom: 1px;
+    content: 'Off';
+    font-size: 13px;
+    color: white;
+}
+
+.apply-component .inputchecked #label-text-input {
+    position: absolute;
+    transition: all ease 0.6s;
+    -webkit-transition: all ease 0.6s;
+    -moz-transition: all ease 0.6s;
+    -ms-transition: all ease 0.6s;
+    -o-transition: all ease 0.6s;
+    transition: all ease 0.6s;
+    right: 5px;
+    bottom: 1px;
+    font-size: 13px;
+    content: 'On';
+    color: white;
+}

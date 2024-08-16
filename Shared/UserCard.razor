@@ -1,40 +1,40 @@
 ﻿@using Microsoft.JSInterop
-@using Shared_Static_Class.Converters 
-@using Microsoft.AspNetCore.Components.Web         
+@using Shared_Static_Class.Converters
+@using Microsoft.AspNetCore.Components.Web
 
 @if (Opened)
 {
-<style>
-    #Full-page {
-        position: fixed;
-        width: 100vw;
-        height: 100vh;
-        min-width: auto;
-        margin: auto;
-        top:0;
-        background-color: rgb(0, 0, 0, .9);
-        text-align: center;
-        z-index: 99999 !important;
-        opacity: 1;
-        transition: all 0.8s ease;
-    }
-
-    #CloseButton2 {
-        position: absolute;
-        top: 20px;
-        right: 35%;
-        padding-left: 5px;
-        font-size: 2rem;
-        color: #ffffff;
-        cursor: pointer;
-        transition: color 0.5s;
-    }
-
-        #CloseButton2:hover,
-        #CloseButton2:focus {
-            color: darkred;
-            transform: scale(1.3);
+    <style>
+        #Full-page {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            min-width: auto;
+            margin: auto;
+            top: 0;
+            background-color: rgb(0, 0, 0, .9);
+            text-align: center;
+            z-index: 99999 !important;
+            opacity: 1;
+            transition: all 0.8s ease;
         }
+
+        #CloseButton2 {
+            position: absolute;
+            top: 20px;
+            right: 35%;
+            padding-left: 5px;
+            font-size: 2rem;
+            color: #ffffff;
+            cursor: pointer;
+            transition: color 0.5s;
+        }
+
+            #CloseButton2:hover,
+            #CloseButton2:focus {
+                color: darkred;
+                transform: scale(1.3);
+            }
 
         html, body {
             height: 0% !important;
@@ -66,7 +66,7 @@
             max-height: 100%;
             object-fit: contain;
             /*  margin: auto;
-                        display: block; */
+                                display: block; */
             border-radius: 35px;
         }
 
@@ -103,9 +103,9 @@
         }
 
         /* .upper-container {
-                        height: 150px;
-                        background: #7F00FF;
-                    } */
+                                height: 150px;
+                                background: #7F00FF;
+                            } */
 
         .image-container {
             background: white;
@@ -116,55 +116,55 @@
             transform: translate(100px,100px);
         }
 
-        .image-container img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-        }
-
-    .lower-container {
-        height: 280px;
-        background: #FFF;
-        padding: 5px;
-        /* padding-top: 40px; */
-        text-align: center;
-    }
-
-        .lower-container h3, h4 {
-            box-sizing: border-box;
-            line-height: .6;
-            font-weight: lighter;
-        }
-
-        .lower-container h4 {
-            color: #7F00FF;
-            opacity: .6;
-            font-weight: bold;
-        }
-
-        .lower-container p {
-            font-size: 16px;
-            color: gray;
-            margin-bottom: 15px;
-        }
-
-        .lower-container .btn {
-            padding: 12px 20px;
-            background: #7F00FF;
-            border: none;
-            color: white;
-            border-radius: 30px;
-            font-size: 12px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all .3s ease-in;
-        }
-
-            .lower-container .btn:hover {
-                background: transparent;
-                color: #7F00FF;
-                border: 2px solid #7F00FF;
+            .image-container img {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
             }
+
+        .lower-container {
+            height: 280px;
+            background: #FFF;
+            padding: 5px;
+            /* padding-top: 40px; */
+            text-align: center;
+        }
+
+            .lower-container h3, h4 {
+                box-sizing: border-box;
+                line-height: .6;
+                font-weight: lighter;
+            }
+
+            .lower-container h4 {
+                color: #7F00FF;
+                opacity: .6;
+                font-weight: bold;
+            }
+
+            .lower-container p {
+                font-size: 16px;
+                color: gray;
+                margin-bottom: 15px;
+            }
+
+            .lower-container .btn {
+                padding: 12px 20px;
+                background: #7F00FF;
+                border: none;
+                color: white;
+                border-radius: 30px;
+                font-size: 12px;
+                text-decoration: none;
+                font-weight: bold;
+                transition: all .3s ease-in;
+            }
+
+                .lower-container .btn:hover {
+                    background: transparent;
+                    color: #7F00FF;
+                    border: 2px solid #7F00FF;
+                }
 
 
         /*test flip*/
@@ -199,67 +199,67 @@
                 transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
             }
 
-        .wrapper:hover > .front-face {
-            transform: rotateY(-180deg);
+            .wrapper:hover > .front-face {
+                transform: rotateY(-180deg);
+            }
+
+            .wrapper .card img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                border-radius: 10px;
+            }
+
+            .wrapper .front-face {
+                display: flex;
+                align-items: center !important;
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            .wrapper .back-face {
+                display: flex;
+                /*   align-items: center; */
+                justify-content: space-evenly;
+                flex-direction: column;
+                transform: rotateY(180deg);
+            }
+
+            .wrapper:hover > .back-face {
+                transform: rotateY(0deg);
+            }
+
+            .wrapper .front-face img {
+                /*   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8); */
+                top: 30% !important;
+                height: 150px;
+                width: 150px;
+                /*    padding: 5px; */
+                border-radius: 50%;
+                /*  background: linear-gradient(375deg, #CB6CE6, #CB6CE6);  */
+            }
+
+        .logoCard {
+            align-content: center !important;
+            height: 60px !important;
+            width: 60px !important;
+            /*   margin-right: 17px !important; */
         }
 
-        .wrapper .card img {
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-            border-radius: 10px;
+        .wrapper .front-face .info {
+            text-align: center;
+            padding-top: 15px !important;
         }
 
-        .wrapper .front-face {
+        .front-face .info .title {
+            font-size: 30px;
+            font-weight: 500;
+            margin-bottom: 0;
+        }
+
+        .front-face ul {
             display: flex;
-            align-items: center !important;
-            justify-content: center;
-            flex-direction: column;
         }
-
-        .wrapper .back-face {
-            display: flex;
-            /*   align-items: center; */
-            justify-content: space-evenly;
-            flex-direction: column;
-            transform: rotateY(180deg);
-        }
-
-        .wrapper:hover > .back-face {
-            transform: rotateY(0deg);
-        }
-
-        .wrapper .front-face img {
-            /*   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8); */
-            top: 30% !important;
-            height: 150px;
-            width: 150px;
-            /*    padding: 5px; */
-            border-radius: 50%;
-            /*  background: linear-gradient(375deg, #CB6CE6, #CB6CE6);  */
-        }
-
-    .logoCard {
-        align-content: center !important;
-        height: 60px !important;
-        width: 60px !important;
-        /*   margin-right: 17px !important; */
-    }
-
-    .wrapper .front-face .info {
-        text-align: center;
-        padding-top: 15px !important;
-    }
-
-    .front-face .info .title {
-        font-size: 30px;
-        font-weight: 500;
-        margin-bottom: 0;
-    }
-
-    .front-face ul {
-        display: flex;
-    }
 
             .front-face ul a {
                 display: block;
@@ -271,7 +271,7 @@
                 line-height: 38px;
                 border: 2px solid transparent;
                 border-radius: 50%;
-               @*  background: linear-gradient(375deg, #004AAD, #004AAD); *@
+        @* background: linear-gradient(375deg, #004AAD, #004AAD); *@ 
                 transition: all 0.5s ease;
             }
 
@@ -281,19 +281,19 @@
                     background: linear-gradient(375deg, transparent, transparent);
                 }
 
-    .front-face p {
-        color: white;
-        margin-bottom: 0rem !important;
-    }
+        .front-face p {
+            color: white;
+            margin-bottom: 0rem !important;
+        }
 
-    .back-face p {
-        color: white;
-        font-size: 15px;
-    }
+        .back-face p {
+            color: white;
+            font-size: 15px;
+        }
 
-    .back-face br {
-        font-size: 12px;
-    }
+        .back-face br {
+            font-size: 12px;
+        }
 
         .infoTop {
             font-size: 10px !important;
@@ -323,17 +323,13 @@
         <span id="CloseButton2" class="bi bi-x-circle" style="z-index: 1000;" @onclick="@(()=> JSRuntime.InvokeVoidAsync("CloseCardView",DotNetObjectReference.Create(this)))"></span>
 
         <div class="wrapper">
-
             <div class="card front-face">
-
-                <img class="svg-icon" style="border-radius: 0%; filter: grayscale(100%) invert(100%) brightness(110%);" src="cardLogoVivo.png">
-
+                <img class="svg-icon" style="border-radius: 0%; filter: grayscale(100%) invert(100%) brightness(110%);" src="images/cardLogoVivo.png">
                 <div class="" style="top: 20px!important">
                     <Blazorise.Image Style=" margin:auto" Border="Blazorise.Border.RoundedCircle"
-                           Source="@(User.UserAvatar != null ? "data:image/png;base64," + SharedConverter.ConvertFileToString(User.UserAvatar) : "images/usericon.png")">
+                                     Source="@(User.UserAvatar != null ? "data:image/png;base64," + SharedConverter.ConvertFileToString(User.UserAvatar) : "images/usericon.png")">
                     </Blazorise.Image>
                 </div>
-
                 <div class="info" style=" width: 70%; padding-bottom: 10%;">
                     <div class="title;" style="color:white;">
 
@@ -346,8 +342,8 @@
                         </div>
 
                         <div class="infoFrontCard" style=" font-size: 18px!important; margin-bottom: 10px;">
-                           @*  @(User.CARGO.GetDisplayName()) *@
-                           @CargoCard(User.CARGO.GetDisplayName())
+                            @*  @(User.CARGO.GetDisplayName()) *@
+                            @CargoCard(User.CARGO.GetDisplayName())
                         </div>
 
                         <div class="infoFrontCard" style=" font-size: 15px!important; margin-right: 18px;">
@@ -371,27 +367,25 @@
             </div>
 
             <div class="card back-face">
-
-                
-
             </div>
         </div>
     </div>
 }
-@code{
+
+@code {
     public class UserInfo
     {
         public string Nome { get; set; }
     }
 
-    
+
     UserInfo nome = new UserInfo() { Nome = "Nome Sobrenome" };
 
-    
+
     string NomeCard(string nomeCompleto)
     {
         string[] partesNome = nomeCompleto.Split(' ');
-        return partesNome[0] + " " + partesNome[partesNome.Length - 1]; 
+        return partesNome[0] + " " + partesNome[partesNome.Length - 1];
     }
 
     string CargoCard(string CargoCompleto)

@@ -35,8 +35,8 @@ namespace Shared_Razor_Components.VivoCustomComponents
         public bool Locked { get; set; } = true;
         [Inject]
         public IJSRuntime JSRuntime { get; set; }
-        public string ClassField => $"{(IsOpened ? "opened" : "closed")} {(FormValidated ? "all-valid" : "check-invalid")}";
         public IJSObjectReference _jsmodule { get; set; }
+        public string ClassField => $"{(IsOpened ? "opened" : "closed")} {(FormValidated ? "all-valid" : "check-invalid")}";
         public bool FormValidated { get; set; } = true;
         public bool IsOpened { get => Locked ? false : isOpened; set => isOpened = value; }
 

@@ -59,14 +59,26 @@
     transition: all 1s linear;
     position: absolute;
     left: 0;
+    top: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
     color: #b4b3b3;
 }
 
-.input-area:has(input:focus) label
-, .input-area:has(input:active) label {
+.input-area:has(input:focus) label,
+.input-area:has(input:active) label{
     top: -20px;
     font-size: 13px;
     color: #c1c1c1;
+    left: 0;
+    transition: all 1s linear;
+}
+
+.input-area:has(.bar-rounded):has(input:not(:placeholder-shown)) label {
+    top: -25px;
+    font-size: 10px;
     left: 0;
     transition: all 1s linear;
 }

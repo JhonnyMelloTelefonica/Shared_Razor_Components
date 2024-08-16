@@ -1,0 +1,25 @@
+﻿@namespace Shared_Razor_Components.VivoCustomComponents
+@using System.Globalization
+@using Microsoft.JSInterop
+@using Shared_Class_Vivo_Apps.Services
+@using Newtonsoft.Json
+@using System.ComponentModel
+@using BlazorBootstrap
+@using Microsoft.AspNetCore.Components.Forms;
+@inherits InputCheckbox;
+
+<div class="apply-component">
+    <div class="input-area @(value ? "inputchecked":"inputunchecked") @CssClass" id="@Id">
+        @if (!string.IsNullOrEmpty(LabelText))
+        {
+            <label for="actual-input">@LabelText</label>
+        }
+
+        <input id="actual-input" type="checkbox" hidden @bind-value="@CurrentValue">
+        <div id="input-animation" @onclick="ChangeValueOnClick">
+            <span id="label-text-input">@(value ? TrueString : FalseString)</span>
+        </div>
+
+    </div>
+</div>
+

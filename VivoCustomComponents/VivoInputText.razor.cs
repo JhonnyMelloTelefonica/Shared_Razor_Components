@@ -21,6 +21,7 @@ namespace Shared_Razor_Components.VivoCustomComponents
         [Parameter] public string? Id { get; set; }
         [Parameter] public string Type { get; set; } = "Text";
         [Parameter] public string? Style { get; set; }
+        [Parameter] public string? Placeholder { get; set; } = string.Empty;
         [Parameter] public bool Disable { get; set; } = false;
         [Parameter] public bool Rounded { get; set; } = true;
         [Parameter] public Expression<Func<string>> ValidationFor { get; set; } = default!;
