@@ -1,0 +1,21 @@
+﻿
+@foreach (var item in notifications)
+{
+    <RadzenStack Gap="1rem">
+        <RadzenStack Orientation="Radzen.Orientation.Horizontal" JustifyContent="Radzen.JustifyContent.SpaceBetween" AlignItems="Radzen.AlignItems.Center">
+            <RadzenBadge BadgeStyle="Radzen.BadgeStyle.Secondary" Text=@($"{String.Format(new System.Globalization.CultureInfo("en-US"), "{0:C}", item.Title)}") />
+            <RadzenText TextStyle="TextStyle.Subtitle2" Class="rz-m-0" Style="font-family: Ubuntu-Medium">
+                @item.message
+            </RadzenText>
+            <RadzenText TextAlign="Radzen.TextAlign.End" TextStyle="TextStyle.Body2" Class="rz-text-truncate"><b>@item.Hora</b></RadzenText>
+        </RadzenStack>
+        <RadzenStack Orientation="Radzen.Orientation.Horizontal" JustifyContent="Radzen.JustifyContent.End" Gap="0.5rem">
+            <RadzenButton Click="() => GoTo(item)" Variant="Radzen.Variant.Flat" Style="width: 120px">
+                <Blazorise.Icon Name="Blazorise.IconName.Search">
+                </Blazorise.Icon>
+            </RadzenButton>
+        </RadzenStack>
+    </RadzenStack>
+    <hr style="border: none; background-color: black; height: 1px; margin: 1rem 0;" />
+}
+

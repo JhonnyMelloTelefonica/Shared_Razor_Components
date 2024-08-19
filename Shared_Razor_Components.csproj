@@ -4,11 +4,15 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+		<AssemblyName>Shared_Razor_Components</AssemblyName>
+		<GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
 	</PropertyGroup>
-
 	<ItemGroup>
-	  <Content Remove="wwwroot\dropZone.js" />
+		<EmbeddedResource Include="wwwroot\**\*" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Remove="wwwroot\dropZone.js" />
+		<Content Remove="wwwroot\images\icone-vivox.png" />
 	</ItemGroup>
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
@@ -18,33 +22,34 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.1.0" />
 		<PackageReference Include="AutoMapper" Version="13.0.1" />
 		<PackageReference Include="Blazor.Bootstrap" Version="2.2.0" />
 		<PackageReference Include="BlazorDownloadFile" Version="2.4.0.2" />
 		<PackageReference Include="Blazored.TextEditor" Version="1.1.0" />
-		<PackageReference Include="Blazorise" Version="1.5.3" />
-		<PackageReference Include="Blazorise.Animate" Version="1.5.3" />
-		<PackageReference Include="Blazorise.Bootstrap" Version="1.5.3" />
-		<PackageReference Include="Blazorise.Charts" Version="1.5.3" />
-		<PackageReference Include="Blazorise.Components" Version="1.5.3" />
-		<PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.5.3" />
-		<PackageReference Include="Blazorise.LoadingIndicator" Version="1.5.3" />
-		<PackageReference Include="Blazorise.RichTextEdit" Version="1.5.3" />
-		<PackageReference Include="Blazorise.Snackbar" Version="1.5.3" />
-		<PackageReference Include="Blazorise.SpinKit" Version="1.5.3" />
-		<PackageReference Include="BootstrapBlazor" Version="8.7.2" />
+		<PackageReference Include="Blazorise" Version="1.6.0" />
+		<PackageReference Include="Blazorise.Animate" Version="1.6.0" />
+		<PackageReference Include="Blazorise.Bootstrap" Version="1.6.0" />
+		<PackageReference Include="Blazorise.Charts" Version="1.6.0" />
+		<PackageReference Include="Blazorise.Components" Version="1.6.0" />
+		<PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.6.0" />
+		<PackageReference Include="Blazorise.LoadingIndicator" Version="1.6.0" />
+		<PackageReference Include="Blazorise.RichTextEdit" Version="1.6.0" />
+		<PackageReference Include="Blazorise.Snackbar" Version="1.6.0" />
+		<PackageReference Include="Blazorise.SpinKit" Version="1.6.0" />
+		<PackageReference Include="BootstrapBlazor" Version="8.8.2" />
 		<PackageReference Include="CurrieTechnologies.Razor.SweetAlert2" Version="5.6.0" />
-		<PackageReference Include="HtmlAgilityPack" Version="1.11.61" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.63" />
 		<PackageReference Include="KGySoft.Drawing.SkiaSharp" Version="8.1.0" />
-		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.7" />
-		<PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="8.0.7" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="8.0.8" />
 		<PackageReference Include="Microsoft.Azure.SignalR" Version="1.26.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.7" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.7">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -55,20 +60,19 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="3.7.8" />
 		<PackageReference Include="Microsoft.Fast.Components.FluentUI.Icons" Version="3.7.5" />
-		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.9.2" />
-		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter" Version="4.9.2" />
-		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.9.2" />
+		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.9.3" />
+		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter" Version="4.9.3" />
+		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.9.3" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="NSwag.ApiDescription.Client" Version="14.1.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.5.0" />
-		<PackageReference Include="Radzen.Blazor" Version="4.34.4" />
+		<PackageReference Include="Radzen.Blazor" Version="5.1.1" />
 		<PackageReference Include="SkiaSharp" Version="2.88.8" />
-		<PackageReference Include="Syncfusion.Blazor.WordProcessor" Version="26.1.42" />
+		<PackageReference Include="Syncfusion.Blazor.WordProcessor" Version="26.2.9" />
 		<PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
-		<PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="8.103.0" />
+		<PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="8.103.2" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -76,18 +80,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="wwwroot\dropZone.js" />
-	  <None Include="wwwroot\VivoCustomComponents.js" />
+		<None Include="wwwroot\dropZone.js" />
+		<None Include="wwwroot\VivoCustomComponents.js" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Update="VivoCustomComponents\VivoDoubleCheckBoxInput.razor">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	  </Content>
+		<Content Update="VivoCustomComponents\VivoDoubleCheckBoxInput.razor">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		</Content>
 	</ItemGroup>
 
 	<Import Project="..\Shared_Class_Vivo_Apps\Shared_Class_Vivo_Apps.projitems" Label="Shared" />
-
-
 
 </Project>

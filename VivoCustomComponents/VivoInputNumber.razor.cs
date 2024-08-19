@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using Newtonsoft.Json.Linq;
-using Oracle.ManagedDataAccess.Types;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

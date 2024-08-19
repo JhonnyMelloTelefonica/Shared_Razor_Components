@@ -1,0 +1,20 @@
+﻿@inherits LayoutComponentBase;
+
+<CascadingValue Value="this">
+    <PageTitle>Vivo X</PageTitle>
+    <div class="page">
+        <main>
+            @if (headerContent is not null)
+            {
+                @headerContent
+            }
+            <article class="content px-4">
+                @Body
+            </article>
+            @if (footerContent is not null)
+            {
+                @footerContent
+            }
+        </main>
+    </div>
+</CascadingValue>

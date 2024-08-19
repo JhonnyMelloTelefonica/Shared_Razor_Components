@@ -1,0 +1,101 @@
+﻿
+
+<header class="header">
+
+    @* !!!!!logo do navmenu !!!!! *@
+
+    <div style="padding-right: 1%!important">
+        <img id="logoElement" src="_content/Shared_Razor_Components/images/icone-vivox.png" alt="Logo" class="logo_home" style="width:80px;height:80px;">
+    </div>
+
+    @* !!!!! nav com a navegação para os modulos e opções do usuário !!!!! *@
+
+    <nav class="NewNavMenu">
+        <ul class="main-menu">
+            <li class="menu-item">
+                <a href="@(IsDevelopment ? "http://localhost:5211/" : "http://brtdtbgs0090sl:8081/")">Home</a>
+            </li>
+            <li class="menu-item">
+                @{
+                    string vivomaislink = IsDevelopment ? "http://localhost:5172/" : "http://brtdtbgs0090sl:8083/";
+                }
+                <a href="#">Vivo +</a>
+                <ul class="submenu">
+                    <li class="submenu-item"><a href="@(vivomaislink)demandas/solicitar">Abrir Demanda</a></li>
+                    <li class="submenu-item"><a href="@(vivomaislink)demandas">Painel de Chamados</a></li>
+                    <li class="submenu-item"><a href="@(vivomaislink)demandas/Operadores">Operadores</a></li>
+                    <li class="submenu-item"><a href="@(vivomaislink)demandas/filas">Filas</a></li>
+                    <li class="submenu-item"><a href="@(vivomaislink)demanda/acessos-create">Acessos</a></li>
+                    <li class="submenu-item"><a href="@(vivomaislink)demanda/desligamento-create">Desligamento</a></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a href="#">Rota Cruzada</a>
+                <ul class="submenu">
+                    <li class="submenu-item"><a href="CriarFormulario">Criar Provas</a></li>
+                    <li class="submenu-item"><a href="Avaliacoes">Resultados</a></li>
+                    <li class="submenu-item"><a href="ListaFormulario">Provas Disponíveis</a></li>
+                    <li class="submenu-item"><a href="jornada/criar-form-detalhado">Criar Prova (Específica)</a></li>
+                    <li class="submenu-item"><a href="PainelProvasCriadas">Minhas Provas</a></li>
+                    <li class="submenu-item"><a href="CreateQuestion">Criar Questões</a></li>
+                    <li class="submenu-item"><a href="EditQuestion">Gerenciar Questões</a></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                    @{
+                        string contusuarioslink = IsDevelopment ? "http://localhost:5028/" : "http://brtdtbgs0090sl:8082/";
+                    }
+                <a href="#">Usuários</a>
+                <ul class="submenu">
+                    <li class="submenu-item"><a href="@(contusuarioslink)CriarUsuario">Criar usuários</a></li>
+                    <li class="submenu-item"><a href="@(contusuarioslink)EditarUsuarios">Gerenciamento de Usuários</a></li>
+                    <li class="submenu-item"><a href="@(contusuarioslink)PainelUsuarios">Painel de Solicitações</a></li>
+                    <li class="submenu-item"><a href="@(contusuarioslink)jornada-hierarquia">Hierarquia/Carteira</a></li>
+                    <li class="submenu-item"><a href="update-senha-user">Senha</a></li>
+                    <li class="submenu-item"><a href="edit-user">Imagem</a></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a href="#">A Quem Recorrer </a>
+                <ul class="submenu">
+                    @* <li class="submenu-item"><a href="#">Criar</a></li>
+                    <li class="submenu-item"><a href="#">Consulta</a></li> *@
+                </ul>
+            </li>
+        </ul>
+
+        @* !!!!! opçõs do usuáiro !!!!! *@
+
+        <div class="userOptions">
+            @* <div>
+            <a class="iconNavMenu" href="update-senha-user">
+            <i class="bi bi-person-fill-lock i-navMenu"></i>
+            </a>
+            </div>
+            <div>
+            <a class="iconNavMenu" style="margin-bottom: 30px" href="edit-user">
+            <i class="bi bi-person-bounding-box i-navMenu"></i>
+            </a>
+            </div> *@
+            <Image Class="ImageNav" Border="Blazorise.Border.RoundedCircle"
+                   @onclick="@(() => JSRuntime.InvokeVoidAsync("ActivateCardView", new Shared_Static_Class.Model_DTO.ACESSOS_MOBILE_DTO
+                                        {
+                                            UserAvatar = user.User.UserAvatar,
+                                            MATRICULA = user.User.MATRICULA,
+                                            NOME = user.User.NOME,
+                                            EMAIL = user.User.EMAIL,
+                                            CARGO = user.User.CARGO,
+                                            PDV = user.User.PDV,
+                                            CANAL = user.User.CANAL,
+                                        }, DotNetObjectReference.Create(User)))"
+                   Source="@(user.User.UserAvatar != null ? "data:image/png;base64," + SharedConverter.ConvertFileToString(user.User.UserAvatar) : "images/usericon.png")">
+            </Image>
+
+            <p style="align-items: center;font-size: 10px;display: flex;justify-content: center;margin: 0px !important;" @onclick="ViewOption.ToggleNavMenu">
+                @*  @(textInfo.ToTitleCase(service.Userservice.User.NOME.Split()[0].ToLower())) *@
+                @(NameUser(user.User.NOME))
+            </p>
+
+        </div>
+    </nav>
+</header>

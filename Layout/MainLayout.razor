@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Authorization;
+@inherits LayoutComponentBase;
+
+<CascadingValue Value="this">
+    <AuthorizeView>
+        <Authorized>
+            <PageTitle>Vivo X</PageTitle>
+            <div class="page">
+                <NavMenu />
+                <main>
+                    @if (headerContent is not null)
+                    {
+                        @headerContent
+                    }
+                    <article class="content px-4" style="position:relative;">
+                        @if (ViewOption.buttonCloseplataform)
+                        {
+                            <div style="position:absolute; top:8px; right:20px;z-index:9999;">
+                                <ClosePlataformButton />
+                            </div>
+                        }
+                        @Body
+                    </article>
+                    @if (footerContent is not null)
+                    {
+                        @footerContent
+                    }
+                    <FluentToastProvider MaxToastCount="10" />
+                </main>
+
+            </div>
+
+        </Authorized>
+        <NotAuthorized>
+            @if (!IsBusy)
+            {
+                @if (AlreadySolicitated)
+                {
+                    <Detalhado_Acesso_Pendente id="@userSolicitado.ID" />
+
+                }
+                else
+                {
+                    <Unauthorized />
+                }
+            }
+        </NotAuthorized>
+    </AuthorizeView>
+</CascadingValue>
+
+
+@*<div class="chatbar @ViewOption.ChatBarClass">
+        <ChatBar />
+    </div>
+    @foreach (var item in ViewOption.ChatsOpened)
+    {
+        <div class="chatbar @item.ChatBarClass">
+            <ChatBarUser Chat="@item" />
+        </div>
+    }*@

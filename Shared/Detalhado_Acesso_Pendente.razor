@@ -1,0 +1,361 @@
+﻿@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.FluentUI.AspNetCore.Components
+@using Orientation = Microsoft.FluentUI.AspNetCore.Components.Orientation;
+@using HorizontalAlignment = Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment;
+@using VerticalAlignment = Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment;
+
+<PageTitle>Solicitação de Acesso @id </PageTitle>
+<div class="apply-component">
+    @* HEADER *@
+    <SetHeader @ref=setHeader>
+        <FluentStack Orientation="Orientation.Horizontal"
+                     HorizontalAlignment="HorizontalAlignment.Center" Wrap="true"
+                     Class="w-100 justify-content-between flex-nowrap px-5 p-3"
+                     Style="position: sticky; top: 0; background-image: linear-gradient(90deg, rgb(5, 39, 103) 0%, #3a0647 30%); border-bottom: solid #eeeded; z-index: 2; ">
+            <Blazorise.Tooltip Text="Voltar">
+                <FluentButton BackgroundColor="transparent" Style="display: flex; border-radius: 50%;" @onclick="@(() => navigationManager.NavigateTo("/PainelUsuarios"))">
+                    <FluentIcon Value="@(new Icons.Filled.Size32.ArrowLeft().WithColor("#ffffff"))" Style="margin:auto;">
+                    </FluentIcon>
+                </FluentButton>
+            </Blazorise.Tooltip>
+            <aside style="font-family:Vivo-font-bold; color:white">
+                <h2>
+                    <b>
+                        SOLICITAÇÃO
+                    </b>
+                </h2>
+            </aside>
+            <aside style="font-family:Vivo-font-bold; color:white">
+                <h6>
+                    N°  @id
+                </h6>
+                @if (historico is not null)
+                {
+                    <h6>
+                        TIPO: @historico.SOLICITACAO.TIPO.ToUpper()
+                    </h6>
+                }
+                else
+                {
+                    <span class="spinner-border spinner-border-sm"></span>
+                }
+            </aside>
+        </FluentStack>
+    </SetHeader>
+    @* HEADER *@
+    @if (isBusy)
+    {
+        <span class="spinner-border spinner-border-sm"></span>
+    }
+    else
+    {
+        @if (historico is not null)
+        {
+            @* BODY *@
+            @* Dados da solicitação *@
+            <FluentStack Orientation="Orientation.Horizontal" Wrap=false
+                         HorizontalAlignment="HorizontalAlignment.Center">
+                <RadzenFieldset AllowCollapse="true" Collapsed="true" Style="width: auto;min-width: 400px; margin: 40px auto ;">
+                    <HeaderTemplate>
+                        <span class="d-inline-flex align-items-center align-middle g-2">
+                            <FluentIcon Value="@(new Icons.Filled.Size24.DatabasePerson().WithColor("#5b0baa"))" />
+                            <b>
+                                DADOS DA SOLICITAÇÃO
+                            </b>
+                        </span>
+                    </HeaderTemplate>
+                    <ChildContent>
+                        @if (historico.SOLICITACAO.LOGIN_SOLICITANTE.MATRICULA == UserService.User.MATRICULA
+                       && string.Equals(historico.SOLICITACAO.STATUS_USUARIO
+                       , STATUS_ACESSOS_PENDENTES.DEVOLVIDO_PARA_SOLICITANTE.Value, StringComparison.InvariantCulture))
+                        {
+                            <ControleUserNoValidationBody @ref=FormValidation user="historico.SOLICITACAO.DADOS_SOLICITACAO" Editable=true />
+                        }
+                        else
+                        {
+                            <ControleUserNoValidationBody @ref=FormValidation user="historico.SOLICITACAO.DADOS_SOLICITACAO" Editable=false />
+                        }
+                    </ChildContent>
+                </RadzenFieldset>
+                <br />
+                @if (string.Equals(historico.SOLICITACAO.TIPO, TIPO_ACESSOS_PENDENTES.ALTERACAO.Value, StringComparison.InvariantCulture))
+                {
+                    <RadzenFieldset AllowCollapse="true" Style="width: auto;min-width: 400px;max-width: 35vw; margin: 40px auto ;" Collapsed="true">
+                        <HeaderTemplate>
+                            <span class="d-inline-flex align-items-center align-middle g-2">
+                                <FluentIcon Value="@(new Icons.Filled.Size24.PersonAccounts().WithColor("#5b0baa"))" />
+                                <b>
+                                    DADOS MODIFICADOS
+                                </b>
+                            </span>
+                        </HeaderTemplate>
+                        <ChildContent>
+                            @if (!string.Equals(historico.SOLICITACAO.STATUS_USUARIO, STATUS_ACESSOS_PENDENTES.APROVADO.Value, StringComparison.InvariantCulture))
+                            {
+                                <FluentTabs ActiveTabId="tab-1">
+                                    <FluentTab Id="tab-1">
+                                        <Header>
+                                            Dados Gerais
+                                        </Header>
+                                        <Content>
+                                            @if (propertiesdifferencies.Any())
+                                            {
+                                                <RadzenDataList WrapItems="true" AllowPaging Data=@(propertiesdifferencies) TItem="Tuple<string, object, object>">
+                                                    <Template Context="item">
+                                                        <RadzenCard Style="width: 250px">
+                                                            <div class="row">
+                                                                <div class="col-md-8 text-truncate">
+                                                                    <FluentIcon Value="@(new Icons.Filled.Size12.Person().WithColor("#5b0baa"))" />
+                                                                    <RadzenBadge BadgeStyle="Radzen.BadgeStyle.Light" Text=@(item.Item1) class="me-1" />
+                                                                </div>
+                                                            </div>
+                                                            <hr style="border: none; background-color: rgba(0,0,0,.08); height: 1px; margin: 0.5rem 0;" />
+                                                            <div class="d-flex flex-row align-items-center">
+                                                                <div>
+                                                                    <h6 class="mb-0">
+                                                                        <p>
+                                                                            <span>
+                                                                                <b>
+                                                                                    De:
+                                                                                </b>
+                                                                                @item.Item2
+                                                                            </span>
+                                                                        </p>
+                                                                        <p>
+                                                                            <span>
+                                                                                <b>
+                                                                                    Para:
+                                                                                </b>
+                                                                                <span style="color:#f55762;">
+                                                                                    @item.Item3
+                                                                                </span>
+                                                                            </span>
+                                                                        </p>
+
+                                                                    </h6>
+                                                                </div>
+                                                            </div>
+                                                        </RadzenCard>
+                                                    </Template>
+                                                </RadzenDataList>
+                                            }
+                                            else
+                                            {
+                                                <RadzenStack Gap="0" class="rz-py-8 rz-px-12">
+                                                    <RadzenAlert Title="Atenção!" AllowClose="false" AlertStyle="Radzen.AlertStyle.Danger"
+                                                                 Icon="" Variant="Radzen.Variant.Flat" Shade="Radzen.Shade.Lighter"
+                                                                 Style="color:#f486ba !important">
+                                                        Não há diferenças entre os dados atuais do usuário e a da solicitação.
+                                                    </RadzenAlert>
+                                                </RadzenStack>
+                                            }
+                                        </Content>
+                                    </FluentTab>
+                                    <FluentTab Id="tab-2">
+                                        <Header>
+                                            Perfis
+                                        </Header>
+                                        <Content>
+                                            @{
+                                                var diffPerfis = historico.SOLICITACAO.PERFIS_SOLICITADOS.Where(x => !historico.PERFIS_ACESSOS_MOBILE.Select(x => x.ID_PERFIL).Contains(x.ID_PERFIL));
+                                            }
+
+                                            @if (diffPerfis.Any())
+                                            {
+                                                <FluentAccordion>
+                                                    <FluentAccordionItem Heading="Perfis Atuais" Expanded >
+                                                        @foreach (var (item, index) in historico.PERFIS_ACESSOS_MOBILE.Select((value, i) => (value, i)))
+                                                        {
+                                                            <RadzenFieldset Style="width: auto; margin: 20px auto;color:black" Collapsed="false">
+                                                                <HeaderTemplate>
+                                                                    <span class="d-inline-flex" style="position:relative;color:black">
+                                                                        <RadzenIcon Icon="inventory_2" class="me-1" />
+                                                                        <b>
+                                                                            Perfil N° @(index + 1)
+                                                                        </b>
+                                                                    </span>
+                                                                </HeaderTemplate>
+                                                                <ChildContent>
+
+                                                                    <div style="width: 100%; max-width: 300px; height:150px;">
+                                                                        <Div Flex="Flex.InlineFlex.JustifyContent.Between">
+                                                                            <b style="font-family: Vivo-font-bold;font-size:13px; margin-inline: 3px;color:black">
+                                                                                @item.Perfil.Replace('_', ' ')
+                                                                            </b>
+                                                                            <Blazorise.Tooltip Text="@item.obs">
+                                                                                <Blazorise.Icon Name="Blazorise.IconName.InfoCircle" TextColor="Blazorise.TextColor.Primary"></Blazorise.Icon>
+                                                                            </Blazorise.Tooltip>
+                                                                        </Div>
+                                                                        <br />
+                                                                        <FluentDivider Orientation="Microsoft.FluentUI.AspNetCore.Components.Orientation.Horizontal" />
+                                                                        <br />
+                                                                        <div style="overflow:auto">
+                                                                            <span style="font-family:Vivo-font-light;font-size:14px;color:black">
+                                                                                @item.obs
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </ChildContent>
+                                                            </RadzenFieldset>
+                                                        }
+                                                    </FluentAccordionItem>
+                                                    <FluentAccordionItem Heading="Perfis Solicitados">
+                                                        @foreach (var (item, index) in historico.SOLICITACAO.PERFIS_SOLICITADOS.Select((value, i) => (value, i)))
+                                                        {
+                                                            <RadzenFieldset Style="width: auto; margin: 20px auto;color:black" Collapsed="false">
+                                                                <HeaderTemplate>
+                                                                    <span class="d-inline-flex" style="position:relative;color:black">
+                                                                        <RadzenIcon Icon="inventory_2" class="me-1" />
+                                                                        <b>
+                                                                            Perfil N° @(index + 1)
+                                                                        </b>
+                                                                    </span>
+                                                                </HeaderTemplate>
+                                                                <ChildContent>
+
+                                                                    <div style="width: 100%; max-width: 300px; height:150px;">
+                                                                        <Div Flex="Flex.InlineFlex.JustifyContent.Between">
+                                                                            <b style="font-family: Vivo-font-bold;font-size:13px; margin-inline: 3px;color:#bb1231">
+                                                                                @item.Perfil.Replace('_', ' ')
+                                                                            </b>
+                                                                            <Blazorise.Tooltip Text="@item.obs">
+                                                                                <Blazorise.Icon Name="Blazorise.IconName.InfoCircle" TextColor="Blazorise.TextColor.Primary"></Blazorise.Icon>
+                                                                            </Blazorise.Tooltip>
+                                                                        </Div>
+                                                                        <br />
+                                                                        <FluentDivider Orientation="Microsoft.FluentUI.AspNetCore.Components.Orientation.Horizontal" />
+                                                                        <br />
+                                                                        <div style="overflow:auto">
+                                                                            <span style="font-family:Vivo-font-light;font-size:14px;color:black">
+                                                                                @item.obs
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </ChildContent>
+                                                            </RadzenFieldset>
+                                                        }
+                                                    </FluentAccordionItem>
+                                                </FluentAccordion>
+                                            }
+                                            else
+                                            {
+                                                <RadzenStack Gap="0" class="rz-py-8 rz-px-12">
+                                                    <RadzenAlert Title="Atenção!" AllowClose="false" AlertStyle="Radzen.AlertStyle.Danger"
+                                                                 Icon="" Variant="Radzen.Variant.Flat" Shade="Radzen.Shade.Lighter"
+                                                                 Style="color:#f486ba !important">
+                                                        Não há diferenças entre os perfis atuais do usuário e os da solicitação.
+                                                    </RadzenAlert>
+                                                </RadzenStack>
+                                            }
+                                        </Content>
+                                    </FluentTab>
+                                </FluentTabs>
+
+                            }
+                            else
+                            {
+                            }
+                        </ChildContent>
+                    </RadzenFieldset>
+                }
+            </FluentStack>
+            @* Dados da solicitação *@
+
+            @* Histórico de Conversa *@
+            <FluentStack Orientation="Orientation.Horizontal"
+                         HorizontalAlignment="HorizontalAlignment.Center">
+                <RadzenFieldset AllowCollapse="false" Style="width: auto;min-width: 50vw;max-width: 75vw;width:auto; margin: auto 40px;">
+                    <HeaderTemplate>
+                        <span class="d-inline-flex align-items-center align-middle g-2">
+                            <FluentIcon Value="@(new Icons.Filled.Size24.ChatMultiple().WithColor("#5b0baa"))" />
+                            <b>HISTÓRICO</b>
+                        </span>
+                    </HeaderTemplate>
+                    <ChildContent>
+                        <FluentStack Orientation="Orientation.Vertical" VerticalAlignment="VerticalAlignment.Center"
+                                     HorizontalAlignment="HorizontalAlignment.Center" Wrap=false>
+                            <RadzenDataList WrapItems="true" AllowPaging="false" class="historico"
+                                            Data=@(historico.RESPOSTAS.OrderByDescending(x => Convert.ToDateTime(x.DATA))) TItem="MENSAGEM_ACESSO_PENDENTE">
+                                <Template Context="item">
+                                    <MensagemUsuarioPendente item="item" />
+                                </Template>
+                            </RadzenDataList>
+                        </FluentStack>
+                    </ChildContent>
+                </RadzenFieldset>
+            </FluentStack>
+            @* Histórico de Conversa *@
+
+            @* BODY *@
+            @* FOOTER *@
+            <section class="footer-page" @onmouseenter="MouseFooterEnter" @onmouseleave=MouseFooterLeave>
+                <aside>
+                    <FluentIcon Value="@(new Icons.Filled.Size48.ArrowLeft().WithColor("#ffffff"))" />
+                </aside>
+                @if (historico.SOLICITACAO.STATUS_USUARIO != STATUS_ACESSOS_PENDENTES.CANCELADO.Value
+               && historico.SOLICITACAO.STATUS_USUARIO != STATUS_ACESSOS_PENDENTES.APROVADO.Value
+               && historico.SOLICITACAO.STATUS_USUARIO != STATUS_ACESSOS_PENDENTES.REPROVADO.Value)
+                {
+                    <FluentStack Orientation="Orientation.Horizontal" Class="@(FooterOpen ? "footer-open": "footer-closed")"
+                                 VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.Center">
+                        <AuthorizeView Policy="ControleAcessosMaster">
+                            <Authorized>
+                                @if (!string.Equals(historico.SOLICITACAO.STATUS_USUARIO, STATUS_ACESSOS_PENDENTES.DEVOLVIDO_PARA_SOLICITANTE.Value, StringComparison.InvariantCulture))
+                                {
+                                    <FluentButton BackgroundColor="#53a63f"
+                                                  OnClick="@(async() => await AnswerAcesso("Por favor escreva uma mensagem para o solicitante deste acesso"
+                                  , STATUS_ACESSOS_PENDENTES.APROVADO
+                                  , "Aprovar solicitação"))">
+                                        <FluentIcon Value="@(new Icons.Filled.Size24.Checkmark().WithColor("#ffffff"))" Slot="start" />
+                                        Aprovar
+                                    </FluentButton>
+                                    <FluentButton BackgroundColor="#00acdf"
+                                                  OnClick="@(async() => await AnswerAcesso("Por favor escreva uma mensagem para o solicitante deste acesso"
+                                  , STATUS_ACESSOS_PENDENTES.DEVOLVIDO_PARA_SOLICITANTE
+                                  , "Retornar solicitação"))">
+                                        <FluentIcon Value="@(new Icons.Filled.Size24.PersonArrowBack().WithColor("#ffffff"))" Slot="start" />
+                                        Devolver
+                                    </FluentButton>
+                                    <FluentButton BackgroundColor="#fd1c7d"
+                                                  OnClick="@(async() => await AnswerAcesso("Por favor escreva uma mensagem para o solicitante deste acesso"
+                                  , STATUS_ACESSOS_PENDENTES.REPROVADO
+                                  , "Reprovar Solicitação"))">
+                                        <FluentIcon Value="@(new Icons.Filled.Size24.Dismiss().WithColor("#ffffff"))" Slot="start" />
+                                        Reprovar
+                                    </FluentButton>
+                                }
+                            </Authorized>
+                        </AuthorizeView>
+                        @if (historico.SOLICITACAO.LOGIN_SOLICITANTE.MATRICULA == UserService.User.MATRICULA)
+                        {
+                            @if (string.Equals(historico.SOLICITACAO.STATUS_USUARIO, STATUS_ACESSOS_PENDENTES.DEVOLVIDO_PARA_SOLICITANTE.Value, StringComparison.InvariantCulture))
+                            {
+                                <FluentButton BackgroundColor="#ffcc41"
+                                              OnClick="@(async() => await AnswerAcesso("Por favor escreva uma mensagem para o analista resposável",
+                            STATUS_ACESSOS_PENDENTES.AGUARDANDO_ANALISTA
+                            , "Retornar solicitação para analista"))">
+                                    <FluentIcon Value="@(new Icons.Filled.Size24.PersonArrowBack().WithColor("#ffffff"))" Slot="start" />
+                                    Devolver para Analista
+                                </FluentButton>
+                            }
+
+                            <FluentButton BackgroundColor="#d22a46"
+                                          OnClick="@(async() => await AnswerAcesso("Por favor escreva uma mensagem para o solicitante deste acesso",
+                              STATUS_ACESSOS_PENDENTES.CANCELADO
+                              , "Cancelar Solicitação"))">
+                                <FluentIcon Value="@(new Icons.Filled.Size24.Dismiss().WithColor("#ffffff"))" Slot="start" />
+                                Cancelar
+                            </FluentButton>
+                        }
+                    </FluentStack>
+                }
+            </section>
+            @* FOOTER *@
+        }
+        else
+        {
+
+        }
+    }
+</div>
