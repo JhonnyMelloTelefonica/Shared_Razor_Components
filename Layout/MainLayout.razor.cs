@@ -16,7 +16,6 @@ namespace Shared_Razor_Components.Layout
 {
     public partial class MainLayout : LayoutComponentBase
     {
-        [Inject] HubConnection HubConnection { get; set; }
         [Inject] IRegisterService _contextservice { get; set; }
         [Inject] GetUser_REDECORP getUser_REDECORP { get; set; }
         [Inject] ILoadingIndicatorService ApplicationLoadingIndicatorService { get; set; }
