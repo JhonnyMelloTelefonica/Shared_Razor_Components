@@ -25,6 +25,7 @@ namespace Shared_Razor_Components.Layout
         [Inject] private UserService user { get; set; }
         [Inject] private ViewOptionService ViewOption { get; set; }
         [Inject] private UserCard User { get; set; }
+        //[Inject] HubConnection HubConnection { get; set; }
         bool IsDevelopment { get; set; } = false;
 
         List<ToastMessage> messagesToast = new List<ToastMessage>();
@@ -50,13 +51,12 @@ namespace Shared_Razor_Components.Layout
         };
 
         public List<Notification> messages = new();
-        public bool IsConnected => HubConnection?.State == HubConnectionState.Connected;
-        [Inject] HubConnection HubConnection { get; set; }
+        //public bool IsConnected => HubConnection?.State == HubConnectionState.Connected;
 
         protected override async Task OnInitializedAsync()
         {
             ViewOption.PropertyChanged += OnStateChanged;
-            IsDevelopment = Env.EnvironmentName.ToLower() == "development" ? true : false;
+                    IsDevelopment = Env.EnvironmentName.ToLower() == "development" ? true : false;
             await base.OnInitializedAsync();
         }
 
@@ -66,27 +66,27 @@ namespace Shared_Razor_Components.Layout
             {
                 try
                 {
-                    HubConnection.On<string, string, string, string>("NewNotification", (nome, titulo, mensagem, link) =>
-                    {
-                        messagesToast.Add(CreateToastMessage(ToastType.Info, titulo, mensagem));
+                    //HubConnection.On<string, string, string, string>("NewNotification", (nome, titulo, mensagem, link) =>
+                    //{
+                    //    messagesToast.Add(CreateToastMessage(ToastType.Info, titulo, mensagem));
 
-                        messages.Add(new Notification
-                        {
-                            Hora = DateTime.Now,
-                            message = mensagem,
-                            SenderName = nome,
-                            Title = titulo,
-                            link = link
-                        });
+                    //    messages.Add(new Notification
+                    //    {
+                    //        Hora = DateTime.Now,
+                    //        message = mensagem,
+                    //        SenderName = nome,
+                    //        Title = titulo,
+                    //        link = link
+                    //    });
 
-                        InvokeAsync(StateHasChanged);
-                    });
+                    //    InvokeAsync(StateHasChanged);
+                    //});
 
-                    HubConnection.On<string>("UsersOnlineCount", (count) =>
-                    {
-                        CountUsersOnline = int.Parse(count);
-                        InvokeAsync(StateHasChanged);
-                    });
+                    //HubConnection.On<string>("UsersOnlineCount", (count) =>
+                    //{
+                    //    CountUsersOnline = int.Parse(count);
+                    //    InvokeAsync(StateHasChanged);
+                    //});
                 }
                 catch (Exception ex)
                 {
@@ -111,10 +111,6 @@ namespace Shared_Razor_Components.Layout
 
         public void Dispose()
         {
-            if (HubConnection is not null)
-            {
-                HubConnection.DisposeAsync();
-            }
             ViewOption.PropertyChanged -= OnStateChanged;
         }
 
@@ -141,16 +137,18 @@ namespace Shared_Razor_Components.Layout
 
         private string NameUser(string nomeCompleto)
         {
-            string[] partesNome = nomeCompleto.Split();
-
-            if (partesNome.Length > 0)
+            if (!string.IsNullOrEmpty(nomeCompleto))
             {
-                string primeiroNome = partesNome[0];
-                string ultimoNome = partesNome[partesNome.Length - 1];
+                string[] partesNome = nomeCompleto.Split();
 
-                return textInfo.ToUpper(primeiroNome) + " " + textInfo.ToUpper(ultimoNome);
+                if (partesNome.Length > 0)
+                {
+                    string primeiroNome = partesNome[0];
+                    string ultimoNome = partesNome[partesNome.Length - 1];
+
+                    return textInfo.ToUpper(primeiroNome) + " " + textInfo.ToUpper(ultimoNome);
+                }
             }
-
             return string.Empty; // Se não houver partes no nome, retorna uma string vazia ou outra coisa apropriada.
         }
 

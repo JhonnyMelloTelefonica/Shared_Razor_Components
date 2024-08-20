@@ -82,7 +82,7 @@ namespace Shared_Razor_Components.Layout
                 };
             }
             await VerifyCurrentUserExists();
-            ViewOption.PropertyChanged += OnStateChanged;
+            //ViewOption.PropertyChanged += OnStateChanged;
         }
 
         private void OnStateChanged(object? sender, PropertyChangedEventArgs e) => InvokeAsync(Update);
