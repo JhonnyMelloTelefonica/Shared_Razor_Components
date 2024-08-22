@@ -139,13 +139,9 @@ namespace Shared_Razor_Components.Shared
     {
         [Inject] IJSRuntime JSRuntime { get; set; }
         [Parameter] public List<FileDataModel> Files { get; set; } = new();
-
         [Parameter] public string Filter { get; set; }
-
         [Parameter] public string Title { get; set; }
-
         [Parameter] public bool AllowMulitple { get; set; }
-
         [Parameter] public Action Uploaded { get; set; }
         [Parameter] public string BackgroundColor { get; set; } = "#7719aa";
         [Parameter] public string Color { get; set; } = "white";
@@ -168,7 +164,7 @@ namespace Shared_Razor_Components.Shared
             if (firstRender)
             {
                 // Load the JS file
-                _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Shared_Razor_Components/dropZone.js");
+                _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./JS/dropZone.js");
 
                 // Initialize the drop zone
                 _dropZoneInstance = await _module.InvokeAsync<IJSObjectReference>("initializeFileDropZone", dropZoneElement, inputFile);

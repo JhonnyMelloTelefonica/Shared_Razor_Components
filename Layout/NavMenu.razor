@@ -5,7 +5,7 @@
     @* !!!!!logo do navmenu !!!!! *@
 
     <div style="padding-right: 1%!important">
-        <img id="logoElement" src="_content/Shared_Razor_Components/images/icone-vivox.png" alt="Logo" class="logo_home" style="width:80px;height:80px;">
+        <img id="logoElement" src="images/icone-vivox.png" alt="Logo" class="logo_home" style="width:80px;height:80px;">
     </div>
 
     @* !!!!! nav com a navegação para os modulos e opções do usuário !!!!! *@
@@ -19,7 +19,7 @@
                 @{
                     string vivomaislink = IsDevelopment ? "http://localhost:5172/" : "http://brtdtbgs0090sl:8083/";
                 }
-                <a href="#">Vivo +</a>
+                <a href="#">Controle de Demandas</a>
                 <ul class="submenu">
                     <li class="submenu-item"><a href="@(vivomaislink)demandas/solicitar">Abrir Demanda</a></li>
                     <li class="submenu-item"><a href="@(vivomaislink)demandas">Painel de Chamados</a></li>
@@ -30,7 +30,7 @@
                 </ul>
             </li>
             <li class="menu-item">
-                <a href="#">Rota Cruzada</a>
+                <a href="#">Giro V</a>
                 <ul class="submenu">
                     <li class="submenu-item"><a href="CriarFormulario">Criar Provas</a></li>
                     <li class="submenu-item"><a href="Avaliacoes">Resultados</a></li>

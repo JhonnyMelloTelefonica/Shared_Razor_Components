@@ -1,0 +1,717 @@
+[
+  {
+    "Uf": "AL",
+    "Area": "T - AL",
+    "SubArea": "0012 AL Sede"
+  },
+  {
+    "Uf": "AL",
+    "Area": "T - AL",
+    "SubArea": "0405 ALCD Ce Distrib"
+  },
+  {
+    "Uf": "AL",
+    "Area": "T - AL",
+    "SubArea": "0404 AL Lj S Ce Igua"
+  },
+  {
+    "Uf": "AL",
+    "Area": "T - AL",
+    "SubArea": "0401 AL CCC Jacintin"
+  },
+  {
+    "Uf": "AL",
+    "Area": "T - AL",
+    "SubArea": "0705 AL Maceio Centro"
+  },
+  {
+    "Uf": "AL",
+    "Area": "T - AL",
+    "SubArea": "0704 AL Maceio Tabuleiro do Martins"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0547 BA Lj S Iguatem"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0546 BA Lj ACM Pitub"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0544 BA Lj Sh Barra"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0548 BA Lj F Santana"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0545 BA Recepção"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0544 BA Lj SCL Barri"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0555 BA Lj Alagoinha"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0551 BA Lj Ilhéus"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0549 BA Lj 7 Setemb"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0024 BA Sede"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0558 BA Lj Vit Conqu"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0556 BA Lj Juazeiro"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0552 BA Lj Pt Seguro"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0553 BA Lj T Freitas"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0550 BA Lj Itabuna"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0554 BA Lj Barreiras"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0557 BA Lj S Sal Cab"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0544 BA Loja Shopping Center Lapa"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0548 Shopping Center Plaza"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0024 Telefonica Brasil S.A - BA"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0555 Loja Alagoinhas"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0718 BA Camacari"
+  },
+  {
+    "Uf": "BA",
+    "Area": "T - BA",
+    "SubArea": "0721 BA FEIRA SANTAN"
+  },
+  {
+    "Uf": "CE",
+    "Area": "T - CE",
+    "SubArea": "0011 CE Sede"
+  },
+  {
+    "Uf": "CE",
+    "Area": "T - CE",
+    "SubArea": "0262 CE Lj North Sh"
+  },
+  {
+    "Uf": "CE",
+    "Area": "T - CE",
+    "SubArea": "0269 CE CD Fortaleza"
+  },
+  {
+    "Uf": "CE",
+    "Area": "T - CE",
+    "SubArea": "0266 CE Lj S Ce Igua"
+  },
+  {
+    "Uf": "CE",
+    "Area": "T - CE",
+    "SubArea": "0264 CE Lj Triângulo"
+  },
+  {
+    "Uf": "CE",
+    "Area": "T - CE",
+    "SubArea": "0638 CE Fortaleza Centro"
+  },
+  {
+    "Uf": "CE",
+    "Area": "T - CE",
+    "SubArea": "0639 CE Fortaleza Dionisio Torres"
+  },
+  {
+    "Uf": "CE",
+    "Area": "T - CE",
+    "SubArea": "0640 CE Fortaleza Ancuri"
+  },
+  {
+    "Uf": "CE",
+    "Area": "T - CE",
+    "SubArea": "0641 CE Fortaleza Ancuri 2"
+  },
+  {
+    "Uf": "MA",
+    "Area": "T - MA",
+    "SubArea": "0522 MA Lj Cohama"
+  },
+  {
+    "Uf": "MA",
+    "Area": "T - MA",
+    "SubArea": "0505 MA Lj S São Luís"
+  },
+  {
+    "Uf": "MA",
+    "Area": "T - MA",
+    "SubArea": "0504 MA Lj Sh Coloni"
+  },
+  {
+    "Uf": "MA",
+    "Area": "T - MA",
+    "SubArea": "0004 MA Sede"
+  },
+  {
+    "Uf": "MA",
+    "Area": "T - MA",
+    "SubArea": "0509 MA CD MA01"
+  },
+  {
+    "Uf": "MA",
+    "Area": "T - MA",
+    "SubArea": "0507 MA Lj Renascença"
+  },
+  {
+    "Uf": "MA",
+    "Area": "T - MA",
+    "SubArea": "0508 MA Lj Imperatri"
+  },
+  {
+    "Uf": "MA",
+    "Area": "T - MA",
+    "SubArea": "0511 MA Loja Cohab"
+  },
+  {
+    "Uf": "PA",
+    "Area": "T - PA",
+    "SubArea": "0019 PA Sede"
+  },
+  {
+    "Uf": "PA",
+    "Area": "T - PA",
+    "SubArea": "0525 PA Lj Doca Boul"
+  },
+  {
+    "Uf": "PA",
+    "Area": "T - PA",
+    "SubArea": "0528 PA Lj Castanhei"
+  },
+  {
+    "Uf": "PA",
+    "Area": "T - PA",
+    "SubArea": "0525 PA Qui Iguatemi"
+  },
+  {
+    "Uf": "PA",
+    "Area": "T - PA",
+    "SubArea": "0527 PA CD PA01"
+  },
+  {
+    "Uf": "PA",
+    "Area": "T - PA",
+    "SubArea": "0525 PA Lj Sh Iguate"
+  },
+  {
+    "Uf": "PA",
+    "Area": "T - PA",
+    "SubArea": "0526 PA Lj P Eutiqui"
+  },
+  {
+    "Uf": "PA",
+    "Area": "T - PA",
+    "SubArea": "0529 PA Lj Santarém"
+  },
+  {
+    "Uf": "PA",
+    "Area": "T - PA",
+    "SubArea": "0530 PA Lj Marabá"
+  },
+  {
+    "Uf": "PA",
+    "Area": "T - PA",
+    "SubArea": "0531 PA Lj Redenção"
+  },
+  {
+    "Uf": "PB",
+    "Area": "T - PB",
+    "SubArea": "0026 PB Sede"
+  },
+  {
+    "Uf": "PB",
+    "Area": "T - PB",
+    "SubArea": "0334 PB Lj Mana S Ce"
+  },
+  {
+    "Uf": "PB",
+    "Area": "T - PB",
+    "SubArea": "0333 PB CCC Estados"
+  },
+  {
+    "Uf": "PB",
+    "Area": "T - PB",
+    "SubArea": "0524 PB Lj Camp Gde"
+  },
+  {
+    "Uf": "PB",
+    "Area": "T - PB",
+    "SubArea": "0519 PB Lj Epitácio"
+  },
+  {
+    "Uf": "PB",
+    "Area": "T - PB",
+    "SubArea": "0637 PB Campina Grande São José"
+  },
+  {
+    "Uf": "PB",
+    "Area": "T - PB",
+    "SubArea": "0026 Telefonica Brasil S.A - PB"
+  },
+  {
+    "Uf": "PE",
+    "Area": "T - PE",
+    "SubArea": "0008 PE Sede"
+  },
+  {
+    "Uf": "PE",
+    "Area": "T - PE",
+    "SubArea": "0386 PE CD Jab Guara"
+  },
+  {
+    "Uf": "PE",
+    "Area": "T - PE",
+    "SubArea": "0289 PE Lj Sh Recife"
+  },
+  {
+    "Uf": "PE",
+    "Area": "T - PE",
+    "SubArea": "0393 PE Lj Petrolina"
+  },
+  {
+    "Uf": "PE",
+    "Area": "T - PE",
+    "SubArea": "0513 PE LjS Tacaruna"
+  },
+  {
+    "Uf": "PE",
+    "Area": "T - PE",
+    "SubArea": "0514 PE Lj Rio Mar"
+  },
+  {
+    "Uf": "PE",
+    "Area": "T - PE",
+    "SubArea": "0654 PE Caruaru Petropólis"
+  },
+  {
+    "Uf": "PE",
+    "Area": "T - PE",
+    "SubArea": "0630 PE Recife Imbiribeira"
+  },
+  {
+    "Uf": "PE",
+    "Area": "T - PE",
+    "SubArea": "0660 PE Joboatão dos Guararapes Muribeca"
+  },
+  {
+    "Uf": "PE",
+    "Area": "T - PE",
+    "SubArea": "0697 PE Gravata Gravatá Centro"
+  },
+  {
+    "Uf": "PE",
+    "Area": "T - PE",
+    "SubArea": "0701 PE Vitória de Santo Antônio Bela Vista"
+  },
+  {
+    "Uf": "PI",
+    "Area": "T - PI",
+    "SubArea": "0007 PI Sede"
+  },
+  {
+    "Uf": "PI",
+    "Area": "T - PI",
+    "SubArea": "0458 PI Lj Riv Wal S"
+  },
+  {
+    "Uf": "PI",
+    "Area": "T - PI",
+    "SubArea": "0459 PI Lj Catarina"
+  },
+  {
+    "Uf": "PI",
+    "Area": "T - PI",
+    "SubArea": "0520 PI Lj F Serafim"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0518 PR Londrina Hig"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0010 PR Sede"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0183 PR Lj Lon Calça"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0188 PR Lj SJPinhais"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0186 PR Lj Pt Grossa"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0202 PR Lj Foz Igua"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0273 PR Lj Cascavel"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0173 PR Lj Guarapuav"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0189 PR Lj Paranaguá"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0201 PR Lj Marechal"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0192 PR Lj S Mueller"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0184 PR Catuai S Ce"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0199 PR Lj S Barigu"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0187 PR Wharehouse"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0178 PR Lj Mar Bra C"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0193 PR Lj S Curitib"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0180 PR Lj Maringá P"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0185 PR Lj S Paladi"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0200 PR Lj S Crysta"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0182 PR Lj Apucarana"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0196 PR Lj S Estação"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0191 PR Lj S Pa Curi"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0190 PR CCC Pe Gusso"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0277 PR CCC CABRAL"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0622 PR Apucarana Centro"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0621 PR Cascavel Parque São Paulo"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0623 PR Cascavel Centro"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0613 PR Foz do Iguaçu Centro"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0625 PR Londrina Centro"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0626 PR Londrina N.Sra.Lourdes"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0627 PR Maringá Zona 06"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0617 PR Maringa Zona 01"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0616 PR Maringá Zona 01 - 1"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0618 PR Paranaguá Raia"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0620 PR Pinhais Emiliano Perneta"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0619 PR Ponta Grossa Centro"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0624 PR Ponta Grossa Centro - 1"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0666 PR Curitiba Centro 1"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0669 PR Curitiba Parolin"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0668 PR Curitiba Centro 2"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0665 PR Curitiba Cidade Industrial"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0667 PR Curitiba Hauer"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0628 PR Foz do Iguaçu Centro"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0629 PR Guarapuava Centro"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0694 PR Curitiba Rebouças"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0695 PR Curitiba Prado Velho"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0700 PR Curitiba Cidade Industrial"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0711 PR QUATRO BARRAS"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0713 PR Paranavaí Centro"
+  },
+  {
+    "Uf": "PR",
+    "Area": "T - PR",
+    "SubArea": "0715 PR Umuarama"
+  },
+  {
+    "Uf": "RN",
+    "Area": "T - RN",
+    "SubArea": "0020 RN Sede"
+  },
+  {
+    "Uf": "RN",
+    "Area": "T - RN",
+    "SubArea": "0391 RN Lj Midway SC"
+  },
+  {
+    "Uf": "RN",
+    "Area": "T - RN",
+    "SubArea": "0283 RN CCC Cid Espe"
+  },
+  {
+    "Uf": "RN",
+    "Area": "T - RN",
+    "SubArea": "0532 RN Lj Mossoro"
+  },
+  {
+    "Uf": "RN",
+    "Area": "T - RN",
+    "SubArea": "0670 RN Natal Tirol"
+  },
+  {
+    "Uf": "RN",
+    "Area": "T - RN",
+    "SubArea": "0671 RN NATAL Lagoa Seca"
+  },
+  {
+    "Uf": "RN",
+    "Area": "T - RN",
+    "SubArea": "0672 RN Parnamirim Emaus"
+  },
+  {
+    "Uf": "RS",
+    "Area": "T - RS",
+    "SubArea": "0645 RS Canoas Centro"
+  },
+  {
+    "Uf": "SE",
+    "Area": "T - SE",
+    "SubArea": "0380 SE Lj Fra Porto"
+  },
+  {
+    "Uf": "SE",
+    "Area": "T - SE",
+    "SubArea": "0385 SE Largato"
+  },
+  {
+    "Uf": "SE",
+    "Area": "T - SE",
+    "SubArea": "0381 SE Lj Ri Branco"
+  },
+  {
+    "Uf": "SE",
+    "Area": "T - SE",
+    "SubArea": "0379 SE Lj Jardins"
+  },
+  {
+    "Uf": "SE",
+    "Area": "T - SE",
+    "SubArea": "0025 SE Sede"
+  },
+  {
+    "Uf": "SE",
+    "Area": "T - SE",
+    "SubArea": "0673 SE Aracaju Centro"
+  },
+  {
+    "Uf": "SE",
+    "Area": "T - SE",
+    "SubArea": "0674 SE Aracaju São José"
+  }
+]
