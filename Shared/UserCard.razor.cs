@@ -14,6 +14,13 @@ namespace Shared_Razor_Components.Shared
         [Inject] IJSRuntime JSRuntime { get; set; }
         [Parameter] public ACESSOS_MOBILE_DTO User { get; set; } = new();
 
+        [Parameter]
+        public RenderFragment? ImageUser { get; set; } 
+
+        [Parameter]
+        public RenderFragment? senhaUser { get; set; } 
+
+      
         public event Action OnChange;
 
         protected override void OnInitialized()
