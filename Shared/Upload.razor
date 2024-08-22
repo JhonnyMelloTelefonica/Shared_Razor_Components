@@ -53,41 +53,43 @@
 }
 else
 {
-    <input id="Xinputfile00" type="file" accept="@Filter" @onchange="UploadFile" hidden />
-    @if (!Busy)
-    {
-        @if (!Files.Any())
+    <input id="Xinputfile00" type="file" accept="@Filter" @onchange="UploadFile" hidden @ref=inputFile />
+    <div @ref="dropZoneElement" for="file">
+        @if (!Busy)
         {
-            <FluentButton Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2" @onclick="ClickUpload">
-                <p class="m-2">
-                    @if (Icon is not null)
-                    {
-                        @Icon
-                    }
-                    @Title
-                </p>
-            </FluentButton>
+            @if (!Files.Any())
+            {
+                <FluentButton Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2" @onclick="ClickUpload">
+                    <p class="m-2">
+                        @if (Icon is not null)
+                        {
+                            @Icon
+                        }
+                        @Title
+                    </p>
+                </FluentButton>
+            }
+            else
+            {
+                var file = Files.First();
+                <FluentButton Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2" @onclick="ClickUpload">
+                    <p class="m-2">
+                        Arquivo: @file.FileName
+                    </p>
+                </FluentButton>
+            }
         }
         else
         {
-            var file = Files.First();
-            <FluentButton Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2" @onclick="ClickUpload">
+            <FluentButton Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2">
                 <p class="m-2">
-                    Arquivo: @file.FileName
+                    <span class="spinner-border spinner-border-sm" />
+                    @Title
                 </p>
             </FluentButton>
-        }
-    }
-    else
-    {
-        <FluentButton Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2">
-            <p class="m-2">
-                <span class="spinner-border spinner-border-sm" />
-                @Title
-            </p>
-        </FluentButton>
 
-    }
+        }
+    </div>
 }
 
 <br />
@@ -130,7 +132,7 @@ else
 </style>
 
 
-@* 
+@*
 @using JustifyContent = Microsoft.FluentUI.AspNetCore.Components.JustifyContent;
 @using System.IO.Compression;
 @using Radzen.Blazor;
