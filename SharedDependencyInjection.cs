@@ -17,7 +17,6 @@ namespace Shared_Razor_Components
     {
         public static void AddSharedServices(this IServiceCollection services)
         {
-            //services.ConfigureOptions(typeof(EditorRCLConfigureOptions));
             services.AddSingleton<StaticUserRedecorp>(); // necessariamente Singleton pois guardam valores que são comuns a todos
             services.AddSingleton<GetUser_REDECORP>(); // necessariamente Singleton pois guardam valores que são comuns a todos
             services.AddScoped<Radzen.DialogService>();
