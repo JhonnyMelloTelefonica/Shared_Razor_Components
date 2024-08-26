@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Shared_Class_Vivo_Apps.Services;
+using Shared_Class_Vivo_Apps.ViewModels;
 using Shared_Razor_Components.Shared;
 using Shared_Static_Class.Model;
 using Shared_Static_Class.Models;
@@ -18,11 +19,15 @@ namespace Shared_Razor_Components
         public static void AddSharedServices(this IServiceCollection services)
         {
             //services.ConfigureOptions(typeof(EditorRCLConfigureOptions));
+
             services.AddSingleton<StaticUserRedecorp>(); // necessariamente Singleton pois guardam valores que são comuns a todos
             services.AddSingleton<GetUser_REDECORP>(); // necessariamente Singleton pois guardam valores que são comuns a todos
             services.AddScoped<Radzen.DialogService>();
             services.AddScoped<ViewOptionService>();
             services.AddScoped<UserCard>();
+
+            services.AddScoped<ControleUsuariosAppViewModel>();
+
             services.AddSingleton<IPainelUsuariosService, PainelUsuariosService>();
             services.AddSingleton<IPrincipalService, PrincipalService>();
             services.AddSingleton<IControleUsuariosAppService, ControleUsuariosAppService>();
