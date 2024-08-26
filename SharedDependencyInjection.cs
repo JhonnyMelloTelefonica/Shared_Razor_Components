@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Shared_Class_Vivo_Apps.Services;
+using Shared_Class_Vivo_Apps.ViewModels;
 using Shared_Razor_Components.Shared;
 using Shared_Static_Class.Model;
 using Shared_Static_Class.Models;
@@ -22,6 +23,9 @@ namespace Shared_Razor_Components
             services.AddScoped<Radzen.DialogService>();
             services.AddScoped<ViewOptionService>();
             services.AddScoped<UserCard>();
+
+            services.AddScoped<ControleUsuariosAppViewModel>();
+
             services.AddSingleton<IPainelUsuariosService, PainelUsuariosService>();
             services.AddSingleton<IPrincipalService, PrincipalService>();
             services.AddSingleton<IControleUsuariosAppService, ControleUsuariosAppService>();

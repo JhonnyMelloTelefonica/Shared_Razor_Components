@@ -16,7 +16,6 @@ namespace Shared_Razor_Components.Layout
 {
     public partial class ControleUserNoValidationBody : ComponentBase, IDisposable
     {
-
         [Parameter]
         public SOLICITAR_USUARIO_MODEL user { get; set; }
         [Parameter]
@@ -81,7 +80,7 @@ namespace Shared_Razor_Components.Layout
                     await service.LoadDataCarteira();
                 }
 
-                Perfis_Plataforma = service.perfis;
+                Perfis_Plataforma = service.perfis.Select(x=> new PERFIL_PLATAFORMAS_VIVO(x.ID_PERFIL,x.Perfil,x.obs,x.CARGO)).ToList();
                 ShouldRender = true;
                 StateHasChanged();
             }
