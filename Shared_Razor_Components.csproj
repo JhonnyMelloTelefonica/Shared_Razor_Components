@@ -11,10 +11,6 @@
 		<EmbeddedResource Include="wwwroot\**\*" />
 	</ItemGroup>
 	<ItemGroup>
-		<Content Remove="wwwroot\dropZone.js" />
-		<Content Remove="wwwroot\images\icone-vivox.png" />
-	</ItemGroup>
-	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 	<ItemGroup>
@@ -22,7 +18,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.1.0" />
+		<PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="2.1.1" />
 		<PackageReference Include="AutoMapper" Version="13.0.1" />
 		<PackageReference Include="Blazor.Bootstrap" Version="2.2.0" />
 		<PackageReference Include="BlazorDownloadFile" Version="2.4.0.2" />
@@ -77,17 +74,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Shared_Static_Class\Shared_Static_Class.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="wwwroot\dropZone.js" />
-		<None Include="wwwroot\VivoCustomComponents.js" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Update="VivoCustomComponents\VivoDoubleCheckBoxInput.razor">
-			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-		</Content>
 	</ItemGroup>
 
 	<Import Project="..\Shared_Class_Vivo_Apps\Shared_Class_Vivo_Apps.projitems" Label="Shared" />
