@@ -59,8 +59,8 @@ else
         {
             @if (!Files.Any())
             {
-                <FluentButton Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2" @onclick="ClickUpload">
-                    <p class="m-2">
+                <FluentButton Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2 ButtonUpload" @onclick="ClickUpload">
+                    <p class="m-2 innerUpload ">
                         @if (Icon is not null)
                         {
                             @Icon
@@ -72,17 +72,20 @@ else
             else
             {
                 var file = Files.First();
-                <FluentButton Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2" @onclick="ClickUpload">
-                    <p class="m-2">
+                <FluentButton @onclick="() => RemoveItem(file)" Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2 ButtonUpload ButtonLoadedFile" IconStart="@(new Icons.Regular.Size24.DismissCircle().WithColor("#FFFFFF"))">
+                    <p class="m-2 innerUpload loadedFile">
                         Arquivo: @file.FileName
                     </p>
+                    @* <div class="loadedFile">
+        @file.FileName
+        </div> *@
                 </FluentButton>
             }
         }
         else
         {
-            <FluentButton Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2">
-                <p class="m-2">
+            <FluentButton Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2 ButtonUpload">
+                <p class="m-2 innerUpload">
                     <span class="spinner-border spinner-border-sm" />
                     @Title
                 </p>
@@ -92,7 +95,17 @@ else
     </div>
 }
 
+@((MarkupString)@"
+    <style>
+    .start{
+        margin:0px!important;
+        }
+    </style>
+    ")
+
 <br />
+
+
 
 <style>
     .form__input {
@@ -129,6 +142,84 @@ else
         .form__input:invalid {
             color: red;
         }
+
+    .ButtonUpload {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        font-family: 'Vivo-font-bold' !important;
+        background: #9957B9 !important;
+        font-size: 13px !important;
+        padding: 2% 4% 2% 4% !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        color: white !important;
+        border-radius: 5px;
+        border-color: transparent;
+    }
+
+
+    .innerUpload {
+        font-family: 'Vivo-font-bold' !important;
+        font-size: 13px !important;
+        color: white !important;
+        padding: 2%;
+    }
+
+    .ButtonLoadedFile::before {
+        content: "\2713";
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        left: 88%;
+        top: 0%;
+        transform: translateY(-42%);
+        font-size: 15px;
+        color: #198754;
+        border: solid;
+        padding: 3% 1% 3%;
+        border-radius: 100%;
+        background: white;
+        font-weight: bold;
+        height: 25px;
+        width: 25px;
+        z-index: 1;
+    }
+
+    .ButtonUploadFile:hover {
+        opacity: 1 !important;
+    }
+
+    .loadedFile {
+        max-width: 100px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    .ButtonUpload .control .start {
+        margin: 0px !important
+    }
+
+    .start[start] {
+        margin: 0 !important;
+    }
+
+    .start part[start] {
+        margin: 0 !important;
+    }
+
+    .start:part[start] {
+        margin: 0 !important;
+    }
+
+   .ButtonUpload::part(start) {
+        margin: 0 !important;
+    }
+
 </style>
 
 

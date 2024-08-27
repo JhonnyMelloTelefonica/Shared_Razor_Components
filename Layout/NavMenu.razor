@@ -19,7 +19,7 @@
                 @{
                     string vivomaislink = IsDevelopment ? "http://localhost:5172/" : "http://brtdtbgs0090sl:8083/";
                 }
-                <a href="#">Vivo +</a>
+                <a href="@(vivomaislink)">Vivo +</a>
                 <ul class="submenu">
                     <li class="submenu-item"><a href="@(vivomaislink)demandas/solicitar">Abrir Demanda</a></li>
                     <li class="submenu-item"><a href="@(vivomaislink)demandas">Painel de Chamados</a></li>
@@ -30,7 +30,7 @@
                 </ul>
             </li>
             <li class="menu-item">
-                <a href="#">Rota Cruzada</a>
+                <a href="RotaxJornada">Rota Cruzada</a>
                 <ul class="submenu">
                     <li class="submenu-item"><a href="CriarFormulario">Criar Provas</a></li>
                     <li class="submenu-item"><a href="Avaliacoes">Resultados</a></li>
@@ -45,7 +45,7 @@
                     @{
                         string contusuarioslink = IsDevelopment ? "http://localhost:5028/" : "http://brtdtbgs0090sl:8082/";
                     }
-                <a href="#">Usuários</a>
+                <a href="@(contusuarioslink)">Usuários</a>
                 <ul class="submenu">
                     <li class="submenu-item"><a href="@(contusuarioslink)CriarUsuario">Criar usuários</a></li>
                     <li class="submenu-item"><a href="@(contusuarioslink)EditarUsuarios">Gerenciamento de Usuários</a></li>
@@ -99,4 +99,13 @@
         </div>
     </nav>
 </header>
+
+
+<style>
+    .active-link {
+    color: red; 
+    font-weight: bold;
+    text-decoration: underline; 
+}
+</style>
 

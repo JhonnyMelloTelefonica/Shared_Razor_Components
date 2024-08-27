@@ -147,7 +147,7 @@ namespace Shared_Razor_Components.Shared
         [Parameter] public bool AllowMulitple { get; set; }
 
         [Parameter] public Action Uploaded { get; set; }
-        [Parameter] public string BackgroundColor { get; set; } = "#7719aa";
+        [Parameter] public string BackgroundColor { get; set; } = "#9957B9";
         [Parameter] public string Color { get; set; } = "white";
         [Parameter] public RenderFragment? Icon { get; set; } = default!;
 
