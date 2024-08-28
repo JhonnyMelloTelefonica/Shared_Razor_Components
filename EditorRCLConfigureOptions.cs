@@ -16,7 +16,7 @@ namespace Shared_Razor_Components
     {
         public static void UseSharedFiles(this IApplicationBuilder builder)
         {
-            var embeddedProvider = new EmbeddedFileProvider(typeof(Shared_Razor_Components.ServiceCollectionExtensions).Assembly, "Shared_Razor_Components");
+            var embeddedProvider = new EmbeddedFileProvider(typeof(ServiceCollectionExtensions).Assembly, "Shared_Razor_Components");
 
             builder.UseStaticFiles(new StaticFileOptions()
             {

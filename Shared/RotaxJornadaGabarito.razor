@@ -47,15 +47,15 @@
 
                             @* <Div Class="QuestionGreen" Style="font-size: 14px;">
 
-                                <Div Style="margin: 0px 7px 0px 0px;">Resposta Correta</Div>
+                <Div Style="margin: 0px 7px 0px 0px;">Resposta Correta</Div>
 
-                                <Blazorise.Badge Color="Blazorise.Color.Success">
-                                    + @item.Value.PESO
-                                </Blazorise.Badge>   
+                <Blazorise.Badge Color="Blazorise.Color.Success">
+                + @item.Value.PESO
+                </Blazorise.Badge>
 
-                                <i class="bi bi-check-circle-fill" style="font-size: 16px; color: #198754;"></i>
+                <i class="bi bi-check-circle-fill" style="font-size: 16px; color: #198754;"></i>
 
-                            </Div> *@
+                </Div> *@
                         }
                         else
                         {
@@ -77,16 +77,16 @@
 
                         @* <Div Class="QuestionRed" Style="font-size: 14px; ">
 
-                            <Div Style="margin: 0px 7px 0px 0px;">Resposta Incorreta</Div>
+                <Div Style="margin: 0px 7px 0px 0px;">Resposta Incorreta</Div>
 
-                            <Blazorise.Badge Color="Blazorise.Color.Danger">
-                                - @item.Value.PESO
-                            </Blazorise.Badge>
+                <Blazorise.Badge Color="Blazorise.Color.Danger">
+                - @item.Value.PESO
+                </Blazorise.Badge>
 
-                            <i class="bi bi-x-circle-fill" style="font-size: 16px; color: #b21b2b;"></i>
+                <i class="bi bi-x-circle-fill" style="font-size: 16px; color: #b21b2b;"></i>
 
-                        </Div> *@
-                       
+                </Div> *@
+
                     </span>
                 }
 
@@ -104,20 +104,18 @@
 
                             if (item_AL.ALTERNATIVA != "NULL")
                             {
-
-
                                 if (item.Value.ALTERNATIVAS.Any(x => x.RESPOSTA_CORRETA == true && x.RESPOSTA_ESCOLHIDA == true)) //Acertou a questão
                                 {
                                     if (item_AL.RESPOSTA_CORRETA == true && item_AL.RESPOSTA_ESCOLHIDA == true)
                                     {
-                                    
-                                        <FluentGridItem xs="12" sm="4" Style="display:flex; justify-content:center;">
 
-                                           
+                                        <FluentGridItem xs="12" sm="4" Style="">
+
+
                                             <div class="list-group-item selectedGreen">
 
-                                              
-                                                
+
+
                                                 <span>
                                                     @item_AL.ALTERNATIVA
                                                 </span>
@@ -127,7 +125,7 @@
                                     }
                                     else
                                     {
-                                        <FluentGridItem xs="12" sm="4" Style="display:flex; justify-content:center;">
+                                        <FluentGridItem xs="12" sm="4" Style="">
                                             <div class="list-group-item">
                                                 <span>
                                                     @item_AL.ALTERNATIVA
@@ -141,7 +139,7 @@
                                 {
                                     if (item_AL.RESPOSTA_CORRETA == true)
                                     {
-                                        <FluentGridItem xs="12" sm="4" Style="display:flex; justify-content:center;">
+                                       <FluentGridItem xs="12" sm="4" Style="">
                                             <div class="list-group-item selectedGreen">
                                                 <span>
                                                     @item_AL.ALTERNATIVA
@@ -152,7 +150,7 @@
                                     }
                                     else if (item_AL.RESPOSTA_ESCOLHIDA == true) //
                                     {
-                                        <FluentGridItem xs="12" sm="4" Style="display:flex; justify-content:center;">
+                                       <FluentGridItem xs="12" sm="4" Style="">
                                             <div class="list-group-item selectedRed">
                                                 <span>
                                                     @item_AL.ALTERNATIVA
@@ -163,7 +161,7 @@
                                     }
                                     else
                                     {
-                                        <FluentGridItem xs="12" sm="4" Style="display:flex; justify-content:center;">
+                                       <FluentGridItem xs="12" sm="4" Style="">
                                             <div class="list-group-item">
                                                 <span>
                                                     @item_AL.ALTERNATIVA
@@ -181,7 +179,7 @@
                     }
                     else if (item.Value.TP_QUESTAO == "MULTIPLA ESCOLHA")
                     {
-                        <Blazorise.Divider DividerType="Blazorise.DividerType.TextContent" Text="Alternativas" />
+                        @* <Blazorise.Divider DividerType="Blazorise.DividerType.TextContent" Text="Alternativas" /> *@
                         @foreach (var item_AL in item.Value.ALTERNATIVAS)
                         {
                             if (item_AL.ALTERNATIVA != "NULL")
@@ -193,24 +191,24 @@
                                     {
                                         if (item_AL.RESPOSTA_ESCOLHIDA == true)
                                         {
-                                            <FluentGridItem xs="12" sm="4" Style="display:flex; justify-content:center;">
+                                           <FluentGridItem xs="12" sm="4" Style="">
                                                 <div class="list-group-item selectedGreen">
                                                     <span>
                                                         @item_AL.ALTERNATIVA
                                                     </span>
                                                 </div>
                                             </FluentGridItem>
-                                            <br />
+
                                         }
                                         else
                                         {
-                                            <FluentGridItem xs="12" sm="4" Style="display:flex; justify-content:center;">
+                                           <FluentGridItem xs="12" sm="4" Style="">
                                                 <div class="list-group-item">
                                                     <span>
                                                         @item_AL.ALTERNATIVA
                                                     </span>
                                                 </div>
-                                                <br />
+
                                             </FluentGridItem>
                                         }
                                     }
@@ -220,7 +218,7 @@
                                         if (item_AL.RESPOSTA_CORRETA == true && item_AL.RESPOSTA_ESCOLHIDA == true)
                                         // Alternativas que acertou
                                         {
-                                            <FluentGridItem xs="12" sm="4" Style="display:flex; justify-content:center;">
+                                           <FluentGridItem xs="12" sm="4" Style="">
                                                 <div class="list-group-item selectedGreen">
                                                     <span style="display: flex;">
                                                         <Blazorise.Icon Name="Blazorise.IconName.CheckCircle"
@@ -239,7 +237,7 @@
                                         else if (item_AL.RESPOSTA_CORRETA == false && item_AL.RESPOSTA_ESCOLHIDA == true)
                                         // Alternativas incorretas que foram escolhidas
                                         {
-                                            <FluentGridItem xs="12" sm="4" Style="display:flex; justify-content:center;">
+                                           <FluentGridItem xs="12" sm="4" Style="">
                                                 <div class="list-group-item selectedRed">
                                                     <span style="display: flex;">
                                                         <Blazorise.Icon Name="Blazorise.IconName.TimesCircle"
@@ -253,29 +251,19 @@
                                                     </span>
                                                 </div>
                                             </FluentGridItem>
-                                            <br />
+
                                         }
-                                        @*else if (item_AL.RESPOSTA_CORRETA == true && item_AL.RESPOSTA_ESCOLHIDA == false)
-                // Alternativas corretas que não foram escolhidas
-                {
-                <div class="list-group-item" style="background: #16b604;">
-                <span>
-                @item_AL.ALTERNATIVA
-                </span>
-                </div>
-                <br />
-                }*@
                                         else
                                         // Alternativas incorretas que não foram escolhidas
                                         {
-                                            <FluentGridItem xs="12" sm="4" Style="display:flex; justify-content:center;">
-                                                <div class="list-group-item">
+                                           <FluentGridItem xs="12" sm="4" Style="">
+                                                <div class="list-group-item ">
                                                     <span>
                                                         @item_AL.ALTERNATIVA
                                                     </span>
                                                 </div>
                                             </FluentGridItem>
-                                            <br />
+
                                         }
                                     }
                                 }
@@ -284,36 +272,36 @@
                             {
                                 if (item_AL.RESPOSTA_ESCOLHIDA == true) //
                                 {
-                                    <FluentGridItem xs="12" sm="4" Style="display:flex; justify-content:center;">
-                                        <div class="list-group-item selectedGreen">
-                                            <span>
-                                                @item_AL.ALTERNATIVA
-                                            </span>
-                                        </div>
-                                    </FluentGridItem>
-                                    <br />
-                                }
-                                else if (item_AL.RESPOSTA_CORRETA == true)
-                                {
-                                    <FluentGridItem xs="12" sm="4" Style="display:flex; justify-content:center;">
+                                   <FluentGridItem xs="12" sm="4" Style="">
                                         <div class="list-group-item selectedRed">
                                             <span>
                                                 @item_AL.ALTERNATIVA
                                             </span>
                                         </div>
                                     </FluentGridItem>
-                                    <br />
+
                                 }
-                                else
+                                else if (item_AL.RESPOSTA_CORRETA == true)
                                 {
-                                    <FluentGridItem xs="12" sm="4" Style="display:flex; justify-content:center;">
+                                   <FluentGridItem xs="12" sm="4" Style="">
                                         <div class="list-group-item">
                                             <span>
                                                 @item_AL.ALTERNATIVA
                                             </span>
                                         </div>
                                     </FluentGridItem>
-                                    <br />
+
+                                }
+                                else
+                                {
+                                   <FluentGridItem xs="12" sm="4" Style="">
+                                        <div class="list-group-item">
+                                            <span>
+                                                @item_AL.ALTERNATIVA
+                                            </span>
+                                        </div>
+                                    </FluentGridItem>
+
                                 }
                             }
                         }
@@ -368,10 +356,10 @@
                             </FluentGridItem>
 
                             <br />
-                           @*  <span>
-                                Resposta correta :
-                                <label style="font-weight:bold;">@item.Value.ALTERNATIVAS.Where(x => x.RESPOSTA_CORRETA == true).FirstOrDefault().ALTERNATIVA</label>
-                            </span> *@
+                            @*  <span>
+                Resposta correta :
+                <label style="font-weight:bold;">@item.Value.ALTERNATIVAS.Where(x => x.RESPOSTA_CORRETA == true).FirstOrDefault().ALTERNATIVA</label>
+                </span> *@
                         }
                     }
 
@@ -450,8 +438,13 @@
         padding: 2% !important;
     }
 
-    .list-group-item {
+    .list-group-item {        
+        border-radius: 10px !important;
+        padding: 7% !important;
+        height: 85% !important;
+        display: flex !important;
         justify-content: center !important;
+        align-content: center!important;
     }
 
 
@@ -488,8 +481,11 @@
 
     .selectedGreen::before {
         content: "\2713";
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: absolute;
-        left: 93%;
+        left: 95%;
         top: 0%;
         transform: translateY(-50%);
         font-size: 17px;
@@ -499,13 +495,18 @@
         border-radius: 100%;
         background: white;
         font-weight: bold;
+        height: 30px;
+        width: 30px;
     }
 
 
     .selectedRed::before {
         content: "\2716";
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: absolute;
-        left: 93%;
+        left: 95%;
         top: 0%;
         transform: translateY(-50%);
         font-size: 16px;
@@ -515,9 +516,9 @@
         border-radius: 100%;
         background: white;
         font-weight: bold;
+        height: 30px;
+        width: 30px;
     }
-
-
 
 </style>
 
