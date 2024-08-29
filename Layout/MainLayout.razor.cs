@@ -11,6 +11,7 @@ using BlazorBootstrap;
 using Shared_Static_Class.Data;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Components.Routing;
 
 namespace Shared_Razor_Components.Layout
 {
@@ -80,11 +81,23 @@ namespace Shared_Razor_Components.Layout
                     MATRICULA = user.MATRICULA
                 };
             }
+            navigationManager.LocationChanged += OnStateChanged;
+
             await VerifyCurrentUserExists();
             //ViewOption.PropertyChanged += OnStateChanged;
         }
 
         private void OnStateChanged(object? sender, PropertyChangedEventArgs e) => InvokeAsync(Update);
+        private void OnStateChanged(object? sender, LocationChangedEventArgs e)
+        {
+            InvokeAsync(Update);
+            if (setHeader != null)
+            {
+                InvokeAsync(setHeader.Update);
+            if (setFooter != null)
+            InvokeAsync(setFooter.Update);
+            }
+        }
 
         public void Dispose()
         {
