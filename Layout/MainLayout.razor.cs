@@ -91,12 +91,6 @@ namespace Shared_Razor_Components.Layout
         private void OnStateChanged(object? sender, LocationChangedEventArgs e)
         {
             InvokeAsync(Update);
-            if (setHeader != null)
-            {
-                InvokeAsync(setHeader.Update);
-            if (setFooter != null)
-            InvokeAsync(setFooter.Update);
-            }
         }
 
         public void Dispose()
@@ -125,6 +119,12 @@ namespace Shared_Razor_Components.Layout
         public void Update()
         {
             StateHasChanged();
+
+            if (setHeader != null)
+                setHeader.Update();
+
+            if (setFooter != null)
+                setFooter.Update();
         }
 
         public async Task VerifyCurrentUserExists()
