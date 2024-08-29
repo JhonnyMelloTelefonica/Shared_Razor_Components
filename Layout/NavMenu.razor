@@ -45,7 +45,7 @@
                     @{
                         string contusuarioslink = IsDevelopment ? "http://localhost:5028/" : "http://brtdtbgs0090sl:8082/";
                     }
-                <a href="#">Usuários</a>
+                <a href="@(contusuarioslink)">Usuários</a>
                 <ul class="submenu">
                     <li class="submenu-item"><a href="@(contusuarioslink)CriarUsuario">Criar usuários</a></li>
                     <li class="submenu-item"><a href="@(contusuarioslink)EditarUsuarios">Gerenciamento de Usuários</a></li>
@@ -99,3 +99,13 @@
         </div>
     </nav>
 </header>
+
+
+<style>
+    .active-link {
+    color: red; 
+    font-weight: bold;
+    text-decoration: underline; 
+}
+</style>
+
