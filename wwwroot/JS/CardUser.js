@@ -1,6 +1,6 @@
 ﻿
-function ActivateCardView(user, dotNetObject) {
-    dotNetObject.invokeMethodAsync('SetUserCard', user);
+function ActivateCardView(user, dotNetObject, context=false) {
+    dotNetObject.invokeMethodAsync('SetUserCard', user, context);
 }
 
 function CloseCardView(dotNetObject) {
@@ -72,3 +72,31 @@ function HandleButtonClick (dotNetObject) {
         });
     });
 };
+
+
+
+const menuLinks = document.querySelectorAll('.main-menu a');
+
+const currentUrl = window.location.href;
+
+// Itera sobre todos os links do menu
+menuLinks.forEach(link => {
+    // Extrai o URL base do link
+    const linkUrl = new URL(link.href);
+    const linkBaseUrl = linkUrl.origin + linkUrl.pathname;
+
+    // Verifica se a URL atual começa com o URL base do link
+    if (currentUrl.startsWith(linkBaseUrl)) {
+        link.classList.add('active-link'); // Adiciona a classe active-link
+
+        const elements = document.getElementsByClassName('cardNew');
+
+        // Itera sobre todos os elementos HTMLCollection
+        for (let i = 0; i < elements.length; i++) {
+            
+            elements[i].classList.add(`unique-class-${i}`);
+
+            console.log('tessssa !!!'); 
+        }
+
+    });

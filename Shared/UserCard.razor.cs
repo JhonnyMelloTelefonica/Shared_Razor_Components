@@ -2,6 +2,7 @@
 using System.Globalization;
 using Microsoft.JSInterop;
 using Shared_Static_Class.Model_DTO;
+using Microsoft.AspNetCore.Hosting;
 
 
 namespace Shared_Razor_Components.Shared
@@ -11,6 +12,8 @@ namespace Shared_Razor_Components.Shared
         //: ComponentBase, IDisposable
         public TextInfo textInfo = new CultureInfo("pt-br", false).TextInfo;
         public bool Opened = false;
+        public bool Context = false;
+        [Inject] IHostingEnvironment Env { get; set; }
         [Inject] IJSRuntime JSRuntime { get; set; }
         [Parameter] public ACESSOS_MOBILE_DTO User { get; set; } = new();
 
@@ -18,14 +21,15 @@ namespace Shared_Razor_Components.Shared
         public RenderFragment? ImageUser { get; set; } 
 
         [Parameter]
-        public RenderFragment? senhaUser { get; set; } 
+        public RenderFragment? senhaUser { get; set; }
+        bool IsDevelopment { get; set; } = false;
 
-      
         public event Action OnChange;
 
         protected override void OnInitialized()
         {
             Update();
+            IsDevelopment = Env.EnvironmentName.ToLower() == "development" ? true : false;
             base.OnInitialized();
         }
 
@@ -42,10 +46,20 @@ namespace Shared_Razor_Components.Shared
 
 
         [JSInvokable("SetUserCard")]
-        public void StepClicked(ACESSOS_MOBILE_DTO user)
+        public void StepClicked(ACESSOS_MOBILE_DTO user, bool context)
         {
             User = user;
             Opened = true;
+
+            if(context == true)
+            {
+                Context = true;
+            }
+            else
+            {
+                Context = false;
+            }
+
             Update();
         }
 

@@ -464,6 +464,7 @@ html, body {
     position: relative;
     margin: 0 30px;
     display: flex;
+    justify-content: center;
     /*align-items: end;*/
 }
 
@@ -511,14 +512,13 @@ html, body {
     background-color: #ffffff;
     box-shadow: 0 20px 45px #00000020;
     margin-top: -25px;
-    margin-left: -60px !important;
+    /*margin-left: -60px !important;*/
     opacity: 0;
     z-index: -100;
     transition: all ease 0.4s;
     list-style-type: none;
     border-radius: 5px;
     padding-left: 0rem;
-    margin-left: -47px;
 }
 
 .menu-item:hover .submenu {
@@ -575,3 +575,21 @@ html, body {
     height: 43px !important;
     margin-bottom: 2px !important;
 }
+
+
+.navSelected{
+    color: #893AAF!important;
+}
+
+    .navSelected::before {
+        content: ""!important;
+        border-radius: 10px!important;
+        display: block!important;
+        width: 100%!important;
+        height: 1.9px!important;
+        background-color: #893AAF!important;
+        transition: width 0.2s ease!important;
+        position: absolute!important;
+        bottom: 0!important;
+        left: 0!important;
+    }

@@ -25,6 +25,7 @@ namespace Shared_Razor_Components.Layout
         [Inject] private UserService user { get; set; }
         [Inject] private ViewOptionService ViewOption { get; set; }
         [Inject] private UserCard User { get; set; }
+        [Inject] private NavigationManager Nav { get; set; }
         //[Inject] HubConnection HubConnection { get; set; }
         bool IsDevelopment { get; set; } = false;
 
