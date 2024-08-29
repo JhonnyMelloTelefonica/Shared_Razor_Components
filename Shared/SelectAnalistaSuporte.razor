@@ -31,8 +31,8 @@
                                     <FluentIcon Value="@(new Icons.Filled.Size12.Dismiss().WithColor("#ffffff"))" Style="margin:auto;" />
                                 </div>
                             }
-                            <div class="text-sm-center justify-content-center flex-column d-flex">
-                                <Image Style="width:30px; margin: auto" Border="Blazorise.Border.RoundedCircle" @onclick="@(() => ActionSelectAnalista(item))"
+                            <div class="text-sm-center justify-content-center flex-column d-flex" @onclick="@(() => ActionSelectAnalista(item))">
+                                <Image Style="width:30px; margin: auto" Border="Blazorise.Border.RoundedCircle" 
                                        Source="@(item.Item1.UserAvatar != null ? "data:image/png;base64," + SharedConverter.ConvertFileToString(item.Item1.UserAvatar) : "images/usericon.png" )">
                                 </Image>
                                 <span style="font-family: Vivo-font-light">
