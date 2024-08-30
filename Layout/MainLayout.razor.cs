@@ -81,6 +81,7 @@ namespace Shared_Razor_Components.Layout
                     MATRICULA = user.MATRICULA
                 };
             }
+
             navigationManager.LocationChanged += OnStateChanged;
 
             await VerifyCurrentUserExists();
@@ -96,6 +97,12 @@ namespace Shared_Razor_Components.Layout
         public void Dispose()
         {
             ViewOption.PropertyChanged -= OnStateChanged;
+            navigationManager.LocationChanged -= OnStateChanged;
+
+            if (setHeader != null)
+                setHeader.OnChange -= Update;
+            if (setFooter != null)
+                setFooter.OnChange -= Update;
         }
 
         public void SetHeader(SetHeader setHeader)
@@ -110,7 +117,7 @@ namespace Shared_Razor_Components.Layout
         public void SetFooter(SetFooter setFooter)
         {
             this.setFooter = setFooter;
-            if (setFooter is not null)
+            if (setHeader is not null)
             {
                 setFooter.OnChange += Update;
             }
@@ -118,13 +125,11 @@ namespace Shared_Razor_Components.Layout
 
         public void Update()
         {
-            StateHasChanged();
-
             if (setHeader != null)
-                setHeader.Update();
-
+                setHeader?.UpdatePage();
             if (setFooter != null)
-                setFooter.Update();
+                setFooter?.UpdatePage();
+            StateHasChanged();
         }
 
         public async Task VerifyCurrentUserExists()

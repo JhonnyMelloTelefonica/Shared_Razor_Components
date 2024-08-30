@@ -9,27 +9,32 @@ namespace Shared_Razor_Components.Layout
         [Parameter] public RenderFragment ChildContent { get; set; }
 
         public event Action OnChange;
-        protected override void OnInitialized()
+        protected override void OnAfterRender(bool firstRender)
         {
-            if (UnauthLayout is not null)
+            if (firstRender)
             {
-                UnauthLayout.SetFooter(this);
-            }
-            else if (MainLayout is not null)
-            {
-                MainLayout.SetFooter(this);
-            }
+                if (UnauthLayout is not null)
+                {
+                    UnauthLayout.SetFooter(this);
+                }
 
-            Update();
-            base.OnInitialized();
+                if (MainLayout is not null)
+                {
+                    MainLayout.SetFooter(this);
+                }
+            }
+            base.OnAfterRender(firstRender);
         }
-
         public void Update()
         {
             OnChange?.Invoke();
             StateHasChanged();
         }
 
+        public void UpdatePage()
+        {
+            StateHasChanged();
+        }
 
         public void Dispose()
         {

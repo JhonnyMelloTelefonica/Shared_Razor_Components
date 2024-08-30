@@ -11,21 +11,33 @@ namespace Shared_Razor_Components.Layout
         public event Action OnChange;
         protected override void OnInitialized()
         {
-            if (UnauthLayout is not null)
-            {
-                UnauthLayout.SetHeader(this);
-            }
-            
-            if (MainLayout is not null)
-            {
-                MainLayout.SetHeader(this);
-            }
             base.OnInitialized();
         }
 
-        public void Update()
+        protected override void OnAfterRender(bool firstRender)
+        {
+            if (firstRender)
+            {
+                if (UnauthLayout is not null)
+                {
+                    UnauthLayout.SetHeader(this);
+                }
+
+                if (MainLayout is not null)
+                {
+                    MainLayout.SetHeader(this);
+                }
+            }
+            base.OnAfterRender(firstRender);
+        }
+
+        public void Update() //Ao Executar Update ele apenas sinaliza um Trigger e atualiza a página
         {
             OnChange?.Invoke();
+            StateHasChanged();
+        }
+        public void UpdatePage()
+        {
             StateHasChanged();
         }
 
