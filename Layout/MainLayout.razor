@@ -16,6 +16,7 @@
                     {
                         @headerContent
                     }
+
                     <article class="content px-4" style="position:relative;">
                         @if (ViewOption.buttonCloseplataform)
                         {
@@ -28,6 +29,12 @@
                     @if (footerContent is not null)
                     {
                         @footerContent
+                    }
+                    else
+                    {
+                        <!-- SetFooter não informado -->
+                        <div class="deafult-footer-page"></div>
+                        <!-- SetFooter não informado -->
                     }
                     <FluentToastProvider MaxToastCount="10" />
                 </main>
