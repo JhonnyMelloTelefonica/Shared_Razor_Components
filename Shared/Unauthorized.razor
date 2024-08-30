@@ -1,4 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components;
+@using Microsoft.AspNetCore.Hosting;
 
 <PageTitle>Usuário não autorizado</PageTitle>
 
@@ -13,7 +15,7 @@
                 <div class="logo_text">
                    VIVO X
                 </div>
-              
+                
                 <div class="container card_alert">
                     <div class="row justify-content-center mt-5">
                         <div class="col-md-12">
@@ -27,7 +29,7 @@
                                 </div>
 
                                 <div class="card-footer">
-                                    <a href="/register" class="btn btn-primary-unhautorized text-button">Página de Registro</a>
+                                    <a href="@(IsDevelopment ? "http://localhost:5211/register" : "http://brtdtbgs0090sl:8081/register")" class="btn btn-primary-unhautorized text-button">Página de Registro</a>
                                 </div>
                             </div>
                         </div>
@@ -42,3 +44,15 @@
     </div>
 </body>
 
+@code{
+
+    bool IsDevelopment { get; set; } = false;
+    [Inject] IHostingEnvironment Env { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsDevelopment = Env.EnvironmentName.ToLower() == "development" ? true : false;
+     
+    }
+}
