@@ -305,6 +305,18 @@ hr {
         color: #b21b2b !important;
     }
 
+.selectedGray {
+    font-weight: bold !important;
+    border-color: grey !important;
+    border-width: 1.9px !important;
+    color: gray !important;
+}
+
+    .selectedGray > span {
+        color: #b21b2b !important;
+    }
+
+
 .QuestionGreen {
     font-weight: bold !important;
     display: flex !important;

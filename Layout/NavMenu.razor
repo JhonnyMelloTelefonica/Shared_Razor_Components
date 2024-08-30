@@ -12,11 +12,14 @@
     <nav class="NewNavMenu">
         <ul class="main-menu">
             <li class="menu-item">
-                <a href="@(IsDevelopment ? "http://localhost:5211/" : "http://brtdtbgs0090sl:8081/")" class="@(Nav.BaseUri == ("http://localhost:5211/") || Nav.BaseUri == ("http://brtdtbgs0090sl:8081/") ? "navSelected" : "")">Home</a>
+                @{
+                    string HomeVivoX = IsDevelopment ? "http://localhost:5211/" : "http://brtdtbgs0090sl:8081/";
+                }
+                <a href="@(HomeVivoX)" class="@(Nav.BaseUri == ("http://localhost:5211/") || Nav.BaseUri == ("http://brtdtbgs0090sl:8081/") ? "navSelected" : "")">Home</a>
             </li>
             <li class="menu-item">
                 @{
-                    string vivomaislink = IsDevelopment ? "http://localhost:5172/" : "http://brtdtbgs0090sl:8083/";
+                    string vivomaislink = IsDevelopment ? "http://localhost:5172/" : "http://brtdtbgs0090sl:8083/";                   
                 }
                 <a href="@(vivomaislink)" class="@(Nav.BaseUri.Contains("http://localhost:5172") || Nav.BaseUri.Contains("http://brtdtbgs0090sl:8083/") ? "navSelected" : "")" id="navDemandas">Controle de Demandas</a>
                 <ul class="submenu">
@@ -27,18 +30,17 @@
                     <li class="submenu-item"><a href="@(vivomaislink)demanda/acessos/create">Acessos</a></li>
                     <li class="submenu-item"><a href="@(vivomaislink)demanda/desligamento/create">Desligamento</a></li>
                 </ul>
-
             </li>
             <li class="menu-item">
                 <a href="@(IsDevelopment ? "http://localhost:5211/RotaxJornada" : "http://brtdtbgs0090sl:8081/RotaxJornada")">Giro V</a>
                 <ul class="submenu">
-                    <li class="submenu-item"><a href="CriarFormulario">Criar Provas</a></li>
-                    <li class="submenu-item"><a href="Avaliacoes">Resultados</a></li>
-                    <li class="submenu-item"><a href="ListaFormulario">Provas Disponíveis</a></li>
-                    <li class="submenu-item"><a href="jornada/criar-form-detalhado">Criar Prova (Específica)</a></li>
-                    <li class="submenu-item"><a href="PainelProvasCriadas">Minhas Provas</a></li>
-                    <li class="submenu-item"><a href="CreateQuestion">Criar Questões</a></li>
-                    <li class="submenu-item"><a href="EditQuestion">Gerenciar Questões</a></li>
+                    <li class="submenu-item"><a href="@(HomeVivoX)CriarFormulario">Criar Provas</a></li>
+                    <li class="submenu-item"><a href="@(HomeVivoX)Avaliacoes">Resultados</a></li>
+                    <li class="submenu-item"><a href="@(HomeVivoX)ListaFormulario">Provas Disponíveis</a></li>
+                    <li class="submenu-item"><a href="@(HomeVivoX)jornada/criar-form-detalhado">Criar Prova (Específica)</a></li>
+                    <li class="submenu-item"><a href="@(HomeVivoX)PainelProvasCriadas">Minhas Provas</a></li>
+                    <li class="submenu-item"><a href="@(HomeVivoX)CreateQuestion">Criar Questões</a></li>
+                    <li class="submenu-item"><a href="@(HomeVivoX)EditQuestion">Gerenciar Questões</a></li>
                 </ul>
             </li>
             <li class="menu-item">
@@ -51,8 +53,8 @@
                     <li class="submenu-item"><a href="@(contusuarioslink)EditarUsuarios">Gerenciamento de Usuários</a></li>
                     <li class="submenu-item"><a href="@(contusuarioslink)PainelUsuarios">Painel de Solicitações</a></li>
                     <li class="submenu-item"><a href="@(contusuarioslink)jornada/hierarquia">Hierarquia/Carteira</a></li>
-                    <li class="submenu-item"><a href="update-senha-user">Senha</a></li>
-                    <li class="submenu-item"><a href="edit-user">Imagem</a></li>
+                    <li class="submenu-item"><a href="@(HomeVivoX)update-senha-user">Senha</a></li>
+                    <li class="submenu-item"><a href="@(HomeVivoX)edit-user">Imagem</a></li>
                 </ul>
             </li>
             <li class="menu-item">
