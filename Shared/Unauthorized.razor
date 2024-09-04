@@ -4,47 +4,57 @@
 
 <PageTitle>Usuário não autorizado</PageTitle>
 
-<body >
-    <div class="page page_Unauthorized">
-        <main class="main_unathourized">
-            <article class="content px-4 Article-Unauthourized">
-                <div>
-                    <img src="/icone-vivox.png" alt="Logo" class="logo_unhauthorized">
+<body>
+    <div style="display: flex;justify-content: center;align-items: center;flex-direction: column;">
+
+        <nav style="background-color: #9147B4; color:white!important;width:100%!important;display: flex;justify-content: flex-end;">
+
+            <div style="width: 55%;display: flex;justify-content: space-between;">
+
+                <div style="font-size: 23px;font-weight: 600;padding: 3% 0% 3% 0%;">
+                    ATENÇÃO
                 </div>
 
-                <div class="logo_text">
-                   VIVO X
+                <div style="display: flex;align-items: end;padding: 0% 2% 1% 0%;">
+                    Automação NE
                 </div>
-                
-                <div class="container card_alert">
-                    <div class="row justify-content-center mt-5">
-                        <div class="col-md-12">
-                            <div class="card_unathourized">
-                                <div class="card_header">
-                                    <h3 class="card-title text-unautorized"><i class="fas fa-exclamation-triangle text-warning "></i> Usuário Não Autorizado</h3>
-                                </div>
 
-                                <div>
-                                    <p class="text-unautorized p-unautorizated">Caso seja um erro comunique ao seu gestor ou solicite acesso abaixo.</p>
-                                </div>
-
-                                <div class="card-footer">
-                                    <a href="@(IsDevelopment ? "http://localhost:5211/register" : "http://brtdtbgs0090sl:8081/register")" class="btn btn-primary-unhautorized text-button">Página de Registro</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-               
-            </article>
-            <div class="footer_Unauthorized">
-                 Automação NE
             </div>
-        </main> 
+            
+        </nav>
+
+        @*  <div>
+        <img src="/icone-vivox.png" alt="Logo" class="logo_unhauthorized">
+        </div>
+
+        <div class="logo_text">
+        VIVO X
+        </div> *@
+    
+            <div style="width: 80%; height: 100%;">
+            <div style="display:flex; justify-content:center;margin-top: 6%;">
+                    <h3 class="" style="color: #454545;font-weight: 600; display: flex; justify-content: space-evenly; align-items: end; width: 50%;">
+                        <img class="" src="./_content/Shrared_Razor_Components/images/IconLock.png" style="width: 80px; height: 80px;">Acesso Não Autorizado
+                    </h3>
+                </div>
+
+                <div style="display:flex; justify-content:center;">
+                    <p class="" style="display:flex; justify-content: center; padding: 5%; color: #454545!important;font-weight: 200!important;font-size: 18px !important; ">Caso seja um erro comunique ao seu gestor ou solicite acesso abaixo.</p>
+                </div>
+
+                <div class="" style="display:flex; justify-content:center;">
+                    <a style="font-size: 17px; background: #9147B4 !important;" href="@(IsDevelopment ? "http://localhost:5211/register" : "http://brtdtbgs0090sl:8081/register")" class="btn btn-primary-unhautorized text-button">Página de Registro</a>
+                </div>
+            </div>     
+
+        @* <div class="footer_Unauthorized">
+        Automação NE
+        </div> *@
+
     </div>
 </body>
 
-@code{
+@code {
 
     bool IsDevelopment { get; set; } = false;
     [Inject] IHostingEnvironment Env { get; set; }
@@ -53,6 +63,6 @@
     protected override async Task OnInitializedAsync()
     {
         IsDevelopment = Env.EnvironmentName.ToLower() == "development" ? true : false;
-     
+
     }
 }

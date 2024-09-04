@@ -11,7 +11,12 @@
 		<EmbeddedResource Include="wwwroot\**\*" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Content Remove="wwwroot\images\IconLock.png" />
+	  <Content Remove="wwwroot\images\iconLock.svg" />
+	</ItemGroup>
+	<ItemGroup>
 	  <EmbeddedResource Remove="wwwroot\icone-vivox.png" />
+	  <EmbeddedResource Remove="wwwroot\images\iconLock.svg" />
 	</ItemGroup>
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />

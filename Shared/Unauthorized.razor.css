@@ -29,13 +29,13 @@
     height: 80px !important;
 }
 
-.page_Unauthorized {
+/*.page_Unauthorized {
     background-image: url('/VivoNovoBg.png');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     background-color: #fff;
-}
+}*/
 
 .card_alert {
     text-align: center;
