@@ -9,11 +9,6 @@ namespace Shared_Razor_Components.Layout
         [Parameter] public RenderFragment ChildContent { get; set; }
 
         public event Action OnChange;
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-        }
-
         protected override void OnAfterRender(bool firstRender)
         {
             if (firstRender)
@@ -36,11 +31,11 @@ namespace Shared_Razor_Components.Layout
             OnChange?.Invoke();
             StateHasChanged();
         }
+
         public void UpdatePage()
         {
             StateHasChanged();
         }
-
 
         public void Dispose()
         {
