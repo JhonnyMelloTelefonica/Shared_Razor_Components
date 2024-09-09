@@ -61,7 +61,7 @@ main {
     }
     article {
         padding: 0 !important;
-        width: 96.8vw !important;
+        width: 100% !important;
     }
 }
 
