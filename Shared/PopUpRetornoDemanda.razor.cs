@@ -1,7 +1,7 @@
 ﻿using Blazorise.Utilities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using Shared_Static_Class.Models;
+using Shared_Razor_Components.FundamentalModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.JSInterop;
 using Radzen;
 using Shared_Razor_Components.Shared;
-using Shared_Static_Class.Models;
+using Shared_Razor_Components.FundamentalModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

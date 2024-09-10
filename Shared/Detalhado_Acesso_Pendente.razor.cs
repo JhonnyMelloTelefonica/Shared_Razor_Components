@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Newtonsoft.Json;
-using Shared_Class_Vivo_Apps.Services;
-using Shared_Class_Vivo_Apps.ViewModels;
+using Shared_Razor_Components.Services;
+using Shared_Razor_Components.ViewModels;
 using Shared_Razor_Components.Layout;
 using Shared_Static_Class.Converters;
 using Shared_Static_Class.ErrorModels;
-using Shared_Static_Class.Models;
+using Shared_Razor_Components.FundamentalModels;
 using System.ComponentModel;
 
 namespace Shared_Razor_Components.Shared

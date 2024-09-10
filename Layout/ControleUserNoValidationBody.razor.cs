@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Shared_Class_Vivo_Apps.ViewModels;
-using Shared_Static_Class.Models;
+using Shared_Razor_Components.ViewModels;
+using Shared_Razor_Components.FundamentalModels;
 using System.ComponentModel;
 using Shared_Static_Class.Data;
 using Microsoft.AspNetCore.Components.Forms;
@@ -169,7 +169,7 @@ namespace Shared_Razor_Components.Layout
             service.IsBusy = true;
             user.CARGO = args;
 
-            var result = await service.service.GetPerfilByCargo(args);
+            var result = await service.ControleUsuariosAppService.GetPerfilByCargo(args);
             if (result.IsSuccess)
             {
                 Response<object> saida = JsonConvert.DeserializeObject<Response<object>>(result.Content.ToString());

@@ -2,8 +2,8 @@
 using System.ComponentModel;
 using System.Globalization;
 using Microsoft.AspNetCore.SignalR.Client;
-using Shared_Class_Vivo_Apps.Services;
-using Shared_Static_Class.Models;
+using Shared_Razor_Components.Services;
+using Shared_Razor_Components.FundamentalModels;
 using Blazorise.LoadingIndicator;
 using Shared_Razor_Components.Shared;
 using Microsoft.JSInterop;

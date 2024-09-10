@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.RenderTree;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.JSInterop;
-using Shared_Static_Class.Models;
+using Shared_Razor_Components.FundamentalModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

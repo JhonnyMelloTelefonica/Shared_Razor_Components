@@ -84,6 +84,4 @@
 		<ProjectReference Include="..\Shared_Static_Class\Shared_Static_Class.csproj" />
 	</ItemGroup>
 
-	<Import Project="..\Shared_Class_Vivo_Apps\Shared_Class_Vivo_Apps.projitems" Label="Shared" />
-
 </Project>
