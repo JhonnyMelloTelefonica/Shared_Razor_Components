@@ -1,0 +1,178 @@
+﻿@inject ViewOptionService ViewOption
+@inject UserService Userservice
+@using System.ComponentModel
+@using Microsoft.AspNetCore.SignalR.Client;
+@using Newtonsoft.Json;
+@using System.Globalization;
+@using Radzen;
+@using Shared_Razor_Components.FundamentalModels;
+@using Shared_Razor_Components.Shared;
+@using Shared_Static_Class.Converters;
+@using Shared_Static_Class.Model_DTO;
+@inject IWebHostEnvironment Environment;
+@inject ChatBar chatbar;
+
+<div class="chatbar-content">
+    <header class="chatbar-header">
+        <Blazorise.Icon Name="Blazorise.IconName.Bars" IconSize="Blazorise.IconSize.Small" TextColor="Blazorise.TextColor.Light" />
+        <Blazorise.Icon Name="Blazorise.IconName.Times" IconSize="Blazorise.IconSize.Small" TextColor="Blazorise.TextColor.Danger"
+                        @onclick="() => ViewOption.CloseChat(Chat)" />
+    </header>
+    <div class="chatbar-body">
+        <Div Flex="Flex.InlineFlex" Width="Width.Is100" @onclick="() => ViewOption.OpenNewChat(new ChatOpenService { user = ViewOption.data.First(x => x.Value.MATRICULA == Chat.user.MATRICULA).Value })">
+            @if (ViewOption.data.Any(x => x.Value.MATRICULA == Chat.user.MATRICULA))
+            {
+                <Blazorise.Icon Name="Blazorise.IconName.Circle" IconSize="Blazorise.IconSize.Small" TextColor="Blazorise.TextColor.Success" />
+            }
+            else
+            {
+                <Blazorise.Icon Name="Blazorise.IconName.Circle" IconSize="Blazorise.IconSize.Small" TextColor="Blazorise.TextColor.Danger" />
+            }
+            <Div Flex="Flex.InlineFlex.AlignItems.Center" TextOverflow="TextOverflow.Wrap" Gap="Gap.Is3">
+                <Blazorise.CardImage Style="width:30px" Border="Blazorise.Border.RoundedCircle"
+                                     Source="@(Chat.user.UserAvatar != null ? "data:image/png;base64," + SharedConverter.ConvertFileToString(Chat.user.UserAvatar) : "images/usericon.png")"
+                                     Alt="Usuário Online"></Blazorise.CardImage>
+                <Div Flex="Flex.InlineFlex.AlignItems.Center.Column" TextOverflow="TextOverflow.Wrap">
+                    @textInfo.ToTitleCase(Chat.user.NOME.Split()[0].ToLower() + " " + (Chat.user.NOME.Split().LastOrDefault()?.ToLower() == Chat.user.NOME.Split()[0].ToLower() ? null : Chat.user.NOME.Split().LastOrDefault()?.ToLower()))
+                </Div>
+            </Div>
+            <hr style="border: none; background-color: black; height: 1px; margin: 1rem 0;" />
+        </Div>
+        @if (ViewOption.data.Any())
+        {
+            @if (ViewOption.data.Values.Where(x => x.MATRICULA == Chat.user.MATRICULA).First().ChatMessages.Any())
+            {
+                @foreach (var messages in ViewOption.data.Values.Where(x => x.MATRICULA == Chat.user.MATRICULA).First().ChatMessages)
+                {
+                    if (messages.mat_remetente == Userservice.User.MATRICULA)
+                    {
+                        <Div Flex="Flex.InlineFlex.JustifyContent.Start" Width="Width.Is100">
+                            <span class="text-grey">
+                                @messages.messsagem
+                            </span>
+                        </Div>
+                    }
+                    else
+                    {
+                        <Div Flex="Flex.InlineFlex.JustifyContent.End" Width="Width.Is100">
+                            <span class="text-grey">
+                                @messages.messsagem
+                            </span>
+                        </Div>
+                    }
+                }
+            }
+        }
+    </div>
+    <footer class="chatbar-footer">
+        <RadzenFormField Variant="Radzen.Variant.Outlined" Class="w-100">
+            <End>
+                <RadzenIcon Icon="arrow_forward_ios" @onclick="SendMessage" />
+            </End>
+            <ChildContent>
+                <RadzenTextArea @bind-Value="newmessage" Cols="3" Culture="System.Globalization.CultureInfo.InstalledUICulture" Class="w-100" Placeholder="Mensagem" />
+            </ChildContent>
+        </RadzenFormField>
+    </footer>
+</div>
+
+@code {
+    [Parameter]
+    public ChatOpenService Chat { get; set; }
+
+    string newmessage { get; set; } = string.Empty;
+
+    private string BaseUrl
+    {
+        get
+        {
+            if (Environment.EnvironmentName == "Development")
+            {
+                return $"http://localhost:31510/vivoxhub/{Userservice.User.PDV}";
+            }
+            else
+            {
+                return $"http://brtdtbgs0090sl:9090/vivoxhub/{Userservice.User.PDV}";
+            }
+        }
+    }
+
+    public TextInfo textInfo = new CultureInfo("pt-br", false).TextInfo;
+
+    public bool IsConnected => HubConnection?.State == HubConnectionState.Connected;
+    [Inject] HubConnection HubConnection { get; set; }
+
+    public async Task SendMessage()
+    {
+        await HubConnection.SendAsync("MessageToUserChat", Userservice.User.MATRICULA, Chat.user.MATRICULA, newmessage);
+
+        Messages newMessage = new Messages
+        {
+            mat_destinatario = Chat.user.MATRICULA,
+            mat_remetente = Userservice.User.MATRICULA,
+            messsagem = newmessage,
+            hora = DateTime.Now
+        };
+
+        foreach (var UserConnected in ViewOption.data.Values.Where(x => x.MATRICULA == Chat.user.MATRICULA))
+        {
+            UserConnected.ChatMessages.Add(newMessage);
+
+        }
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            try
+            {
+                HubConnection.On<Dictionary<string, ACESSOS_MOBILE_CHAT_DTO>>("UsersConnected", (Users) =>
+                {
+                    ViewOption.data = Users;
+
+                    InvokeAsync(StateHasChanged);
+                });
+
+                HubConnection.On<int, int, string>("MessageToUserChat", (mat_remetente, mat_destinatario, message) =>
+                {
+                    Messages newMessage = new Messages
+                    {
+                        mat_destinatario = mat_destinatario,
+                        mat_remetente = mat_remetente,
+                        messsagem = message,
+                        hora = DateTime.Now
+                    };
+
+                    foreach (var UserConnected in ViewOption.data.Values.Where(x => x.MATRICULA == mat_remetente))
+                    {
+                        UserConnected.ChatMessages.Add(newMessage);
+                    }
+
+                    InvokeAsync(StateHasChanged);
+                });
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+    }
+
+    private void OnStateChanged(object? sender, PropertyChangedEventArgs e) => InvokeAsync(() => StateHasChanged());
+
+    public void Dispose()
+    {
+        if (HubConnection is not null)
+        {
+            HubConnection.DisposeAsync();
+        }
+    }
+}

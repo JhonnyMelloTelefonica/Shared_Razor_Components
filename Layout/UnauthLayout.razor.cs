@@ -45,7 +45,7 @@ namespace Shared_Razor_Components.Layout
 
         public void Dispose()
         {
-            this.Dispose();
+            //this.Dispose();
         }
     }
 }

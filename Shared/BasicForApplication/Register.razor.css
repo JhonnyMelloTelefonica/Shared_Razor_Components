@@ -1,0 +1,66 @@
+﻿.plus-button-header [aria-controls="rz-fieldset-0-content"]:first-child {
+    background-color: rgb(5, 39, 103);
+    border-radius: 30px;
+    border-color: white;
+    padding: 10px;
+    color: white !important;
+    border: solid 2px;
+}
+
+.plus-button-header .rz-fieldset-toggler:first-of-type:first-child {
+    font-size: 18px;
+    color: white !important;
+    /*        padding: 8px;
+        margin: -61px 4px 46px 0px;*/
+}
+
+.plus-button-body [aria-controls="rz-fieldset-0-content"]:first-child {
+    background-color: white;
+    border: none !important;
+    padding: 10px;
+    color: black !important;
+    border: solid 2px;
+}
+
+.plus-button-body .rz-fieldset-toggler:first-of-type:first-child {
+    font-size: 18px;
+    color: black !important;
+    /*        padding: 8px;
+        margin: -61px 4px 46px 0px;*/
+}
+
+.true-false {
+    display: flex;
+    flex-direction: column;
+}
+
+.rz-g {
+    display: unset !important;
+}
+
+    .rz-g > div {
+        border: none;
+    }
+
+fieldset {
+    background-color: #ffffff;
+    border-color: lightgray;
+}
+
+main {
+    background-image: linear-gradient(180deg, rgb(30, 62, 119) 0%, rgb(5, 39, 103) 70%);
+}
+
+legend {
+    color: black !important;
+}
+
+.rz-paginator-element {
+    color: black !important;
+}
+
+.footer-register {
+    position: absolute;
+    width: 100vw;
+    bottom: 0;
+}

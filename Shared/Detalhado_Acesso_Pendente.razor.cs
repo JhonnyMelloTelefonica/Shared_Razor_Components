@@ -24,27 +24,19 @@ namespace Shared_Razor_Components.Shared
         private bool FooterOpen { get; set; } = false;
         private SOLICITAR_USUARIO_MODEL user = new();
         private List<Tuple<string, object, object>> propertiesdifferencies { get; set; } = [];
-
         private ControleUserNoValidationBody FormValidation { get; set; }
-
-        [Inject] IJSRuntime JSRuntime { get; set; }
-        [Inject] UserCard UserCard { get; set; }
         [Inject] UserService UserService { get; set; }
         [Inject] public Blazorise.IMessageService MessageService { get; set; }
         [Inject] private ILoadingIndicatorService ApplicationLoadingIndicatorService { get; set; }
         [Inject] public SweetAlertService Swal { get; set; }
         [Inject] public UserService User { get; set; }
-        [Inject] public DialogService _DialogService { get; set; }
-        [Inject] public IBlazorDownloadFileService _downloader { get; set; }
-        [Inject] public IAcessoPendenteByIdService _contextservice { get; set; }
-        [Inject] public NavigationManager navigationManager { get; set; }
-        [Inject] public ControleUsuariosAppViewModel _ControleUsuariosVM { get; set; }
+        [Inject] public ControleUsuariosAppViewModel service { get; set; }
 
         public DETALHADO_ACESSO_PENDENTE_MODEL historico { get; set; }
 
         public async Task LoadData(int idDemanda)
         {
-            var result = await _contextservice.GetAcessoPendenteById(idDemanda);
+            var result = await service.AcessoPendenteByIdService.GetAcessoPendenteById(idDemanda);
             if (result.IsSuccess)
             {
                 Response<dynamic> saida = JsonConvert.DeserializeObject<Response<dynamic>>(result.Content.ToString());
@@ -75,16 +67,16 @@ namespace Shared_Razor_Components.Shared
             {
                 if (status.Value == STATUS_ACESSOS_PENDENTES.APROVADO.Value)
                 {
-                    result = await _contextservice.AnswerAcessoUpdate_usuario(usuario, matricula, id, resposta, status.Value);
+                    result = await service.AcessoPendenteByIdService.AnswerAcessoUpdate_usuario(usuario, matricula, id, resposta, status.Value);
                 }
                 else if (status.Value == STATUS_ACESSOS_PENDENTES.DEVOLVIDO_PARA_SOLICITANTE.Value
                     || status.Value == STATUS_ACESSOS_PENDENTES.CANCELADO.Value || status.Value == STATUS_ACESSOS_PENDENTES.REPROVADO.Value)
                 {
-                    result = await _contextservice.AnswerAcessoChange_Status(matricula, id, resposta, status.Value);
+                    result = await service.AcessoPendenteByIdService.AnswerAcessoChange_Status(matricula, id, resposta, status.Value);
                 }
                 else if (status.Value == STATUS_ACESSOS_PENDENTES.AGUARDANDO_ANALISTA.Value)
                 {
-                    result = await _contextservice.AnswerAcessoDevolver_Analista(usuario, matricula, id, resposta, status.Value);
+                    result = await service.AcessoPendenteByIdService.AnswerAcessoDevolver_Analista(usuario, matricula, id, resposta, status.Value);
                 }
                 else
                 {
@@ -96,16 +88,16 @@ namespace Shared_Razor_Components.Shared
             {
                 if (status.Value == STATUS_ACESSOS_PENDENTES.APROVADO.Value)
                 {
-                    result = await _contextservice.AnswerAcessoInsert_Novo_Usuario(usuario, matricula, id, resposta, status.Value);
+                    result = await service.AcessoPendenteByIdService.AnswerAcessoInsert_Novo_Usuario(usuario, matricula, id, resposta, status.Value);
                 }
                 else if (status.Value == STATUS_ACESSOS_PENDENTES.DEVOLVIDO_PARA_SOLICITANTE.Value
                     || status.Value == STATUS_ACESSOS_PENDENTES.CANCELADO.Value || status.Value == STATUS_ACESSOS_PENDENTES.REPROVADO.Value)
                 {
-                    result = await _contextservice.AnswerAcessoChange_Status(matricula, id, resposta, status.Value);
+                    result = await service.AcessoPendenteByIdService.AnswerAcessoChange_Status(matricula, id, resposta, status.Value);
                 }
                 else if (status.Value == STATUS_ACESSOS_PENDENTES.AGUARDANDO_ANALISTA.Value)
                 {
-                    result = await _contextservice.AnswerAcessoDevolver_Analista(usuario, matricula, id, resposta, status.Value);
+                    result = await service.AcessoPendenteByIdService.AnswerAcessoDevolver_Analista(usuario, matricula, id, resposta, status.Value);
                 }
                 else
                 {
@@ -268,7 +260,7 @@ namespace Shared_Razor_Components.Shared
 
             if (!string.IsNullOrEmpty(saida.Value))
             {
-                var perfis = _ControleUsuariosVM.perfis.Where(x => user.Perfil.Contains(x.ID_PERFIL)).ToList();
+                var perfis = service.perfis.Where(x => user.Perfil.Contains(x.ID_PERFIL)).ToList();
                 historico.SOLICITACAO.PERFIS_SOLICITADOS = perfis;
 
                 await AnswerAcesso(

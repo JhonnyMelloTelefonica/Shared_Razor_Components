@@ -71,7 +71,6 @@ namespace Shared_Razor_Components.Layout
         public ACESSOS_MOBILE_PENDENTE? userSolicitado { get; set; } = new();
         public bool AlreadySolicitated { get; set; } = false;
 
-
         protected override async Task OnInitializedAsync()
         {
             if (Userservice.User is null)

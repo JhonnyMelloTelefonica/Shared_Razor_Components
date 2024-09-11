@@ -12,7 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-    
+using Shared_Razor_Components.Shared.BasicForApplication;
+
 namespace Shared_Razor_Components
 {
     public static class ServiceCollectionExtensions
@@ -24,9 +25,11 @@ namespace Shared_Razor_Components
             services.AddScoped<Radzen.DialogService>();
             services.AddScoped<ViewOptionService>();
             services.AddScoped<UserCard>();
+            services.AddTransient<ControleUserModalBody>();
             //services.AddScoped<SetHeader>();
             //services.AddScoped<SetFooter>();
             services.AddScoped<ControleUsuariosAppViewModel>();
+            services.AddScoped<RegisterViewModel>();
             services.AddSingleton<IPainelUsuariosService, PainelUsuariosService>();
             services.AddSingleton<IPrincipalService, PrincipalService>();
             services.AddSingleton<IControleUsuariosAppService, ControleUsuariosAppService>();

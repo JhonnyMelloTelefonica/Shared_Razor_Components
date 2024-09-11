@@ -14,6 +14,7 @@ using System.ComponentModel;
 using Shared_Razor_Components.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
+
 using Microsoft.JSInterop;
 using BlazorBootstrap;
 
@@ -22,30 +23,30 @@ namespace Shared_Razor_Components.ViewModels
 {
     public partial class ControleUsuariosAppViewModel : VivoAppsViewModel
     {
+        public ControleUsuariosAppViewModel(IHttpContextAccessor httpAccessor, IWebHostEnvironment networkacessor, GetUser_REDECORP getUser_REDECORP, IPageProgressService pageProgressService, IJSRuntime jSRuntime, PreloadService preloadService, IBlazorDownloadFileService dowloader, Radzen.DialogService radzendialog, Microsoft.FluentUI.AspNetCore.Components.IDialogService fluentDialog, Blazorise.IMessageService messageService, ILoadingIndicatorService applicationLoadingIndicatorService, SweetAlertService swal, NavigationManager navigationManager, UserService userservice, Microsoft.FluentUI.AspNetCore.Components.IToastService _ToastService, IAcessoPendenteByIdService _AcessoPendenteByldService, IAcessoTerceirosService _AcessoTerceirosService, IAnswerFormService _AnswerFormService, ICardapioDigitalService _CardapioDigitalService, IConsultarDemandasService _ConsultarDemandasService, IControleDemandaService _ControleDemandaService, IControleUsuariosAppService _ControleUsuariosAppService, ICreateFormService _CreateFormService, ICreateQuestionService _CreateQuestionService, IDesligamentosService _DesligamentosService, IEditQuestionService _EditQuestionService, IEditSingleQuestionService _EditSingleQuestionService, IEditUserService _EditUserService, IJornadaHierarquiaService _JornadaHierarquiaService, IListaFormService _ListaFormService, IPainelProvasRealizadasService _PainelProvasRealizadasService, IPainelUsuariosService _PainelUsuariosService, IPrincipalService _PrincipalService, IPWService _PWService, IRegisterService _RegisterService, IResultadosProvaService _ResultadosProvaService) : base(httpAccessor, networkacessor, getUser_REDECORP, pageProgressService, jSRuntime, preloadService, dowloader, radzendialog, fluentDialog, messageService, applicationLoadingIndicatorService, swal, navigationManager, userservice, _ToastService, _AcessoPendenteByldService, _AcessoTerceirosService, _AnswerFormService, _CardapioDigitalService, _ConsultarDemandasService, _ControleDemandaService, _ControleUsuariosAppService, _CreateFormService, _CreateQuestionService, _DesligamentosService, _EditQuestionService, _EditSingleQuestionService, _EditUserService, _JornadaHierarquiaService, _ListaFormService, _PainelProvasRealizadasService, _PainelUsuariosService, _PrincipalService, _PWService, _RegisterService, _ResultadosProvaService)
+        {
+            if (Userservice.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1))
+            {
+                filter.IsSuporte = true;
+            }
+            else if (Userservice.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 10))
+            {
+                filter.IsSuporte = true;
+                filter.Regional = new List<string> {
+                Userservice.User.REGIONAL
+                };
+            }
+            else
+            {
+                filter.IsSuporte = false;
+            }
 
+            GetPerfisUsuario();
+        }
 
         public FileContent file { get; set; }
 
         public Blazorise.Modal modalCriarUserMassivoRef;
-
-        public bool isFilterOpen = false;
-        public bool IsFilterOpen
-        {
-            get => isFilterOpen;
-            set
-            {
-                if (isFilterOpen == value) return;
-                isFilterOpen = value;
-                TriggerPropertyChangedByTargetVM(this, nameof(IsFilterOpen));
-            }
-        }
-
-        private class ResultFilter
-        {
-            public List<JORNADA_BD_HIERARQUIum> datacarteira { get; set; }
-            public List<JORNADA_BD_CARGOS_CANAL> dataCanal_Cargo { get; set; }
-        };
-
         public async Task DowloadPage()
         {
             IsBusy = true;
@@ -539,31 +540,8 @@ namespace Shared_Razor_Components.ViewModels
             }
             return;
         }
-
-        public List<SOLICITAR_USUARIO_MODEL> data = [];
-        public List<PERFIL_PLATAFORMAS_VIVO_DISSMISS> perfis = [];
-
-        public ControleUsuariosAppViewModel(IHttpContextAccessor httpAccessor, IWebHostEnvironment networkacessor, GetUser_REDECORP getUser_REDECORP, IPageProgressService pageProgressService, IJSRuntime jSRuntime, PreloadService preloadService, IBlazorDownloadFileService dowloader, Radzen.DialogService radzendialog, Microsoft.FluentUI.AspNetCore.Components.IDialogService fluentDialog , Blazorise.IMessageService messageService, ILoadingIndicatorService applicationLoadingIndicatorService, SweetAlertService swal, NavigationManager navigationManager, UserService userservice, Microsoft.FluentUI.AspNetCore.Components.IToastService _ToastService, IAcessoPendenteByIdService _AcessoPendenteByldService, IAcessoTerceirosService _AcessoTerceirosService, IAnswerFormService _AnswerFormService, ICardapioDigitalService _CardapioDigitalService, IConsultarDemandasService _ConsultarDemandasService, IControleDemandaService _ControleDemandaService, IControleUsuariosAppService _ControleUsuariosAppService, ICreateFormService _CreateFormService, ICreateQuestionService _CreateQuestionService, IDesligamentosService _DesligamentosService, IEditQuestionService _EditQuestionService, IEditSingleQuestionService _EditSingleQuestionService, IEditUserService _EditUserService, IJornadaHierarquiaService _JornadaHierarquiaService, IListaFormService _ListaFormService, IPainelProvasRealizadasService _PainelProvasRealizadasService, IPainelUsuariosService _PainelUsuariosService, IPrincipalService _PrincipalService, IPWService _PWService, IRegisterService _RegisterService, IResultadosProvaService _ResultadosProvaService) : base(httpAccessor, networkacessor, getUser_REDECORP, pageProgressService, jSRuntime, preloadService, dowloader, radzendialog, fluentDialog, messageService, applicationLoadingIndicatorService, swal, navigationManager, userservice, _ToastService, _AcessoPendenteByldService, _AcessoTerceirosService, _AnswerFormService, _CardapioDigitalService, _ConsultarDemandasService, _ControleDemandaService, _ControleUsuariosAppService, _CreateFormService, _CreateQuestionService, _DesligamentosService, _EditQuestionService, _EditSingleQuestionService, _EditUserService, _JornadaHierarquiaService, _ListaFormService, _PainelProvasRealizadasService, _PainelUsuariosService, _PrincipalService, _PWService, _RegisterService, _ResultadosProvaService)
-        {
-            if (Userservice.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1))
-            {
-                filter.IsSuporte = true;
-            }
-            else if (Userservice.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 10))
-            {
-                filter.IsSuporte = true;
-                filter.Regional = new List<string> {
-                Userservice.User.REGIONAL
-                };
-            }
-            else
-            {
-                filter.IsSuporte = false;
-            }
-
-            GetPerfisUsuario();
-        }
-
+        public List<SOLICITAR_USUARIO_MODEL> data { get; set; } = [];
+        public List<PERFIL_PLATAFORMAS_VIVO_DISSMISS> perfis { get; set; } = [];
         public ControleUsuariosFilterModel filter { get; set; } = new();
         public List<JORNADA_BD_HIERARQUIum> datacarteira { get; set; }
         public List<JORNADA_BD_CARGOS_CANAL> dataCanal_Cargo { get; set; }
