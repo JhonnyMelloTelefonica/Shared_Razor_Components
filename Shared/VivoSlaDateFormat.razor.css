@@ -1,0 +1,62 @@
+﻿
+.apply-component ::deep .input-bind {
+    outline: none;
+    border: none;
+    height: 100%;
+    margin: auto;
+    box-shadow: none;
+    color: black;
+    background-color: transparent;
+    padding-left: 14px;
+    width:100px;
+}
+
+.apply-component ::deep .component-input-area {
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 2px 0px, rgba(0, 0, 0, 0.32) 0px 2px 4px 0px;
+    width: auto;
+    height: 40px;
+    background: #eeeeee;
+    border-radius: 7px;
+    margin: auto;
+}
+
+.apply-component ::deep .format-area div:first-child {
+    border-radius: 7px 0 0 7px;
+    top: -35px;
+}   
+
+.apply-component ::deep .format-area div:last-child {
+    border-radius: 7px 0 0 7px;
+    bottom: 5px;
+}
+
+.apply-component ::deep .format-area {  
+    background: transparent;
+    position: relative;
+    z-index:0;
+    cursor:pointer;
+}
+
+    .apply-component ::deep .format-area div {
+        position: absolute;
+        font-size: 9px;
+        font-family: Vivo-font-light;
+        left: -19px;
+    }
+
+    .apply-component ::deep .format-area .format-actived {
+        color: black;
+        height: 14px;
+        width: 29px;
+        margin: 0;
+        left: -28px;
+        padding-left: 3px;
+        background: #eeeeee;
+        box-shadow: rgba(0, 0, 0, 0.62) 0 0 2px 0px;
+        clip-path: inset(-15px 0px -15px -15px);
+    }
+
+    .apply-component ::deep .format-area div:not(.format-actived) {
+        color: black;
+    }
