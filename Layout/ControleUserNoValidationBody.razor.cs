@@ -163,6 +163,10 @@ namespace Shared_Razor_Components.Layout
         {
             user.CPF = FormatInputs.FormatCPF(args);
         }
+        public void FormatTelefone(string args)
+        {
+            user.TELEFONE = FormatInputs.FormatTelefone(args);
+        }
 
         public async Task GetPerfilByCargo(int args, List<int> Perfis)
         {

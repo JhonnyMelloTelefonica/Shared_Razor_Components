@@ -12,13 +12,20 @@ namespace Shared_Razor_Components.Shared
     {
         [Parameter] public IEnumerable<PRODUTOS_CARDAPIO> Produtos { get; set; }
         IEnumerable<ProdutoCardModel> ProdutosModel { get; set; } = [];
+
+        protected override void OnInitialized()
+        {
+            PropertyChanged += ProdutoCard_PropertyChanged;
+
+            base.OnInitialized();
+        }
+
         protected override Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-                PropertyChanged += ProdutoCard_PropertyChanged;
                 ProdutosModel = Produtos.Select(x => new ProdutoCardModel(x, PropertyChanged)).ToList();
-                StateHasChanged();
+                InvokeAsync(StateHasChanged);
             }
 
             return base.OnAfterRenderAsync(firstRender);

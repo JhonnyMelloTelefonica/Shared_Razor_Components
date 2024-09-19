@@ -114,7 +114,13 @@ namespace Shared_Razor_Components.ViewModels
                         return;
                     }
                 }
-                IsBusy = false;
+                else
+                {
+                    IsBusy = false;
+                    var error = result.Content as ErrorResponse;
+                    await MessageService.Error("Erro(s): " + string.Join(" - ", error.Errors.Select((x, y) => $"Linha N° {y + 1} {x.Key.Split('.')[1]}: {string.Join(", ", x.Value)}")), error.Title);
+                    return;
+                }
             }
             await modalCriarUserMassivoRef.Hide();
             return;
@@ -351,23 +357,20 @@ namespace Shared_Razor_Components.ViewModels
             IsBusy = true;
             try
             {
-                var result = await ControleUsuariosAppService.CriarUsuarioMassivo(usuarios, OBS, Userservice.User.MATRICULA);
+                MainResponse result = await ControleUsuariosAppService.CriarUsuarioMassivo(usuarios, OBS, Userservice.User.MATRICULA);
                 if (result.IsSuccess || result.Content is null)
                 {
-                    var response = JsonConvert.DeserializeObject<Response<object>>(result.Content.ToString());
-                    if (response.Succeeded)
+                    var saida = result.Content as MainResponse;
+                    IsBusy = false;
+                    if (saida.IsSuccess)
                     {
-                        IsBusy = false;
-                        await MessageService.Success(response.Message, "Tudo Certo!");
-                        return;
+                        await MessageService.Info(saida.Content.ToString().Replace($"\"",""), "Tudo Certo!");
                     }
                     else
                     {
-                        var error = JsonConvert.DeserializeObject<Response<string>>(result.Content.ToString());
-                        IsBusy = false;
-                        await ErrorModel(error);
-                        return;
+                        await MessageService.Error(saida.Content.ToString().Replace($"\"", ""), "Algum erro ocorreu!");
                     }
+                    return;
                 }
                 else
                 {
@@ -376,9 +379,7 @@ namespace Shared_Razor_Components.ViewModels
                     {
                         Data = string.Empty,
                         Message = "Houve algum erro na solicitação, por favor revise os valores enviados",
-                        Errors = new string[] {
-                        "Houve algum erro na solicitação, por favor revise os valores enviados"
-                        },
+                        Errors = new string[] { "Houve algum erro na solicitação, por favor revise os valores enviados" },
                         Succeeded = false
                     });
                     return;
@@ -488,21 +489,20 @@ namespace Shared_Razor_Components.ViewModels
             IsBusy = false;
             return string.Empty;
         }
-        public async Task ValidarMassivo(List<SOLICITAR_USUARIO_MODEL> usuarios)
+        public async Task<bool> ValidarMassivo(List<SOLICITAR_USUARIO_MODEL> usuarios)
         {
             if (usuarios.GroupBy(x => x.MATRICULA).Any(group => group.Count() > 1))
             {
                 await MessageService.Warning($"foi encontrado matrículas repetidas em seu arquivo por favor corrija e tente novamente", "Revise os dados!");
-                return;
+                return false;
 
             }
             else if (usuarios.GroupBy(x => x.EMAIL).Any(group => group.Count() > 1))
             {
                 await MessageService.Warning($"foi encontrado e-mails repetidos em seu arquivo por favor corrija e tente novamente", "Revise os dados!");
-                return;
+                return false;
             }
 
-            IsBusy = true;
             var result = await ControleUsuariosAppService.ValidateUsuarioMassivo(usuarios);
             if (result.IsSuccess)
             {
@@ -510,14 +510,16 @@ namespace Shared_Razor_Components.ViewModels
                 if (saida.Succeeded)
                 {
                     await MessageService.Success(saida.Message, "Tudo Certo!");
+                    return true;
                 }
                 else
                 {
                     var saidaList = JsonConvert.DeserializeObject<Response<List<string>>>(result.Content.ToString());
                     await MessageService.Error($"{saida.Message}; Verifique as seguinte informações em seu arquivo: \n {string.Join("", saidaList.Data)}", "Erro!");
+                    return false;
                 }
             }
-            IsBusy = false;
+            return false;
         }
         public async Task LoadDataCarteira()
         {

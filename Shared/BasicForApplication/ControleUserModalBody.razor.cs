@@ -26,6 +26,7 @@ namespace Shared_Razor_Components.Shared.BasicForApplication
 
         private FieldIdentifier Cssclass { get; set; }
         private FieldIdentifier CpfCssclass { get; set; }
+        private FieldIdentifier TelefoneCssclass { get; set; }
 
         private void OnStateChanged(object? sender, PropertyChangedEventArgs e)
         {
@@ -50,6 +51,7 @@ namespace Shared_Razor_Components.Shared.BasicForApplication
                 ShouldRender = true;
                 Cssclass = editContext.Field("Perfil");
                 CpfCssclass = editContext.Field("CPF");
+                TelefoneCssclass = editContext.Field("TELEFONE");
 
                 StateHasChanged();
 
@@ -162,6 +164,10 @@ namespace Shared_Razor_Components.Shared.BasicForApplication
         public void FormatCPF(string args)
         {
             user.CPF = FormatInputs.FormatCPF(args);
+        }
+        public void FormatTelefone(string args)
+        {
+            user.TELEFONE = FormatInputs.FormatTelefone(args);
         }
 
         public void Dispose()

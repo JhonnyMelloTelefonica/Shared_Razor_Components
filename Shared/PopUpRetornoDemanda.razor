@@ -6,43 +6,143 @@
 @using Shared_Static_Class.Converters
 @using Shared_Razor_Components.FundamentalModels
 
+<!--
 <RadzenStack Orientation="Radzen.Orientation.Vertical" AlignItems="Radzen.AlignItems.Center" Gap="5px">
     <FluentCard>
         <span class="d-inline-flex align-items-center align-middle gap-3">
             <RadzenColumn Size="12" SizeMD="6" Class="rz-p-4 rz-border-radius-1" Style="border: none">
                 <RadzenStack Gap="0" Class="rz-text-truncate"
                              Style="flex-direction: row !important; --rz-gap: none !important; justify-content: space-between !important; width: 700px">
+                    <RadzenText TextStyle="TextStyle.Overline" Style="font-family:Vivo-font-bold;">
+@chamado.Fila.ID_TIPO_FILANavigation?.NOME_TIPO_FILA
+                    </RadzenText>
+                </RadzenStack>
+            </RadzenColumn>
+        </span>
+        <RadzenStack Orientation="Radzen.Orientation.Horizontal" AlignItems="Radzen.AlignItems.Center" JustifyContent="Radzen.JustifyContent.SpaceEvenly">
+            <RadzenStack Gap="0" Class="rz-text-truncate">
+                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-4 rz-mb-0" Style="color: var(--rz-text-tertiary-color);">
+                    Tipo de fila:
+                </RadzenText>
+                <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
+                    <b>
+@(chamado.Fila.NOME_SUB_FILA)
+                    </b>
+                </RadzenText>
+                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">
+                    Prioridade:
+                </RadzenText>
+                <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
+                    <b>
+@(chamado.Relacao.PRIORIDADE ? "Alta" : "Baixa")
+                    </b>
+                </RadzenText>
+            </RadzenStack>
+            <RadzenStack Gap="0" Class="rz-text-truncate">
+                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-4 rz-mb-0" Style="color: var(--rz-text-tertiary-color);">
+                    SLA médio:
+                </RadzenText>
+                <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
+                    <b>
+@(chamado.Fila.SLA > 24 ? $"{(int)Math.Round((decimal)(chamado.Fila.SLA / 24), 0)} dias" : $"{chamado.Fila.SLA} horas")
+                    </b>
+                </RadzenText>
+                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">
+                    Ir para demanda:
+                </RadzenText>
+                <FluentButton BackgroundColor="#FFFFFF" OnClick="@(() => NavManager.NavigateTo($"/demandas/consultar/{relacao_chamado.ID_RELACAO}",true))">
+                    <FluentIcon Value="@(new Icons.Filled.Size24.ArrowRight().WithColor("#9b39d6"))" Slot="end">
+                    </FluentIcon>
+                    <b>
+                        N° @relacao_chamado.Sequence
+                    </b>
+                </FluentButton>
+            </RadzenStack>
+        </RadzenStack>
+    </FluentCard>
+    <br />
+    <FluentCard>
+        <RadzenText TextStyle="TextStyle.Overline" Style="font-family:Vivo-font-bold;">Informações do analista responsável</RadzenText>
+        <span class="d-inline-flex align-items-center align-middle gap-3">
+            <RadzenImage Path=@(Responsavel?.UserAvatar != null ? "data:image/png;base64," + SharedConverter.ConvertFileToString(Responsavel.UserAvatar) : "images/usericon.png") class="rz-gravatar" />
+            <RadzenColumn Size="12" SizeMD="6" Class="rz-p-4 rz-border-radius-1" Style="border: none">
+                <RadzenStack Gap="0" Class="rz-text-truncate"
+                             Style="flex-direction: row !important; --rz-gap: none !important; justify-content: space-between !important; width: 700px">
                     <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
                         <b>
-                            @(chamado.Fila.NOME_SUB_FILA)
+@(Responsavel?.NOME)
                         </b>
                     </RadzenText>
                 </RadzenStack>
             </RadzenColumn>
         </span>
-        <br />
-        <RadzenStack Orientation="Radzen.Orientation.Horizontal" AlignItems="Radzen.AlignItems.Center" JustifyContent="Radzen.JustifyContent.SpaceEvenly">
-            <RadzenStack Gap="0" Class="rz-text-truncate">
-                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-4 rz-mb-0" Style="color: var(--rz-text-tertiary-color);">Tipo de fila:</RadzenText>
-                <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@chamado.Fila.ID_TIPO_FILANavigation?.NOME_TIPO_FILA</b></RadzenText>
-                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">Qtd campos:</RadzenText>
-                <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@chamado.Campos.Count()</b></RadzenText>
-            </RadzenStack>
-            <RadzenStack Gap="0" Class="rz-text-truncate">
-                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-4 rz-mb-0" Style="color: var(--rz-text-tertiary-color);">SLA médio:</RadzenText>
-                <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@chamado.Fila.SLA dias</b></RadzenText>
-                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">ir para demanda:</RadzenText>
-                <FluentButton BackgroundColor="#FFFFFF" OnClick="@(() => NavManager.NavigateTo($"/demandas/consultar/{relacao_chamado.ID_RELACAO}",true))">
-                    <FluentIcon Value="@(new Icons.Filled.Size24.ArrowRight().WithColor("#9b39d6"))" Slot="end">
-                    </FluentIcon>
-                    N° @relacao_chamado.Sequence
-                </FluentButton>
-            </RadzenStack>
-        </RadzenStack>
+        <RadzenRow>
+            <RadzenColumn Size="12" SizeMD="6" Class="rz-p-4 rz-border-radius-1" Style="border: var(--rz-grid-cell-border)">
+                <RadzenStack Gap="0" Class="rz-text-truncate">
+                    <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">
+                        Matricula
+                    </RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
+                        <b>
+@(Responsavel != null ? Responsavel.MATRICULA : "-")
+                        </b>
+                    </RadzenText>
+                    <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">
+                        E-mail
+                    </RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
+                        <b>
+@(!string.IsNullOrEmpty(Responsavel?.EMAIL) ? Responsavel.EMAIL : "-")
+                        </b>
+                    </RadzenText>
+                </RadzenStack>
+            </RadzenColumn>
+            <RadzenColumn Size="12" SizeMD="6" Class="rz-p-4 rz-border-radius-1" Style="border: var(--rz-grid-cell-border)">
+                <RadzenStack Orientation="Radzen.Orientation.Horizontal" AlignItems="Radzen.AlignItems.Center">
+                    <RadzenStack Gap="0" Class="rz-text-truncate">
+                        <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">
+                            Cargo
+                        </RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
+                            <b>
+@(Responsavel != null ? ((Cargos)Responsavel.CARGO).GetDisplayName() : "-")
+                            </b>
+                        </RadzenText>
+@*                         <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-4 rz-mb-0" Style="color: var(--rz-text-tertiary-color);">
+                        Telefone
+                        </RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
+                        <b>
+                        @(!string.IsNullOrEmpty(Responsavel?.TELEFONE) ? FormatInputs.FormatTelefone(Responsavel.TELEFONE) : "-")
+                        </b>
+                        </RadzenText> *@
+                    </RadzenStack>
+                </RadzenStack>
+            </RadzenColumn>
+        </RadzenRow>
     </FluentCard>
-    <FluentCard>
+</RadzenStack>
+-->
+<RadzenColumn Class="rz-p-4 rz-border-radius-1" Style="border: var(--rz-grid-cell-border)">
+    <RadzenStack Gap="0" Class="rz-text-truncate w-auto">
+        <RadzenText TextStyle="TextStyle.Overline" Style="font-family:Vivo-font-bold;">
+            Informações do analista responsável
+        </RadzenText>
         <span class="d-inline-flex align-items-center align-middle gap-3">
-            <RadzenImage Path=@(Responsavel?.UserAvatar != null ? "data:image/png;base64," + SharedConverter.ConvertFileToString(Responsavel.UserAvatar) : "images/usericon.png") class="rz-gravatar" />
+            
+            <RadzenImage @onclick="@(() => JSRuntime.InvokeVoidAsync("ActivateCardView", new ACESSOS_MOBILE_DTO
+                  {
+                      UserAvatar = Responsavel.UserAvatar,
+                      MATRICULA = Responsavel.MATRICULA,
+                      NOME = Responsavel.NOME,
+                      EMAIL = Responsavel.EMAIL,
+                      CARGO = (Cargos)Responsavel.CARGO,
+                      PDV = Responsavel.PDV,
+                      CANAL = (Canal)Responsavel.CANAL
+                  }, DotNetObjectReference.Create(Card)))"
+                Path=@(Responsavel?.UserAvatar != null ? "data:image/png;base64," + SharedConverter.ConvertFileToString(Responsavel.UserAvatar) : "images/usericon.png") 
+                class="rz-gravatar" />
+
             <RadzenColumn Size="12" SizeMD="6" Class="rz-p-4 rz-border-radius-1" Style="border: none">
                 <RadzenStack Gap="0" Class="rz-text-truncate"
                              Style="flex-direction: row !important; --rz-gap: none !important; justify-content: space-between !important; width: 700px">
@@ -54,63 +154,76 @@
                 </RadzenStack>
             </RadzenColumn>
         </span>
-        @if (this.Orientation == Radzen.Orientation.Horizontal)
-        {
-            <RadzenRow>
-                <RadzenColumn Size="12" SizeMD="6" Class="rz-p-4 rz-border-radius-1" Style="border: var(--rz-grid-cell-border)">
-                    <RadzenText TextStyle="TextStyle.Subtitle1">Informações do analista resposável</RadzenText>
-                    <RadzenStack Orientation="Radzen.Orientation.Horizontal" AlignItems="Radzen.AlignItems.Center">
-                        <RadzenStack Gap="0" Class="rz-text-truncate">
-                            <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-4 rz-mb-0" Style="color: var(--rz-text-tertiary-color);">Quantidade de demandas</RadzenText>
-                            <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@(Responsavel != null ? Responsavel.DemandasResponsavel.Count() : "-")</b></RadzenText>
-                            <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">Cargo</RadzenText>
-                            <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@(Responsavel != null ? ((Cargos)Responsavel.CARGO).GetDisplayName():"-")</b></RadzenText>
-                        </RadzenStack>
-                    </RadzenStack>
-                </RadzenColumn>
-                <RadzenColumn Size="12" SizeMD="6" Class="rz-p-4 rz-border-radius-1" Style="border: var(--rz-grid-cell-border)">
-                    <RadzenText TextStyle="TextStyle.Subtitle1">Contato do analista responsável</RadzenText>
-                    <RadzenStack Gap="0" Class="rz-text-truncate">
-                        <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">Matricula</RadzenText>
-                        <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
-                            <b>
-                                @(Responsavel != null ? Responsavel.MATRICULA : "-")
-                            </b>
-                        </RadzenText>
-                        <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">E-mail</RadzenText>
-                        <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@(Responsavel != null ? Responsavel.EMAIL : "-")</b></RadzenText>
-                    </RadzenStack>
-                </RadzenColumn>
-            </RadzenRow>
-        }
-        else
-        {
-            <RadzenStack Orientation="Radzen.Orientation.Vertical" Gap="4px" Style="max-width:400px;">
-                <RadzenColumn Size="6" SizeMD="3" SizeLG="3" Class="rz-p-4 rz-border-radius-1" Style="border: var(--rz-grid-cell-border)">
-                    <RadzenText TextStyle="TextStyle.Subtitle1">Informações do analista resposável</RadzenText>
-                    <RadzenStack Orientation="Radzen.Orientation.Horizontal" AlignItems="Radzen.AlignItems.Center">
-                        <RadzenStack Gap="0" Class="rz-text-truncate">
-                            <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-4 rz-mb-0" Style="color: var(--rz-text-tertiary-color);">Quantidade de demandas</RadzenText>
-                            <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@(Responsavel != null ? Responsavel.DemandasResponsavel.Count() : "-")</b></RadzenText>
-                            <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">Cargo</RadzenText>
-                            <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@(Responsavel != null ? ((Cargos)Responsavel.CARGO).GetDisplayName():"-")</b></RadzenText>
-                        </RadzenStack>
-                    </RadzenStack>
-                </RadzenColumn>
-                <RadzenColumn Size="6" SizeMD="3" SizeLG="3" Class="rz-p-4 rz-border-radius-1" Style="border: var(--rz-grid-cell-border)">
-                    <RadzenText TextStyle="TextStyle.Subtitle1">Contato do analista responsável</RadzenText>
-                    <RadzenStack Gap="0" Class="rz-text-truncate">
-                        <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">Matricula</RadzenText>
-                        <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
-                            <b>
-                                @(Responsavel != null ? Responsavel.MATRICULA : "-")
-                            </b>
-                        </RadzenText>
-                        <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">E-mail</RadzenText>
-                        <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@(Responsavel != null ? Responsavel.EMAIL : "-")</b></RadzenText>
-                    </RadzenStack>
-                </RadzenColumn>
-            </RadzenStack>
-        }
-    </FluentCard>
-</RadzenStack>
+        <div class="w-100 d-inline-flex justify-content-between">
+            <div>
+                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">
+                    E-mail
+                </RadzenText>
+                <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
+                    <b>
+                        @(Responsavel?.EMAIL ?? "-")
+                    </b>
+                </RadzenText>
+            </div>
+            <div>
+                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">
+                    Telefone
+                </RadzenText>
+                <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
+                    <b>
+                        @(Responsavel?.TELEFONE ?? "-")
+                    </b>
+                </RadzenText>
+            </div>
+        </div>
+        <br />
+        <FluentDivider Orientation="Microsoft.FluentUI.AspNetCore.Components.Orientation.Horizontal" Role="DividerRole.Separator" />
+        <br />
+        <RadzenText TextStyle="TextStyle.Overline" Style="font-family:Vivo-font-bold;">
+            @chamado.Fila.ID_TIPO_FILANavigation?.NOME_TIPO_FILA
+        </RadzenText>
+        <div class="w-100 d-inline-flex justify-content-between">
+            <div>
+                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-4 rz-mb-0" Style="color: var(--rz-text-tertiary-color);">
+                    Tipo de fila:
+                </RadzenText>
+                <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
+                    <b>
+                        @(chamado.Fila.NOME_SUB_FILA)
+                    </b>
+                </RadzenText>
+                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">
+                    Prioridade:
+                </RadzenText>
+                <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
+                    <b>
+                        @(chamado.Relacao.PRIORIDADE ? "Alta" : "Baixa")
+                    </b>
+                </RadzenText>
+            </div>
+            <div >
+                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-4 rz-mb-0" Style="color: var(--rz-text-tertiary-color);">
+                    SLA médio:
+                </RadzenText>
+                <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
+                    <b>
+                        @(chamado.Fila.SLA > 24 ? $"{(int)Math.Round((decimal)(chamado.Fila.SLA / 24), 0)} dias" : $"{chamado.Fila.SLA} horas")
+                    </b>
+                </RadzenText>
+                <div class="d-flex flex-column">
+                    <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">
+                        Ir para demanda:
+                    </RadzenText>
+                    <FluentButton BackgroundColor="#FFFFFF" Style="align-content:start;" OnClick="@(() => NavManager.NavigateTo($"/demandas/consultar/{relacao_chamado.ID_RELACAO}",true))">
+                        <FluentIcon Value="@(new Icons.Filled.Size24.ArrowRight().WithColor("#9b39d6"))" Slot="end">
+                        </FluentIcon>
+                        <b>
+                            N° @relacao_chamado.Sequence
+                        </b>
+                    </FluentButton>
+                </div>
+            </div>
+        </div>
+
+    </RadzenStack>
+</RadzenColumn>

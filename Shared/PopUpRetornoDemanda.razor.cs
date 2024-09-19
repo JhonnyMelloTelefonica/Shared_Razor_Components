@@ -20,6 +20,8 @@ namespace Shared_Razor_Components.Shared
 {
     public partial class PopUpRetornoDemanda : ComponentBase
     {
+        [Inject] UserCard Card { get; set; }
+        [Inject] IJSRuntime JSRuntime { get; set; }
         [Inject] NavigationManager NavManager { get; set; }
         [Parameter] public ACESSOS_MOBILE_DTO Responsavel { get; set; } = new();
         [Parameter] public Radzen.Orientation Orientation { get; set; } = Radzen.Orientation.Horizontal;

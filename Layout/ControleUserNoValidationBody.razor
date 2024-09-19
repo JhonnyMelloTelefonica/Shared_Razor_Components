@@ -102,6 +102,13 @@
                                     </FluentTextField>
                                     <FluentValidationMessage For="@(() => user.CPF)" />
                                 </div>
+                                <div>
+                                    <FluentTextField Value=@user.TELEFONE ValueChanged="args => FormatTelefone(args)" ReadOnly=!Editable
+                                                     Required Immediate Placeholder="@($"Insira um valor para TELEFONE")" Label="TELEFONE">
+                                        <FluentIcon Value="@(new Icons.Filled.Size24.PersonInfo().WithColor("#6900dd"))" Slot="start" />
+                                    </FluentTextField>
+                                    <FluentValidationMessage For="@(() => user.TELEFONE)" />
+                                </div>
                             </FluentStack>
                         </FluentStack>
                     </FluentCard>

@@ -123,7 +123,7 @@ namespace Shared_Razor_Components.Services
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, client.BaseAddress);
-                var response = await MakeRequestAsync(request, client);
+                var response = await MakeRequestAsyncMainResponse(request, client);
                 return new MainResponse
                 {
                     Content = response,
@@ -151,7 +151,7 @@ namespace Shared_Razor_Components.Services
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, client.BaseAddress);
-                var response = await MakeRequestAsync(request, client);
+                var response = await MakeRequestAsyncMainResponse(request, client);
                 return new MainResponse
                 {
                     Content = response,
@@ -197,7 +197,7 @@ namespace Shared_Razor_Components.Services
                 });
                 var content = new StringContent(body, Encoding.UTF8, "application/json");
                 request.Content = content;
-                var response = await MakeRequestAsync(request, client);
+                var response = await MakeRequestAsyncMainResponse(request, client);
                 return new MainResponse
                 {
                     Content = response,
@@ -228,7 +228,7 @@ namespace Shared_Razor_Components.Services
                 var body = JsonConvert.SerializeObject(data);
                 var content = new StringContent(body, Encoding.UTF8, "application/json");
                 request.Content = content;
-                var response = await MakeRequestAsync(request, client);
+                var response = await MakeRequestAsyncMainResponse(request, client);
                 return new MainResponse
                 {
                     Content = response,
@@ -256,7 +256,7 @@ namespace Shared_Razor_Components.Services
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, client.BaseAddress);
-                var response = await MakeRequestAsync(request, client);
+                var response = await MakeRequestAsyncMainResponse(request, client);
                 return new MainResponse
                 {
                     Content = response,
@@ -284,7 +284,7 @@ namespace Shared_Razor_Components.Services
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, client.BaseAddress);
-                var response = await MakeRequestAsync(request, client);
+                var response = await MakeRequestAsyncMainResponse(request, client);
                 return new MainResponse
                 {
                     Content = response,
@@ -337,7 +337,7 @@ namespace Shared_Razor_Components.Services
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, client.BaseAddress);
-                var response = await MakeRequestAsync(request, client);
+                var response = await MakeRequestAsyncMainResponse(request, client);
                 return new MainResponse
                 {
                     Content = response,
@@ -365,7 +365,7 @@ namespace Shared_Razor_Components.Services
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, client.BaseAddress);
-                var response = await MakeRequestAsync(request, client);
+                var response = await MakeRequestAsyncMainResponse(request, client);
                 return new MainResponse
                 {
                     Content = response,
@@ -396,7 +396,7 @@ namespace Shared_Razor_Components.Services
                 var body = JsonConvert.SerializeObject(usuario);
                 var content = new StringContent(body, Encoding.UTF8, "application/json");
                 request.Content = content;
-                var response = await MakeRequestAsync(request, client);
+                var response = await MakeRequestAsyncMainResponse(request, client);
                 return new MainResponse
                 {
                     Content = response,
@@ -427,12 +427,11 @@ namespace Shared_Razor_Components.Services
                 var body = JsonConvert.SerializeObject(data);
                 var content = new StringContent(body, Encoding.UTF8, "application/json");
                 request.Content = content;
-                var response = await MakeRequestAsync(request, client);
+                var response = await MakeRequestAsyncMainResponse(request, client);
                 return new MainResponse
                 {
                     Content = response,
-                    IsSuccess = true,
-                    ErrorMessage = null
+                    IsSuccess = true
                 };
             }
             catch (Exception)
