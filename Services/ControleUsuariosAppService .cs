@@ -123,13 +123,7 @@ namespace Shared_Razor_Components.Services
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, client.BaseAddress);
-                var response = await MakeRequestAsyncMainResponse(request, client);
-                return new MainResponse
-                {
-                    Content = response,
-                    IsSuccess = true,
-                    ErrorMessage = null
-                };
+                return await MakeRequestAsyncMainResponse(request, client);
             }
             catch (Exception)
             {
@@ -151,13 +145,7 @@ namespace Shared_Razor_Components.Services
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, client.BaseAddress);
-                var response = await MakeRequestAsyncMainResponse(request, client);
-                return new MainResponse
-                {
-                    Content = response,
-                    IsSuccess = true,
-                    ErrorMessage = null
-                };
+                return await MakeRequestAsyncMainResponse(request, client);
             }
             catch (Exception)
             {
@@ -197,13 +185,7 @@ namespace Shared_Razor_Components.Services
                 });
                 var content = new StringContent(body, Encoding.UTF8, "application/json");
                 request.Content = content;
-                var response = await MakeRequestAsyncMainResponse(request, client);
-                return new MainResponse
-                {
-                    Content = response,
-                    IsSuccess = true,
-                    ErrorMessage = null
-                };
+                return await MakeRequestAsyncMainResponse(request, client);
             }
             catch (Exception)
             {
@@ -228,13 +210,7 @@ namespace Shared_Razor_Components.Services
                 var body = JsonConvert.SerializeObject(data);
                 var content = new StringContent(body, Encoding.UTF8, "application/json");
                 request.Content = content;
-                var response = await MakeRequestAsyncMainResponse(request, client);
-                return new MainResponse
-                {
-                    Content = response,
-                    IsSuccess = true,
-                    ErrorMessage = null
-                };
+                return await MakeRequestAsyncMainResponse(request, client);
             }
             catch (Exception)
             {
@@ -249,20 +225,14 @@ namespace Shared_Razor_Components.Services
         public async Task<MainResponse> BloquearUsuariosSuporte(string TP_AFASTAMENTO, string OBS, int id, int matricula)
         {
             try
-            {
+             {
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri($"{BaseUrl}/BloquearUsuarioSuporte?TP_AFASTAMENTO={TP_AFASTAMENTO}&OBS={OBS}&id={id}&matricula={matricula}");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, client.BaseAddress);
-                var response = await MakeRequestAsyncMainResponse(request, client);
-                return new MainResponse
-                {
-                    Content = response,
-                    IsSuccess = true,
-                    ErrorMessage = null
-                };
+                return await MakeRequestAsyncMainResponse(request, client);
             }
             catch (Exception)
             {
@@ -284,13 +254,7 @@ namespace Shared_Razor_Components.Services
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, client.BaseAddress);
-                var response = await MakeRequestAsyncMainResponse(request, client);
-                return new MainResponse
-                {
-                    Content = response,
-                    IsSuccess = true,
-                    ErrorMessage = null
-                };
+                return await MakeRequestAsyncMainResponse(request, client);
             }
             catch (Exception)
             {
@@ -337,13 +301,7 @@ namespace Shared_Razor_Components.Services
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, client.BaseAddress);
-                var response = await MakeRequestAsyncMainResponse(request, client);
-                return new MainResponse
-                {
-                    Content = response,
-                    IsSuccess = true,
-                    ErrorMessage = null
-                };
+                return await MakeRequestAsyncMainResponse(request, client);
             }
             catch (Exception)
             {
@@ -365,13 +323,7 @@ namespace Shared_Razor_Components.Services
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, client.BaseAddress);
-                var response = await MakeRequestAsyncMainResponse(request, client);
-                return new MainResponse
-                {
-                    Content = response,
-                    IsSuccess = true,
-                    ErrorMessage = null
-                };
+                return await MakeRequestAsyncMainResponse(request, client);
             }
             catch (Exception)
             {
@@ -396,13 +348,7 @@ namespace Shared_Razor_Components.Services
                 var body = JsonConvert.SerializeObject(usuario);
                 var content = new StringContent(body, Encoding.UTF8, "application/json");
                 request.Content = content;
-                var response = await MakeRequestAsyncMainResponse(request, client);
-                return new MainResponse
-                {
-                    Content = response,
-                    IsSuccess = true,
-                    ErrorMessage = null
-                };
+                return await MakeRequestAsyncMainResponse(request, client);
             }
             catch (Exception)
             {
@@ -427,12 +373,7 @@ namespace Shared_Razor_Components.Services
                 var body = JsonConvert.SerializeObject(data);
                 var content = new StringContent(body, Encoding.UTF8, "application/json");
                 request.Content = content;
-                var response = await MakeRequestAsyncMainResponse(request, client);
-                return new MainResponse
-                {
-                    Content = response,
-                    IsSuccess = true
-                };
+                return await MakeRequestAsyncMainResponse(request, client);
             }
             catch (Exception)
             {

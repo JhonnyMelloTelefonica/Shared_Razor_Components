@@ -337,11 +337,11 @@ namespace Shared_Razor_Components.Services
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, client.BaseAddress);
                 return await MakeRequestAsync(request, client);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return new MainResponse
                 {
-                    Content = "",
+                    Content = ex,
                     IsSuccess = false,
                     ErrorMessage = "algum erro ocorreu"
                 };

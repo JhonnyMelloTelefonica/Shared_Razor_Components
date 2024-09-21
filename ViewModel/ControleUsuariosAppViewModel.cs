@@ -162,7 +162,7 @@ namespace Shared_Razor_Components.ViewModels
             var result = await ControleUsuariosAppService.GetPerfisUsuario();
             if (result.IsSuccess)
             {
-                Response<object> saida = JsonConvert.DeserializeObject<Response<object>>(result.Content.ToString());
+                var saida = JsonConvert.DeserializeObject<Response<object>>(result.Content.ToString());
                 if (saida.Succeeded)
                 {
                     var listperfis = JsonConvert.DeserializeObject<List<PERFIL_PLATAFORMAS_VIVO>>(saida.Data.ToString());
@@ -360,15 +360,15 @@ namespace Shared_Razor_Components.ViewModels
                 MainResponse result = await ControleUsuariosAppService.CriarUsuarioMassivo(usuarios, OBS, Userservice.User.MATRICULA);
                 if (result.IsSuccess || result.Content is null)
                 {
-                    var saida = result.Content as MainResponse;
+                    var saida = JsonConvert.DeserializeObject<Response<string>>(result.Content.ToString());
                     IsBusy = false;
-                    if (saida.IsSuccess)
+                    if (saida.Succeeded)
                     {
-                        await MessageService.Info(saida.Content.ToString().Replace($"\"",""), "Tudo Certo!");
+                        await MessageService.Info(saida.Message, "Tudo Certo!");
                     }
                     else
                     {
-                        await MessageService.Error(saida.Content.ToString().Replace($"\"", ""), "Algum erro ocorreu!");
+                        await MessageService.Error(saida.Message, "Algum erro ocorreu!");
                     }
                     return;
                 }

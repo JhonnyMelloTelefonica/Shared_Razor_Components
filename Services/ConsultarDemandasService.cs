@@ -21,7 +21,7 @@ namespace Shared_Razor_Components.Services
         Task<MainResponse> GetAllEnableOperadores(string regional);
         Task<MainResponse> GetDataDash(string regional, IEnumerable<int> Perfis, int matricula,
             //Nullable Parameters
-            List<ACESSOS_MOBILE_DTO>? matricula_analista = null, string? status = null, IEnumerable<DateTime> Periodo = null, DEMANDA_TIPO_FILA_DTO? Tipo_fila = null, DEMANDA_SUB_FILA_DTO? Sub_fila = null, bool Comprioridade = false, bool Semprioridade = false);
+            List<ACESSOS_MOBILE_DTO>? matricula_analista = null, string? status = null, IEnumerable<DateTime> Periodo = null, int? Tipo_fila = null, int? Sub_fila = null, bool Comprioridade = false, bool Semprioridade = false);
         Task<MainResponse> GetDemandaById(string idDemanda);
         Task<MainResponse> GetAcessoById(string idDemanda);
         Task<MainResponse> GetDesligamentoById(string idDemanda);
@@ -272,7 +272,7 @@ namespace Shared_Razor_Components.Services
         }
         public async Task<MainResponse> GetDataDash(string regional, IEnumerable<int> Perfis, int matricula,
             //Nullable Parameters
-            List<ACESSOS_MOBILE_DTO>? matricula_analista, string? status, IEnumerable<DateTime> Periodo, DEMANDA_TIPO_FILA_DTO? Tipo_fila, DEMANDA_SUB_FILA_DTO? Sub_fila, bool Comprioridade = false, bool Semprioridade = false)
+            List<ACESSOS_MOBILE_DTO>? matricula_analista, string? status, IEnumerable<DateTime> Periodo, int? Tipo_fila, int? Sub_fila, bool Comprioridade = false, bool Semprioridade = false)
         {
             try
             {
@@ -295,7 +295,7 @@ namespace Shared_Razor_Components.Services
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, client.BaseAddress);
 
-                var body = JsonConvert.SerializeObject(new Tuple<IEnumerable<int>, IEnumerable<DateTime>, List<ACESSOS_MOBILE_DTO>?, DEMANDA_TIPO_FILA_DTO?, DEMANDA_SUB_FILA_DTO?>(Perfis, Periodo, matricula_analista, Tipo_fila, Sub_fila));
+                var body = JsonConvert.SerializeObject(new Tuple<IEnumerable<int>, IEnumerable<DateTime>, List<ACESSOS_MOBILE_DTO>?, int?, int?>(Perfis, Periodo, matricula_analista, Tipo_fila, Sub_fila));
                 var content = new StringContent(body, Encoding.UTF8, "application/json");
                 request.Content = content;
 
