@@ -328,6 +328,7 @@ namespace Shared_Razor_Components.Services
                     uri += string.Join('&',Filas.Select(x=> $"Filas={x}"));
                     if (SubFilas != null && SubFilas.Any())
                     {
+                        uri += "&";
                         uri += string.Join('&', SubFilas.Select(x => $"SubFilas={x}"));
                     }
                 }

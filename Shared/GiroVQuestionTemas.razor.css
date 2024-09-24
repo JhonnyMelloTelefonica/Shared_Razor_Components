@@ -1,0 +1,26 @@
+﻿
+.apply-component ::deep ul, .apply-component ::deep li {
+    list-style-type: none;
+}
+
+.apply-component ::deep .tema {
+    position: relative;
+}
+
+    .apply-component ::deep .tema .closed::before {
+        content: '+';
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        color: azure;
+        font-family: Vivo-font-bold;
+        border: 1px solid black;
+    }
+
+    .apply-component ::deep .tema .opened::before {
+        content: '-';
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        font-family: Vivo-font-bold;
+    }

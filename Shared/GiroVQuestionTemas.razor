@@ -1,0 +1,20 @@
+﻿<div class="apply-component">
+    <ul>
+        @foreach (var item in DataToShow)
+        {
+            <li>
+                <span class="tema @(item.IsOpened ? "opened" : "closed")">@item.id_Tema - @item.Tema</span>
+                <ul>
+                    @foreach (var Sub_Tema in item.TemaAgrupado)
+                    {
+                        <li>
+                            <span class="sub-tema">
+                                @Sub_Tema.Key - @Sub_Tema.Value.sub_Tema
+                            </span>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+</div>
