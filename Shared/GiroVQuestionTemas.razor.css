@@ -1,26 +1,111 @@
 ﻿
-.apply-component ::deep ul, .apply-component ::deep li {
-    list-style-type: none;
-}
 
-.apply-component ::deep .tema {
+.apply-component ::deep {
     position: relative;
 }
 
-    .apply-component ::deep .tema .closed::before {
-        content: '+';
-        position: absolute;
-        width: 5px;
-        height: 5px;
-        color: azure;
-        font-family: Vivo-font-bold;
-        border: 1px solid black;
+    .apply-component ::deep .header-inline {
+        display: inline-flex;
+        justify-content: space-between;
+        align-content: center;
+        color: white;
+        gap: 3rem;
+        padding: 6px;
+        margin: auto;
+        background: #9046b3;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+        text-align:center;
+        font-family:Vivo-font-bold;
+        font-size:24px;
     }
 
-    .apply-component ::deep .tema .opened::before {
-        content: '-';
-        position: absolute;
-        width: 5px;
-        height: 5px;
-        font-family: Vivo-font-bold;
+    .apply-component ::deep ul, .apply-component ::deep li {
+        list-style-type: none;
     }
+
+    .apply-component ::deep .tema {
+        position: relative;
+    }
+
+        .apply-component ::deep .tema.closed ul * {
+            opacity: 0;
+            height: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .apply-component ::deep .tema.closed ul * {
+            opacity: 1;
+            -moz-transition: height .5s;
+            -ms-transition: height .5s;
+            -o-transition: height .5s;
+            -webkit-transition: height .5s;
+            transition: height .5s;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .apply-component ::deep .tema.opened ul li {
+            position: relative;
+            padding-left: 39px;
+        }
+
+        .apply-component ::deep .tema.closed::before {
+            content: '+';
+            position: absolute;
+            left: -30px;
+            bottom: 25px;
+            width: 5px;
+            height: 5px;
+            color: black;
+            font-size: 23px;
+        }
+
+        .apply-component ::deep .tema.opened::before {
+            content: '-';
+            position: absolute;
+            left: -30px;
+            width: 5px;
+            top:-7px;
+            color: black;
+            font-size: 23px;
+        }
+
+        .apply-component ::deep .tema.opened ul li::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            width: 1px;
+            height: 100%;
+            color: black;
+            border: solid 1px #8f46b3;
+        }
+
+        .apply-component ::deep .tema.opened ul li:last-child::before {
+            height: 50%;
+        }
+
+        .apply-component ::deep .tema.opened ul li::after {
+            content: '';
+            position: absolute;
+            left: -30px;
+            height: 1px;
+            top: 12px;
+            width: 60px;
+            color: black;
+            border: solid 1px #8f46b3;
+        }
+
+        .apply-component ::deep .tema.opened ul li span::before {
+            content: '>';
+            position: absolute;
+            left: 21px;
+            top: 0.5px;
+            height: 1px;
+            width: 20px;
+            color: #8f46b3;
+            font-weight: bold;
+        }

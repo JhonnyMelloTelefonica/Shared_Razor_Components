@@ -91,7 +91,6 @@ namespace Shared_Razor_Components.Services
                 };
             }
         }
-
         public async Task<MainResponse> DeleteQuestion(int ID_QUESTION)
         {
             try
