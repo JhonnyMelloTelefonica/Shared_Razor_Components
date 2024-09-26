@@ -18,6 +18,7 @@ using System.Net;
 using System.Text;
 using static Shared_Static_Class.Data.DEMANDA_RELACAO_CHAMADO;
 using KGySoft.CoreLibraries;
+using Radzen;
 
 namespace Shared_Razor_Components.Shared;
 
@@ -30,7 +31,28 @@ public partial class GiroVQuestionTemas : ComponentBase
     [Inject] ILoadingIndicatorService ApplicationLoadingIndicatorService { get; set; } = null;
     [Inject] IWebHostEnvironment Env { get; set; } = null;
     [Inject] IConfiguration Config { get; set; } = null;
+    [Inject] DialogService RadzenDialog { get; set; } = null;
     bool IsBusy { get; set; }
+    string Search { get; set; } = string.Empty;
+    protected IEnumerable<Tema_SubTema_Agrupado> DataToShowFiltered
+    {
+        get
+        {
+            var saida = DataToShow;
+            if (!string.IsNullOrEmpty(Search))
+            {
+                saida = saida.Where(x =>
+                x.Tema.Contains(Search, StringComparison.InvariantCultureIgnoreCase)
+                || x.TemaAgrupado.Select(x => x.Value.sub_Tema).Any(y => y.Contains(Search, StringComparison.InvariantCultureIgnoreCase)));
+
+                saida.ToList().ForEach(c => c.IsOpened = true);
+                //saida = saida.Where(x => x.TemaAgrupado.Select(x => x.Value.sub_Tema).Contains(Search))
+                //    .ForEach(x => x.IsOpened = true);
+            }
+
+            return saida;
+        }
+    }
 
     private string BaseUrl
     {

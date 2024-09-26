@@ -83,4 +83,10 @@
 		<ProjectReference Include="..\Shared_Static_Class\Shared_Static_Class.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Content Update="Shared\PopUpTemasDisponiveis.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	</ItemGroup>
+
 </Project>

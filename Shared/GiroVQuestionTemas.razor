@@ -1,20 +1,63 @@
 ﻿<div class="apply-component">
-    <ul>
-        @foreach (var item in DataToShow)
-        {
-            <li>
-                <span class="tema @(item.IsOpened ? "opened" : "closed")">@item.id_Tema - @item.Tema</span>
-                <ul>
-                    @foreach (var Sub_Tema in item.TemaAgrupado)
-                    {
-                        <li>
-                            <span class="sub-tema">
-                                @Sub_Tema.Key - @Sub_Tema.Value.sub_Tema
-                            </span>
-                        </li>
-                    }
-                </ul>
-            </li>
-        }
-    </ul>
+    <div class="header-inline">
+        <div></div>
+        <span>Temas disponíveis</span>
+        <div>
+            <FluentButton BackgroundColor="transparent" Style="width:35px; height:35px;border-radius:50%;"
+                          OnClick="RadzenDialog.Close">
+                <FluentIcon Value="@(new Icons.Filled.Size24.Dismiss().WithColor("#ffffff"))" Style="width:22px; height:22px;" />
+            </FluentButton>
+        </div>
+    </div>
+    <div class="d-inline-flex justify-content-between align-content-center gap-3 p-2 m-auto w-100">
+        <div>
+            <FluentButton BackgroundColor="#8f46b3" Style="width:35px; height:35px;border-radius:50%;"
+                          OnClick="@(() => DataToShow.ToList().ForEach(x=> x.IsOpened = true))">
+                <FluentIcon Value="@(new Icons.Filled.Size24.ZoomIn().WithColor("#ffffff"))" Style="width:22px; height:32px;" />
+            </FluentButton>
+            <FluentButton BackgroundColor="#8f46b3" Style="width:35px; height:35px;border-radius:50%;"
+                          OnClick="@(() => DataToShow.ToList().ForEach(x=> x.IsOpened = false))">
+                <FluentIcon Value="@(new Icons.Filled.Size24.ZoomOut().WithColor("#ffffff"))" Style="width:22px; height:22px;" />
+            </FluentButton>
+        </div>
+        <FluentSearch @bind-Value=Search Placeholder="Pesquise aqui" 
+                Appearance="FluentInputAppearance.Outline" Spellcheck="true"
+                Immediate />
+        <div>
+        </div>
+    </div>
+    <div style="padding-left:30px;">
+        <ul>
+            @foreach (var item in DataToShowFiltered)
+            {
+                <li>
+                    <div class="tema @(item.IsOpened ? "opened" : "closed")">
+                        <span @onclick="@(() => item.IsOpened = !item.IsOpened)">
+                            <FluentHighlighter HighlightedText="@Search"
+                                               Delimiters=" ,;"
+                                               Text="@($"{item.id_Tema} - {item.Tema}")" />
+
+                        </span>
+                        <ul>
+                            @foreach (var Sub_Tema in item.TemaAgrupado)
+                            {
+                                <li>
+                                    <span class="sub-tema">
+                                        <FluentHighlighter HighlightedText="@Search"
+                                                           Delimiters=" ,;"
+                                                           Text="@($"{Sub_Tema.Key} - {Sub_Tema.Value.sub_Tema}")" />
+                                    </span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
 </div>
+<style>
+    .radzen-body-class .rz-dialog .rz-dialog-content {
+        padding: 0 !important;
+    }
+</style>
