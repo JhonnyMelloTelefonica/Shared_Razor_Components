@@ -84,7 +84,7 @@
             <i class="bi bi-person-bounding-box i-navMenu"></i>
             </a>
             </div> *@
-            <Image Class="ImageNav" Border="Blazorise.Border.RoundedCircle"
+            <Blazorise.Image Class="ImageNav" Border="Blazorise.Border.RoundedCircle"
                    @onclick="@(() => JSRuntime.InvokeVoidAsync("ActivateCardView", new Shared_Static_Class.Model_DTO.ACESSOS_MOBILE_DTO
                                         {
                                             UserAvatar = user.User.UserAvatar,
@@ -96,7 +96,7 @@
                                             CANAL = user.User.CANAL,
                                         }, DotNetObjectReference.Create(User), true))"
                    Source="@(user.User.UserAvatar != null ? "data:image/png;base64," + SharedConverter.ConvertFileToString(user.User.UserAvatar) : "images/usericon.png")">
-            </Image>
+            </Blazorise.Image>
 
             <p style="align-items: center;font-size: 10px;display: flex;justify-content: center;margin: 0px !important;" @onclick="ViewOption.ToggleNavMenu">
                 @*  @(textInfo.ToTitleCase(service.Userservice.User.NOME.Split()[0].ToLower())) *@

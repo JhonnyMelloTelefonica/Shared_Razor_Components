@@ -22,9 +22,9 @@
         </HeaderTemplate>
         <ChildContent>
             <div class="text-sm-center justify-content-center flex-column d-flex">
-                <Image Style="width:90px; margin: auto;cursor:pointer" Border="Blazorise.Border.RoundedCircle" @onclick="ClickFileInput"
+                <blazorise.Image Style="width:90px; margin: auto;cursor:pointer" Border="Blazorise.Border.RoundedCircle" @onclick="ClickFileInput"
                        Source="@(Criaruser.UserAvatar != null ? "data:image/png;base64," + Convert.ToBase64String(Criaruser.UserAvatar) : "images/usericon.png")">
-                </Image>
+                </blazorise.Image>
                 <InputFile type="file" id="myFileInput" OnChange="ChangeAvatar" hidden accept="image/*" />
                 <span style="font-family: Vivo-font-bold" id="btn_myFileInput" @onclick="ClickFileInput">
                     @Criaruser.MATRICULA

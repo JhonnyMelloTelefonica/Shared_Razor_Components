@@ -25,58 +25,58 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />
-		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="2.1.1" />
+		<PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.8" />
 		<PackageReference Include="AutoMapper" Version="13.0.1" />
-		<PackageReference Include="Blazor.Bootstrap" Version="2.2.0" />
+		<PackageReference Include="Blazor.Bootstrap" Version="3.0.0" />
 		<PackageReference Include="BlazorDownloadFile" Version="2.4.0.2" />
 		<PackageReference Include="Blazored.TextEditor" Version="1.1.0" />
-		<PackageReference Include="Blazorise" Version="1.6.0" />
-		<PackageReference Include="Blazorise.Animate" Version="1.6.0" />
-		<PackageReference Include="Blazorise.Bootstrap" Version="1.6.0" />
-		<PackageReference Include="Blazorise.Charts" Version="1.6.0" />
-		<PackageReference Include="Blazorise.Components" Version="1.6.0" />
-		<PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.6.0" />
-		<PackageReference Include="Blazorise.LoadingIndicator" Version="1.6.0" />
-		<PackageReference Include="Blazorise.RichTextEdit" Version="1.6.0" />
-		<PackageReference Include="Blazorise.Snackbar" Version="1.6.0" />
-		<PackageReference Include="Blazorise.SpinKit" Version="1.6.0" />
-		<PackageReference Include="BootstrapBlazor" Version="8.8.2" />
+		<PackageReference Include="Blazorise" Version="1.6.1" />
+		<PackageReference Include="Blazorise.Animate" Version="1.6.1" />
+		<PackageReference Include="Blazorise.Bootstrap" Version="1.6.1" />
+		<PackageReference Include="Blazorise.Charts" Version="1.6.1" />
+		<PackageReference Include="Blazorise.Components" Version="1.6.1" />
+		<PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.6.1" />
+		<PackageReference Include="Blazorise.LoadingIndicator" Version="1.6.1" />
+		<PackageReference Include="Blazorise.RichTextEdit" Version="1.6.1" />
+		<PackageReference Include="Blazorise.Snackbar" Version="1.6.1" />
+		<PackageReference Include="Blazorise.SpinKit" Version="1.6.1" />
+		<PackageReference Include="BootstrapBlazor" Version="8.10.1" />
 		<PackageReference Include="CurrieTechnologies.Razor.SweetAlert2" Version="5.6.0" />
-		<PackageReference Include="HtmlAgilityPack" Version="1.11.63" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.66" />
 		<PackageReference Include="KGySoft.Drawing.SkiaSharp" Version="8.1.0" />
 		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.8" />
 		<PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="8.0.8" />
-		<PackageReference Include="Microsoft.Azure.SignalR" Version="1.26.0" />
+		<PackageReference Include="Microsoft.Azure.SignalR" Version="1.27.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.7">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.Extensions.ApiDescription.Client" Version="8.0.7">
+		<PackageReference Include="Microsoft.Extensions.ApiDescription.Client" Version="8.0.8">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="3.7.8" />
 		<PackageReference Include="Microsoft.Fast.Components.FluentUI.Icons" Version="3.7.5" />
-		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.9.3" />
-		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter" Version="4.9.3" />
-		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.9.3" />
+		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.10.1" />
+		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter" Version="4.10.1" />
+		<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.10.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="NSwag.ApiDescription.Client" Version="14.1.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Radzen.Blazor" Version="5.1.1" />
+		<PackageReference Include="Radzen.Blazor" Version="5.2.4" />
 		<PackageReference Include="SkiaSharp" Version="2.88.8" />
-		<PackageReference Include="Syncfusion.Blazor.WordProcessor" Version="26.2.9" />
+		<PackageReference Include="Syncfusion.Blazor.WordProcessor" Version="27.1.50" />
 		<PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
-		<PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="8.103.2" />
+		<PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="8.103.4" />
 	</ItemGroup>
 
 	<ItemGroup>

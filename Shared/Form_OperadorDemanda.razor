@@ -25,9 +25,9 @@
                                 Multiple Chips AllowFiltering Separator=";" AllowClear="false"
                                 AllowSelectAll="false" Style="width: 100%; max-width:600px">
                     <Template Context="analista">
-                        <Image Style="width:30px" Border="Blazorise.Border.RoundedCircle"
+                        <Blazorise.Image Style="width:30px" Border="Blazorise.Border.RoundedCircle"
                                Source="@("data:image/png;base64," + SharedConverter.ConvertFileToString(analista.UserAvatar))">
-                        </Image>
+                        </Blazorise.Image>
                         <span>
                             @analista.DISPLAY_NOME
                         </span>
