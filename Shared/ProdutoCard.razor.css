@@ -8,17 +8,72 @@
 
 .apply-component ::deep .flex-stack-route {
     height: auto;
-    display: inline-flex;
-    flex-direction: row;
-    gap: 10px;
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: 30px;
     padding: 0;
-    width: auto;
-    margin: auto;
-    row-gap: 140px !important;
+    width: 100%;
+    grid-auto-rows: 1fr 3fr;
 }
 
-    .apply-component ::deep .flex-stack-route fluent-card {
+    .apply-component ::deep .flex-stack-route .page-filters {
+        position: relative;
+        display: flex;
+        flex-flow: column;
+        gap: 30px;
+    }
+
+        .apply-component ::deep .flex-stack-route .page-filters #page-filters-header {
+            font-family: Vivo-font-bold;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 58px;
+            text-transform: uppercase;
+            color: #706868;
+        }
+
+        .apply-component ::deep .flex-stack-route .page-filters .filter-card-title {
+            font-family: Vivo-font-light;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 58px;
+            text-transform: uppercase;
+            color: #706868;
+        }
+
+        .apply-component ::deep .flex-stack-route .page-filters > div {
+            min-height: 20vh;
+            height: auto;
+            box-sizing: border-box;
+            background: #FFFFFF;
+            border: 0.5px solid #CBC4C4;
+            box-shadow: 0px 4px 4px rgba(104, 98, 98, 0.7);
+            border-radius: 10px;
+            width: 100%;
+        }
+
+    .apply-component ::deep .flex-stack-route .card-area {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 100%;
+        align-content: start;
+        justify-content: center;
+    }
+
+    .apply-component ::deep .flex-stack-route .card-produto {
         border-radius: 20px;
+        min-height: 230px;
+        height: auto;
+        max-height: 400px;
+        box-sizing: border-box;
+        background: #FFFFFF;
+        border: 0.5px solid #CBC4C4;
+        box-shadow: 0px 4px 4px rgba(104, 98, 98, 0.7);
+        border-radius: 10px;
+        max-width: 400px;
     }
 
     .apply-component ::deep .flex-stack-route .stack-route {
@@ -29,11 +84,9 @@
         vertical-align: middle;
         text-align: center;
         margin: 0;
-        height: 100%;
         min-height: 300px;
         border-radius: 20px;
         /*background: #8c0dac;*/
-        background-image: linear-gradient(90deg, #73168a 0%, #9d17be 50%);
     }
 
         .apply-component ::deep .flex-stack-route .stack-route.disabled .nav-button {
@@ -72,7 +125,7 @@
         position: absolute;
         width: 40px;
         height: 40px;
-        background: #b612df;
+        background: #cbc3c3;
         padding: 8px;
         z-index: 1;
         margin: auto;
@@ -92,14 +145,14 @@
         }
 
 .apply-component ::deep .stack-route div p {
-    color: #f7f7f7;
+    color: black;
     font-family: Vivo-font-light;
     text-align: center;
 }
 
     .apply-component ::deep .stack-route div p:first-child {
         /*text-align: center;*/
-        color: #f7f7f7;
+        color: black;
         font-family: Vivo-font-bold;
         font-size: 17px !important;
         text-shadow: 1px 0px 12px 1px rgba(0, 0, 92, 0);
@@ -126,12 +179,15 @@
 
         .apply-component ::deep .produto-card-opened .stack-route .card {
             background-color: #4c1d57;
-            color: white;
+            color: black;
             min-width: 250px;
             width: auto;
             max-width: 300px;
         }
 
+        .apply-component ::deep .produto-card-opened .stack-route aside {
+            height: auto;
+        }
         .apply-component ::deep .produto-card-opened .stack-route aside img {
             height: 100%;
             max-height: none;
@@ -151,14 +207,14 @@
     width: 90%;
 }
 
-    .apply-component ::deep .product-description {
-        padding: 13px;
-        width: 100%;
-    }
+.apply-component ::deep .product-description {
+    padding: 13px;
+    width: 100%;
+}
 
-    .apply-component ::deep .produto-card-opened .product-description {
-        width: 75%;
-    }
+.apply-component ::deep .produto-card-opened .product-description {
+    width: 75%;
+}
 
 
 @media (min-width: 640px) {
@@ -176,8 +232,8 @@
     }
 }
 
-@media (min-width: 768px) {
 
+@media (min-width: 768px) {
     .apply-component ::deep .produto-card-opened .product-description {
         width: 60%;
     }
@@ -189,7 +245,15 @@
 
     .apply-component ::deep .flex-stack-route {
         gap: 30px;
+        padding: 20px;
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr 4fr;
     }
+
+        .apply-component ::deep .flex-stack-route + * {
+            width: 100%;
+        }
 
         .apply-component ::deep .flex-stack-route fluent-card:not(.produto-card-opened) {
             width: 35% !important;
@@ -209,7 +273,6 @@
 
 
 ::deep > .right-gradient {
-    
 }
 
 .apply-component ::deep .both-gradient #shadow-root .scroll-area .scroll-view {

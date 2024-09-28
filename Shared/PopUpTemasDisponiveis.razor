@@ -1,14 +1,14 @@
 @using Radzen;
 @inject Radzen.DialogService RadzenDialog;
 
-<Blazorise.Tooltip Text="Info. Temas Disponivéis">
+<Blazorise.Tooltip Text="Info. Temas Disponíveis">
     <FluentButton BackgroundColor="#ffd04b" Style="display: flex; border-radius: 50%;" @onclick="OpenInfoTemas">
         <FluentIcon Value="@(new Icons.Filled.Size32.Question().WithColor("#ffffff"))" Style="margin:auto; width:22px;height:22px;">
         </FluentIcon>
     </FluentButton>
 </Blazorise.Tooltip>
 
-@code{
+@code {
     void OpenInfoTemas()
     {
         RadzenDialog.OpenAsync<GiroVQuestionTemas>("", null, new DialogOptions()

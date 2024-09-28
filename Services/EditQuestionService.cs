@@ -12,8 +12,8 @@ namespace Shared_Razor_Components.Services
 {
     public interface IEditQuestionService
     {
-        Task<MainResponse> DeleteQuestion(int ID_QUESTION);
-        Task<MainResponse> EnableQuestion(int ID_QUESTION);
+        Task<MainResponse> DeleteQuestion(int ID_QUESTION, int matricula);
+        Task<MainResponse> EnableQuestion(int ID_QUESTION, int matricula);
         Task<MainResponse> GetEditQuestion(GenericPaginationModel<FilterEditQuestionModel> filter);
     }
     public class EditQuestionService : IEditQuestionService
@@ -69,16 +69,16 @@ namespace Shared_Razor_Components.Services
                 };
             }
         }
-        public async Task<MainResponse> EnableQuestion(int ID_QUESTION)
+        public async Task<MainResponse> EnableQuestion(int ID_QUESTION, int matricula)
         {
             try
             {
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
                 HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri($"{BaseUrl}/EnableQuestion?ID_QUESTION={ID_QUESTION}");
+                client.BaseAddress = new Uri($"{BaseUrl}/EnableQuestion?ID_QUESTION={ID_QUESTION}&matricula={matricula}");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Delete, client.BaseAddress);
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, client.BaseAddress);
                 return await MakeRequestAsync(request, client);
             }
             catch (Exception)
@@ -91,16 +91,16 @@ namespace Shared_Razor_Components.Services
                 };
             }
         }
-        public async Task<MainResponse> DeleteQuestion(int ID_QUESTION)
+        public async Task<MainResponse> DeleteQuestion(int ID_QUESTION, int matricula)
         {
             try
             {
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
                 HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri($"{BaseUrl}/DeleteQuestion?ID_QUESTION={ID_QUESTION}");
+                client.BaseAddress = new Uri($"{BaseUrl}/DeleteQuestion?ID_QUESTION={ID_QUESTION}&matricula={matricula}");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Delete, client.BaseAddress);
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, client.BaseAddress);
                 return await MakeRequestAsync(request, client);
             }
             catch (Exception)

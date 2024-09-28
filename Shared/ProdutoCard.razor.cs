@@ -69,6 +69,18 @@ namespace Shared_Razor_Components.Shared
             }
         }
 
+        protected class ImagewithPosition : PRODUTO_IMAGEM
+        {
+            public ImagewithPosition(int position, byte[] imagem, Guid? id_produto = null) : base(imagem, id_produto)
+            {
+                ID_PRODUTO = id_produto ?? Guid.Empty;
+                Position = position;
+                Imagem = imagem;
+            }
+
+            public int Position { get; set; }
+        }
+
     }
 
 }
