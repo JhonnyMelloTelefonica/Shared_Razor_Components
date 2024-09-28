@@ -38,7 +38,7 @@
         fill: #c1c1c1;
         left: -15px;
         content: '💜';
-        transition: all 1s linear;
+        transition: all 0.4s linear;
     }
 
 .input-area.valid.modified,
@@ -56,7 +56,7 @@
 }
 
 ::deep label[for] {
-    transition: all 1s linear;
+    transition: all 0.5s linear;
     position: absolute;
     left: 0;
     top: 0;
@@ -73,14 +73,14 @@
     font-size: 13px;
     color: #c1c1c1;
     left: 0;
-    transition: all 1s linear;
+    transition: all 0.3s linear;
 }
 
 .input-area:has(.bar-rounded):has(input:not(:placeholder-shown)) label {
     top: -25px;
     font-size: 10px;
     left: 0;
-    transition: all 1s linear;
+    transition: all 0.3s linear;
 }
 
 .input-area.valid label, .input-area.valid label,
@@ -89,7 +89,7 @@
     font-size: 10px;
     color: #c1c1c1;
     left: 5px;
-    transition: all 1s linear;
+    transition: all 0.3s linear;
 }
 /*.input-area:not(input:focus) label
 , .input-area:not(input:active)  label {
@@ -103,14 +103,14 @@
     height: 1px;
     border-radius: 0.5px;
     width: 100%;
-    transition: all 1s linear;
+    transition: all 0.3s linear;
     background-color: #617ad9;
 }
 
 ::deep input:focus + .bar,
 ::deep input:active + .bar {
     background-image: linear-gradient(0deg, #617ad9 0%, #9f32ff 70%);
-    animation: ChangeBarColor 1.5s linear forwards;
+    animation: ChangeBarColor 0.5s linear forwards;
     height: 1.5px;
     border-radius: 0.75px;
 }
@@ -158,7 +158,7 @@
     width: 110%;
     height: 130%;
     left: -10px;
-    transition: all 1s linear;
+    transition: all 0.4s linear;
     border: 1px solid #893aaf;
     border-radius: 4px;
     pointer-events: none;
@@ -166,7 +166,7 @@
 
 ::deep select:focus + .bar-rounded,
 ::deep select:active + .bar-rounded {
-    animation: ChangeBarColor 1.5s linear forwards;
+    animation: ChangeBarColor 0.4s linear forwards;
     height: 1.5px;
     border-radius: 0.75px;
 }

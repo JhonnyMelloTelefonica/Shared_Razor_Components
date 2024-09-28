@@ -32,9 +32,9 @@
                                 </div>
                             }
                             <div class="text-sm-center justify-content-center flex-column d-flex" @onclick="@(() => ActionSelectAnalista(item))">
-                                <Image Style="width:30px; margin: auto" Border="Blazorise.Border.RoundedCircle" 
+                                <Blazorise.Image Style="width:30px; margin: auto" Border="Blazorise.Border.RoundedCircle" 
                                        Source="@(item.Item1.UserAvatar != null ? "data:image/png;base64," + SharedConverter.ConvertFileToString(item.Item1.UserAvatar) : "images/usericon.png" )">
-                                </Image>
+                                </Blazorise.Image>
                                 <span style="font-family: Vivo-font-light">
                                     @item.Item1.NOME
                                 </span>
@@ -54,9 +54,9 @@
                                 <FluentIcon Value="@(new Icons.Filled.Size12.Dismiss().WithColor("#ffffff"))" Style="margin:auto;" />
                             </div>
                             <div class="text-sm-center justify-content-center flex-column d-flex">
-                                <Image Style="width:30px; margin: auto" Border="Blazorise.Border.RoundedCircle"
+                                <Blazorise.Image Style="width:30px; margin: auto" Border="Blazorise.Border.RoundedCircle"
                                        Source="@(analista.Item1.UserAvatar != null ? "data:image/png;base64," + SharedConverter.ConvertFileToString(analista.Item1.UserAvatar) : "images/usericon.png" )">
-                                </Image>
+                                </Blazorise.Image>
                                 <span style="font-family: Vivo-font-light">
                                     @analista.Item1.NOME
                                 </span>
