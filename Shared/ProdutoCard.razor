@@ -1,7 +1,43 @@
 ﻿<div class="apply-component">
-    <section>
+    <section class="principal-filters">
+        <div class="p-3">
+            <span class="filter-card-title">
+                Ordernar Por
+            </span>
+            <br />
+            <div class="d-flex flex-nowrap flex-row gap-2 flex-nowrap">
+                <FluentSelect @bind-Value=Orderby Class="w-50" TOption="string">
+                    <FluentOption Value="Avaliacao.Avaliacao" TOption="string">
+                        Avaliação
+                    </FluentOption>
+                    <FluentOption Value="Avaliacao.PositionInRank" TOption="string">
+                        Mais Vendidos
+                    </FluentOption>
+                    <FluentOption Value="Fabricante" TOption=string>
+                        Fabricante
+                    </FluentOption>
+                    <FluentOption Value="IsOferta" TOption=string>
+                        Estão em oferta
+                    </FluentOption>
+                    <FluentOption Value="Valor" TOption=string>
+                        Preço
+                    </FluentOption>
+                </FluentSelect>
+                <FluentIcon OnClick="@(() => AscOrDesc = true)" Value="@(new Icons.Filled.Size28.ArrowUp().WithColor(AscOrDesc ? "#8f46b3" :"#cbc3c3"))">
+                </FluentIcon>
+                <FluentIcon OnClick="@(() => AscOrDesc = false)" Value="@(new Icons.Filled.Size28.ArrowDown().WithColor(!AscOrDesc ? "#8f46b3" : "#cbc3c3"))">
+                </FluentIcon>
+            </div>
+        </div>
+        <div class="p-3">
+            <div class="d-flex flex-nowrap flex-column gap-2">
+                <FluentSearch @bind-Value=SearchGeral Class="m-auto" />
+            </div>
+        </div>
     </section>
+
     <div class="flex-stack-route">
+        <!-- #region generic filters -->
         <aside class="page-filters">
             <span id="page-filters-header">
                 Filtros
@@ -10,13 +46,14 @@
                 <span class="filter-card-title">
                     Categoria
                 </span>
-                <FluentSearch />
+                <FluentSearch @bind-Value=SearchCategoria />
                 <br />
                 <br />
                 <div class="d-flex flex-nowrap flex-column gap-2">
-                    @foreach (var item in Enum.GetValues(typeof(Categoria_Produto)).Cast<Categoria_Produto>())
+                    @foreach (var item in Enum.GetValues(typeof(Categoria_Produto)).Cast<Categoria_Produto>()
+                    .Where(x => !string.IsNullOrEmpty(SearchCategoria) ? x.GetDisplayName().Contains(SearchCategoria, StringComparison.InvariantCultureIgnoreCase) : x.GetDisplayName() != null))
                     {
-                        <FluentCheckbox Label="@item.GetDisplayName()" />
+                        <FluentCheckbox Label="@item.GetDisplayName().ToLower()" />
                     }
                 </div>
             </div>
@@ -25,13 +62,14 @@
                 <span class="filter-card-title">
                     Especificação
                 </span>
-                <FluentSearch />
+                <FluentSearch @bind-Value=SearchEspecificação />
                 <br />
                 <br />
                 <div class="d-flex flex-nowrap flex-column gap-2">
-                    @foreach (var item in Enum.GetValues(typeof(Categoria_Especificação)).Cast<Categoria_Especificação>())
+                    @foreach (var item in Enum.GetValues(typeof(Categoria_Especificação)).Cast<Categoria_Especificação>()
+                    .Where(x => !string.IsNullOrEmpty(SearchEspecificação) ? x.GetDisplayName().Contains(SearchEspecificação, StringComparison.InvariantCultureIgnoreCase) : x.GetDisplayName() != null))
                     {
-                        <FluentCheckbox Label="@item.GetDisplayName()" />
+                        <FluentCheckbox Label="@item.GetDisplayName().ToLower()" />
                     }
                 </div>
             </div>
@@ -42,24 +80,26 @@
                 <div>
                     <Rating Color="@("#f45294")" Class="w-100" MaxValue="5" />
                 </div>
-                <span class="filter-card-title">
-                    Posição em Ranking
-                </span>
-                <div>
-                    <FluentNumberField TValue="int" />
-                </div>
             </div>
         </aside>
+        <!-- #endregion -->
+        <!-- #region area where the products cards are -->
+        <!-- #region where the products that is first loaded to the page are -->
         <div class="card-area">
             @if (Produtos.Any())
             {
-                foreach (var Produto in ProdutosModel)
+                foreach (var Produto in ProdutosModelToShow)
                 {
                     <div class="card-produto">
                         <div class="stack-route">
+                            <span>
+                                <div class="nav-button-position">
+                                    @Produto.Avaliacao.PositionInRank #
+                                </div>
+                            </span>
                             <a @onclick="() => Produto.OpenClose()">
                                 <div class="nav-button">
-                                    <FluentIcon Value="@(new Icons.Filled.Size24.Info().WithColor("#ffffff"))">
+                                    <FluentIcon Value="@(new Icons.Filled.Size48.Info().WithColor("#cbc3c3"))">
                                     </FluentIcon>
                                 </div>
                             </a>
@@ -90,12 +130,12 @@
                                 @{
                                     int roundAvaliacao = (int)Math.Round((Produto.Avaliacao.Avaliacao / 10.0) / 2, 0);
                                 }
-                                <p style="font-family:Vivo-font-bold; margin:0;">
+                                <p style="font-family:Vivo-font-bold; margin:0">
                                     @Produto.Nome
                                 </p>
                                 <Rating Color="@("#f45294")" SelectedValue="roundAvaliacao" Class="w-100" MaxValue="5" Disabled />
                                 <div class="inline-flex g-2 w-100">
-                                    <span style="font-family: Vivo-font; font-size: 15px; color:black;">
+                                    <span style="font-family: Vivo-font; font-size: 15px">
                                         @Produto.Descrição
                                     </span>
                                     <br />
@@ -119,6 +159,11 @@
                                     }
                                 </div>
                             </div>
+                            <div class="button-navigation">
+                                <button @onclick=@(() => NavigationManager.NavigateTo($"produto/get?id={Produto.ID_PRODUTO.ToString()}"))>
+                                    Consultar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 }
@@ -130,6 +175,8 @@
                 </label>
             }
         </div>
+        <!-- #endregion -->
+        <!-- #endregion -->
     </div>
 
 

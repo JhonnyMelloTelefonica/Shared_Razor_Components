@@ -1,18 +1,45 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazorise.Modules;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using Shared_Static_Class.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.ConstrainedExecution;
+using static Shared_Static_Class.Converters.OrderByStringProperty;
 
 namespace Shared_Razor_Components.Shared
 {
     public partial class ProdutoCard : ComponentBase
     {
-        [Parameter] public IEnumerable<PRODUTOS_CARDAPIO> Produtos { get; set; }
-        IEnumerable<ProdutoCardModel> ProdutosModel { get; set; } = [];
+        [Parameter] public IEnumerable<PRODUTOS_CARDAPIO> Produtos { get; set; } = [];
+        [Inject] NavigationManager NavigationManager { get; set; } = default!;
+        [Inject] IJSRuntime JSRuntime { get; set; } = default!;
+        IJSObjectReference _jsmodule { get; set; } = default!;
+        string Orderby { get; set; } = "Avaliacao.Avaliacao";
+        bool AscOrDesc { get; set; } = true;
+        Categoria_Especificação[] categoria { get; set; } = [];
+        Categoria_Especificação[] especificações { get; set; } = [];
+        int? avaliação { get; set; } = null;
+        IEnumerable<ProdutoCardModel> ProdutosModelToShow
+        {
+            get
+            {
+                IEnumerable<PRODUTOS_CARDAPIO> saida = Produtos;
 
+                if (!string.IsNullOrEmpty(Orderby))
+                {
+                    saida = saida.OrderBy(Orderby, AscOrDesc);
+                }
+
+                return saida.Select(x => new ProdutoCardModel(x, PropertyChanged));
+            }
+        }
+        string SearchGeral { get; set; } = string.Empty;
+        string SearchCategoria { get; set; } = string.Empty;
+        string SearchEspecificação { get; set; } = string.Empty;
         protected override void OnInitialized()
         {
             PropertyChanged += ProdutoCard_PropertyChanged;
@@ -20,15 +47,15 @@ namespace Shared_Razor_Components.Shared
             base.OnInitialized();
         }
 
-        protected override Task OnAfterRenderAsync(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-                ProdutosModel = Produtos.Select(x => new ProdutoCardModel(x, PropertyChanged)).ToList();
-                InvokeAsync(StateHasChanged);
+                _jsmodule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Shared_Razor_Components/Shared/ProdutoCard.razor.js");
+                await InvokeAsync(StateHasChanged);
             }
 
-            return base.OnAfterRenderAsync(firstRender);
+            await base.OnAfterRenderAsync(firstRender);
         }
         void ProdutoCard_PropertyChanged() => InvokeAsync(StateHasChanged);
 
