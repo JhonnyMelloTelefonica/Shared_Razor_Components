@@ -237,7 +237,7 @@ namespace Shared_Razor_Components.ViewModels
                 Response<object> saida = JsonConvert.DeserializeObject<Response<object>>(result.Content.ToString());
                 if (saida.Succeeded)
                 {
-                    await MessageService.Success(saida.Message, "Tudo Certo!");
+                    await FluentDialog.ShowSuccessAsync(saida.Message, "Tudo Certo!");
                 }
                 else
                 {

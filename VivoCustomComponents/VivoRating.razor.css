@@ -5,10 +5,10 @@
     gap: 1px;
 }
 
-    .apply-component ::deep .icon-rating-area:has(.icon-rating:hover) .icon-rating:not(:hover) {
+    .apply-component ::deep .icon-rating-area:not(.disabled):has(.icon-rating:hover) .icon-rating:not(:hover) {
         opacity: 0.5 !important;
     }
 
-    .apply-component ::deep .icon-rating-area:has(.icon-rating:hover) .icon-rating:hover {
+    .apply-component ::deep .icon-rating-area:not(.disabled):has(.icon-rating:hover) .icon-rating:hover {
         opacity: 1;
     }

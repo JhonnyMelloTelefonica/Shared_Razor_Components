@@ -12,15 +12,19 @@ namespace Shared_Razor_Components.VivoCustomComponents
         [Parameter] public string? Id { get; set; }
         [Parameter] public string? Style { get; set; }
         [Parameter] public bool Disable { get; set; } = false;
+        [Parameter] public bool IsGold { get; set; } = false;
         [Inject] public IJSRuntime JSRuntime { get; set; } = default!;
         [Parameter] public Action<int> ActionValueChanged { get; set; } = default!;
         ElementReference[] Icons = new ElementReference[6];
 
         void ChangeValue(int value)
         {
-            Value = value;
-            ActionValueChanged.Invoke(Value);
-            StateHasChanged();
+            if (!Disable)
+            {
+                Value = value;
+                ActionValueChanged.Invoke(Value);
+                StateHasChanged();
+            }
         }
         public void Dispose()
         {

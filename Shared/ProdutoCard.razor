@@ -35,12 +35,13 @@
             </div>
         </div>
     </section>
-
     <div class="flex-stack-route">
         <!-- #region generic filters -->
         <aside class="page-filters">
             <span id="page-filters-header">
-                Filtros
+                <FluentButton IconEnd="@(new Icons.Filled.Size24.Search().WithColor("#fffffff"))" Appearance="Appearance.Accent" BackgroundColor="#9d62ba">
+                    Filtros
+                </FluentButton>
             </span>
             <div class="p-3">
                 <span class="filter-card-title">
@@ -50,29 +51,45 @@
                 <br />
                 <br />
                 <div class="d-flex flex-nowrap flex-column gap-2">
-                    @foreach (var item in Enum.GetValues(typeof(Categoria_Produto)).Cast<Categoria_Produto>()
-                    .Where(x => !string.IsNullOrEmpty(SearchCategoria) ? x.GetDisplayName().Contains(SearchCategoria, StringComparison.InvariantCultureIgnoreCase) : x.GetDisplayName() != null))
+                    @foreach (var item in Enum.GetValues(typeof(Categoria_Produto)).Cast<Categoria_Produto>().Where(x => !string.IsNullOrEmpty(SearchCategoria) ? x.GetDisplayName().Contains(SearchCategoria, StringComparison.InvariantCultureIgnoreCase) : x.GetDisplayName() != null))
                     {
-                        <FluentCheckbox Label="@item.GetDisplayName().ToLower()" />
+                        <FluentCheckbox Value="filter.categorias.Contains(item)" Label="@item.GetDisplayName()" ValueChanged="@(args => AddToFilter<Categoria_Produto>(args,item,filter.categorias))" />
                     }
                 </div>
             </div>
 
             <div class="p-3">
                 <span class="filter-card-title">
-                    Especificação
+                    Cor
                 </span>
                 <FluentSearch @bind-Value=SearchEspecificação />
                 <br />
                 <br />
                 <div class="d-flex flex-nowrap flex-column gap-2">
-                    @foreach (var item in Enum.GetValues(typeof(Categoria_Especificação)).Cast<Categoria_Especificação>()
-                    .Where(x => !string.IsNullOrEmpty(SearchEspecificação) ? x.GetDisplayName().Contains(SearchEspecificação, StringComparison.InvariantCultureIgnoreCase) : x.GetDisplayName() != null))
-                    {
-                        <FluentCheckbox Label="@item.GetDisplayName().ToLower()" />
-                    }
+                    <FluentCheckbox Value="@(filter.fabricante.Contains("Apple"))" Label="Apple" ValueChanged="@(args => AddToFilter<string>(args,"Apple",filter.fabricante))" />
+                    <FluentCheckbox Value="@(filter.fabricante.Contains("Motorola"))" Label="Motorola" ValueChanged="@(args => AddToFilter<string>(args,"Motorola",filter.fabricante))" />
+                    <FluentCheckbox Value="@(filter.fabricante.Contains("Samsung"))" Label="Samsung" ValueChanged="@(args => AddToFilter<string>(args,"Samsung",filter.fabricante))" />
+                    <FluentCheckbox Value="@(filter.fabricante.Contains("Xaomi"))" Label="Xaomi" ValueChanged="@(args => AddToFilter<string>(args,"Apple",filter.fabricante))" />
                 </div>
             </div>
+
+            <div class="p-3">
+                <span class="filter-card-title">
+                    Cor
+                </span>
+                <FluentSearch @bind-Value=SearchEspecificação />
+                <br />
+                <br />
+                <div class="d-flex flex-nowrap flex-column gap-2">
+                    <FluentCheckbox Value="@(filter.cor.Contains("Rosa"))" Label="Rosa" ValueChanged="@(args => AddToFilter<string>(args,"Rosa",filter.cor))" />
+                    <FluentCheckbox Value="@(filter.cor.Contains("Preto"))" Label="Preto" ValueChanged="@(args => AddToFilter<string>(args,"Preto",filter.cor))" />
+                    <FluentCheckbox Value="@(filter.cor.Contains("Azul"))" Label="Azul" ValueChanged="@(args => AddToFilter<string>(args,"Azul",filter.cor))" />
+                    <FluentCheckbox Value="@(filter.cor.Contains("Verde"))" Label="Verde" ValueChanged="@(args => AddToFilter<string>(args,"Verde",filter.cor))" />
+                    <FluentCheckbox Value="@(filter.cor.Contains("Azul Escuro"))" Label="RAzul Escuro" ValueChanged="@(args => AddToFilter<string>(args,"RoAzul Escuro",filter.cor))" />
+                    <FluentCheckbox Value="@(filter.cor.Contains("Amarelo"))" Label="Amarelo" ValueChanged="@(args => AddToFilter<string>(args,"Amarelo",filter.cor))" />
+                </div>
+            </div>
+
             <div class="p-3">
                 <span class="filter-card-title">
                     Avaliação
@@ -92,10 +109,8 @@
                 {
                     <div class="card-produto">
                         <div class="stack-route">
-                            <span>
-                                <div class="nav-button-position">
-                                    @Produto.Avaliacao.PositionInRank #
-                                </div>
+                            <span class="nav-button-position">
+                                @Produto.Avaliacao.PositionInRank #
                             </span>
                             <a @onclick="() => Produto.OpenClose()">
                                 <div class="nav-button">

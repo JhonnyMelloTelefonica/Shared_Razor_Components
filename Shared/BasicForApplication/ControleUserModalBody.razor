@@ -1,5 +1,4 @@
-﻿
-@using Shared_Static_Class.Model_DTO;
+﻿@using Shared_Static_Class.Model_DTO;
 @using Shared_Static_Class.Converters
 @using Shared_Razor_Components.FundamentalModels;
 @using Radzen.Blazor;
@@ -130,13 +129,38 @@
                         </FluentTextField>
                         <FluentValidationMessage For="@(() => user.NOME)" />
                     </div>
+                    <div>
+                        <FluentTextField Value=@user.TELEFONE ValueChanged="args => FormatTelefone(args)" Class="@(editContext.FieldCssClass(TelefoneCssclass))"
+                                         Immediate Placeholder="@($"Insira um valor para Telefone")" Label="TELEFONE">
+                            <FluentIcon Value="@(new Icons.Filled.Size24.Call().WithColor("#483d8b"))" Slot="start" />
+                        </FluentTextField>
+                        <FluentValidationMessage For="@(() => user.TELEFONE)" />
+                    </div>
                     <FluentStack Orientation="Microsoft.FluentUI.AspNetCore.Components.Orientation.Horizontal"
                                  VerticalAlignment="Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Center" Class="justify-content-between"
                                  Wrap=true>
                         <div>
-                            <FluentTextField @bind-Value=user.PDV Label="PDV" Immediate Placeholder="Insira um valor para PDV" Required>
-                                <FluentIcon Value="@(new Icons.Filled.Size24.Map().WithColor("#483d8b"))" Slot="start" />
-                            </FluentTextField>
+                            <FluentSelect Required Label="DDD" Position="SelectPosition.Below" Height="200px"
+                                          Value="@user.DDD.ToString()" Placeholder="Selecione"
+                                          Class="@(editContext is not null ? editContext.FieldCssClass(editContext.Field("DDD")) : "")"
+                                          TOption="int" ValueChanged="args => SetDDD(args)">
+                                <FluentOption Value="">Selecione</FluentOption>
+                                @foreach (var item in service.CARTEIRA.Select(x => x.DDD).Distinct())
+                                {
+                                    <FluentOption Value="@(item.ToString())">@item</FluentOption>
+                                }
+                            </FluentSelect>
+                            <FluentValidationMessage For="@(() => user.DDD)" />
+                        </div>
+                        <div>
+                            <FluentSelect Required Label="PDV" Position="SelectPosition.Below" Height="200px"
+                                          Class="@(editContext is not null ? editContext.FieldCssClass(editContext.Field("PDV")) : "")"
+                                          @bind-Value="@user.PDV" TOption="string">
+                                @foreach (var item in service.CARTEIRA.Where(x => x.DDD == user.DDD).Select(x => x.ADABAS).Distinct())
+                                {
+                                    <FluentOption Value="@(item)">@item</FluentOption>
+                                }
+                            </FluentSelect>
                             <FluentValidationMessage For="@(() => user.PDV)" />
                         </div>
                         <div>
@@ -146,13 +170,7 @@
                             </FluentTextField>
                             <FluentValidationMessage For="@(() => user.CPF)" />
                         </div>
-                        <div>
-                            <FluentTextField Value=@user.TELEFONE ValueChanged="args => FormatTelefone(args)" Class="@(editContext.FieldCssClass(TelefoneCssclass))"
-                                             Immediate Placeholder="@($"Insira um valor para Telefone")" Label="TELEFONE">
-                                <FluentIcon Value="@(new Icons.Filled.Size24.Call().WithColor("#483d8b"))" Slot="start" />
-                            </FluentTextField>
-                            <FluentValidationMessage For="@(() => user.TELEFONE)" />
-                        </div>
+
                     </FluentStack>
                 </FluentStack>
             </FluentCard>

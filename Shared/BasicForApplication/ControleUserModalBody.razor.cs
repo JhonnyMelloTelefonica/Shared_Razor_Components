@@ -170,6 +170,26 @@ namespace Shared_Razor_Components.Shared.BasicForApplication
             user.TELEFONE = FormatInputs.FormatTelefone(args);
         }
 
+        private void SetDDD(object? sender)
+        {
+            if (sender is not null)
+            {
+                if (!string.IsNullOrEmpty(sender.ToString()))
+                {
+                    user.DDD = int.Parse(sender.ToString());
+                    var saida = service.CARTEIRA.Where(x => x.DDD == user.DDD).FirstOrDefault();
+                    if (saida is null)
+                    {
+                        user.PDV = string.Empty;
+                    }
+                    else
+                    {
+                        user.PDV = saida.ADABAS;
+                    }
+                }
+            }
+        }
+
         public void Dispose()
         {
             user.PropertyChanged -= OnStateChanged;

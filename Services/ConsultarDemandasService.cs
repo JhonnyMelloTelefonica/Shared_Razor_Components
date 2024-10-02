@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using static Shared_Static_Class.Data.DEMANDA_RELACAO_CHAMADO;
+using Shared_Static_Class.Model_DTO.FilterModels;
 
 namespace Shared_Razor_Components.Services
 {
@@ -25,7 +26,7 @@ namespace Shared_Razor_Components.Services
         Task<MainResponse> GetDemandaById(string idDemanda);
         Task<MainResponse> GetAcessoById(string idDemanda);
         Task<MainResponse> GetDesligamentoById(string idDemanda);
-        Task<MainResponse> GetDemandas(GenericPaginationModel<PaginationDemandasModel> data);
+        Task<MainResponse> GetDemandas(GenericPaginationModel<PainelChamadosModel> data);
         Task<MainResponse> GetFiltersDemandas(string regional);
         Task<MainResponse> GetOperadoresSuporte(string regional);
         Task<MainResponse> InsertResposta(RespostaDemandaModel newresposta, Tabela_Demanda tabela);
@@ -128,13 +129,13 @@ namespace Shared_Razor_Components.Services
                 };
             }
         }
-        public async Task<MainResponse> GetDemandas(GenericPaginationModel<PaginationDemandasModel> data)
+        public async Task<MainResponse> GetDemandas(GenericPaginationModel<PainelChamadosModel> data)
         {
             try
             {
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
                 HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri($"{BaseUrl}/GetDemandasList");
+                client.BaseAddress = new Uri($"{BaseUrl}/GetAllChamados");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, client.BaseAddress);

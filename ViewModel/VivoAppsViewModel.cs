@@ -140,11 +140,11 @@ namespace Shared_Razor_Components.ViewModel
         }
         public async Task ErrorModel(Response<string> data)
         {
-            await MessageService.Error(data.Message, "Erro!");
+            await FluentDialog.ShowErrorAsync(data.Message, "Erro!");
 
-            if (JSRuntime != null)
+            if (JSRuntime != null && data.Errors != null && data.Errors.Any())
             {
-                await JSRuntime.InvokeVoidAsync("console.log", data.Errors);
+                await JSRuntime.InvokeVoidAsync("console.log", string.Join(';', data.Errors));
             }
         }
 

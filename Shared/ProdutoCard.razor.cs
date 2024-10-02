@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Shared_Static_Class.Data;
+using Shared_Static_Class.Converters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +13,7 @@ using static Shared_Static_Class.Converters.OrderByStringProperty;
 
 namespace Shared_Razor_Components.Shared
 {
-    public partial class ProdutoCard : ComponentBase
+    public partial class ProdutoCard : ComponentBase, IDisposable
     {
         [Parameter] public IEnumerable<PRODUTOS_CARDAPIO> Produtos { get; set; } = [];
         [Inject] NavigationManager NavigationManager { get; set; } = default!;
@@ -20,9 +21,6 @@ namespace Shared_Razor_Components.Shared
         IJSObjectReference _jsmodule { get; set; } = default!;
         string Orderby { get; set; } = "Avaliacao.Avaliacao";
         bool AscOrDesc { get; set; } = true;
-        Categoria_Especificação[] categoria { get; set; } = [];
-        Categoria_Especificação[] especificações { get; set; } = [];
-        int? avaliação { get; set; } = null;
         IEnumerable<ProdutoCardModel> ProdutosModelToShow
         {
             get
@@ -40,6 +38,7 @@ namespace Shared_Razor_Components.Shared
         string SearchGeral { get; set; } = string.Empty;
         string SearchCategoria { get; set; } = string.Empty;
         string SearchEspecificação { get; set; } = string.Empty;
+        protected FilterPageData filter { get; set; } = new(0, null, null, null, null, false, 0);
         protected override void OnInitialized()
         {
             PropertyChanged += ProdutoCard_PropertyChanged;
@@ -51,6 +50,9 @@ namespace Shared_Razor_Components.Shared
         {
             if (firstRender)
             {
+                //.Where(x => !string.IsNullOrEmpty(SearchCategoria) ? x.GetDisplayName().Contains(SearchCategoria, StringComparison.InvariantCultureIgnoreCase) : x.GetDisplayName() != null)
+                //.Where(x => !string.IsNullOrEmpty(SearchEspecificação) ? x.GetDisplayName().Contains(SearchEspecificação, StringComparison.InvariantCultureIgnoreCase) : x.GetDisplayName() != null)
+
                 _jsmodule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Shared_Razor_Components/Shared/ProdutoCard.razor.js");
                 await InvokeAsync(StateHasChanged);
             }
@@ -59,8 +61,27 @@ namespace Shared_Razor_Components.Shared
         }
         void ProdutoCard_PropertyChanged() => InvokeAsync(StateHasChanged);
 
-        event Action? PropertyChanged;
+        protected void AddToFilter<T>(bool args, T data, List<T> array)
+        {
+            if (args)
+            {
+                array.Add(data);
+            }
+            else
+            {
+                if (array.Contains(data))
+                {
+                    array.Remove(data);
+                }
+            }
+        }
 
+        public void Dispose()
+        {
+            PropertyChanged -= ProdutoCard_PropertyChanged;
+        }
+
+        event Action? PropertyChanged;
         protected class ProdutoCardModel : PRODUTOS_CARDAPIO
         {
             public ProdutoCardModel(PRODUTOS_CARDAPIO item, Action? propertyChanged, bool isOpened = false)
@@ -94,6 +115,28 @@ namespace Shared_Razor_Components.Shared
                 IsOpened = !IsOpened;
                 PropertyChanged?.Invoke();
             }
+        }
+
+        protected record FilterPageData
+        {
+            public FilterPageData(int avaliacao, List<Categoria_Produto> categorias, List<Categoria_Especificação> especificações, List<string> cor, List<string> fabricante, bool isOferta, decimal valor)
+            {
+                this.avaliacao = avaliacao;
+                this.categorias = categorias ?? [];
+                this.especificações = especificações ?? [];
+                this.cor = cor ?? [];
+                this.fabricante = fabricante ?? [];
+                IsOferta = isOferta;
+                Valor = valor;
+            }
+
+            public int avaliacao { get; set; } = 0;
+            public List<Categoria_Produto> categorias { get; set; } = [];
+            public List<Categoria_Especificação> especificações { get; set; } = [];
+            public List<string> cor { get; set; } = [];
+            public List<string> fabricante { get; set; } = [];
+            public bool IsOferta { get; set; } = false;
+            public decimal Valor { get; set; } = 0;
         }
 
         protected class ImagewithPosition : PRODUTO_IMAGEM
