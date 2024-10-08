@@ -87,6 +87,9 @@
 	  <Content Update="Shared\PopUpTemasDisponiveis.razor">
 	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 	  </Content>
+	  <Content Update="Shared\SearchProdutos.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
 	</ItemGroup>
 
 </Project>

@@ -1,0 +1,58 @@
+﻿
+<div class="apply-component">
+    <div class="search-area">
+        <span>
+            <label for="searchgeral">Pesquisar</label>
+            <input placeholder="" id="searchgeral" @bind="Search" @bind:event="oninput" @onkeyup="@ResetTimer" />
+        </span>
+        @if (Searching)
+        {
+            <span class="spinner-border spinner-border-sm" />
+        }
+        else if (!string.IsNullOrEmpty(Search))
+        {
+            <FluentIcon Value="@(new Icons.Filled.Size28.Dismiss().WithColor("#8f46b3"))" OnClick="@(() => Search = string.Empty)" />
+        }
+        else
+        {
+            <FluentIcon Value="@(new Icons.Filled.Size28.Search().WithColor("#8f46b3"))" />
+        }
+    </div>
+    <section class="data-list-area @(Produtos.Any() ? "show-data-list" : "hide-data-list")">
+        @if (!Searching)
+        {
+            if (Produtos.Any())
+            {
+                @foreach (var item in Produtos)
+                {
+                    <div class="item-produto-area">
+                        <div class="imagem-produto">
+                            @if (item.Imagens.Any())
+                            {
+                                <img src="@("data:image/png;base64," + SharedConverter.ConvertFileToString(item.Imagens.First().Imagem))" />
+                            }
+                            else
+                            {
+                                <img src="images/phone_mockup.png" />
+                            }
+                        </div>
+                        <span class="title-produto">
+                            @item.Nome
+                        </span>
+                    </div>
+                }
+            }
+            else
+            {
+                if (EmptySearch)
+                {
+                    <div class="rz-card">
+                        <span>
+                            :( Não encontramos nenhum produto
+                        </span>
+                    </div>
+                }
+            }
+        }
+    </section>
+</div>

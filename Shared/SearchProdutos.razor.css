@@ -1,0 +1,120 @@
+﻿.apply-component ::deep {
+    position: relative;
+}
+
+    .apply-component ::deep .search-area {
+        border: 1.5px solid #9d62ba;
+        border-radius: 3.5px;
+        padding: 10px 20px;
+        position: relative;
+    }
+
+        .apply-component ::deep .search-area label {
+            position: absolute;
+            font-family: Vivo-font-bold;
+            font-size: 14px;
+            opacity: 1;
+            transition: opacity 0.25s linear;
+            color: #b8b8b8;
+        }
+
+        .apply-component ::deep .search-area:has(input:not(:placeholder-shown)) label {
+            opacity: 0;
+            transition: opacity 0.25s linear;
+        }
+
+        .apply-component ::deep .search-area input {
+            border: none;
+            outline: none;
+        }
+
+            .apply-component ::deep .search-area input:focus {
+            }
+
+    .apply-component ::deep .data-list-area.hide-data-list {
+        position: absolute;
+        height: 0;
+        width: 0;
+        margin: 0;
+        padding: 0;
+        transition: height,margin,padding 0.25s linear;
+    }
+
+    .apply-component ::deep .data-list-area.show-data-list {
+        position: absolute;
+        width: 242px;
+        height: auto;
+        max-height: 500px;
+        z-index: 100;
+        transition: height,margin,padding 0.25s linear;
+        overflow: auto;
+        display: flex;
+        flex-flow: column;
+        border: 0.5px solid #CBC4C4;
+        box-shadow: 0px 4px 4px rgba(104, 98, 98, 0.7);
+        background-color: white;
+    }
+
+        .apply-component ::deep .data-list-area.show-data-list .item-produto-area {
+            cursor: pointer;
+            display: inline-flex;
+            gap: 16px;
+            position: relative;
+            padding: 20px 20px;
+            align-content: start;
+            justify-content: start;
+        }
+
+            .apply-component ::deep .data-list-area.show-data-list .item-produto-area:first-child {
+                padding: 30px 20px 20px 20px;
+            }
+
+            .apply-component ::deep .data-list-area.show-data-list .item-produto-area:last-child {
+                padding: 20px 20px 30px 20px;
+            }
+
+
+            .apply-component ::deep .data-list-area.show-data-list .item-produto-area:hover {
+                background-color: #e8e5e5;
+            }
+
+                .apply-component ::deep .data-list-area.show-data-list .item-produto-area:hover::after {
+                    background-color: #e8e5e5;
+                }
+                .apply-component ::deep .data-list-area.show-data-list .item-produto-area:hover .imagem-produto img {
+                    transform: scale(1.3);
+                    transition: all 0.25s linear;
+                }
+
+            .apply-component ::deep .data-list-area.show-data-list .item-produto-area::after  {
+                content: '';
+                position: absolute;
+                bottom: 0px;
+                left: 0;
+                right: 0;
+                height: 2px;
+                width: 90%;
+                margin-inline: auto;
+                border-radius: 2px;
+                background: #ececf6;
+            }
+
+            .apply-component ::deep .data-list-area.show-data-list .item-produto-area:last-child::after {
+                content: none;
+            }
+
+            .apply-component ::deep .data-list-area.show-data-list .item-produto-area .title-produto {
+                font-family: Vivo-font-bold;
+                font-size: 14px;
+                opacity: 1;
+                transition: opacity 0.25s linear;
+                color: #000000;
+                position: relative;
+            }
+
+            .apply-component ::deep .data-list-area.show-data-list .item-produto-area .imagem-produto img {
+                object-fit: fill;
+                width: 25px;
+                height: 25px;
+                border-radius: 2.5px;
+            }
