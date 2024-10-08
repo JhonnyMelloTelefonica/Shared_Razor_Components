@@ -62,8 +62,10 @@ namespace Shared_Razor_Components.FundamentalModels
                     //matricula = "30722"; //Chiquito!
                     //matricula = "64960"; //Isis Mary 💗💗
                     //matricula = "159209"; //
-                    //matricula = "3532815"; //Jhonny
-                    matricula = "151191"; //Jhonny
+                    //matricula = "94842"; //
+                    //matricula = "79902790"; //
+                    matricula = "163794"; //
+                    //matricula = "151191"; //Jhonny
                     //matricula = "158125"; //
                     //matricula = "3511507"; //
                     //matricula = "16279"; //Carol cood. suporte
@@ -110,7 +112,16 @@ namespace Shared_Razor_Components.FundamentalModels
             }
             else // Caso o sistema esteja rodando em ambiente de produção
             {
-                matricula = ApenasNumeros(RegrasRedecorp(_contextAccessor.HttpContext.User.Identity.Name.Split(new[] { "\\" }, StringSplitOptions.None)[1].ToLower())).TrimStart('0');
+                try
+                {
+
+                    matricula = ApenasNumeros(RegrasRedecorp(_contextAccessor.HttpContext.User.Identity.Name.Split(new[] { "\\" }, StringSplitOptions.None)[1].ToLower())).TrimStart('0');
+                }
+                catch (Exception ex)
+                {
+                    matricula = "151191";
+                    throw new HttpRequestException("Não foi possível buscar o nome da máquina do usuário, logo não é possível seguir com a aplicação, por favor contate ne_automação.br@telefonica.com",ex.InnerException, System.Net.HttpStatusCode.Unauthorized);
+                }
             }
 
 

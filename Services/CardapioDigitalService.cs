@@ -26,6 +26,7 @@ namespace Shared_Razor_Components.Services
         Task<MainResponse> GetImages(Guid idImage);
         Task<MainResponse> DeleteImage(PRODUTO_IMAGEM produto);
         Task<MainResponse> PostAvaliacaoToArgumento(AVALIACAO_ARGUMENTACAO avaliacao);
+        Task<MainResponse> Search(string value);
     }
     public class CardapioDigitalService : ICardapioDigitalService
     {
@@ -337,6 +338,30 @@ namespace Shared_Razor_Components.Services
                 return new MainResponse
                 {
                     Content = response,
+                    IsSuccess = false,
+                    ErrorMessage = "algum erro ocorreu"
+                };
+            }
+        }
+
+        public async Task<MainResponse> Search(string value)
+        {
+            try
+            {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri($"{BaseUrl}/Search?search={value}");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, client.BaseAddress);
+
+                return await MakeRequestAsync(request, client);
+            }
+            catch (Exception)
+            {
+                return new MainResponse
+                {
+                    Content = "",
                     IsSuccess = false,
                     ErrorMessage = "algum erro ocorreu"
                 };
