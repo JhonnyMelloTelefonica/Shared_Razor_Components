@@ -22,7 +22,7 @@
     <Items>
         @foreach (var item in data.QUESTIONS.Select((x, i) => new { Value = x, Index = i }))
         {
-            <Blazorise.Step Name="@((item.Index+1).ToString())" Color="Blazorise.Color.Dark">
+            <Blazorise.Step Name="@((item.Index+1).ToString())" Color="Blazorise.Color.Dark" Class="stepPainal">
             </Blazorise.Step>
         }
     </Items>
@@ -379,7 +379,7 @@
                 @if (item.Index == 0)
                 {
 
-                    <Blazorise.Div Display="Display.Flex" Class="footer-form" Gap="Gap.Is3" Style="justify-content: flex-end; !important; display: flex !important; width: 80%!important;">
+                    <Blazorise.Div Display="Display.Flex" Class="footer-form footerProva" Gap="Gap.Is3" Style="justify-content: flex-end; !important; display: flex !important; width: 80%!important;">
 
                         <Microsoft.AspNetCore.Components.Routing.NavLink href="/">
                             <BlazorBootstrap.Button Color="BlazorBootstrap.ButtonColor.Success" @onclick="() => Filter.HideAsync()" Class="btn btn-primary" Style="color:grey; color: white; padding: 0.7%; border-radius: 15px; background: #893AAF!important; display: flex; align-items: center; justify-content: center; margin: 0 !important; -webkit-box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 5px 0 rgba(0, 0, 0, 0.19) !important; padding: 15%!important;">Fechar</BlazorBootstrap.Button>
@@ -394,7 +394,7 @@
                 }
                 else if (item.Index == data.QUESTIONS.Count() - 1)
                 {
-                    <Blazorise.Div Display="Display.Flex" Class="footer-form" Gap="Gap.Is3" Style="justify-content: flex-start; !important; display: flex !important; width: 80%!important;">
+                    <Blazorise.Div Display="Display.Flex" Class="footer-form footerProva" Gap="Gap.Is3" Style="justify-content: flex-start; !important; display: flex !important; width: 80%!important;">
 
                         <BlazorBootstrap.Button Class="button-icon" @onclick="() => stepsRef.PreviousStep()" Size="BlazorBootstrap.ButtonSize.Small" TooltipTitle="Anterior" Style="background: #893AAF!important; padding: 0% 1% 0% 1%;border-radius: 13px;height: 90%; margin: 0% 20% 0% 21% !important; -webkit-box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 5px 0 rgba(0, 0, 0, 0.19) !important; color:white!important">
                             <BlazorBootstrap.Icon Name="BlazorBootstrap.IconName.ArrowLeft" Size="BlazorBootstrap.IconSize.x4" />
@@ -410,7 +410,7 @@
                 }
                 else
                 {
-                    <Blazorise.Div Display="Display.Flex" Class="footer-form" Flex="Flex.JustifyContent.Between" Style="justify-content: space-evenly !important; display: flex !important; width: 80%!important;">
+                    <Blazorise.Div Display="Display.Flex" Class="footer-form footerProva" Flex="Flex.JustifyContent.Between" Style="justify-content: space-evenly !important; display: flex !important; width: 80%!important;">
                         @if ((item.Index + 1) != 1)
                         {
                             <BlazorBootstrap.Button Class="button-icon" @onclick="() => stepsRef.PreviousStep()" Size="BlazorBootstrap.ButtonSize.Small" TooltipTitle="Anterior" Style="background: #893AAF!important; padding: 0% 1% 0% 1%;border-radius: 13px;height: 90%;-webkit-box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 5px 0 rgba(0, 0, 0, 0.19) !important; color:white!important">
@@ -423,7 +423,7 @@
                         </Microsoft.AspNetCore.Components.Routing.NavLink>
                         @if ((item.Index + 1) != data.QUESTIONS.Count)
                         {
-                            <BlazorBootstrap.Button Class="button-icon" Color="BlazorBootstrap.ButtonColor.Primary" @onclick="() => stepsRef.NextStep()" Size="BlazorBootstrap.ButtonSize.Small" TooltipTitle="Próximo" Style="background: #893AAF!important; padding: 0% 1% 0% 1%;border-radius: 13px;height: 90%;-webkit-box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 5px 0 rgba(0, 0, 0, 0.19) !important;">
+                            <BlazorBootstrap.Button Class="button-icon footerProva" Color="BlazorBootstrap.ButtonColor.Primary" @onclick="() => stepsRef.NextStep()" Size="BlazorBootstrap.ButtonSize.Small" TooltipTitle="Próximo" Style="background: #893AAF!important; padding: 0% 1% 0% 1%;border-radius: 13px;height: 90%;-webkit-box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 5px 0 rgba(0, 0, 0, 0.19) !important;">
                                 <BlazorBootstrap.Icon Name="BlazorBootstrap.IconName.ArrowRight" Size="BlazorBootstrap.IconSize.x4" />
                             </BlazorBootstrap.Button>
                         }
@@ -562,6 +562,7 @@
         height: 30px;
         width: 30px;
     }
+
 </style>
 
 @code {

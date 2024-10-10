@@ -696,3 +696,70 @@ article {
         height: 100%;
         margin: 0 !important;
     }
+
+
+@media(max-width: 500px) {
+
+    /*.typeQuestion {
+        font-size: 9px !important;
+    }
+
+    .NumberQuestion {
+        font-size: 14px !important;
+        min-width: 68px;
+    }
+
+    .idQuestion {
+        font-size: 12px !important;
+    }
+
+    .temasQuestion {
+        font-size: 10px !important;
+    }
+
+    .subQuestion {
+        font-size: 10px !important;
+        text-align: center !important;
+        margin-top: 10% !important;
+    }*/
+
+    .footerProva {
+        width: 80% !important;
+        position: fixed !important;
+        /* justify-content: end; */
+        /* height: 100%; */
+        bottom: 0% !important;
+        background-color: white !important;
+        padding: 2% !important;
+    }
+
+    .stepPainal{
+        display: none!important;
+    }
+}
+
+
+@media(min-width: 500px) {
+
+    .footerProva {
+        width: 80% !important;
+        position: fixed !important;
+        /* justify-content: end; */
+        /* height: 100%; */
+        bottom: 0% !important;
+        background-color: white !important;
+        padding: 2% !important;
+    }
+
+}
+
+@media(max-width: 500px) {
+
+    .footerProva {
+        width: 80%!important;
+        position: fixed!important;
+        bottom: 0%!important;
+        background-color: white!important;
+        padding: 2% !important;
+    }
+}
