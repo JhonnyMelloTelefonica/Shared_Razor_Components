@@ -82,16 +82,15 @@
     }
 
     .apply-component ::deep .flex-stack-route .card-produto {
+        position: relative;
         border-radius: 20px;
-        min-height: 230px;
-        height: auto;
-        max-height: 400px;
+        height: 400px;
         box-sizing: border-box;
         background: #FFFFFF;
         border: 0.5px solid #CBC4C4;
         box-shadow: 0px 4px 4px rgba(104, 98, 98, 0.7);
         border-radius: 10px;
-        max-width: 400px;
+        max-width: 270px;
     }
 
     .apply-component ::deep .flex-stack-route .stack-route {
@@ -104,7 +103,6 @@
         margin: 0;
         min-height: 300px;
         border-radius: 20px;
-        /*background: #8c0dac;*/
     }
 
         .apply-component ::deep .flex-stack-route .stack-route.disabled .nav-button {
@@ -133,15 +131,17 @@
         transition: all 0.7s ease;
     }
 
-
-    .apply-component ::deep .flex-stack-route .stack-route .button-navigation {
-        position: sticky;
-        bottom: 0;
+    .apply-component ::deep .flex-stack-route .card-produto .button-navigation {
+        position: absolute;
+        bottom: 10px;
         margin: auto;
         width: 100%;
+        display: flex;
+        align-content: center;
+        justify-content: center;
     }
 
-        .apply-component ::deep .flex-stack-route .stack-route .button-navigation button {
+        .apply-component ::deep .flex-stack-route .card-produto .button-navigation button {
             border: none;
             border-radius: 5px;
             color: white;
@@ -165,19 +165,31 @@
     }
 
     .apply-component ::deep .flex-stack-route .stack-route .nav-button-position {
-        box-shadow: 1px 0px 12px 1px rgba(0, 0, 92, 0);
-        border-radius: 50%;
         display: flex;
-        top: 5px;
-        left: 5px;
+        top: 12px;
+        left: 10px;
         position: absolute;
-        width: 80px;
-        height: 40px;
-        background: transparent;
-        padding: 8px;
+        width: 45px;
+        justify-content: center;
+        height: 50px;
+        align-items: center;
+        padding: 0px 0 13px 0;
         z-index: 1;
         margin: auto;
+        font-family: 'Vivo-font';
+        font-size: 2vmin;
     }
+
+        .apply-component ::deep .flex-stack-route .stack-route .nav-button-position.trophy {
+            flex-flow: column;
+        }
+
+        .apply-component ::deep .flex-stack-route .stack-route .nav-button-position:not(.trophy) {
+            background-image: url(images/reward.svg);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 80%;
+        }
 
     .apply-component ::deep .flex-stack-route .stack-route aside {
         margin: 0;
@@ -188,8 +200,8 @@
         .apply-component ::deep .flex-stack-route .stack-route aside img {
             border-radius: 20px;
             object-fit: fill;
-            max-height: 250px;
-            min-height: 225px;
+            max-height: 275px;
+            min-height: 250px;
         }
 
 .apply-component ::deep .stack-route div p {
@@ -265,7 +277,6 @@
     width: 75%;
 }
 
-
 @media (min-width: 640px) {
     .apply-component ::deep .flex-stack-route fluent-card:not(.produto-card-opened) {
         width: 90% !important;
@@ -280,7 +291,6 @@
         width: 45%;
     }
 }
-
 
 @media (min-width: 768px) {
     .apply-component ::deep .produto-card-opened .product-description {
@@ -319,7 +329,6 @@
         width: 75%;
     }
 }
-
 
 ::deep > .right-gradient {
 }

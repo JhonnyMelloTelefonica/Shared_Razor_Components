@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.ComponentModel;
 using System.Globalization;
-using Microsoft.AspNetCore.SignalR.Client;
 using Shared_Razor_Components.Services;
 using Shared_Razor_Components.FundamentalModels;
 using Blazorise.LoadingIndicator;
@@ -10,7 +9,7 @@ using Microsoft.JSInterop;
 using BlazorBootstrap;
 using Shared_Static_Class.Data;
 using Newtonsoft.Json;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace Shared_Razor_Components.Layout

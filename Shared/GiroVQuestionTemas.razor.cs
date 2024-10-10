@@ -1,6 +1,6 @@
 ﻿using Blazorise.LoadingIndicator;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.JSInterop;
 using System;
@@ -17,7 +17,6 @@ using Shared_Razor_Components.FundamentalModels;
 using System.Net;
 using System.Text;
 using static Shared_Static_Class.Data.DEMANDA_RELACAO_CHAMADO;
-using KGySoft.CoreLibraries;
 using Radzen;
 
 namespace Shared_Razor_Components.Shared;
@@ -29,7 +28,7 @@ public partial class GiroVQuestionTemas : ComponentBase
     [Inject] IJSRuntime JSRuntime { get; set; } = null;
     [Inject] NavigationManager NavigationManager { get; set; } = null;
     [Inject] ILoadingIndicatorService ApplicationLoadingIndicatorService { get; set; } = null;
-    [Inject] IWebHostEnvironment Env { get; set; } = null;
+    [Inject] IHostEnvironment Env { get; set; } = null;
     [Inject] IConfiguration Config { get; set; } = null;
     [Inject] DialogService RadzenDialog { get; set; } = null;
     bool IsBusy { get; set; }

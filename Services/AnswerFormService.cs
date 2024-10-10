@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 
 using Microsoft.Extensions.Hosting;
@@ -20,10 +20,10 @@ namespace Shared_Razor_Components.Services
     }
     public class AnswerFormService : IAnswerFormService
     {
-        private IWebHostEnvironment Environment;
+        private IHostEnvironment Environment;
         private readonly IConfiguration Config;
 
-        public AnswerFormService(IWebHostEnvironment environment, IConfiguration _Config)
+        public AnswerFormService(IHostEnvironment environment, IConfiguration _Config)
         {
             Environment = environment;
             Config = _Config;

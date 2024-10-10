@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
@@ -37,10 +37,10 @@ namespace Shared_Razor_Components.Services
     }
     public class ConsultarDemandasService : IConsultarDemandasService
     {
-        private IWebHostEnvironment Environment;
+        private IHostEnvironment Environment;
         private readonly IConfiguration Config;
 
-        public ConsultarDemandasService(IWebHostEnvironment environment, IConfiguration _Config)
+        public ConsultarDemandasService(IHostEnvironment environment, IConfiguration _Config)
         {
             Environment = environment;
             Config = _Config;

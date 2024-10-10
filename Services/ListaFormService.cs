@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Shared_Razor_Components.FundamentalModels;
@@ -15,10 +15,10 @@ namespace Shared_Razor_Components.Services
     }
     public class ListaFormService : IListaFormService
     {
-        private IWebHostEnvironment Environment;
+        private IHostEnvironment Environment;
         private IConfiguration Config;
 
-        public ListaFormService(IWebHostEnvironment environment, IConfiguration _Config)
+        public ListaFormService(IHostEnvironment environment, IConfiguration _Config)
         {
             Config = _Config;
             Environment = environment;

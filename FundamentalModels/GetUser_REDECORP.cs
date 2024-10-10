@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Hosting;
 using Shared_Static_Class.Model;
 using System.Text.RegularExpressions;
 
@@ -10,10 +9,10 @@ namespace Shared_Razor_Components.FundamentalModels
     public class GetUser_REDECORP
     {
         public IHttpContextAccessor _contextAccessor;
-        public IWebHostEnvironment _Networkacessor;
+        public IHostEnvironment _Networkacessor;
         public StaticUserRedecorp custom_mat;
         public string? matricula;
-        public GetUser_REDECORP(IHttpContextAccessor contextAccessor, IWebHostEnvironment networkacessor, StaticUserRedecorp _custom_mat)
+        public GetUser_REDECORP(IHttpContextAccessor contextAccessor, IHostEnvironment networkacessor, StaticUserRedecorp _custom_mat)
         {
             custom_mat = _custom_mat;
             _contextAccessor = contextAccessor;
@@ -64,8 +63,9 @@ namespace Shared_Razor_Components.FundamentalModels
                     //matricula = "159209"; //
                     //matricula = "94842"; //
                     //matricula = "79902790"; //
-                    matricula = "163794"; //
-                    //matricula = "151191"; //Jhonny
+                    //matricula = "163794"; //
+                    matricula = "151191"; //Jhonny
+                    //matricula = "22803"; //D'juda
                     //matricula = "158125"; //
                     //matricula = "3511507"; //
                     //matricula = "16279"; //Carol cood. suporte

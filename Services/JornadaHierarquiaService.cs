@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
@@ -28,9 +28,9 @@ namespace Shared_Razor_Components.Services
 
     public class JornadaHierarquiaService : IJornadaHierarquiaService
     {
-        private IWebHostEnvironment Environment;
+        private IHostEnvironment Environment;
         private IConfiguration Config;
-        public JornadaHierarquiaService(IWebHostEnvironment environment, IConfiguration _Config)
+        public JornadaHierarquiaService(IHostEnvironment environment, IConfiguration _Config)
         {
             Config = _Config;
             Environment = environment;
