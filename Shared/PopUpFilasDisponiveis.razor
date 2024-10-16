@@ -1,0 +1,27 @@
+﻿@using Radzen;
+@inject Radzen.DialogService RadzenDialog;
+
+<Blazorise.Tooltip Text="Info. Filas Disponíveis">
+    <FluentButton BackgroundColor="#ffd04b" Style="display: flex; border-radius: 50%;" @onclick="OpenInfoFilas">
+        <FluentIcon Value="@(new Icons.Filled.Size32.Question().WithColor("#ffffff"))" Style="margin:auto; width:22px;height:22px;">
+        </FluentIcon>
+    </FluentButton>
+</Blazorise.Tooltip>
+
+@code {
+
+    void OpenInfoFilas()
+    {
+        RadzenDialog.OpenAsync<DemandasFila>("", null, new DialogOptions()
+            {
+                WrapperCssClass = "radzen-body-class",
+                Width = "550px",
+                Height = "512px",
+                Resizable = false,
+                Draggable = false,
+                CloseDialogOnEsc = true,
+                ShowTitle = false,
+                ShowClose = false
+            });
+    }
+}

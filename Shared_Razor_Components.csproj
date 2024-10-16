@@ -19,9 +19,13 @@
 	  <EmbeddedResource Remove="wwwroot\images\iconLock.svg" />
 	</ItemGroup>
 	<ItemGroup>
-		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	  <None Remove="Shared\DemandasFila.razor.css" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Content Include="Shared\DemandasFila.razor.css" />
+	</ItemGroup>
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -90,6 +94,9 @@
 	  <Content Update="Shared\SearchProdutos.razor">
 	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 	  </Content>
+		<Content Update="Shared\PopUpFilasDisponiveis.razor">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		</Content>
 	</ItemGroup>
 
 </Project>
