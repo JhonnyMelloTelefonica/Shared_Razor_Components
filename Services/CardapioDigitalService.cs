@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
@@ -11,6 +11,8 @@ using System.Net.Http.Headers;
 using System.Text;
 using static Shared_Static_Class.Data.DEMANDA_RELACAO_CHAMADO;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Shared_Static_Class.Model_DTO.FilterModels;
+using Azure;
 
 namespace Shared_Razor_Components.Services
 {
@@ -27,13 +29,14 @@ namespace Shared_Razor_Components.Services
         Task<MainResponse> DeleteImage(PRODUTO_IMAGEM produto);
         Task<MainResponse> PostAvaliacaoToArgumento(AVALIACAO_ARGUMENTACAO avaliacao);
         Task<MainResponse> Search(string value);
+        Task<MainResponse> Search(GenericPaginationModel<PainelCardapioDigital> filter);
     }
     public class CardapioDigitalService : ICardapioDigitalService
     {
-        private IWebHostEnvironment Environment;
+        private IHostEnvironment Environment;
         private readonly IConfiguration Config;
 
-        public CardapioDigitalService(IWebHostEnvironment environment, IConfiguration _Config)
+        public CardapioDigitalService(IHostEnvironment environment, IConfiguration _Config)
         {
             Environment = environment;
             Config = _Config;
@@ -300,6 +303,58 @@ namespace Shared_Razor_Components.Services
                 };
             }
         }
+        public async Task<MainResponse> Search(string value)
+        {
+            try
+            {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri($"{BaseUrl}/Search?search={value}");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, client.BaseAddress);
+
+                return await MakeRequestAsync(request, client);
+            }
+            catch (Exception)
+            {
+                return new MainResponse
+                {
+                    Content = "",
+                    IsSuccess = false,
+                    ErrorMessage = "algum erro ocorreu"
+                };
+            }
+        }
+        public async Task<MainResponse> Search(GenericPaginationModel<PainelCardapioDigital> filter)
+        {
+            {
+                try
+                {
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+                    HttpClient client = new HttpClient();
+                    client.BaseAddress = new Uri($"{BaseUrl}/Search");
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, client.BaseAddress);
+
+                    var body = JsonConvert.SerializeObject(filter);
+                    var content = new StringContent(body, Encoding.UTF8, "application/json");
+                    request.Content = content;
+
+                    return await MakeRequestAsync(request, client);
+                }
+                catch (Exception ex)
+                {
+                    return new MainResponse
+                    {
+                        Content = ex,
+                        IsSuccess = false,
+                        ErrorMessage = "algum erro ocorreu"
+                    };
+                }
+            }
+        }
         private async Task<MainResponse> MakeRequestAsync(HttpRequestMessage getRequest, HttpClient client)
         {
             client.Timeout = Timeout.InfiniteTimeSpan;
@@ -338,30 +393,6 @@ namespace Shared_Razor_Components.Services
                 return new MainResponse
                 {
                     Content = response,
-                    IsSuccess = false,
-                    ErrorMessage = "algum erro ocorreu"
-                };
-            }
-        }
-
-        public async Task<MainResponse> Search(string value)
-        {
-            try
-            {
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
-                HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri($"{BaseUrl}/Search?search={value}");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, client.BaseAddress);
-
-                return await MakeRequestAsync(request, client);
-            }
-            catch (Exception)
-            {
-                return new MainResponse
-                {
-                    Content = "",
                     IsSuccess = false,
                     ErrorMessage = "algum erro ocorreu"
                 };

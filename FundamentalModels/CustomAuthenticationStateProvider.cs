@@ -6,14 +6,14 @@ using Shared_Razor_Components.Services;
 using Shared_Razor_Components.FundamentalModels;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace Shared_Razor_Components.FundamentalModels
 {
     public class CustomAuthenticationStateProvider : AuthenticationStateProvider
     {
         public IHttpContextAccessor _contextAccessor;
-        public IWebHostEnvironment _Networkacessor;
+        public IHostEnvironment _Networkacessor;
         public IPrincipalService _contextservice;
         public GetUser_REDECORP _getUser_REDECORP;
         public AcessoModel? User;
@@ -27,7 +27,7 @@ namespace Shared_Razor_Components.FundamentalModels
             NavigationManager navigationManager,
             GetUser_REDECORP getUser_REDECORP,
             IHttpContextAccessor contextAccessor,
-            IWebHostEnvironment Networkacessor,
+            IHostEnvironment Networkacessor,
             UserService _User)
         {
             UserService = _User;

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
@@ -25,10 +25,10 @@ namespace Shared_Razor_Components.Services
         public const string GetIndexImagesRoute = "https://prod-77.westeurope.logic.azure.com:443/workflows/c304a18fa3f040dcbb169724c6e01447/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=FDG4RO3QKBJjzDsXfoUBsO0PVGnfEMVLHXQgJ_3ipNE";
         public const string SendEmailRoute = "https://prod-80.westeurope.logic.azure.com:443/workflows/92aae95061bf439ab7b320421ae910f2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JhePuoyIHbSYac3gYJIuEcTueVEQ_Iw0f6sh0hs-tQQ";
         public const string SendTeamsRoute = "https://prod-252.westeurope.logic.azure.com:443/workflows/5761c68de5d0444e95ff392a17e089bc/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=PIMLa6p98WqdJrO_WifnEhCz1872tzLHmWprC-HuDx8";
-        private IWebHostEnvironment Environment;
+        private IHostEnvironment Environment;
         private IConfiguration Config;
 
-        public PWService(IWebHostEnvironment environment, IConfiguration _Config)
+        public PWService(IHostEnvironment environment, IConfiguration _Config)
         {
             Config = _Config;
             Environment = environment;

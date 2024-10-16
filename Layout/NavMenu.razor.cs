@@ -1,7 +1,6 @@
 ﻿using BlazorBootstrap;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Hosting;
 using Microsoft.JSInterop;
 using Radzen;
 using Shared_Razor_Components.Shared;

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Shared_Razor_Components.FundamentalModels;
 using System.Security.Claims;
 
-namespace Controle_Demandas
+namespace Shared_Razor_Components.FundamentalModels
 {
     public static class AuthorizationUtils
     {

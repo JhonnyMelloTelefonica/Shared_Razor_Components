@@ -14,7 +14,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Shared_Static_Class.Converters;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting;
 
 
@@ -24,7 +24,7 @@ namespace Shared_Razor_Components.Shared
     {
         [Inject] public Radzen.DialogService _DialogService { get; set; }
         [Inject] public IConfiguration _config { get; set; }
-        [Inject] public IWebHostEnvironment _Environment { get; set; }
+        [Inject] public IHostEnvironment _Environment { get; set; }
         public HttpClient _client { get; set; } = new HttpClient();
         private List<AnalistaOption> Analistas { get; set; } = [];
         public bool IsBusy { get; private set; } = true;

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Shared_Static_Class.Data;
@@ -19,7 +19,7 @@ public class QualidadeService : IQualidadeService
     private readonly HttpClient _httpClient;
     private readonly string _baseUrl;
 
-    public QualidadeService(HttpClient httpClient, IWebHostEnvironment environment)
+    public QualidadeService(HttpClient httpClient, IHostEnvironment environment)
     {
         _httpClient = httpClient;
 

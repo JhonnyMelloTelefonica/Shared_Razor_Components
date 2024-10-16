@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Shared_Static_Class.Converters;
 using Shared_Razor_Components.FundamentalModels;
@@ -36,10 +35,10 @@ namespace Shared_Razor_Components.Services
     }
     public class CreateFormService : ICreateFormService
     {
-        private IWebHostEnvironment Environment;
+        private IHostEnvironment Environment;
         private IConfiguration Config;
 
-        public CreateFormService(IWebHostEnvironment environment, IConfiguration _Config)
+        public CreateFormService(IHostEnvironment environment, IConfiguration _Config)
         {
             Config = _Config;
             Environment = environment;

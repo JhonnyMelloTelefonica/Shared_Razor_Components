@@ -2,7 +2,7 @@
 using System.Globalization;
 using Microsoft.JSInterop;
 using Shared_Static_Class.Model_DTO;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 
 namespace Shared_Razor_Components.Shared
@@ -13,7 +13,7 @@ namespace Shared_Razor_Components.Shared
         public TextInfo textInfo = new CultureInfo("pt-br", false).TextInfo;
         public bool Opened = false;
         public bool Context = false;
-        [Inject] IHostingEnvironment Env { get; set; }
+        [Inject] IHostEnvironment Env { get; set; }
         [Inject] IJSRuntime JSRuntime { get; set; }
         [Parameter] public ACESSOS_MOBILE_DTO User { get; set; } = new();
 

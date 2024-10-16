@@ -13,6 +13,8 @@ using static System.Net.WebRequestMethods;
 using System.Timers;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Microsoft.AspNetCore.Components.Web;
+using Shared_Razor_Components.Services;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace Shared_Razor_Components.Shared
 {
@@ -26,7 +28,8 @@ namespace Shared_Razor_Components.Shared
         public HttpClient _client { get; set; } = default!;
         public static CancellationTokenSource cancellationTokenSource { get; set; } = new CancellationTokenSource();
         [Inject] static IConfiguration _configuration { get; set; } = default!;
-
+        [Inject] ICardapioDigitalService _service { get; set; } = default!;
+        [Inject] IDialogService FluentDialog { get; set; } = default!;
         protected override void OnInitialized()
         {
             _timer = new Timer(700);
@@ -34,6 +37,13 @@ namespace Shared_Razor_Components.Shared
             _timer.AutoReset = false;
             _client = new HttpClient();
             base.OnInitialized();
+        }
+
+        void CleanSearch()
+        {
+            cancellationTokenSource.Cancel();
+            Produtos = [];
+            Search = string.Empty;
         }
 
         void ResetTimer(KeyboardEventArgs e)

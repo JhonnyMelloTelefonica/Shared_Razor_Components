@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.ComponentModel;
 using System.Globalization;
-using Microsoft.AspNetCore.SignalR.Client;
 using Shared_Razor_Components.Services;
 using Shared_Razor_Components.FundamentalModels;
 using Blazorise.LoadingIndicator;

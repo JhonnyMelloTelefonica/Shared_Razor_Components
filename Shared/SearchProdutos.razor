@@ -3,7 +3,7 @@
     <div class="search-area">
         <span>
             <label for="searchgeral">Pesquisar</label>
-            <input placeholder="" id="searchgeral" @bind="Search" @bind:event="oninput" @onkeyup="@ResetTimer" />
+            <input type="search" placeholder="" id="searchgeral" @bind="Search" @bind:event="oninput" @onkeyup="@ResetTimer" />
         </span>
         @if (Searching)
         {
@@ -11,7 +11,7 @@
         }
         else if (!string.IsNullOrEmpty(Search))
         {
-            <FluentIcon Value="@(new Icons.Filled.Size28.Dismiss().WithColor("#8f46b3"))" OnClick="@(() => Search = string.Empty)" />
+            <FluentIcon Value="@(new Icons.Filled.Size28.Dismiss().WithColor("#8f46b3"))" OnClick="CleanSearch" />
         }
         else
         {

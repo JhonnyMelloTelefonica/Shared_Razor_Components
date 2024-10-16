@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
@@ -18,10 +18,10 @@ namespace Shared_Razor_Components.Services
     }
     public class EditQuestionService : IEditQuestionService
     {
-        private IWebHostEnvironment Environment;
+        private IHostEnvironment Environment;
         private IConfiguration Config;
 
-        public EditQuestionService(IWebHostEnvironment environment, IConfiguration _Config)
+        public EditQuestionService(IHostEnvironment environment, IConfiguration _Config)
         {
             Config = _Config;
             Environment = environment;

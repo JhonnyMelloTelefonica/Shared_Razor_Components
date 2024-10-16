@@ -14,7 +14,7 @@ using System.ComponentModel;
 using System.Text;
 using BlazorBootstrap;
 using Microsoft.JSInterop;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.FluentUI.AspNetCore.Components;
 
@@ -22,21 +22,21 @@ namespace Shared_Razor_Components.ViewModel
 {
     public partial class VivoAppsViewModel : INotifyPropertyChanged
     {
-        public IHttpContextAccessor HttpAccessor;
-        public IWebHostEnvironment Networkacessor;
-        public GetUser_REDECORP GetUser_REDECORP;
-        public Blazorise.IPageProgressService PageProgressService;
-        public IJSRuntime JSRuntime;
-        public PreloadService PreloadService;
-        public Blazorise.IMessageService MessageService;
-        public ILoadingIndicatorService ApplicationLoadingIndicatorService;
-        public IBlazorDownloadFileService Dowloader;
-        public SweetAlertService Swal;
-        public Radzen.DialogService RadzenDialog;
-        public IDialogService FluentDialog;
-        public NavigationManager NavigationManager;
-        public UserService Userservice;
-        public IToastService ToastService;
+        public IHttpContextAccessor HttpAccessor { get; set; }
+        public IHostEnvironment Networkacessor { get; set; }
+        public GetUser_REDECORP GetUser_REDECORP { get; set; }
+        public Blazorise.IPageProgressService PageProgressService { get; set; }
+        public IJSRuntime JSRuntime { get; set; }
+        public PreloadService PreloadService { get; set; }
+        public Blazorise.IMessageService MessageService { get; set; }
+        public ILoadingIndicatorService ApplicationLoadingIndicatorService { get; set; }
+        public IBlazorDownloadFileService Dowloader { get; set; }
+        public SweetAlertService Swal { get; set; }
+        public Radzen.DialogService RadzenDialog { get; set; }
+        public IDialogService FluentDialog { get; set; }
+        public NavigationManager NavigationManager { get; set; }
+        public UserService Userservice { get; set; }
+        public IToastService ToastService { get; set; }
         public IAcessoPendenteByIdService AcessoPendenteByIdService { get; set; }
         public IAcessoTerceirosService AcessoTerceirosService { get; set; }
         public IAnswerFormService AnswerFormService { get; set; }
@@ -60,7 +60,7 @@ namespace Shared_Razor_Components.ViewModel
         public IRegisterService RegisterService { get; set; }
         public IResultadosProvaService ResultadosProvaService { get; set; }
 
-        public VivoAppsViewModel(IHttpContextAccessor httpAccessor, IWebHostEnvironment networkacessor, GetUser_REDECORP getUser_REDECORP, Blazorise.IPageProgressService pageProgressService, IJSRuntime jSRuntime, PreloadService preloadService, IBlazorDownloadFileService dowloader, Radzen.DialogService radzendialog, IDialogService fluentDialog, Blazorise.IMessageService messageService, ILoadingIndicatorService applicationLoadingIndicatorService, SweetAlertService swal, NavigationManager navigationManager, UserService userservice, Microsoft.FluentUI.AspNetCore.Components.IToastService _ToastService, IAcessoPendenteByIdService _AcessoPendenteByldService, IAcessoTerceirosService _AcessoTerceirosService, IAnswerFormService _AnswerFormService, ICardapioDigitalService _CardapioDigitalService, IConsultarDemandasService _ConsultarDemandasService, IControleDemandaService _ControleDemandaService, IControleUsuariosAppService _ControleUsuariosAppService, ICreateFormService _CreateFormService, ICreateQuestionService _CreateQuestionService, IDesligamentosService _DesligamentosService, IEditQuestionService _EditQuestionService, IEditSingleQuestionService _EditSingleQuestionService, IEditUserService _EditUserService, IJornadaHierarquiaService _JornadaHierarquiaService, IListaFormService _ListaFormService, IPainelProvasRealizadasService _PainelProvasRealizadasService, IPainelUsuariosService _PainelUsuariosService, IPrincipalService _PrincipalService, IPWService _PWService, IRegisterService _RegisterService, IResultadosProvaService _ResultadosProvaService)
+        public VivoAppsViewModel(IHttpContextAccessor httpAccessor, IHostEnvironment networkacessor, GetUser_REDECORP getUser_REDECORP, Blazorise.IPageProgressService pageProgressService, IJSRuntime jSRuntime, PreloadService preloadService, IBlazorDownloadFileService dowloader, Radzen.DialogService radzendialog, IDialogService fluentDialog, Blazorise.IMessageService messageService, ILoadingIndicatorService applicationLoadingIndicatorService, SweetAlertService swal, NavigationManager navigationManager, UserService userservice, Microsoft.FluentUI.AspNetCore.Components.IToastService _ToastService, IAcessoPendenteByIdService _AcessoPendenteByldService, IAcessoTerceirosService _AcessoTerceirosService, IAnswerFormService _AnswerFormService, ICardapioDigitalService _CardapioDigitalService, IConsultarDemandasService _ConsultarDemandasService, IControleDemandaService _ControleDemandaService, IControleUsuariosAppService _ControleUsuariosAppService, ICreateFormService _CreateFormService, ICreateQuestionService _CreateQuestionService, IDesligamentosService _DesligamentosService, IEditQuestionService _EditQuestionService, IEditSingleQuestionService _EditSingleQuestionService, IEditUserService _EditUserService, IJornadaHierarquiaService _JornadaHierarquiaService, IListaFormService _ListaFormService, IPainelProvasRealizadasService _PainelProvasRealizadasService, IPainelUsuariosService _PainelUsuariosService, IPrincipalService _PrincipalService, IPWService _PWService, IRegisterService _RegisterService, IResultadosProvaService _ResultadosProvaService)
         {
             HttpAccessor = httpAccessor;
             Networkacessor = networkacessor;

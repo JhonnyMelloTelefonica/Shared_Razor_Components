@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
@@ -10,7 +9,7 @@ using Shared_Razor_Components.FundamentalModels;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace Shared_Razor_Components.Services
 {
@@ -27,9 +26,9 @@ namespace Shared_Razor_Components.Services
 
     public class AcessoTerceirosService : IAcessoTerceirosService
     {
-        private IWebHostEnvironment Environment;
+        private IHostEnvironment Environment;
         private IConfiguration Config;
-        public AcessoTerceirosService(IWebHostEnvironment environment, IConfiguration _Config)
+        public AcessoTerceirosService(IHostEnvironment environment, IConfiguration _Config)
         {
             Config = _Config;
             Environment = environment;

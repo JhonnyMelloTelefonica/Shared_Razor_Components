@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Shared_Razor_Components.FundamentalModels;
@@ -17,11 +17,11 @@ namespace Shared_Razor_Components.Services
     }
     public class PrincipalService : IPrincipalService
     {
-        private IWebHostEnvironment Environment;
+        private IHostEnvironment Environment;
         private IConfiguration Config;
 
 
-        public PrincipalService(IWebHostEnvironment environment, IConfiguration _Config)
+        public PrincipalService(IHostEnvironment environment, IConfiguration _Config)
         {
             Config = _Config;
             Environment = environment;
