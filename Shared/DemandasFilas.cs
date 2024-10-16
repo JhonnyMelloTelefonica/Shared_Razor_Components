@@ -1,6 +1,6 @@
 ﻿using Blazorise.LoadingIndicator;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Hosting;
+//using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.JSInterop;
 using System;
@@ -17,7 +17,8 @@ using Shared_Razor_Components.FundamentalModels;
 using System.Net;
 using System.Text;
 using static Shared_Static_Class.Data.DEMANDA_RELACAO_CHAMADO;
-using KGySoft.CoreLibraries;
+//using KGySoft.CoreLibraries;
+using Microsoft.Extensions.Hosting;
 using Radzen;
 using Shared_Razor_Components.Services;
 using Newtonsoft.Json.Linq;
@@ -42,7 +43,8 @@ public partial class DemandasFila : ComponentBase
     [Inject] IJSRuntime JSRuntime { get; set; } = null;
     [Inject] NavigationManager NavigationManager { get; set; } = null;
     [Inject] ILoadingIndicatorService ApplicationLoadingIndicatorService { get; set; } = null;
-    [Inject] IWebHostEnvironment Env { get; set; } = null;
+    [Inject] IHostEnvironment Env { get; set; } = null;
+
     [Inject] IConfiguration Config { get; set; } = null;
     [Inject] DialogService RadzenDialog { get; set; } = null;
 
@@ -111,7 +113,7 @@ public partial class DemandasFila : ComponentBase
             foreach(var item in DataToShowDTO)
             {
                 var agrupado = new Fila_SubFila_Agrupado(item);    
-                DataToShow.TryAdd(agrupado);
+                DataToShow.Add(agrupado);
             }
 
             await ApplicationLoadingIndicatorService.Hide();
