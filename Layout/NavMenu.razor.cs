@@ -13,6 +13,8 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Shared_Razor_Components.Layout
 {
@@ -56,7 +58,10 @@ namespace Shared_Razor_Components.Layout
         protected override async Task OnInitializedAsync()
         {
             ViewOption.PropertyChanged += OnStateChanged;
-                    IsDevelopment = Env.EnvironmentName.ToLower() == "development" ? true : false;
+            IsDevelopment = Env.EnvironmentName.ToLower() == "development" ? true : false;
+
+
+
             await base.OnInitializedAsync();
         }
 

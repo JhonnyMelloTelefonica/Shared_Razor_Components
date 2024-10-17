@@ -7,6 +7,7 @@ namespace Shared_Razor_Components.VivoCustomComponents
 {
     public partial class VivoRating : ComponentBase, IDisposable
     {
+        [Parameter] public string Class { get; set; } = string.Empty;
         [Parameter] public required string LabelText { get; set; }
         [Parameter] public int Value { get; set; }
         [Parameter] public string? Id { get; set; }

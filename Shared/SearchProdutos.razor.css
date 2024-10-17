@@ -11,6 +11,7 @@
         border-radius: 3.5px;
         padding: 10px 20px;
         position: relative;
+        background-color:white;
     }
 
         .apply-component ::deep .search-area label {
@@ -38,7 +39,6 @@
     .apply-component ::deep .data-list-area.hide-data-list {
         position: absolute;
         height: 0;
-        width: 0;
         margin: 0;
         padding: 0;
         transition: height,margin,padding 0.25s linear;

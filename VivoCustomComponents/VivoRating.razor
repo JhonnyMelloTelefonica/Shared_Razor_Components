@@ -1,10 +1,10 @@
 ﻿
-<div class="apply-component" style="@Style" id="@Id">
+<div class="apply-component @Class" style="@Style" id="@Id">
     <div class="icon-rating-area @(Disable ? "disabled" : "")">
-        <div class="icon-rating"><FluentIcon Value="@(Value >= 1 ? new Icons.Filled.Size20.Star().WithColor( IsGold ? "#fdf001" :"#9d17be") : new Icons.Regular.Size20.Star().WithColor("#fffffff"))" @onclick=@(() => ChangeValue(1)) /></div>
-        <div class="icon-rating"><FluentIcon Value="@(Value >= 2 ? new Icons.Filled.Size20.Star().WithColor( IsGold ? "#fdf001" :"#9d17be") : new Icons.Regular.Size20.Star().WithColor("#fffffff"))" @onclick=@(() => ChangeValue(2)) /></div>
-        <div class="icon-rating"><FluentIcon Value="@(Value >= 3 ? new Icons.Filled.Size20.Star().WithColor( IsGold ? "#fdf001" :"#9d17be") : new Icons.Regular.Size20.Star().WithColor("#fffffff"))" @onclick=@(() => ChangeValue(3)) /></div>
-        <div class="icon-rating"><FluentIcon Value="@(Value >= 4 ? new Icons.Filled.Size20.Star().WithColor( IsGold ? "#fdf001" :"#9d17be") : new Icons.Regular.Size20.Star().WithColor("#fffffff"))" @onclick=@(() => ChangeValue(4)) /></div>
-        <div class="icon-rating"><FluentIcon Value="@(Value >= 5 ? new Icons.Filled.Size20.Star().WithColor( IsGold ? "#fdf001" :"#9d17be") : new Icons.Regular.Size20.Star().WithColor("#fffffff"))" @onclick=@(() => ChangeValue(5)) /></div>
+        <div class="icon-rating"><FluentIcon Value="@(Value >= 1 ? new Icons.Filled.Size20.Star().WithColor( IsGold ? "#fdf001" :"#9d17be") : new Icons.Regular.Size20.Star().WithColor("#ffffff"))" @onclick=@(() => ChangeValue(1)) /></div>
+        <div class="icon-rating"><FluentIcon Value="@(Value >= 2 ? new Icons.Filled.Size20.Star().WithColor( IsGold ? "#fdf001" :"#9d17be") : new Icons.Regular.Size20.Star().WithColor("#ffffff"))" @onclick=@(() => ChangeValue(2)) /></div>
+        <div class="icon-rating"><FluentIcon Value="@(Value >= 3 ? new Icons.Filled.Size20.Star().WithColor( IsGold ? "#fdf001" :"#9d17be") : new Icons.Regular.Size20.Star().WithColor("#ffffff"))" @onclick=@(() => ChangeValue(3)) /></div>
+        <div class="icon-rating"><FluentIcon Value="@(Value >= 4 ? new Icons.Filled.Size20.Star().WithColor( IsGold ? "#fdf001" :"#9d17be") : new Icons.Regular.Size20.Star().WithColor("#ffffff"))" @onclick=@(() => ChangeValue(4)) /></div>
+        <div class="icon-rating"><FluentIcon Value="@(Value >= 5 ? new Icons.Filled.Size20.Star().WithColor( IsGold ? "#fdf001" :"#9d17be") : new Icons.Regular.Size20.Star().WithColor("#ffffff"))" @onclick=@(() => ChangeValue(5)) /></div>
     </div>
 </div>

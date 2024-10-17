@@ -8,19 +8,35 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text.Json;
 using static System.Net.WebRequestMethods;
 using System.Timers;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Microsoft.AspNetCore.Components.Web;
 using Shared_Razor_Components.Services;
 using Microsoft.FluentUI.AspNetCore.Components;
+using Blazorise.Modules;
+using Microsoft.JSInterop;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Runtime.ConstrainedExecution;
+using static Shared_Static_Class.Converters.OrderByStringProperty;
+using Shared_Razor_Components.FundamentalModels;
+using Shared_Static_Class.Model_DTO.FilterModels;
+using Radzen.Blazor;
+using Newtonsoft.Json;
+using Microsoft.Extensions.Hosting;
 
 namespace Shared_Razor_Components.Shared
 {
     public partial class SearchProdutos : ComponentBase, IDisposable
     {
-        [Parameter] public string Search { get; set; } = string.Empty;
+        public event Action<PRODUTOS_CARDAPIO> OnCLickItem;
+        public string Search { get; set; } = string.Empty;
+
+        public event Action<string> TriggerSearch;
         public IEnumerable<PRODUTOS_CARDAPIO> Produtos { get; set; } = [];
         Timer _timer { get; set; } = default!;
         public bool EmptySearch { get; set; } = false;
@@ -30,6 +46,9 @@ namespace Shared_Razor_Components.Shared
         [Inject] static IConfiguration _configuration { get; set; } = default!;
         [Inject] ICardapioDigitalService _service { get; set; } = default!;
         [Inject] IDialogService FluentDialog { get; set; } = default!;
+        [Inject] IJSRuntime JSRuntime { get; set; } = default!;
+        [Inject] NavigationManager NavManager { get; set; } = default!;
+        [Inject] IHostEnvironment Env { get; set; } = default!;
         protected override void OnInitialized()
         {
             _timer = new Timer(700);
@@ -39,6 +58,17 @@ namespace Shared_Razor_Components.Shared
             base.OnInitialized();
         }
 
+        void SearchByFilters(KeyboardEventArgs args)
+        {
+            if (args.Key == "Enter")
+            {
+                TriggerSearch.Invoke(Search ?? "");
+                cancellationTokenSource.Cancel();
+                Produtos = [];
+                StateHasChanged();
+            }
+        }
+
         void CleanSearch()
         {
             cancellationTokenSource.Cancel();
@@ -46,7 +76,7 @@ namespace Shared_Razor_Components.Shared
             Search = string.Empty;
         }
 
-        void ResetTimer(KeyboardEventArgs e)
+        void ResetTimer(KeyboardEventArgs args)
         {
             _timer.Stop();
             _timer.Start();
@@ -68,7 +98,7 @@ namespace Shared_Razor_Components.Shared
 
             try
             {
-                var connection_string = "http://localhost:5159/";
+                var connection_string = Env.IsDevelopment() ? "http://localhost:5159/" : "http://brtdtbgs0090sl:9090/";
                 var response = await _client.GetAsync($"{connection_string}api/CardapioDigital/Search?search={Search ?? "-"}", _canceltoken);
                 response.EnsureSuccessStatusCode();
 
@@ -76,7 +106,7 @@ namespace Shared_Razor_Components.Shared
 
                 using (var stream = await response.Content.ReadAsStreamAsync())
                 {
-                    var saida = await JsonSerializer.DeserializeAsync<IEnumerable<PRODUTOS_CARDAPIO>>(stream, cancellationToken: _canceltoken);
+                    var saida = await System.Text.Json.JsonSerializer.DeserializeAsync<IEnumerable<PRODUTOS_CARDAPIO>>(stream, cancellationToken: _canceltoken);
                     if (!saida.Any())
                     {
                         EmptySearch = true;
@@ -103,6 +133,7 @@ namespace Shared_Razor_Components.Shared
             }
             catch (Exception ex)
             {
+                await JSRuntime.InvokeVoidAsync("console.log", ex.InnerException?.Message);
                 Console.WriteLine(ex.InnerException?.Message);
                 Produtos = [];
                 EmptySearch = false;

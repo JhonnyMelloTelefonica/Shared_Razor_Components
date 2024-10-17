@@ -6,6 +6,11 @@
     max-width: 100%;
 }
 
+.apply-component ::deep #searched-info {
+    font-size: 30px;
+    font-family: Vivo-font-bold;
+}
+
 .apply-component ::deep .principal-filters {
     height: auto;
     display: inline-flex;
@@ -72,25 +77,56 @@
             width: 100%;
         }
 
-    .apply-component ::deep .flex-stack-route .card-area {
+
+
+    .apply-component ::deep .flex-stack-route .search-area {
         display: inline-flex;
         flex-wrap: wrap;
         gap: 10px;
+        align-content: start;
+        justify-content: center;
+        width: 100%;
+        transition: all 2s ease-out;
+    }
+
+        .apply-component ::deep .flex-stack-route .search-area.empty-data {
+            height: 0;
+            margin: 0;
+            padding: 0;
+            transition: all 2s ease-out;
+        }
+
+        .apply-component ::deep .flex-stack-route .search-area.has-data {
+            height: auto;
+            max-height: 210vh;
+            transition: all 2s ease-out;
+            overflow: auto;
+        }
+
+    .apply-component ::deep .flex-stack-route .card-area {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 50px;
         width: 100%;
         align-content: start;
         justify-content: center;
+    }
+
+    .apply-component ::deep .flex-stack-route .top-itens .card-produto {
+        margin: 10px 25px;
     }
 
     .apply-component ::deep .flex-stack-route .card-produto {
         position: relative;
         border-radius: 20px;
         height: 400px;
+        width: 270px;
         box-sizing: border-box;
         background: #FFFFFF;
         border: 0.5px solid #CBC4C4;
         box-shadow: 0px 4px 4px rgba(104, 98, 98, 0.7);
         border-radius: 10px;
-        max-width: 270px;
+        margin: 10px 0;
     }
 
     .apply-component ::deep .flex-stack-route .stack-route {

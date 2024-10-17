@@ -2,8 +2,10 @@
 <div class="apply-component">
     <div class="search-area">
         <span>
-            <label for="searchgeral">Pesquisar</label>
-            <input type="search" placeholder="" id="searchgeral" @bind="Search" @bind:event="oninput" @onkeyup="@ResetTimer" />
+            <label for="searchgeral">
+                Enter para pesquisar
+            </label>
+            <input type="text" placeholder="" id="searchgeral" @bind="Search" @bind:event="oninput" @onkeyup="@ResetTimer" @onkeypress="SearchByFilters" />
         </span>
         @if (Searching)
         {
@@ -25,7 +27,7 @@
             {
                 @foreach (var item in Produtos)
                 {
-                    <div class="item-produto-area">
+                    <div class="item-produto-area" @onclick=@(() => OnCLickItem(item) ) >
                         <div class="imagem-produto">
                             @if (item.Imagens.Any())
                             {
@@ -37,7 +39,10 @@
                             }
                         </div>
                         <span class="title-produto">
-                            @item.Nome
+                            <FluentHighlighter HighlightedText="@Search"
+                                               Delimiters=" ,;"
+                                               Text="@item.Nome" />
+
                         </span>
                     </div>
                 }

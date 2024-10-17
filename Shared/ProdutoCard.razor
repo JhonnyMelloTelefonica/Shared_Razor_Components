@@ -31,17 +31,18 @@
         </div>
         <div class="p-3">
             <div class="d-flex flex-nowrap flex-column gap-2">
-                @*                 <FluentAutocomplete TOption="PRODUTOS_CARDAPIO" IconSearch="@(new Icons.Filled.Size28.ArrowDown().WithColor("#8f46b3"))"
+                @*<FluentAutocomplete TOption="PRODUTOS_CARDAPIO" IconSearch="@(new Icons.Filled.Size28.ArrowDown().WithColor("#8f46b3"))"
                 MaxAutoHeight="400px" AutoComplete="Nome" ImmediateDelay="3" Placeholder="Pesquisar..." ShowOverlayOnEmptyResults /> *@
-                <SearchProdutos Search="@SearchGeral" />
+                <SearchProdutos @ref=search />
             </div>
         </div>
     </section>
     <div class="flex-stack-route">
+
         <!-- #region generic filters -->
         <aside class="page-filters">
             <span id="page-filters-header">
-                <FluentButton IconEnd="@(new Icons.Filled.Size24.Search().WithColor("#fffffff"))" OnClick="SearchByFilters"
+                <FluentButton IconEnd="@(new Icons.Filled.Size24.Search().WithColor("#fffffff"))" OnClick="@(() => SearchByFilters(1, false))"
                               Appearance="Appearance.Accent" BackgroundColor="#9d62ba">
                     Filtros
                 </FluentButton>
@@ -63,7 +64,7 @@
 
             <div class="p-3">
                 <span class="filter-card-title">
-                    Cor
+                    Fabricante
                 </span>
                 <FluentSearch @bind-Value=SearchEspecificação />
                 <br />
@@ -98,7 +99,7 @@
                     Avaliação
                 </span>
                 <div>
-                    <Rating Color="@("#f45294")" Class="w-100" MaxValue="5" />
+                    <Rating @bind-SelectedValue=filter.avaliacao Color="@("#f45294")" Class="w-100" MaxValue="5" />
                 </div>
             </div>
         </aside>
@@ -106,112 +107,132 @@
         <!-- #region area where the products cards are -->
         <div class="card-area">
             <!-- #region where the products that appears after filter -->
-            @if (ProdutosBySearch.Any())
+            @if (!string.IsNullOrEmpty(filter.search))
             {
-                foreach (var Produto in ProdutosFiltered)
+                <span id="searched-info">Produtos encontrados para busca "@(filter.search)"</span>
+            }
+            <div class="search-area @(ProdutosBySearch.Any() ? "has-data" : "empty-data")">
+
+                @if (ProdutosBySearch.Any())
                 {
-                    <div class="card-produto">
-                        <div class="stack-route">
-                            @switch (Produto.Avaliacao.PositionInRank)
-                            {
-                                case 1:
-                                    <span class="nav-button-position trophy">
-                                        <FluentIcon Value="@(new Icons.Filled.Size24.Crown().WithColor("#ffdd00"))" />
-                                        <FluentIcon Value="@(new Icons.Filled.Size32.Trophy().WithColor("#ffdd00"))">
-                                        </FluentIcon>
-                                    </span>
-                                    break;
-                                case 2:
-                                    <span class="nav-button-position trophy">
-                                        <FluentIcon Value="@(new Icons.Filled.Size32.Trophy().WithColor("#dcdcdb"))">
-                                        </FluentIcon>
-                                    </span>
-                                    break;
-                                case 3:
-                                    <span class="nav-button-position trophy">
-                                        <FluentIcon Value="@(new Icons.Filled.Size32.Trophy().WithColor("#b98e82"))">
-                                        </FluentIcon>
-                                    </span>
-                                    break;
-                                default:
-                                    <span class="nav-button-position">
-                                        @Produto.Avaliacao.PositionInRank
-                                    </span>
-                                    break;
-                            }
-                            <a @onclick="() => Produto.OpenClose()">
-                                <div class="nav-button">
-                                    <FluentIcon Value="@(new Icons.Filled.Size48.Info().WithColor("#cbc3c3"))">
-                                    </FluentIcon>
-                                </div>
-                            </a>
-                            <aside>
-                                @{
-                                    var image = Produto.Imagens.FirstOrDefault();
-                                }
-                                @if (image is not null)
+                    foreach (var Produto in ProdutosFiltered)
+                    {
+                        <div class="card-produto">
+                            <div class="stack-route">
+                                @switch (Produto.Avaliacao.PositionInRank)
                                 {
-                                    <img src="@("data:image/png;base64," + SharedConverter.ConvertFileToString(image.Imagem))" class="w-100" />
+                                    case 1:
+                                        <span class="nav-button-position trophy">
+                                            <FluentIcon Value="@(new Icons.Filled.Size24.Crown().WithColor("#ffdd00"))" />
+                                            <FluentIcon Value="@(new Icons.Filled.Size32.Trophy().WithColor("#ffdd00"))">
+                                            </FluentIcon>
+                                        </span>
+                                        break;
+                                    case 2:
+                                        <span class="nav-button-position trophy">
+                                            <FluentIcon Value="@(new Icons.Filled.Size32.Trophy().WithColor("#dcdcdb"))">
+                                            </FluentIcon>
+                                        </span>
+                                        break;
+                                    case 3:
+                                        <span class="nav-button-position trophy">
+                                            <FluentIcon Value="@(new Icons.Filled.Size32.Trophy().WithColor("#b98e82"))">
+                                            </FluentIcon>
+                                        </span>
+                                        break;
+                                    default:
+                                        <span class="nav-button-position">
+                                            @Produto.Avaliacao.PositionInRank
+                                        </span>
+                                        break;
                                 }
-                            </aside>
-                            @if (Produto.Imagens.Count >= 2)
-                            {
-                                <!--
-                                <FluentHorizontalScroll class="both-gradient" Speed="600" Easing=ScrollEasing.EaseInOut>
-                                @foreach (var values in Produto.Imagens)
-                                {
-                                        <div>
-                                            <img src="@("data:image/png;base64," + SharedConverter.ConvertFileToString(values.Imagem))" style="object-fit: fill; width:25px; height:25px; border-radius:2.5px;" />
-                                        </div>
-                                }
-                                </FluentHorizontalScroll>
-                                -->
-                            }
-                            else
-                            {
-                            }
-                            <div class="product-description">
-                                @{
-                                    int roundAvaliacao = (int)Math.Round((Produto.Avaliacao.Avaliacao / 10.0) / 2, 0);
-                                }
-                                <p style="font-family:Vivo-font-bold; margin:0">
-                                    @Produto.Nome
-                                </p>
-                                <Rating Color="@("#f45294")" SelectedValue="roundAvaliacao" Class="w-100" MaxValue="5" Disabled />
-                                <div class="inline-flex g-2 w-100">
-                                    <span style="font-family: Vivo-font; font-size: 15px">
-                                        @Produto.Descrição
-                                    </span>
-                                    <br />
-                                    @if (Produto.IsOpened)
-                                    {
-                                        <div>
-                                            <FluentHorizontalScroll Class="both-gradient" Duration="600" Easing="ScrollEasing.Linear">
-                                                @foreach (var PrimaryInfo in Produto.Ficha.Where(x => x.IsImportant == true))
-                                                {
-                                                    <div class="card p-2">
-                                                        <RadzenBadge BadgeStyle="Radzen.BadgeStyle.Light"
-                                                                     Text=@(@PrimaryInfo.Especificação) class="me-1" Style="text-overflow:ellipsis;background:#9d17be;color:white" />
-                                                        <hr style="border: none; background-color: rgba(0,0,0,.08); height: 1px; margin: 0.5rem 0;" />
-                                                        <div class="d-flex flex-row align-items-center p-0 m-0">
-                                                            <h5 class="mb-0">@(PrimaryInfo.Valor)</h5>
-                                                        </div>
-                                                    </div>
-                                                }
-                                            </FluentHorizontalScroll>
-                                        </div>
+                                <a @onclick="() => Produto.OpenClose()">
+                                    <div class="nav-button">
+                                        <FluentIcon Value="@(new Icons.Filled.Size48.Info().WithColor("#cbc3c3"))">
+                                        </FluentIcon>
+                                    </div>
+                                </a>
+                                <aside>
+                                    @{
+                                        var image = Produto.Imagens.FirstOrDefault();
                                     }
+                                    @if (image is not null)
+                                    {
+                                        <img src="@("data:image/png;base64," + SharedConverter.ConvertFileToString(image.Imagem))" class="w-100" />
+                                    }
+                                </aside>
+                                @if (Produto.Imagens.Count >= 2)
+                                {
+                                    <!--
+                                    <FluentHorizontalScroll class="both-gradient" Speed="600" Easing=ScrollEasing.EaseInOut>
+                                    @foreach (var values in Produto.Imagens)
+                                    {
+                                            <div>
+                                                <img src="@("data:image/png;base64," + SharedConverter.ConvertFileToString(values.Imagem))" style="object-fit: fill; width:25px; height:25px; border-radius:2.5px;" />
+                                            </div>
+                                    }
+                                    </FluentHorizontalScroll>
+                                    -->
+                                }
+                                else
+                                {
+                                }
+                                <div class="product-description">
+                                    @{
+                                        int roundAvaliacao = (int)Math.Round((Produto.Avaliacao.Avaliacao / 10.0) / 2, 0);
+                                    }
+                                    <p style="font-family:Vivo-font-bold; margin:0">
+                                        @Produto.Nome
+                                    </p>
+                                    <Rating Color="@("#f45294")" SelectedValue="roundAvaliacao" Class="w-100" MaxValue="5" Disabled />
+                                    <div class="inline-flex g-2 w-100">
+                                        <span style="font-family: Vivo-font; font-size: 15px">
+                                            @Produto.Descrição
+                                        </span>
+                                        <br />
+                                        @if (Produto.IsOpened)
+                                        {
+                                            <div>
+                                                <FluentHorizontalScroll Class="both-gradient" Duration="600" Easing="ScrollEasing.Linear">
+                                                    @foreach (var PrimaryInfo in Produto.Ficha.Where(x => x.IsImportant == true))
+                                                    {
+                                                        <div class="card p-2">
+                                                            <RadzenBadge BadgeStyle="Radzen.BadgeStyle.Light"
+                                                                         Text=@(@PrimaryInfo.Especificação) class="me-1" Style="text-overflow:ellipsis;background:#9d17be;color:white" />
+                                                            <hr style="border: none; background-color: rgba(0,0,0,.08); height: 1px; margin: 0.5rem 0;" />
+                                                            <div class="d-flex flex-row align-items-center p-0 m-0">
+                                                                <h5 class="mb-0">@(PrimaryInfo.Valor)</h5>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </FluentHorizontalScroll>
+                                            </div>
+                                        }
+                                    </div>
                                 </div>
                             </div>
+                            <div class="button-navigation">
+                                <button @onclick=@(() => NavigationManager.NavigateTo($"produto/get?id={Produto.ID_PRODUTO.ToString()}"))>
+                                    Consultar
+                                </button>
+                            </div>
                         </div>
-                        <div class="button-navigation">
-                            <button @onclick=@(() => NavigationManager.NavigateTo($"produto/get?id={Produto.ID_PRODUTO.ToString()}"))>
-                                Consultar
-                            </button>
-                        </div>
-                    </div>
-                }
+                    }
 
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(filter.search))
+                    {
+                        <p class="w-100">
+                            Não encontramos nenhum produto com esses parâmetros de filtro
+                        </p>
+                    }
+                }
+            </div>
+
+            @if (ProdutosBySearch.Any())
+            {
                 <div class="d-inline-flex justify-content-center align-content-center w-100 h-auto overflow-auto gap-3">
                     @if (!DataResponse.isFirstpage)
                     {
@@ -233,7 +254,7 @@
                             var value = i;
                             if (i == DataResponse.PageNumber)
                             {
-                                <FluentButton Color="#9046b3">
+                                <FluentButton Color="#ffffff" BackgroundColor="#9046b3">
                                     @value
                                 </FluentButton>
                             }
@@ -257,14 +278,248 @@
                         </FluentButton>
                     }
                 </div>
-
+                <div style="height: 3px;width: 75%;background: #d7d7d7;border-radius: 2.25px;">
+                </div>
             }
             <!-- #endregion -->
             <!-- #region where the products that is first loaded to the page are -->
             @if (Produtos.Any())
             {
-                <div class="w-100">
-                    <FluentHorizontalScroll class="w-100" Easing="ScrollEasing.Linear">
+                <div class="top-itens">
+                    <span id="searched-info">TOP 10 Mais Vendidos</span>
+                    <FluentHorizontalScroll Style="max-width:71vw;" Easing="ScrollEasing.Linear">
+                        @foreach (var Produto in ProdutosModelToShow)
+                        {
+                            <div class="card-produto">
+                                <div class="stack-route">
+                                    @switch (Produto.Avaliacao.PositionInRank)
+                                    {
+                                        case 1:
+                                            <span class="nav-button-position trophy">
+                                                <FluentIcon Value="@(new Icons.Filled.Size24.Crown().WithColor("#ffdd00"))" />
+                                                <FluentIcon Value="@(new Icons.Filled.Size32.Trophy().WithColor("#ffdd00"))">
+                                                </FluentIcon>
+                                            </span>
+                                            break;
+                                        case 2:
+                                            <span class="nav-button-position trophy">
+                                                <FluentIcon Value="@(new Icons.Filled.Size32.Trophy().WithColor("#dcdcdb"))">
+                                                </FluentIcon>
+                                            </span>
+                                            break;
+                                        case 3:
+                                            <span class="nav-button-position trophy">
+                                                <FluentIcon Value="@(new Icons.Filled.Size32.Trophy().WithColor("#b98e82"))">
+                                                </FluentIcon>
+                                            </span>
+                                            break;
+                                        default:
+                                            <span class="nav-button-position">
+                                                @Produto.Avaliacao.PositionInRank
+                                            </span>
+                                            break;
+                                    }
+                                    <a @onclick="() => Produto.OpenClose()">
+                                        <div class="nav-button">
+                                            <FluentIcon Value="@(new Icons.Filled.Size48.Info().WithColor("#cbc3c3"))">
+                                            </FluentIcon>
+                                        </div>
+                                    </a>
+                                    <aside>
+                                        @{
+                                            var image = Produto.Imagens.FirstOrDefault();
+                                        }
+                                        @if (image is not null)
+                                        {
+                                            <img src="@("data:image/png;base64," + SharedConverter.ConvertFileToString(image.Imagem))" class="w-100" />
+                                        }
+                                    </aside>
+                                    @if (Produto.Imagens.Count >= 2)
+                                    {
+                                        <!--
+                                        <FluentHorizontalScroll class="both-gradient" Speed="600" Easing=ScrollEasing.EaseInOut>
+                                        @foreach (var values in Produto.Imagens)
+                                        {
+                                                <div>
+                                                    <img src="@("data:image/png;base64," + SharedConverter.ConvertFileToString(values.Imagem))" style="object-fit: fill; width:25px; height:25px; border-radius:2.5px;" />
+                                                </div>
+                                        }
+                                        </FluentHorizontalScroll>
+                                        -->
+                                    }
+                                    else
+                                    {
+                                    }
+                                    <div class="product-description">
+                                        @{
+                                            int roundAvaliacao = (int)Math.Round((Produto.Avaliacao.Avaliacao / 10.0) / 2, 0);
+                                        }
+                                        <p style="font-family:Vivo-font-bold; margin:0">
+                                            @Produto.Nome
+                                        </p>
+                                        <Rating Color="@("#f45294")" SelectedValue="roundAvaliacao" Class="w-100" MaxValue="5" Disabled />
+                                        <div class="inline-flex g-2 w-100">
+                                            <span style="font-family: Vivo-font; font-size: 15px">
+                                                @Produto.Descrição
+                                            </span>
+                                            <br />
+                                            @if (Produto.IsOpened)
+                                            {
+                                                <div>
+                                                    <FluentHorizontalScroll Class="both-gradient" Duration="600" Easing="ScrollEasing.Linear">
+                                                        @foreach (var PrimaryInfo in Produto.Ficha.Where(x => x.IsImportant == true))
+                                                        {
+                                                            <div class="card p-2">
+                                                                <RadzenBadge BadgeStyle="Radzen.BadgeStyle.Light"
+                                                                             Text=@(@PrimaryInfo.Especificação) class="me-1" Style="text-overflow:ellipsis;background:#9d17be;color:white" />
+                                                                <hr style="border: none; background-color: rgba(0,0,0,.08); height: 1px; margin: 0.5rem 0;" />
+                                                                <div class="d-flex flex-row align-items-center p-0 m-0">
+                                                                    <h5 class="mb-0">@(PrimaryInfo.Valor)</h5>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </FluentHorizontalScroll>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button-navigation">
+                                    <button @onclick=@(() => NavigationManager.NavigateTo($"produto/get?id={Produto.ID_PRODUTO.ToString()}"))>
+                                        Consultar
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </FluentHorizontalScroll>
+                </div>
+            }
+            else
+            {
+                <span class="spinner-border spinner-border-sm"></span>
+            }
+
+            @if (Produtos.Any())
+            {
+                <div class="top-itens">
+                    <span id="searched-info">TOP 10 Indicação regional</span>
+                    <FluentHorizontalScroll Style="max-width:71vw;" Easing="ScrollEasing.Linear">
+                        @foreach (var Produto in ProdutosModelToShow)
+                        {
+                            <div class="card-produto">
+                                <div class="stack-route">
+                                    @switch (Produto.Avaliacao.PositionInRank)
+                                    {
+                                        case 1:
+                                            <span class="nav-button-position trophy">
+                                                <FluentIcon Value="@(new Icons.Filled.Size24.Crown().WithColor("#ffdd00"))" />
+                                                <FluentIcon Value="@(new Icons.Filled.Size32.Trophy().WithColor("#ffdd00"))">
+                                                </FluentIcon>
+                                            </span>
+                                            break;
+                                        case 2:
+                                            <span class="nav-button-position trophy">
+                                                <FluentIcon Value="@(new Icons.Filled.Size32.Trophy().WithColor("#dcdcdb"))">
+                                                </FluentIcon>
+                                            </span>
+                                            break;
+                                        case 3:
+                                            <span class="nav-button-position trophy">
+                                                <FluentIcon Value="@(new Icons.Filled.Size32.Trophy().WithColor("#b98e82"))">
+                                                </FluentIcon>
+                                            </span>
+                                            break;
+                                        default:
+                                            <span class="nav-button-position">
+                                                @Produto.Avaliacao.PositionInRank
+                                            </span>
+                                            break;
+                                    }
+                                    <a @onclick="() => Produto.OpenClose()">
+                                        <div class="nav-button">
+                                            <FluentIcon Value="@(new Icons.Filled.Size48.Info().WithColor("#cbc3c3"))">
+                                            </FluentIcon>
+                                        </div>
+                                    </a>
+                                    <aside>
+                                        @{
+                                            var image = Produto.Imagens.FirstOrDefault();
+                                        }
+                                        @if (image is not null)
+                                        {
+                                            <img src="@("data:image/png;base64," + SharedConverter.ConvertFileToString(image.Imagem))" class="w-100" />
+                                        }
+                                    </aside>
+                                    @if (Produto.Imagens.Count >= 2)
+                                    {
+                                        <!--
+                                        <FluentHorizontalScroll class="both-gradient" Speed="600" Easing=ScrollEasing.EaseInOut>
+                                        @foreach (var values in Produto.Imagens)
+                                        {
+                                                <div>
+                                                    <img src="@("data:image/png;base64," + SharedConverter.ConvertFileToString(values.Imagem))" style="object-fit: fill; width:25px; height:25px; border-radius:2.5px;" />
+                                                </div>
+                                        }
+                                        </FluentHorizontalScroll>
+                                        -->
+                                    }
+                                    else
+                                    {
+                                    }
+                                    <div class="product-description">
+                                        @{
+                                            int roundAvaliacao = (int)Math.Round((Produto.Avaliacao.Avaliacao / 10.0) / 2, 0);
+                                        }
+                                        <p style="font-family:Vivo-font-bold; margin:0">
+                                            @Produto.Nome
+                                        </p>
+                                        <Rating Color="@("#f45294")" SelectedValue="roundAvaliacao" Class="w-100" MaxValue="5" Disabled />
+                                        <div class="inline-flex g-2 w-100">
+                                            <span style="font-family: Vivo-font; font-size: 15px">
+                                                @Produto.Descrição
+                                            </span>
+                                            <br />
+                                            @if (Produto.IsOpened)
+                                            {
+                                                <div>
+                                                    <FluentHorizontalScroll Class="both-gradient" Duration="600" Easing="ScrollEasing.Linear">
+                                                        @foreach (var PrimaryInfo in Produto.Ficha.Where(x => x.IsImportant == true))
+                                                        {
+                                                            <div class="card p-2">
+                                                                <RadzenBadge BadgeStyle="Radzen.BadgeStyle.Light"
+                                                                             Text=@(@PrimaryInfo.Especificação) class="me-1" Style="text-overflow:ellipsis;background:#9d17be;color:white" />
+                                                                <hr style="border: none; background-color: rgba(0,0,0,.08); height: 1px; margin: 0.5rem 0;" />
+                                                                <div class="d-flex flex-row align-items-center p-0 m-0">
+                                                                    <h5 class="mb-0">@(PrimaryInfo.Valor)</h5>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </FluentHorizontalScroll>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button-navigation">
+                                    <button @onclick=@(() => NavigationManager.NavigateTo($"produto/get?id={Produto.ID_PRODUTO.ToString()}"))>
+                                        Consultar
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </FluentHorizontalScroll>
+                </div>
+            }
+            else
+            {
+                <span class="spinner-border spinner-border-sm"></span>
+            }
+
+            @if (Produtos.Any())
+            {
+                <div class="top-itens">
+                    <span id="searched-info">TOP 10 Mais novos</span>
+                    <FluentHorizontalScroll Style="max-width:71vw;" Easing="ScrollEasing.Linear">
                         @foreach (var Produto in ProdutosModelToShow)
                         {
                             <div class="card-produto">

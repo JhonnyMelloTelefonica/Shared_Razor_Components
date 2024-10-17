@@ -59,12 +59,15 @@ namespace Shared_Razor_Components.FundamentalModels
                     //matricula = "974950"; //
                     //matricula = "3551449"; //Random solicitante
                     //matricula = "30722"; //Chiquito!
-                    //matricula = "64960"; //Isis Mary 💗💗
+                    //matricula = "156114"; //
+                    matricula = "64960"; //Isis Mary 💗💗
                     //matricula = "159209"; //
                     //matricula = "94842"; //
                     //matricula = "79902790"; //
                     //matricula = "163794"; //
-                    matricula = "151191"; //Jhonny
+                    //matricula = "95040"; //
+                    //matricula = "151191"; //Jhonny
+                    //matricula = "153078"; //Jhonny
                     //matricula = "22803"; //D'juda
                     //matricula = "158125"; //
                     //matricula = "3511507"; //
@@ -97,6 +100,8 @@ namespace Shared_Razor_Components.FundamentalModels
                     // --------------
                     //matricula = "155251"; //Minas
                     //matricula = "427700"; //Minas Suporte
+                    //matricula = "78329"; //Loja 
+
 
                     // --------------
                     // REGIONAL LESTE

@@ -19,7 +19,9 @@ namespace Shared_Razor_Components.Services
     public interface ICardapioDigitalService
     {
         Task<MainResponse> GetProductsNames();
-        Task<MainResponse> Get();
+        Task<MainResponse> GetTop10Vendidos();
+        Task<MainResponse> GetTop10Indicacao();
+        Task<MainResponse> GetTop10Novos();
         Task<MainResponse> Get(Guid id);
         Task<MainResponse> Post(PRODUTOS_CARDAPIO produto);
         Task<MainResponse> Put(PRODUTOS_CARDAPIO produto);
@@ -58,13 +60,57 @@ namespace Shared_Razor_Components.Services
             }
         }
 
-        public async Task<MainResponse> Get()
+        public async Task<MainResponse> GetTop10Vendidos()
         {
             try
             {
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
                 HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri($"{BaseUrl}/Get");
+                client.BaseAddress = new Uri($"{BaseUrl}/GetTop10Vendidos");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, client.BaseAddress);
+                return await MakeRequestAsync(request, client);
+            }
+            catch (Exception)
+            {
+                return new MainResponse
+                {
+                    Content = "",
+                    IsSuccess = false,
+                    ErrorMessage = "algum erro ocorreu"
+                };
+            }
+        }
+        public async Task<MainResponse> GetTop10Indicacao()
+        {
+            try
+            {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri($"{BaseUrl}/GetTop10Indicacao");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, client.BaseAddress);
+                return await MakeRequestAsync(request, client);
+            }
+            catch (Exception)
+            {
+                return new MainResponse
+                {
+                    Content = "",
+                    IsSuccess = false,
+                    ErrorMessage = "algum erro ocorreu"
+                };
+            }
+        }
+        public async Task<MainResponse> GetTop10Novos()
+        {
+            try
+            {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri($"{BaseUrl}/GetTop10Novos");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, client.BaseAddress);

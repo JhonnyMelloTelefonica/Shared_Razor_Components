@@ -33,9 +33,9 @@ namespace Shared_Razor_Components.Shared
         string Orderby { get; set; } = "Avaliacao.Avaliacao";
         bool AscOrDesc { get; set; } = true;
         GenericPaginationModel<PainelCardapioDigital> filterPagination { get; set; } = new(new(string.Empty, 0, [], [], [], [], null, 0));
-        GenericPagedResponse<IEnumerable<PRODUTOS_CARDAPIO>> DataResponse { get; set; } = new([], 1, 2);
-        protected FilterPageData filter { get; set; } = new(0, null, null, null, null, null, 0);
-
+        GenericPagedResponse<IEnumerable<PRODUTOS_CARDAPIO>> DataResponse { get; set; } = new([], 1, 50);
+        protected PainelCardapioDigital filter { get; set; } = new(string.Empty, 0, null, null, null, null, null, 0);
+        SearchProdutos search { get; set; }
         IEnumerable<ProdutoCardModel> ProdutosModelToShow
         {
             get
@@ -50,7 +50,6 @@ namespace Shared_Razor_Components.Shared
                 return saida.Select(x => new ProdutoCardModel(x, PropertyChanged));
             }
         }
-
         IEnumerable<ProdutoCardModel> ProdutosFiltered
         {
             get
@@ -65,20 +64,20 @@ namespace Shared_Razor_Components.Shared
                 return saida.Select(x => new ProdutoCardModel(x, PropertyChanged));
             }
         }
-        string SearchGeral { get; set; } = string.Empty;
+
         string SearchCategoria { get; set; } = string.Empty;
         string SearchEspecificação { get; set; } = string.Empty;
         protected override void OnInitialized()
         {
             PropertyChanged += ProdutoCard_PropertyChanged;
-            filterPagination = new(new PainelCardapioDigital(SearchGeral,
+            filterPagination = new(new PainelCardapioDigital(filter.search,
                 filter.avaliacao,
                 filter.categorias,
                 filter.especificações,
                 filter.cor,
                 filter.fabricante,
                 filter.IsOferta,
-                filter.Valor), 1, 2);
+                filter.Valor), 1, 25);
             base.OnInitialized();
         }
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -88,6 +87,7 @@ namespace Shared_Razor_Components.Shared
                 //.Where(x => !string.IsNullOrEmpty(SearchCategoria) ? x.GetDisplayName().Contains(SearchCategoria, StringComparison.InvariantCultureIgnoreCase) : x.GetDisplayName() != null)
                 //.Where(x => !string.IsNullOrEmpty(SearchEspecificação) ? x.GetDisplayName().Contains(SearchEspecificação, StringComparison.InvariantCultureIgnoreCase) : x.GetDisplayName() != null)
                 _jsmodule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Shared_Razor_Components/Shared/ProdutoCard.razor.js");
+                search.TriggerSearch += SearchByFilters;
                 await InvokeAsync(StateHasChanged);
             }
 
@@ -108,22 +108,26 @@ namespace Shared_Razor_Components.Shared
                 }
             }
         }
-        async void SearchByFilters(MouseEventArgs args)
+
+        async void SearchByFilters(string value)
         {
-            await SearchAction(null);
+            filter.search = value;
+            await SearchAction(1);
         }
 
-        async void SearchByFilters(int value)
+        async void SearchByFilters(int value, bool HasSearchByName = true)
         {
-            await SearchAction(value);
+            await SearchAction(value, HasSearchByName);
         }
 
-        private async Task SearchAction(int? NewPage)
+        private async Task SearchAction(int? NewPage, bool HasSearchByName = true)
         {
             if (NewPage.HasValue)
                 filterPagination.PageNumber = NewPage.Value;
+            if (!HasSearchByName)
+                filter.search = string.Empty;
 
-            filterPagination.Value = new PainelCardapioDigital(SearchGeral, filter.avaliacao, filter.categorias, filter.especificações, filter.cor, filter.fabricante, filter.IsOferta, filter.Valor);
+            filterPagination.Value = new PainelCardapioDigital(filter.search, filter.avaliacao, filter.categorias, filter.especificações, filter.cor, filter.fabricante, filter.IsOferta, filter.Valor);
             var result = await _service.Search(filterPagination);
             if (result.IsSuccess)
             {
@@ -147,12 +151,14 @@ namespace Shared_Razor_Components.Shared
             {
                 await FluentDialog.ShowErrorAsync(result.ErrorMessage, "Algum erro ocorreu");
             }
-            StateHasChanged();
+
+            await InvokeAsync(StateHasChanged);
         }
 
         public void Dispose()
         {
             PropertyChanged -= ProdutoCard_PropertyChanged;
+            search.TriggerSearch -= SearchByFilters;
         }
 
         event Action? PropertyChanged;
@@ -189,28 +195,6 @@ namespace Shared_Razor_Components.Shared
                 IsOpened = !IsOpened;
                 PropertyChanged?.Invoke();
             }
-        }
-
-        protected record FilterPageData
-        {
-            public FilterPageData(int avaliacao, List<Categoria_Produto> categorias, List<Categoria_Especificação> especificações, List<string> cor, List<string> fabricante, bool? isOferta, decimal valor)
-            {
-                this.avaliacao = avaliacao;
-                this.categorias = categorias ?? [];
-                this.especificações = especificações ?? [];
-                this.cor = cor ?? [];
-                this.fabricante = fabricante ?? [];
-                IsOferta = isOferta;
-                Valor = valor;
-            }
-
-            public int avaliacao { get; set; } = 0;
-            public List<Categoria_Produto> categorias { get; set; } = [];
-            public List<Categoria_Especificação> especificações { get; set; } = [];
-            public List<string> cor { get; set; } = [];
-            public List<string> fabricante { get; set; } = [];
-            public bool? IsOferta { get; set; } = null;
-            public decimal Valor { get; set; } = 0;
         }
 
         protected class ImagewithPosition : PRODUTO_IMAGEM

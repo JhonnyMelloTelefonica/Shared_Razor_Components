@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Shared_Razor_Components.Shared.BasicForApplication;
+using Microsoft.AspNetCore.Server.IISIntegration;
 
 namespace Shared_Razor_Components
 {
@@ -20,6 +21,102 @@ namespace Shared_Razor_Components
     {
         public static void AddSharedServices(this IServiceCollection services)
         {
+            services.AddCascadingAuthenticationState();
+            services.AddAuthorizationCore(options =>
+            {
+                #region ADM
+
+                options.AddGenericPolicy("Adm", (userRequirement, user) => userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1));
+
+                #endregion
+
+                #region Vivo X
+
+                options.AddGenericPolicy("JornadaRTCZ", (userRequirement, user) =>
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 3, 4, 5, 6 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+
+                options.AddGenericPolicy("JornadaRTCZUser", (userRequirement, user) =>
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 4 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+
+                options.AddGenericPolicy("JornadaRTCZCreator", (userRequirement, user) =>
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 2, 5 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+
+                options.AddGenericPolicy("JornadaRTCZCreatorMaster", (userRequirement, user) =>
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 6 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+
+                #endregion
+
+                #region Controle Usuarios
+
+                options.AddGenericPolicy("ControleAcessos", (userRequirement, user) =>
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 2, 10 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+
+                options.AddGenericPolicy("ControleAcessosMaster", (userRequirement, user) =>
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 10 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+
+                options.AddGenericPolicy("ControleHierarquiaRTCZ", (userRequirement, user) =>
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 18, 19 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+
+                #endregion
+
+                #region Controle de Demandas
+
+                options.AddGenericPolicy("ControleFilaDemandas", (userRequirement, user) =>
+                userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 16, 17 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+
+                options.AddGenericPolicy("ControleCriarFilaDemandas", (userRequirement, user) =>
+                userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 16, 17 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+
+                options.AddGenericPolicy("GenericUser", (userRequirement, user) =>
+                userRequirement.Acesso.User.Perfil.Any(x => new[] { 13 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+
+                options.AddGenericPolicy("ControleDemandasAdm", (userRequirement, user) =>
+                userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 14, 15 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+
+                options.AddPolicy("GenericUserOrDemandaAdm", policy =>
+                {
+                    policy.RequireAssertion(context =>
+                        context.User.HasClaim(c => c.Type == "ControleDemandasAdm") ||
+                        context.User.HasClaim(c => c.Type == "GenericUser")
+                        );
+                });
+
+                options.AddGenericPolicy("ControleDemandasLogico", (userRequirement, user) =>
+                userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 15 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+
+                options.AddGenericPolicy("ControleDemandasGerente", (userRequirement, user) =>
+                userRequirement.Acesso.User.Perfil.Any(x => new[] { 20, 1 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+
+                options.AddGenericPolicy("Suporte", (userRequirement, user) =>
+                    userRequirement.Acesso.User.IsSuporte());
+
+                options.AddGenericPolicy("ControleQuestionsRota", (userRequirement, user) =>
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 3 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+
+                options.AddGenericPolicy("ControleBoleta", (userRequirement, user) =>
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 11, 12 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+
+                options.AddGenericPolicy("ControleAberturaDemandas", (userRequirement, user) =>
+
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 14, 15 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+
+                #endregion
+
+                #region Cardapio Digital
+
+                options.AddGenericPolicy("CanSeeCardapio", (userRequirement, user) =>
+                    userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 20 || x.Perfil_Plataforma.ID_PERFIL == 21));
+
+                options.AddGenericPolicy("Default", (userRequirement, user) =>
+                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 20));
+
+                options.AddGenericPolicy("VIVOX_CARDAPIO_DIGITAL_ADM", (userRequirement, user) =>
+                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 21));
+
+                #endregion
+
+            });
+
             services.AddSingleton<StaticUserRedecorp>(); // necessariamente Singleton pois guardam valores que são comuns a todos
             services.AddSingleton<GetUser_REDECORP>(); // necessariamente Singleton pois guardam valores que são comuns a todos
             services.AddScoped<Radzen.DialogService>();
@@ -68,8 +165,12 @@ namespace Shared_Razor_Components
             //services.AddSingleton<IQualidadeService,QualidadeService>();
             services.AddSingleton<IRegisterService, RegisterService>();
             services.AddSingleton<IResultadosProvaService, ResultadosProvaService>();
+            services.AddSingleton<IForumRTCZService, ForumRTCZService>();
             services.AddSingleton<UsersAtivos>();// necessariamente Singleton pois guardam valores que são comuns a todos
             services.AddScoped<UserService>(); // necessariamente Scoped pois são valores que só seram alterados ao recarregarem a página
+            services.AddTransient<IAuthorizationHandler, GenericPolicyHandler>();
+            services.AddAuthenticationCore();
+            services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
         }
     }
 }
