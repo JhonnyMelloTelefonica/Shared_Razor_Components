@@ -14,6 +14,9 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using Shared_Static_Class.Model_DTO.FilterModels;
 using Azure;
 using Shared_Static_Class.Model_ForumRTCZ_Context;
+using Blazorise;
+using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Shared_Razor_Components.Services
 {
@@ -24,7 +27,8 @@ namespace Shared_Razor_Components.Services
         Task<MainResponse> SearchByAnalista(GenericPaginationModel<PainelForumRTCZ> filter, int matricula);
         Task<MainResponse> GetTemas();
         Task<MainResponse> GetTemas(int matricula);
-        Task<MainResponse> PostPublicacao(PUBLICACAO_SOLICITACAO data);
+        Task<MainResponse> PostPublicacao(PUBLICACAO_SOLICITACAODTO data);
+        Task<MainResponse> PostRespostaPublicacao(RESPOSTA_PUBLICACAODTO data);
         Task<MainResponse> PostAvaliacaoToPublicacao(AVALIACAO_PUBLICACAO avaliacao);
 
     }
@@ -181,7 +185,7 @@ namespace Shared_Razor_Components.Services
                 };
             }
         }
-        public async Task<MainResponse> PostPublicacao(PUBLICACAO_SOLICITACAO data)
+        public async Task<MainResponse> PostPublicacao(PUBLICACAO_SOLICITACAODTO data)
         {
             try
             {
@@ -208,10 +212,38 @@ namespace Shared_Razor_Components.Services
                 };
             }
         }
+        public async Task<MainResponse> PostRespostaPublicacao(RESPOSTA_PUBLICACAODTO data)
+        {
+            try
+            {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri($"{BaseUrl}/publicacao/resposta/post");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, client.BaseAddress);
+
+                var body = JsonConvert.SerializeObject(data);
+                var content = new StringContent(body, Encoding.UTF8, "application/json");
+                request.Content = content;
+
+                return await MakeRequestAsync(request, client);
+            }
+            catch (Exception ex)
+            {
+                return new MainResponse
+                {
+                    Content = ex,
+                    IsSuccess = false,
+                    ErrorMessage = "algum erro ocorreu"
+                };
+            }
+        }
         public async Task<MainResponse> PostAvaliacaoToPublicacao(AVALIACAO_PUBLICACAO avaliacao)
         {
             try
             {
+                avaliacao.Responsavel = new();
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri($"{BaseUrl}/Post/Avaliacao/Publicacao");
@@ -251,11 +283,12 @@ namespace Shared_Razor_Components.Services
                 if (!string.IsNullOrEmpty(responseString))
                 {
                     var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(responseString);
+                    var Erros = string.Join('\n', errorResponse.Errors.SelectMany(x => x.Value).Select((x, y) => $"{y + 1}°. {x}"));
                     return new MainResponse
                     {
                         Content = errorResponse,
                         IsSuccess = false,
-                        ErrorMessage = errorResponse.Title
+                        ErrorMessage = Erros
                     };
                 }
             }

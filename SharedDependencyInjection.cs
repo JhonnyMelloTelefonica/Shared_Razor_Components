@@ -115,6 +115,19 @@ namespace Shared_Razor_Components
 
                 #endregion
 
+                #region Fórum Giro V
+
+                options.AddGenericPolicy("CanSeeForumGiroV", (userRequirement, user) =>
+                    userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 23 || x.Perfil_Plataforma.ID_PERFIL == 24));
+
+                options.AddGenericPolicy("VIVOX_FORUM_GIROV_USER", (userRequirement, user) =>
+                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 23));
+
+                options.AddGenericPolicy("VIVOX_FORUM_GIROV_ADM", (userRequirement, user) =>
+                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 24));
+
+                #endregion
+
             });
 
             services.AddSingleton<StaticUserRedecorp>(); // necessariamente Singleton pois guardam valores que são comuns a todos

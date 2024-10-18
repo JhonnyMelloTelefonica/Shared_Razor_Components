@@ -93,12 +93,49 @@
                 </CascadingAuthenticationState>
             </li>
             <li class="menu-item">
+                @{
+                    string forumlink = IsDevelopment ? "https://localhost:5182/" : "http://brtdtbgs0090sl:8087/";
+                }
+                <CascadingAuthenticationState>
+                    <AuthorizeView Policy="CanSeeForumGiroV">
+                        <Authorized>
+                            <a href="@(forumlink)" class="@(Nav.BaseUri.Contains("http://localhost:5182") || Nav.BaseUri.Contains("http://brtdtbgs0090sl:8087/") ? "navSelected" : "")">Fórum Giro V</a>
+                            <ul class="submenu">
+                                <li class="submenu-item"><a href="@(forumlink)">Publicações</a></li>
+                                <li class="submenu-item"><a href="@(forumlink)get/publicacao/user">Suas publicações</a></li>
+                                <AuthorizeView Policy="VIVOX_FORUM_GIROV_ADM" Context="item">
+                                    <Authorized>
+                                        <li class="submenu-item"><a href="@(forumlink)get/publicacao/analista">Responder Publicações</a></li>
+                                    </Authorized>
+                                    <NotAuthorized>
+                                        <li class="submenu-item">
+                                            <a href="#">
+                                                <FluentIcon Value="@(new Icons.Filled.Size16.LockClosed().WithColor("#8b8f79"))" />
+                                                Responder Publicações
+                                            </a>
+                                        </li>
+                                    </NotAuthorized>
+                                </AuthorizeView>
+                            </ul>
+                        </Authorized>
+                        <NotAuthorized>
+                            <a>
+                                <FluentIcon Value="@(new Icons.Filled.Size16.LockClosed().WithColor("#8b8f79"))" />
+                                Fórum Giro V
+                            </a>
+                            <ul class="submenu">
+                            </ul>
+                        </NotAuthorized>
+                    </AuthorizeView>
+                </CascadingAuthenticationState>
+            </li>
+            @*<li class="menu-item">
                 <a href="">Perfil</a>
                 <ul class="submenu">
                     <li class="submenu-item"><a href="@(HomeVivoX)update-senha-user">Senha</a></li>
                     <li class="submenu-item"><a href="@(HomeVivoX)edit-user">Imagem</a></li>
                 </ul>
-            </li>
+            </li> *@
         </ul>
 
         @* !!!!! opçõs do usuáiro !!!!! *@
