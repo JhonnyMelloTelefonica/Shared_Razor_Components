@@ -14,7 +14,14 @@
                 <main>
                     @if (headerContent is not null)
                     {
-                        @headerContent
+                        if (setHeader.ContentWithDefaultHeader)
+                        {
+                            <NavMenu Content="headerContent" ContentWithDefaultHeader />
+                        }
+                        else
+                        {
+                            <NavMenu Content="headerContent" />
+                        }
                     }
 
                     <article class="content px-4" style="position:relative;">

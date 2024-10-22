@@ -14,10 +14,6 @@
 	  <Compile Remove="Shared\CargoByPerfl.cs" />
 	</ItemGroup>
 	<ItemGroup>
-		<Content Remove="wwwroot\images\IconLock.png" />
-		<Content Remove="wwwroot\images\iconLock.svg" />
-	</ItemGroup>
-	<ItemGroup>
 		<EmbeddedResource Remove="wwwroot\icone-vivox.png" />
 		<EmbeddedResource Remove="wwwroot\images\iconLock.svg" />
 	</ItemGroup>
@@ -62,5 +58,7 @@
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
 	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>

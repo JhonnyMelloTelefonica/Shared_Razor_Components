@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Shared_Razor_Components.Shared.BasicForApplication;
 using Microsoft.AspNetCore.Server.IISIntegration;
+using System.Security.Claims;
 
 namespace Shared_Razor_Components
 {
@@ -27,6 +28,7 @@ namespace Shared_Razor_Components
                 #region ADM
 
                 options.AddGenericPolicy("Adm", (userRequirement, user) => userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1));
+                options.AddGenericPolicy("All", (userRequirement, user) => user.Claims.Any(x=> x.Type == ClaimTypes.Name ||x.Type == ClaimTypes.Email ||x.Type == ClaimTypes.HomePhone));
 
                 #endregion
 

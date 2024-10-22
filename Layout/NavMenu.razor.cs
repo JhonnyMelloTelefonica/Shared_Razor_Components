@@ -20,15 +20,14 @@ namespace Shared_Razor_Components.Layout
 {
     public partial class NavMenu : ComponentBase, IDisposable
     {
-        [Inject] IHostingEnvironment Env { get; set; }
         [Inject] private Radzen.DialogService DialogService { get; set; }
         [Inject] private IJSRuntime JSRuntime { get; set; }
         [Inject] private UserService user { get; set; }
         [Inject] private ViewOptionService ViewOption { get; set; }
         [Inject] private UserCard User { get; set; }
-        [Inject] private NavigationManager Nav { get; set; }
+        [Parameter] public bool ContentWithDefaultHeader { get; set; } = false;
+        [Parameter] public RenderFragment Content { get; set; } = null;
         //[Inject] HubConnection HubConnection { get; set; }
-        bool IsDevelopment { get; set; } = false;
 
         List<ToastMessage> messagesToast = new List<ToastMessage>();
         public int CountUsersOnline = 0;
@@ -58,9 +57,6 @@ namespace Shared_Razor_Components.Layout
         protected override async Task OnInitializedAsync()
         {
             ViewOption.PropertyChanged += OnStateChanged;
-            IsDevelopment = Env.EnvironmentName.ToLower() == "development" ? true : false;
-
-
 
             await base.OnInitializedAsync();
         }
@@ -139,7 +135,6 @@ namespace Shared_Razor_Components.Layout
         //         return "ps-4";
         // }
 
-
         private string NameUser(string nomeCompleto)
         {
             if (!string.IsNullOrEmpty(nomeCompleto))
@@ -156,8 +151,6 @@ namespace Shared_Razor_Components.Layout
             }
             return string.Empty; // Se não houver partes no nome, retorna uma string vazia ou outra coisa apropriada.
         }
-
-
 
     }
 }

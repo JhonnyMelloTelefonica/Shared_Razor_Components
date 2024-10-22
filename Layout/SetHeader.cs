@@ -7,6 +7,7 @@ namespace Shared_Razor_Components.Layout
         [CascadingParameter] public MainLayout? MainLayout { get; set; }
         [CascadingParameter] public UnauthLayout? UnauthLayout { get; set; }
         [Parameter] public RenderFragment ChildContent { get; set; }
+        [Parameter] public bool ContentWithDefaultHeader { get; set; } = false;
 
         public event Action OnChange;
         protected override void OnAfterRender(bool firstRender)

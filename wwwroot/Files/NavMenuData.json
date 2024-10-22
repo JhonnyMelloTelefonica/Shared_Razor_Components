@@ -1,0 +1,186 @@
+﻿[
+	{
+		"Application": "VivoX",
+		"Título": "Home",
+		"LinkBase": {
+			"linkDev": "http://localhost:5211/",
+			"linkProduction": "http://brtdtbgs0090sl:8081/"
+		},
+		"Links": [
+		],
+		"Permission": "All"
+	},
+	{
+		"Application": "Controle de Demandas",
+		"Título": "Controle de Demandas",
+		"LinkBase": {
+			"linkDev": "http://localhost:5172/",
+			"linkProduction": "http://brtdtbgs0090sl:8083/"
+		},
+		"Links": [
+			{
+				"Name": "Abrir Demanda",
+				"LinkNavigation": "demandas/solicitar",
+				"Permission": "All"
+			},
+			{
+				"Name": "Painel de Demandas",
+				"LinkNavigation": "demandas",
+				"Permission": "All"
+			},
+			{
+				"Name": "Operadores",
+				"LinkNavigation": "demandas/Operadores",
+				"Permission": "All"
+			},
+			{
+				"Name": "Filas",
+				"LinkNavigation": "demandas/filas",
+				"Permission": "All"
+			},
+			{
+				"Name": "Acessos",
+				"LinkNavigation": "demanda/acessos/create",
+				"Permission": "All"
+			},
+			{
+				"Name": "Desligamento",
+				"LinkNavigation": "demanda/desligamento/create",
+				"Permission": "All"
+			}
+		],
+		"Permission": "All"
+	},
+	{
+		"Application": "Giro V",
+		"Título": "Giro V",
+		"LinkBase": {
+			"linkDev": "http://localhost:5211/",
+			"linkProduction": "http://brtdtbgs0090sl:8081/"
+		},
+		"Links": [
+			{
+				"Name": "Criar Provas",
+				"LinkNavigation": "CriarFormulario",
+				"Permission": "All"
+			},
+			{
+				"Name": "Resultados",
+				"LinkNavigation": "Avaliacoes",
+				"Permission": "All"
+			},
+			{
+				"Name": "Provas Disponíveis",
+				"LinkNavigation": "ListaFormulario",
+				"Permission": "All"
+			},
+			{
+				"Name": "Criar Prova (Específica)",
+				"LinkNavigation": "jornada/criar-form-detalhado",
+				"Permission": "All"
+			},
+			{
+				"Name": "Minhas Provas",
+				"LinkNavigation": "PainelProvasCriadas",
+				"Permission": "All"
+			},
+			{
+				"Name": "Criar Questões",
+				"LinkNavigation": "CreateQuestion",
+				"Permission": "All"
+			},
+			{
+				"Name": "Gerenciar Questões",
+				"LinkNavigation": "EditQuestion",
+				"Permission": "All"
+			}
+		],
+		"Permission": "All"
+	},
+	{
+		"Application": "Controle Usuários",
+		"Título": "Usuários",
+		"LinkBase": {
+			"linkDev": "http://localhost:5028/",
+			"linkProduction": "http://brtdtbgs0090sl:8082/"
+		},
+		"Links": [
+			{
+				"Name": "Criar usuários",
+				"LinkNavigation": "CriarUsuario",
+				"Permission": "All"
+			},
+			{
+				"Name": "Gerenciamento de Usuários",
+				"LinkNavigation": "EditarUsuarios",
+				"Permission": "All"
+			},
+			{
+				"Name": "Painel de Solicitações",
+				"LinkNavigation": "PainelUsuarios",
+				"Permission": "All"
+			},
+			{
+				"Name": "Hierarquia/Carteira",
+				"LinkNavigation": "jornada/hierarquia",
+				"Permission": "All"
+			}
+
+		],
+		"Permission": "All"
+	},
+	{
+		"Application": "Cardápio Digital",
+		"Título": "Cardápio Digital",
+		"LinkBase": {
+			"linkDev": "http://localhost:44396/",
+			"linkProduction": "http://brtdtbgs0090sl:8086/"
+		},
+		"Links": [
+			{
+				"Name": "Painel",
+				"LinkNavigation": "",
+				"Permission": "All"
+			},
+			{
+				"Name": "Comparar",
+				"LinkNavigation": "produto/compare",
+				"Permission": "All"
+			},
+			{
+				"Name": "Criar",
+				"LinkNavigation": "produto/create",
+				"Permission": "VIVOX_CARDAPIO_DIGITAL_ADM"
+			}
+
+		],
+		"Permission": "CanSeeCardapio"
+	},
+	{
+		"Application": "Fórum Giro V",
+		"Título": "Fórum Giro V",
+		"LinkBase": {
+			"linkDev": "http://localhost:5182/",
+			"linkProduction": "http://brtdtbgs0090sl:8087/"
+		},
+		"Links": [
+			{
+				"Name": "Publicações",
+				"LinkNavigation": "",
+				"Permission": "All"
+			},
+			{
+				"Name": "Minhas Publicações",
+				"LinkNavigation": "get/publicacao/user",
+				"Permission": "All"
+			},
+			{
+				"Name": "Responder Publicações",
+				"LinkNavigation": "get/publicacao/analista",
+				"Permission": "VIVOX_FORUM_GIROV_ADM"
+			}
+
+		],
+		"Permission": "CanSeeForumGiroV"
+	}
+]

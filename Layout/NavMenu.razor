@@ -1,156 +1,23 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
-<header class="header">
-
-    @* !!!!!logo do navmenu !!!!! *@
-
+<header class="header" id="header-page">
+    <!-- logo do navmenu -->
     <div style="padding-right: 1%!important">
         <img id="logoElement" src="./_content/Shared_Razor_Components/images/icone-vivox.png" alt="Logo" class="logo_home" style="width:80px;height:80px;">
     </div>
 
-    @* !!!!! nav com a navegação para os modulos e opções do usuário !!!!! *@
-
+    <!-- nav com a navegação para os modulos e opções do usuário -->
     <nav class="NewNavMenu">
-        <ul class="main-menu">
-            <li class="menu-item">
-                @{
-                    string HomeVivoX = IsDevelopment ? "http://localhost:5211/" : "http://brtdtbgs0090sl:8081/";
-                }
-                <a href="@(HomeVivoX)" class="@(Nav.BaseUri == ("http://localhost:5211/") || Nav.BaseUri == ("http://brtdtbgs0090sl:8081/") ? "navSelected" : "")">Home</a>
-            </li>
-            <li class="menu-item">
-                @{
-                    string vivomaislink = IsDevelopment ? "http://localhost:5172/" : "http://brtdtbgs0090sl:8083/";
-                }
-                <a href="@(vivomaislink)" class="@(Nav.BaseUri.Contains("http://localhost:5172") || Nav.BaseUri.Contains("http://brtdtbgs0090sl:8083/") ? "navSelected" : "")" id="navDemandas">Controle de Demandas</a>
-                <ul class="submenu">
-                    <li class="submenu-item"><a href="@(vivomaislink)demandas/solicitar">Abrir Demanda</a></li>
-                    <li class="submenu-item"><a href="@(vivomaislink)demandas">Painel de Demandas</a></li>
-                    <li class="submenu-item"><a href="@(vivomaislink)demandas/Operadores">Operadores</a></li>
-                    <li class="submenu-item"><a href="@(vivomaislink)demandas/filas">Filas</a></li>
-                    <li class="submenu-item"><a href="@(vivomaislink)demanda/acessos/create">Acessos</a></li>
-                    <li class="submenu-item"><a href="@(vivomaislink)demanda/desligamento/create">Desligamento</a></li>
-                </ul>
-            </li>
-            <li class="menu-item">
-                <a href="@(IsDevelopment ? "http://localhost:5211/RotaxJornada" : "http://brtdtbgs0090sl:8081/RotaxJornada")">Giro V</a>
-                <ul class="submenu">
-                    <li class="submenu-item"><a href="@(HomeVivoX)CriarFormulario">Criar Provas</a></li>
-                    <li class="submenu-item"><a href="@(HomeVivoX)Avaliacoes">Resultados</a></li>
-                    <li class="submenu-item"><a href="@(HomeVivoX)ListaFormulario">Provas Disponíveis</a></li>
-                    <li class="submenu-item"><a href="@(HomeVivoX)jornada/criar-form-detalhado">Criar Prova (Específica)</a></li>
-                    <li class="submenu-item"><a href="@(HomeVivoX)PainelProvasCriadas">Minhas Provas</a></li>
-                    <li class="submenu-item"><a href="@(HomeVivoX)CreateQuestion">Criar Questões</a></li>
-                    <li class="submenu-item"><a href="@(HomeVivoX)EditQuestion">Gerenciar Questões</a></li>
-                </ul>
-            </li>
-            <li class="menu-item">
-                @{
-                    string contusuarioslink = IsDevelopment ? "http://localhost:5028/" : "http://brtdtbgs0090sl:8082/";
-                }
-                <a href="@(contusuarioslink)" id="navUsuarios" class="@(Nav.BaseUri.Contains("http://localhost:5028") || Nav.BaseUri.Contains("http://brtdtbgs0090sl:8082/") ? "navSelected" : "")">Usuários</a>
-                <ul class="submenu">
-                    <li class="submenu-item"><a href="@(contusuarioslink)CriarUsuario">Criar usuários</a></li>
-                    <li class="submenu-item"><a href="@(contusuarioslink)EditarUsuarios">Gerenciamento de Usuários</a></li>
-                    <li class="submenu-item"><a href="@(contusuarioslink)PainelUsuarios">Painel de Solicitações</a></li>
-                    <li class="submenu-item"><a href="@(contusuarioslink)jornada/hierarquia">Hierarquia/Carteira</a></li>
-                </ul>
-            </li>
-            <li class="menu-item">
-                @{
-                    string cardapiolink = IsDevelopment ? "https://localhost:44396/" : "http://brtdtbgs0090sl:8086/";
-                }
-                <CascadingAuthenticationState>
-                    <AuthorizeView Policy="CanSeeCardapio">
-                        <Authorized>
-                            <a href="@(cardapiolink)" class="@(Nav.BaseUri.Contains("http://localhost:44396") || Nav.BaseUri.Contains("http://brtdtbgs0090sl:8086/") ? "navSelected" : "")">Cardapio Digital</a>
-                            <ul class="submenu">
-                                <li class="submenu-item"><a href="@(cardapiolink)">Painel</a></li>
-                                <li class="submenu-item"><a href="@(cardapiolink)produto/compare">Comparar</a></li>
-                                <AuthorizeView Policy="VIVOX_CARDAPIO_DIGITAL_ADM" Context="item">
-                                    <Authorized>
-                                        <li class="submenu-item"><a href="@(cardapiolink)produto/create">Criar</a></li>
-                                    </Authorized>
-                                    <NotAuthorized>
-                                        <li class="submenu-item">
-                                            <a href="@(cardapiolink)produto/create">
-                                                <FluentIcon Value="@(new Icons.Filled.Size16.LockClosed().WithColor("#8b8f79"))" />
-                                                Criar
-                                            </a>
-                                        </li>
-                                    </NotAuthorized>
-                                </AuthorizeView>
-                            </ul>
-                        </Authorized>
-                        <NotAuthorized>
-                            <a>
-                                <FluentIcon Value="@(new Icons.Filled.Size16.LockClosed().WithColor("#8b8f79"))" />
-                                Cardapio Digital
-                            </a>
-                            <ul class="submenu">
-                            </ul>
-                        </NotAuthorized>
-                    </AuthorizeView>
-                </CascadingAuthenticationState>
-            </li>
-            <li class="menu-item">
-                @{
-                    string forumlink = IsDevelopment ? "https://localhost:5182/" : "http://brtdtbgs0090sl:8087/";
-                }
-                <CascadingAuthenticationState>
-                    <AuthorizeView Policy="CanSeeForumGiroV">
-                        <Authorized>
-                            <a href="@(forumlink)" class="@(Nav.BaseUri.Contains("http://localhost:5182") || Nav.BaseUri.Contains("http://brtdtbgs0090sl:8087/") ? "navSelected" : "")">Fórum Giro V</a>
-                            <ul class="submenu">
-                                <li class="submenu-item"><a href="@(forumlink)">Publicações</a></li>
-                                <li class="submenu-item"><a href="@(forumlink)get/publicacao/user">Suas publicações</a></li>
-                                <AuthorizeView Policy="VIVOX_FORUM_GIROV_ADM" Context="item">
-                                    <Authorized>
-                                        <li class="submenu-item"><a href="@(forumlink)get/publicacao/analista">Responder Publicações</a></li>
-                                    </Authorized>
-                                    <NotAuthorized>
-                                        <li class="submenu-item">
-                                            <a href="#">
-                                                <FluentIcon Value="@(new Icons.Filled.Size16.LockClosed().WithColor("#8b8f79"))" />
-                                                Responder Publicações
-                                            </a>
-                                        </li>
-                                    </NotAuthorized>
-                                </AuthorizeView>
-                            </ul>
-                        </Authorized>
-                        <NotAuthorized>
-                            <a>
-                                <FluentIcon Value="@(new Icons.Filled.Size16.LockClosed().WithColor("#8b8f79"))" />
-                                Fórum Giro V
-                            </a>
-                            <ul class="submenu">
-                            </ul>
-                        </NotAuthorized>
-                    </AuthorizeView>
-                </CascadingAuthenticationState>
-            </li>
-            @*<li class="menu-item">
-                <a href="">Perfil</a>
-                <ul class="submenu">
-                    <li class="submenu-item"><a href="@(HomeVivoX)update-senha-user">Senha</a></li>
-                    <li class="submenu-item"><a href="@(HomeVivoX)edit-user">Imagem</a></li>
-                </ul>
-            </li> *@
-        </ul>
-
+        <div class="nav-content-area">
+            @if (Content != null)
+            {
+                <div class="p-2">
+                    @Content
+                </div>
+            }
+            <NavMenuNavArea />
+        </div>
         @* !!!!! opçõs do usuáiro !!!!! *@
-
         <div class="userOptions">
-            @* <div>
-            <a class="iconNavMenu" href="update-senha-user">
-            <i class="bi bi-person-fill-lock i-navMenu"></i>
-            </a>
-            </div>
-            <div>
-            <a class="iconNavMenu" style="margin-bottom: 30px" href="edit-user">
-            <i class="bi bi-person-bounding-box i-navMenu"></i>
-            </a>
-            </div> *@
             <Blazorise.Image Class="ImageNav" Border="Blazorise.Border.RoundedCircle"
                              @onclick="@(() => JSRuntime.InvokeVoidAsync("ActivateCardView", new Shared_Static_Class.Model_DTO.ACESSOS_MOBILE_DTO
                                         {
@@ -171,21 +38,7 @@
             </p>
 
         </div>
+
     </nav>
-
-    @*  <UserCard @ref="User">
-
-
-    </UserCard> *@
-
 </header>
-
-
-<style>
-    .active-link {
-        color: red;
-        font-weight: bold;
-        text-decoration: underline;
-    }
-</style>
 
