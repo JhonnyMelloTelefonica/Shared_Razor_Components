@@ -1,13 +1,13 @@
-.navbar-toggler {
+.apply-component ::deep .navbar-toggler {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
 @media (min-width: 641px) {
-    .navbar-toggler {
+    .apply-component ::deep .navbar-toggler {
         display: none;
     }
 
-    .collapse {
+    .apply-component ::deep .collapse {
         display: block;
     }
 

@@ -1,25 +1,26 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
-<header class="header" id="header-page">
-    <!-- logo do navmenu -->
-    <div style="padding-right: 1%!important">
-        <img id="logoElement" src="./_content/Shared_Razor_Components/images/icone-vivox.png" alt="Logo" class="logo_home" style="width:80px;height:80px;">
-    </div>
-
-    <!-- nav com a navegação para os modulos e opções do usuário -->
-    <nav class="NewNavMenu">
-        <div class="nav-content-area">
-            @if (Content != null)
-            {
-                <div class="p-2">
-                    @Content
-                </div>
-            }
-            <NavMenuNavArea />
+<div class="apply-component">
+    <header class="header" id="header-page">
+        <!-- logo do navmenu -->
+        <div style="padding-right: 1%!important">
+            <img id="logoElement" src="./_content/Shared_Razor_Components/images/icone-vivox.png" alt="Logo" class="logo_home" style="width:80px;height:80px;">
         </div>
-        @* !!!!! opçõs do usuáiro !!!!! *@
-        <div class="userOptions">
-            <Blazorise.Image Class="ImageNav" Border="Blazorise.Border.RoundedCircle"
-                             @onclick="@(() => JSRuntime.InvokeVoidAsync("ActivateCardView", new Shared_Static_Class.Model_DTO.ACESSOS_MOBILE_DTO
+
+        <!-- nav com a navegação para os modulos e opções do usuário -->
+        <nav class="NewNavMenu">
+            <div class="nav-content-area">
+                @if (Content != null)
+                {
+                    <div class="p-2">
+                        @Content
+                    </div>
+                }
+                <NavMenuNavArea />
+            </div>
+            @* !!!!! opçõs do usuáiro !!!!! *@
+            <div class="userOptions">
+                <Blazorise.Image Class="ImageNav" Border="Blazorise.Border.RoundedCircle"
+                                 @onclick="@(() => JSRuntime.InvokeVoidAsync("ActivateCardView", new Shared_Static_Class.Model_DTO.ACESSOS_MOBILE_DTO
                                         {
                                             UserAvatar = user.User.UserAvatar,
                                             MATRICULA = user.User.MATRICULA,
@@ -29,16 +30,17 @@
                                             PDV = user.User.PDV,
                                             CANAL = user.User.CANAL,
                                         }, DotNetObjectReference.Create(User), true))"
-                             Source="@(user.User.UserAvatar != null ? "data:image/png;base64," + SharedConverter.ConvertFileToString(user.User.UserAvatar) : "images/usericon.png")">
-            </Blazorise.Image>
+                                 Source="@(user.User.UserAvatar != null ? "data:image/png;base64," + SharedConverter.ConvertFileToString(user.User.UserAvatar) : "images/usericon.png")">
+                </Blazorise.Image>
 
-            <p style="align-items: center;font-size: 10px;display: flex;justify-content: center;margin: 0px !important;" @onclick="ViewOption.ToggleNavMenu">
-                @*  @(textInfo.ToTitleCase(service.Userservice.User.NOME.Split()[0].ToLower())) *@
-                @(NameUser(user.User.NOME))
-            </p>
+                <p style="align-items: center;font-size: 10px;display: flex;justify-content: center;margin: 0px !important;" @onclick="ViewOption.ToggleNavMenu">
+                    @*  @(textInfo.ToTitleCase(service.Userservice.User.NOME.Split()[0].ToLower())) *@
+                    @(NameUser(user.User.NOME))
+                </p>
 
-        </div>
+            </div>
 
-    </nav>
-</header>
+        </nav>
+    </header>
+</div>
 
