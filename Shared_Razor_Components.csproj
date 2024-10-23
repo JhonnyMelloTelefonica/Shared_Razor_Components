@@ -11,18 +11,16 @@
 		<EmbeddedResource Include="wwwroot\**\*" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Remove="Shared\CargoByPerfl.cs" />
-	</ItemGroup>
-	<ItemGroup>
 		<EmbeddedResource Remove="wwwroot\icone-vivox.png" />
 		<EmbeddedResource Remove="wwwroot\images\iconLock.svg" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Remove="Shared\CargoByPerfil.css" />
+	  <None Remove="Layout\HeaderForum.razor.css" />
+	  <None Remove="Shared\CargoByPerfil.razor.css" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Content Include="Shared\CargoByPerfil.css" />
-	  <Content Include="Shared\CargoByPerfl.cs" />
+	  <Content Include="Layout\HeaderForum.razor.css" />
+	  <Content Include="Shared\CargoByPerfil.razor.css" />
 	</ItemGroup>
 
 	<ItemGroup>

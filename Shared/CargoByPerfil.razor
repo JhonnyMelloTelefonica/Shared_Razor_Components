@@ -1,7 +1,7 @@
-﻿@* <div class="apply-component">
+﻿<div class="apply-component">
     <div class="header-inline">
         <div></div>
-        <span>Filas disponíveis</span>
+        <span>Perfis Disponíveis</span>
         <div>
             <FluentButton BackgroundColor="transparent" Style="width:35px; height:35px;border-radius:50%;"
                           OnClick="RadzenDialog.Close">
@@ -20,10 +20,10 @@
                 <FluentIcon Value="@(new Icons.Filled.Size24.ZoomOut().WithColor("#ffffff"))" Style="width:22px; height:22px;" />
             </FluentButton>
         </div>
-        <FluentSearch @bind-Value=Search Placeholder="Pesquise aqui" 
-                Appearance="FluentInputAppearance.Outline" 
-                Spellcheck="true"
-                Immediate />
+        <FluentSearch @bind-Value=Search Placeholder="Pesquise aqui"
+                      Appearance="FluentInputAppearance.Outline"
+                      Spellcheck="true"
+                      Immediate />
         <div>
         </div>
     </div>
@@ -36,17 +36,17 @@
                         <span @onclick="@(() => item.IsOpened = !item.IsOpened)">
                             <FluentHighlighter HighlightedText="@Search"
                                                Delimiters=" ,;"
-                                               Text="@($"{item.Id_Fila} - {item.Fila}")" />
+                                               Text="@($"{item.NomePerfil}")" />
 
                         </span>
                         <ul>
-                            @foreach (var subFilas in item.subFilas)
+                            @foreach (var subFilas in item.cargos)
                             {
                                 <li>
                                     <span class="sub-tema">
                                         <FluentHighlighter HighlightedText="@Search"
                                                            Delimiters=" ,;"
-                                                           Text="@($"{subFilas.ID_SUB_FILA} - {subFilas.NOME_SUB_FILA}")" />
+                                                           Text="@($"{subFilas}")" />
                                     </span>
                                 </li>
                             }
@@ -63,4 +63,3 @@
     }
 </style>
 
- *@

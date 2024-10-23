@@ -6,21 +6,21 @@
             <img id="logoElement" src="./_content/Shared_Razor_Components/images/icone-vivox.png" alt="Logo" class="logo_home" style="width:80px;height:80px;">
         </div>
 
-        <!-- nav com a navegação para os modulos e opções do usuário -->
-        <nav class="NewNavMenu">
-            <div class="nav-content-area">
-                @if (Content != null)
-                {
-                    <div class="p-2">
-                        @Content
-                    </div>
-                }
-                <NavMenuNavArea />
-            </div>
-            @* !!!!! opçõs do usuáiro !!!!! *@
-            <div class="userOptions">
-                <Blazorise.Image Class="ImageNav" Border="Blazorise.Border.RoundedCircle"
-                                 @onclick="@(() => JSRuntime.InvokeVoidAsync("ActivateCardView", new Shared_Static_Class.Model_DTO.ACESSOS_MOBILE_DTO
+    <!-- nav com a navegação para os modulos e opções do usuário -->
+    <nav class="NewNavMenu">
+        <div class="nav-content-area">
+            @* @if (Content != null)
+            {
+                <div class="p-2">
+                    @Content
+                </div> 
+            } *@
+            <NavMenuNavArea />
+        </div>
+        @* !!!!! opçõs do usuáiro !!!!! *@
+        <div class="userOptions">
+            <Blazorise.Image Class="ImageNav" Border="Blazorise.Border.RoundedCircle"
+                             @onclick="@(() => JSRuntime.InvokeVoidAsync("ActivateCardView", new Shared_Static_Class.Model_DTO.ACESSOS_MOBILE_DTO
                                         {
                                             UserAvatar = user.User.UserAvatar,
                                             MATRICULA = user.User.MATRICULA,

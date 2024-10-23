@@ -25,16 +25,17 @@ using Newtonsoft.Json.Linq;
 using Azure;
 using Blazorise;
 using System.Net.Http;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 
 namespace Shared_Razor_Components.Shared;
 
-public partial class DemandasFila : ComponentBase
+public partial class CargoByPerfil : ComponentBase
 {
     //protected IEnumerable<Fila_SubFila> Data { get; set; } = [];
-    protected List<Fila_SubFila_Agrupado> DataToShow { get; set; } = [];
+    protected List<Perfil_Cargo_Agrupado> DataToShow { get; set; } = [];
 
-    public List<DEMANDA_TIPO_FILA_DTO> DataToShowDTO { get; set; } = [];
+    public List<PERFIS> DataToShowDTO { get; set; } = [];
 
     public IEnumerable<OptionFilas> Filas { get; set; } = [];
 
@@ -48,12 +49,12 @@ public partial class DemandasFila : ComponentBase
     [Inject] IConfiguration Config { get; set; } = null;
     [Inject] DialogService RadzenDialog { get; set; } = null;
 
-    [Inject] UserService Userservice { get; set; } 
+    [Inject] UserService Userservice { get; set; }
 
     bool IsBusy { get; set; }
     string Search { get; set; } = string.Empty;
 
-    protected List<Fila_SubFila_Agrupado> DataToShowFiltered
+    protected List<Perfil_Cargo_Agrupado> DataToShowFiltered
     {
         get
         {
@@ -90,7 +91,7 @@ public partial class DemandasFila : ComponentBase
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
-    {   
+    {
 
         if (firstRender)
         {
@@ -101,53 +102,52 @@ public partial class DemandasFila : ComponentBase
             await ApplicationLoadingIndicatorService.Show();
             HttpClient client = new HttpClient();
 
-            client.BaseAddress = new Uri(BaseUrl + $"api/demandas/GetDadosFilaSubFila?regional={resultRegional}");
+            client.BaseAddress = new Uri(BaseUrl + $"api/controleADM/GetAllPerfilByCargo");
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, client.BaseAddress);
 
             var response = await client.SendAsync(request);
             response.EnsureSuccessStatusCode();
             var jsonResponse = await response.Content.ReadAsStringAsync();
 
-            DataToShowDTO = JsonConvert.DeserializeObject<List<DEMANDA_TIPO_FILA_DTO>>(jsonResponse) ?? [] ;
+            DataToShowDTO = JsonConvert.DeserializeObject<List<PERFIS>>(jsonResponse) ?? [];
 
-            foreach(var item in DataToShowDTO)
+            foreach (var item in DataToShowDTO)
             {
-                var agrupado = new Fila_SubFila_Agrupado(item);    
+                var agrupado = new Perfil_Cargo_Agrupado(item);
                 DataToShow.Add(agrupado);
             }
 
             await ApplicationLoadingIndicatorService.Hide();
             StateHasChanged();
-        }  
+        }
 
         await base.OnAfterRenderAsync(firstRender);
         StateHasChanged();
     }
 
 
-    //protected class Fila_SubFila
-    //{
-    //    public int Id_Fila { get; set; }
-    //    public string Fila { get; set; } = string.Empty;
-    //    public int Id_sub_Fila { get; set; }
-    //    public string sub_Fila { get; set; } = string.Empty;
-    //}
-
-
-
-    protected class Fila_SubFila_Agrupado
+    public class PERFIS
     {
-        public Fila_SubFila_Agrupado(DEMANDA_TIPO_FILA_DTO data, bool isOpened = false)
+        public int Id_PERFIL { get; set; }
+        public string NOME_PERFIL { get; set; } = string.Empty;
+        //public int Id_sub_Fila { get; set; }
+        public List<string> cargos { get; set; } = [];
+    }
+
+
+    protected class Perfil_Cargo_Agrupado
+    {
+        public Perfil_Cargo_Agrupado(PERFIS data, bool isOpened = false)
         {
-            Id_Fila = data.ID_TIPO_FILA;
-            Fila = data.NOME_TIPO_FILA;
-            subFilas= data.DEMANDA_SUB_FILAs;
+            IdPerfil = data.Id_PERFIL;
+            NomePerfil = data.NOME_PERFIL;
+            cargos = data.cargos;
             IsOpened = isOpened;
         }
 
-        public int Id_Fila { get; set; }
-        public string Fila { get; set; } = string.Empty;
-        public List<DEMANDA_SUB_FILA_DTO> subFilas { get; set; } = [];
+        public int IdPerfil { get; set; }
+        public string NomePerfil { get; set; } = string.Empty;
+        public List<string> cargos { get; set; } = [];
         public bool IsOpened { get; set; }
     }
 }
