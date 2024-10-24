@@ -9,23 +9,16 @@
             <div class="page">
                 @* @if (headerContent is null)
                 {
-                    <NavMenu />
+                <NavMenu />
                 } *@
+                <NavMenu />
                 <main>
-                   @*  @if (headerContent is not null)
+                    @if (headerContent is not null)
                     {
-                        if (setHeader.ContentWithDefaultHeader)
-                        {
-                            <NavMenu Content="headerContent" ContentWithDefaultHeader />
-                        }
-                        else
-                        {
-                            <NavMenu Content="headerContent" />
-                        }
-                    } *@
-
-                    <NavMenu />
-
+                        <div class="w-100">
+                            @headerContent
+                        </div>
+                    }
                     <article class="content px-4" style="position:relative;">
                         @if (ViewOption.buttonCloseplataform)
                         {

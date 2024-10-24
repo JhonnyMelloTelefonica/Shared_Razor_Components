@@ -74,14 +74,9 @@ namespace Shared_Razor_Components
 
                 options.AddGenericPolicy("ControleDemandasAdm", (userRequirement, user) =>
                 userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 14, 15 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
-
-                options.AddPolicy("GenericUserOrDemandaAdm", policy =>
-                {
-                    policy.RequireAssertion(context =>
-                        context.User.HasClaim(c => c.Type == "ControleDemandasAdm") ||
-                        context.User.HasClaim(c => c.Type == "GenericUser")
-                        );
-                });
+                
+                options.AddGenericPolicy("GenericUserOrDemandaAdm", (userRequirement, user) =>
+                userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 13, 14, 15 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
 
                 options.AddGenericPolicy("ControleDemandasLogico", (userRequirement, user) =>
                 userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 15 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));

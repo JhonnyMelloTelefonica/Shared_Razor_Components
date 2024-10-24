@@ -17,6 +17,7 @@ using Shared_Static_Class.Model_ForumRTCZ_Context;
 using Blazorise;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
+using Shared_Static_Class.Model;
 
 namespace Shared_Razor_Components.Services
 {
@@ -27,9 +28,9 @@ namespace Shared_Razor_Components.Services
         Task<MainResponse> SearchByAnalista(GenericPaginationModel<PainelForumRTCZ> filter, int matricula);
         Task<MainResponse> GetTemas();
         Task<MainResponse> GetTemas(int matricula);
-        Task<MainResponse> PostPublicacao(PUBLICACAO_SOLICITACAODTO data);
-        Task<MainResponse> PostRespostaPublicacao(RESPOSTA_PUBLICACAODTO data);
-        Task<MainResponse> PostAvaliacaoToPublicacao(AVALIACAO_PUBLICACAO avaliacao);
+        Task<MainResponse> PostPublicacao(PublicacaoModel data);
+        Task<MainResponse> PostRespostaPublicacao(RespostaPublicacaoModel data);
+        Task<MainResponse> PostAvaliacaoToPublicacao(AvaliacaoPublicacaoModel avaliacao);
 
     }
 
@@ -185,7 +186,7 @@ namespace Shared_Razor_Components.Services
                 };
             }
         }
-        public async Task<MainResponse> PostPublicacao(PUBLICACAO_SOLICITACAODTO data)
+        public async Task<MainResponse> PostPublicacao(PublicacaoModel data)
         {
             try
             {
@@ -212,7 +213,7 @@ namespace Shared_Razor_Components.Services
                 };
             }
         }
-        public async Task<MainResponse> PostRespostaPublicacao(RESPOSTA_PUBLICACAODTO data)
+        public async Task<MainResponse> PostRespostaPublicacao(RespostaPublicacaoModel data)
         {
             try
             {
@@ -239,11 +240,10 @@ namespace Shared_Razor_Components.Services
                 };
             }
         }
-        public async Task<MainResponse> PostAvaliacaoToPublicacao(AVALIACAO_PUBLICACAO avaliacao)
+        public async Task<MainResponse> PostAvaliacaoToPublicacao(AvaliacaoPublicacaoModel avaliacao)
         {
             try
             {
-                avaliacao.Responsavel = new();
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri($"{BaseUrl}/Post/Avaliacao/Publicacao");
