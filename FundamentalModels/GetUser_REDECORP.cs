@@ -60,7 +60,7 @@ namespace Shared_Razor_Components.FundamentalModels
                     //matricula = "3551449"; //Random solicitante
                     //matricula = "30722"; //Chiquito!
                     //matricula = "156114"; //
-                    //matricula = "64960"; //Isis Mary 💗💗
+                    matricula = "64960"; //Isis Mary 💗💗
                     //matricula = "153078";
                     //matricula = "156305";
                     //matricula = "46198";
@@ -69,8 +69,9 @@ namespace Shared_Razor_Components.FundamentalModels
                     //matricula = "79902790"; //
                     //matricula = "163794"; //
                     //matricula = "95040"; //
-                    matricula = "151191"; //Jhonny
-                    //matricula = "153078"; //Jhonny
+                    //matricula = "151191"; //Jhonny
+                    //matricula = "70650"; //
+                    //matricula = "153078"; //
                     //matricula = "22803"; //D'juda
                     //matricula = "158125"; //
                     //matricula = "3511507"; //

@@ -76,13 +76,16 @@ namespace Shared_Razor_Components
                 userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 14, 15 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
                 
                 options.AddGenericPolicy("GenericUserOrDemandaAdm", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 13, 14, 15 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 13, 14, 15, 20, 16, 17 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
 
                 options.AddGenericPolicy("ControleDemandasLogico", (userRequirement, user) =>
                 userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 15 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
 
                 options.AddGenericPolicy("ControleDemandasGerente", (userRequirement, user) =>
                 userRequirement.Acesso.User.Perfil.Any(x => new[] { 20, 1 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+
+                options.AddGenericPolicy("ControleDemandasManagement", (userRequirement, user) =>
+                userRequirement.Acesso.User.Perfil.Any(x => new[] { 14,13,15, 20, 1 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
 
                 options.AddGenericPolicy("Suporte", (userRequirement, user) =>
                     userRequirement.Acesso.User.IsSuporte());
