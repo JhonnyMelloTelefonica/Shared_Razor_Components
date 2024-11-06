@@ -84,7 +84,7 @@ namespace Shared_Razor_Components.Shared
             await base.OnAfterRenderAsync(firstRender);
         }
 
-        private async void SelectAnalista()
+        private void SelectAnalista()
         {
             _DialogService.Close(Analistas.First(x => x.Item2 == true).Item1.MATRICULA);
         }
