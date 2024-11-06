@@ -90,7 +90,7 @@
                             </span>
                         </HeaderTemplate>
                         <ChildContent>
-                            @if (!string.Equals(historico.SOLICITACAO.STATUS_USUARIO, STATUS_ACESSOS_PENDENTES.APROVADO.Value, StringComparison.InvariantCulture))
+                            @if (!string.Equals(historico.SOLICITACAO.STATUS_USUARIO, STATUS_ACESSOS_PENDENTES.CONCLUIDO.Value, StringComparison.InvariantCulture))
                             {
                                 <FluentTabs ActiveTabId="tab-1">
                                     <FluentTab Id="tab-1">
@@ -293,7 +293,7 @@
                     <FluentIcon Value="@(new Icons.Filled.Size48.ArrowLeft().WithColor("#ffffff"))" />
                 </aside>
                 @if (historico.SOLICITACAO.STATUS_USUARIO != STATUS_ACESSOS_PENDENTES.CANCELADO.Value
-               && historico.SOLICITACAO.STATUS_USUARIO != STATUS_ACESSOS_PENDENTES.APROVADO.Value
+               && historico.SOLICITACAO.STATUS_USUARIO != STATUS_ACESSOS_PENDENTES.CONCLUIDO.Value
                && historico.SOLICITACAO.STATUS_USUARIO != STATUS_ACESSOS_PENDENTES.REPROVADO.Value)
                 {
                     <FluentStack Orientation="Orientation.Horizontal" Class="@(FooterOpen ? "footer-open": "footer-closed")"
@@ -304,7 +304,7 @@
                                 {
                                     <FluentButton BackgroundColor="#53a63f"
                                                   OnClick="@(async() => await AnswerAcesso("Por favor escreva uma mensagem para o solicitante deste acesso"
-                                  , STATUS_ACESSOS_PENDENTES.APROVADO
+                                  , STATUS_ACESSOS_PENDENTES.CONCLUIDO
                                   , "Aprovar solicitação"))">
                                         <FluentIcon Value="@(new Icons.Filled.Size24.Checkmark().WithColor("#ffffff"))" Slot="start" />
                                         Aprovar

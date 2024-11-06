@@ -65,7 +65,7 @@ namespace Shared_Razor_Components.Shared
 
             if (tipo.Value == TIPO_ACESSOS_PENDENTES.ALTERACAO.Value)
             {
-                if (status.Value == STATUS_ACESSOS_PENDENTES.APROVADO.Value)
+                if (status.Value == STATUS_ACESSOS_PENDENTES.CONCLUIDO.Value)
                 {
                     result = await service.AcessoPendenteByIdService.AnswerAcessoUpdate_usuario(usuario, matricula, id, resposta, status.Value);
                 }
@@ -86,7 +86,7 @@ namespace Shared_Razor_Components.Shared
             }
             else
             {
-                if (status.Value == STATUS_ACESSOS_PENDENTES.APROVADO.Value)
+                if (status.Value == STATUS_ACESSOS_PENDENTES.CONCLUIDO.Value)
                 {
                     result = await service.AcessoPendenteByIdService.AnswerAcessoInsert_Novo_Usuario(usuario, matricula, id, resposta, status.Value);
                 }
