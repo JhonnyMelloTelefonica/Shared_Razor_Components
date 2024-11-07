@@ -77,7 +77,6 @@ namespace Shared_Razor_Components.ViewModel
                     ApplicationLoadingIndicatorService.Hide();
                 }
                 isBusy = value;
-
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsBusy)));
             }
         }
