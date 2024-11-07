@@ -105,13 +105,13 @@ namespace Shared_Razor_Components
                 #region Cardapio Digital
 
                 options.AddGenericPolicy("CanSeeCardapio", (userRequirement, user) =>
-                    userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 20 || x.Perfil_Plataforma.ID_PERFIL == 21));
+                    userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 21 || x.Perfil_Plataforma.ID_PERFIL == 22));
 
                 options.AddGenericPolicy("Default", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 20));
+                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 21));
 
                 options.AddGenericPolicy("VIVOX_CARDAPIO_DIGITAL_ADM", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 21));
+                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 22));
 
                 #endregion
 
