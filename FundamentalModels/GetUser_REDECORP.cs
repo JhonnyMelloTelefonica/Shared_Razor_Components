@@ -69,7 +69,8 @@ namespace Shared_Razor_Components.FundamentalModels
                     //matricula = "79902790"; //
                     //matricula = "163794"; //
                     //matricula = "95040"; //
-                    matricula = "151191"; //Jhonny
+                    //matricula = "151191"; //Jhonny
+                    matricula = "163794"; //Clara
                     //matricula = "70650"; //
                     //matricula = "153078"; //
                     //matricula = "22803"; //D'juda
