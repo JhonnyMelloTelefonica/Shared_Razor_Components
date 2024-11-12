@@ -1,0 +1,357 @@
+﻿@using JustifyContent = Microsoft.FluentUI.AspNetCore.Components.JustifyContent;
+@using System.IO.Compression;
+@using Radzen.Blazor;
+@using Microsoft.FluentUI.AspNetCore.Components;
+@using Microsoft.JSInterop;
+@using Shared_Razor_Components.FundamentalModels
+@using Microsoft.AspNetCore.Components.Web
+@inject IJSRuntime JS
+
+@if (AllowMulitple)
+{
+    <div class="w-100 m-auto justify-content-center align-items-center d-flex">
+        <RadzenStack AlignItems="Radzen.AlignItems.Center" Orientation="Radzen.Orientation.Horizontal">
+            <input name="file" id="Xinputfile00" type="file" accept="@Filter" @onchange="UploadFile" multiple hidden @ref=inputFile />
+            <label @ref="dropZoneElement" class="form__input" for="file">
+                @if (!Files.Any())
+                {
+                    <div class="w-100 m-auto" @onclick="ClickUpload">
+                        <svg width="88" height="57" viewBox="0 0 88 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M50.6 2.2256e-06C53.3003 -5.73546e-05 55.972 0.510963 58.451 1.50164C60.9299 2.49232 63.1637 3.94173 65.0149 5.76073C66.8662 7.57974 68.2957 9.72991 69.2158 12.079C70.1358 14.4282 70.5268 16.9266 70.3648 19.4207H70.4L70.3956 24.4164C74.9111 24.4153 79.2543 26.0201 82.5269 28.8991C85.7995 31.778 87.7511 35.7107 87.978 39.8837L88 40.698C87.9966 44.8742 86.2596 48.8895 83.1479 51.9144C80.0361 54.9392 75.7876 56.7423 71.28 56.9511L70.4 56.9715H70.3956L70.4 57H48.3956V41.0278H59.2372L44 24.4408L28.8024 41.0319H39.6L39.5956 57H17.6C12.932 56.9892 8.45876 55.2672 5.16 52.2109C1.86125 49.1547 0.00580601 45.0134 0 40.6939C0.000785399 36.9421 1.40148 33.3056 3.96534 30.3991C6.52919 27.4926 10.0989 25.4943 14.0712 24.7421C13.0944 22.3808 12.9336 19.7973 13.6109 17.3479C14.2883 14.8984 15.7704 12.7039 17.8528 11.067C19.9352 9.43003 22.5152 8.43139 25.237 8.20882C27.9587 7.98625 30.688 8.55072 33.0484 9.82436C34.7255 6.85984 37.248 4.37692 40.3421 2.64502C43.4362 0.91311 46.9838 -0.00164681 50.6 2.2256e-06Z" fill="#893AAF" />
+                        </svg>
+                    </div>
+                    if (Busy)
+                    {
+                        <div class="w-100 m-auto">
+                            <span class="spinner-border spinner-border-sm" />
+                            <strong style="color: #893aaf !important; font-weight: bolder; font-family: Vivo-font-bold;">processando arquivos, por favor aguarde...</strong>
+                        </div>
+                    }
+                    else
+                    {
+                        <span @onclick="ClickUpload">
+                            Arraste ou solte seu arquivo para enviar <strong style="color: #893aaf !important; font-weight: bolder; font-family: Vivo-font-bold;">ou selecione, preste atenção!</strong>
+                        </span>
+                    }
+                }
+                else
+                {
+                    <RadzenStack Gap="4px" Orientation="Radzen.Orientation.Horizontal" Wrap="Radzen.FlexWrap.Wrap" Style="max-height: 100%; overflow-y: auto;">
+                        @foreach (var item in Files)
+                        {
+                            <FluentButton @onclick="() => RemoveItem(item)" BackgroundColor="#893aaf" IconEnd="@(new Icons.Regular.Size24.DismissCircle().WithColor("#FFFFFF"))">
+                                <p style="width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin:0;padding:0;color:white;">
+                                    @item.FileName
+                                </p>
+                            </FluentButton>
+                        }
+                    </RadzenStack>
+                }
+                <br />
+            </label>
+        </RadzenStack>
+    </div>
+}
+else
+{
+    <input id="Xinputfile00" type="file" accept="@Filter" @onchange="UploadFile" hidden @ref=inputFile />
+    <div @ref="dropZoneElement" for="file">
+        @if (!Busy)
+        {
+            @if (!Files.Any())
+            {
+                <FluentButton Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2 ButtonUpload" @onclick="ClickUpload">
+                    <p class="m-2 innerUpload ">
+                        @if (Icon is not null)
+                        {
+                            @Icon
+                        }
+                        @Title
+                    </p>
+                </FluentButton>
+            }
+            else
+            {
+                var file = Files.First();
+                <FluentButton @onclick="() => RemoveItem(file)" Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2 ButtonUpload ButtonLoadedFile" IconStart="@(new Icons.Regular.Size24.DismissCircle().WithColor("#FFFFFF"))">
+                    <p class="m-2 innerUpload loadedFile">
+                        Arquivo: @file.FileName
+                    </p>
+                    @* <div class="loadedFile">
+        @file.FileName
+        </div> *@
+                </FluentButton>
+            }
+        }
+        else
+        {
+            <FluentButton Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2 ButtonUpload">
+                <p class="m-2 innerUpload">
+                    <span class="spinner-border spinner-border-sm" />
+                    @Title
+                </p>
+            </FluentButton>
+
+        }
+    </div>
+}
+
+@((MarkupString)@"
+    <style>
+    .start{
+        margin:0px!important;
+        }
+    </style>
+    ")
+
+<br />
+
+
+
+<style>
+    .form__input {
+        color: #676262 !important;
+        text-align: center;
+        font-size: 1.2rem;
+        padding: 2rem;
+        align-self: center;
+        transition: all 0.3s;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        margin: 0;
+        width: 550px;
+        height: auto;
+        background: rgba(229, 229, 229, 0.7);
+        border: 2px dashed #B6A9BD;
+        box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 20px;
+        gap: 2px;
+        display: flex;
+        flex-flow: column;
+        cursor: pointer;
+    }
+
+        .form__input:placeholder-shown {
+            box-shadow: 0 2px 2px 3px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            height: 30px;
+        }
+
+        .form__input:valid {
+            color: green;
+        }
+
+        .form__input:invalid {
+            color: red;
+        }
+
+    .ButtonUpload {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        font-family: 'Vivo-font-bold' !important;
+        background: #9957B9 !important;
+        font-size: 13px !important;
+        padding: 2% 4% 2% 4% !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        color: white !important;
+        border-radius: 5px;
+        border-color: transparent;
+    }
+
+
+    .innerUpload {
+        font-family: 'Vivo-font-bold' !important;
+        font-size: 13px !important;
+        color: white !important;
+        padding: 2%;
+    }
+
+    .ButtonLoadedFile::before {
+        content: "\2713";
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        left: 88%;
+        top: 0%;
+        transform: translateY(-42%);
+        font-size: 15px;
+        color: #198754;
+        border: solid;
+        padding: 3% 1% 3%;
+        border-radius: 100%;
+        background: white;
+        font-weight: bold;
+        height: 25px;
+        width: 25px;
+        z-index: 1;
+    }
+
+    .ButtonUploadFile:hover {
+        opacity: 1 !important;
+    }
+
+    .loadedFile {
+        max-width: 100px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    .ButtonUpload .control .start {
+        margin: 0px !important
+    }
+
+    .start[start] {
+        margin: 0 !important;
+    }
+
+    .start part[start] {
+        margin: 0 !important;
+    }
+
+    .start:part[start] {
+        margin: 0 !important;
+    }
+
+   .ButtonUpload::part(start) {
+        margin: 0 !important;
+    }
+
+</style>
+
+
+@*
+@using JustifyContent = Microsoft.FluentUI.AspNetCore.Components.JustifyContent;
+@using System.IO.Compression;
+@using Radzen.Blazor;
+@using Microsoft.FluentUI.AspNetCore.Components;
+@using Microsoft.JSInterop;
+@using Shared_Razor_Components.FundamentalModels
+@using Microsoft.AspNetCore.Components.Web
+
+@if (AllowMulitple)
+{
+    <div class="w-100 m-auto justify-content-center align-items-center d-flex">
+        <RadzenStack AlignItems="Radzen.AlignItems.Center" Orientation="Radzen.Orientation.Horizontal">
+            <input name="file" id="Xinputfile00" type="file" accept="@Filter" @onchange="UploadFile" multiple hidden />
+            <label class="form__input" for="file">
+                @if (!Files.Any())
+                {
+                    <span>
+                        Por favor muita atenção no envio de arquivos, <strong style="color: red; font-weight: bolder; font-family: Vivo-font-bold;">envie apenas arquivos que ajudem no tratamento da fila, por favor preste atenção!</strong>.
+                    </span>
+                    <br />
+                    <br />
+                    <br />
+                    if (!Busy)
+                    {
+
+                        <span id="test2" style="appearance: auto; writing-mode: horizontal-tb !important; font-family:Vivo-font;
+                                text-rendering: auto; color: white; background-color: #a9a9a9; letter-spacing: normal; word-spacing: normal; line-height: normal;
+                                text-transform: none; text-indent: 0px; text-shadow: none; display: inline-block; text-align: center; align-items: flex-start; cursor: default;
+                                box-sizing: border-box; margin: 0em; padding: 1px 6px; border-style: outset; border-color: transparent; border-image: initial; padding: 15px;"
+                              @onclick="ClickUpload">Insira aqui o seu arquivo. </span>
+                    }
+                    else
+                    {
+                        <span class="spinner-border spinner-border-sm" />
+                    }
+                }
+                else
+                {
+                    <RadzenStack Gap="4px" Orientation="Radzen.Orientation.Horizontal" Wrap="Radzen.FlexWrap.Wrap" Style="max-height: 100%; overflow-y: auto;">
+                        @foreach (var item in Files)
+                        {
+                            <FluentButton @onclick="() => RemoveItem(item)" BackgroundColor="#188d21" IconEnd="@(new Icons.Regular.Size24.DismissCircle().WithColor("#FFFFFF"))">
+                                <p style="width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin:0;padding:0;color:white;">
+                                    @item.FileName
+                                </p>
+                            </FluentButton>
+                        }
+                    </RadzenStack>
+                }
+                <br />
+            </label>
+        </RadzenStack>
+    </div>
+}
+else
+{
+    <input id="Xinputfile00" type="file" accept="@Filter" @onchange="UploadFile" hidden />
+    @if (!Busy)
+    {
+        @if (!Files.Any())
+        {
+            <FluentButton Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2" @onclick="ClickUpload">
+                <p class="m-2">
+                    @if (Icon is not null)
+                    {
+                        @Icon
+                    }
+                    @Title
+                </p>
+            </FluentButton>
+        }
+        else
+        {
+            var file = Files.First();
+            <FluentButton Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2" @onclick="ClickUpload">
+                <p class="m-2">
+                    Arquivo: @file.FileName
+                </p>
+            </FluentButton>
+        }
+    }
+    else
+    {
+        <FluentButton Appearance="Appearance.Accent" BackgroundColor="@BackgroundColor" Color="@Color" Class="m-2">
+            <p class="m-2">
+                <span class="spinner-border spinner-border-sm" />
+                @Title
+            </p>
+        </FluentButton>
+
+    }
+}
+
+<br />
+
+<style>
+    .form__input {
+        color: #333;
+        text-align: center;
+        font-size: 1.2rem;
+        padding: 1.5rem 2rem;
+        border-radius: 10px;
+        background-color: white;
+        border: dotted;
+        border-color: #cfcaca;
+        /*        box-shadow: 0 2px 2px 3px rgba(0, 0, 0, 0.1);*/
+        align-self: center;
+        /*display: block;*/
+        /*border-bottom: transparent;*/
+        transition: all 0.3s;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        margin: 0;
+        width: 550px;
+        height: 200px;
+    }
+
+        .form__input:placeholder-shown {
+            box-shadow: 0 2px 2px 3px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            height: 30px;
+        }
+
+        .form__input:valid {
+            color: green;
+        }
+
+        .form__input:invalid {
+            color: red;
+        }
+</style> *@

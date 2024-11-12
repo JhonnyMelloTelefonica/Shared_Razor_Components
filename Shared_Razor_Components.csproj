@@ -11,10 +11,6 @@
 		<EmbeddedResource Include="wwwroot\**\*" />
 	</ItemGroup>
 	<ItemGroup>
-		<EmbeddedResource Remove="wwwroot\icone-vivox.png" />
-		<EmbeddedResource Remove="wwwroot\images\iconLock.svg" />
-	</ItemGroup>
-	<ItemGroup>
 	  <None Remove="Layout\HeaderForum.razor.css" />
 	  <None Remove="Shared\CargoByPerfil.razor.css" />
 	</ItemGroup>
@@ -55,6 +51,12 @@
 		<Content Update="Shared\SearchProdutos.razor">
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="wwwroot\images\IconLock.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>

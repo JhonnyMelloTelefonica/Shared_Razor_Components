@@ -233,7 +233,7 @@ namespace Shared_Razor_Components.Services
                 client.BaseAddress = new Uri($"{BaseUrl}/Delete/{produto}");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Delete, client.BaseAddress);
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, client.BaseAddress);
                 return await MakeRequestAsync(request, client);
             }
             catch (Exception)
@@ -255,7 +255,7 @@ namespace Shared_Razor_Components.Services
                 client.BaseAddress = new Uri($"{BaseUrl}/Put");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, client.BaseAddress);
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, client.BaseAddress);
 
                 var body = JsonConvert.SerializeObject(produto);
                 var content = new StringContent(body, Encoding.UTF8, "application/json");
@@ -282,7 +282,7 @@ namespace Shared_Razor_Components.Services
                 client.BaseAddress = new Uri($"{BaseUrl}/Delete/Image");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Delete, client.BaseAddress);
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, client.BaseAddress);
 
                 var body = JsonConvert.SerializeObject(produto);
                 var content = new StringContent(body, Encoding.UTF8, "application/json");

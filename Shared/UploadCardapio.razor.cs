@@ -9,9 +9,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Shared_Razor_Components.Shared
 {
-    public partial class Upload : ComponentBase, IDisposable
+    public partial class UploadCardapio : ComponentBase, IDisposable
     {
         [Inject] IJSRuntime JSRuntime { get; set; }
         [Parameter] public List<FileDataModel> Files { get; set; } = new();
@@ -37,19 +38,16 @@ namespace Shared_Razor_Components.Shared
         public bool Busy { get; set; } = false;
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            
                 // Load the JS file
-
-
                 await Task.Delay(100);
 
-                if (dropZoneElement.Context != null)
-                {
+                //if (dropZoneElement.Context != null)
+                //{
 
-                    _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/_content/Shared_Razor_Components/Js/dropZone.js");
+                //    //_module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./JS/dropZone.js");
 
-                    _dropZoneInstance = await _module.InvokeAsync<IJSObjectReference>("initializeFileDropZone", dropZoneElement, inputFile);
-                }
+                //    _dropZoneInstance = await JSRuntime.InvokeAsync<IJSObjectReference>("initializeFileDropZone", dropZoneElement, inputFile);
+                //}
 
                 //Initialize the drop zone         
         }
