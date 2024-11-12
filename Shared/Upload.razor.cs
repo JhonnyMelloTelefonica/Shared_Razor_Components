@@ -37,22 +37,13 @@ namespace Shared_Razor_Components.Shared
         public bool Busy { get; set; } = false;
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            
+            if (firstRender)
+            {
                 // Load the JS file
-
-
-                await Task.Delay(100);
-
-                if (dropZoneElement.Context != null)
-                {
-
-                    _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/_content/Shared_Razor_Components/Js/dropZone.js");
-
-                    _dropZoneInstance = await _module.InvokeAsync<IJSObjectReference>("initializeFileDropZone", dropZoneElement, inputFile);
-                }
-
-                //Initialize the drop zone
-           
+                _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Shared_Razor_Components/Js/dropZone.js");
+                // Initialize the drop zone
+                _dropZoneInstance = await _module.InvokeAsync<IJSObjectReference>("initializeFileDropZone", dropZoneElement, inputFile);
+            }
         }
         async Task UploadFile()
         {

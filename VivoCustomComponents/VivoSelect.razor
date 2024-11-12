@@ -21,7 +21,6 @@
 
     <InputSelect ValueChanged="@ValueChanged" ValueExpression="@ValueExpression" Value="@CurrentValue"
                  DisplayName="@DisplayName" id="@Id" TValue=T class="form-control">
-        <option value="" selected>Selecione</option>
         @foreach (var item in Data)
         {
             <VivoSelectOption T="T" Option="item.Value.Value" Text="@item.Value.Text" />
