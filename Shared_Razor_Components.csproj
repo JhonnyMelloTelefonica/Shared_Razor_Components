@@ -15,6 +15,9 @@
 	  <None Remove="Shared\CargoByPerfil.razor.css" />
 	</ItemGroup>
 	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="wwwroot\js\dragElement.js" />
+	</ItemGroup>
+	<ItemGroup>
 	  <Content Include="Layout\HeaderForum.razor.css" />
 	  <Content Include="Shared\CargoByPerfil.razor.css" />
 	</ItemGroup>
