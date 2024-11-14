@@ -1,0 +1,137 @@
+﻿
+/*
+    #{hash} .filtering {{
+        background-color: {text};
+    }}
+
+    #{hash} .not-filtering {{
+        background-color: white;
+    }}
+*/
+
+
+.apply-component ::deep section .title {
+    text-align: end;
+    font-family: Vivo-font-bold;
+    font-size: 75%;
+}
+
+}
+
+.apply-component ::deep section .subtitle {
+    text-align: end;
+}
+
+.apply-component ::deep section .filtering .subtitle {
+    color: #999999;
+}
+
+.apply-component ::deep section .not-filtering .subtitle {
+    color: aliceblue;
+}
+
+
+.apply-component ::deep .filtering section .title {
+    color: white;
+}
+
+
+
+.apply-component ::deep .not-filtering section .title {
+    color: black;
+}
+
+.apply-component ::deep .filtering .chart span {
+    color: cadetblue;
+}
+
+.apply-component ::deep .not-filtering .chart span {
+    color: #999999;
+}
+
+.apply-component ::deep .filtering aside {
+    color: antiquewhite
+}
+
+
+.apply-component ::deep
+.not-filtering aside {
+    color: #999999;
+}
+
+
+
+.apply-component ::deep .chart span,
+.apply-component ::deep aside {
+    font-family: Vivo-font-light;
+}
+
+.apply-component ::deep .filtering #donut::before, .apply-component ::deep.not-filtering #donut::before {
+    background-color: #999999;
+}
+
+/*
+     #{hash} .not-filtering #donut::before{{
+        background: #fff;
+    }}
+*/
+
+
+.apply-component ::deep *, #donut, #donut::before {
+    transition: all 0.5s ease;
+}
+
+.apply-component ::deep .chart {
+    position: relative;
+    width: 75px;
+    height: 75px;
+    display: flex;
+}
+
+.apply-component ::deep #donut::before {
+    content: "";
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+/* (B2) "CONVERT PIE TO DONUT" - CENTER SMALLER CIRCLE */
+.apply-component ::deep #donut {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin: auto;
+    position: relative;
+    transition:all linear 1s;
+}
+
+    .apply-component ::deep #donut span {
+        position: absolute;
+        font-size: 13px;
+        width: auto;
+        text-align: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+.apply-component ::deep section {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    border-radius: 10px;
+    max-width: 400px;
+    width: auto;
+    min-width: 150px;
+}
+
+    .apply-component ::deep section aside {
+        display: flex;
+        flex-flow: column;
+        margin: auto;
+        align-self: end;
+    }

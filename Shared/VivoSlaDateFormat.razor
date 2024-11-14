@@ -1,8 +1,11 @@
-﻿<div class="apply-component">
+﻿@namespace Shared_Razor_Components.Shared
+@inherits InputBase<int>
+
+<div class="apply-component">
     <label>@Label @(HourFormat ? "em Horas" : "em Dias")</label>
     <div class="component-input-area">
         @* <RadzenNumeric Value="@(HourFormat ? Bind : (Bind / 24 ))" ValueChanged="@(args => ValueChanged(args))" TValue="int" /> *@
-        <input class="input-bind" type="number" value="@(HourFormat ? Bind : (int)Math.Round((decimal)(Bind / 24 ),0))" @onchange=@(args => ValueChanged(args))  />
+        <input class="input-bind" type="number" value="@(HourFormat ? Value : (int)Math.Round((decimal)(Value / 24 ),0))" @onchange=@(args => ValueChangedEvent(args)) />
         <div class="format-area" @onclick="HouFormatChanged">
             <div class="@(HourFormat ? "format-actived" : "")"  >
                 @(HourFormat ? "Horas" : "H" )
