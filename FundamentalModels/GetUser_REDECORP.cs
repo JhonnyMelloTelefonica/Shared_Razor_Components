@@ -69,7 +69,7 @@ namespace Shared_Razor_Components.FundamentalModels
                     //matricula = "79902790"; //
                     //matricula = "163794"; //
                     //matricula = "95040"; //
-                    matricula = "151191"; //Jhonny
+                    //matricula = "151191"; //Jhonny
                     //matricula = "163794"; //Clara
                     //matricula = "16005"; //Luciana
                     //matricula = "70650"; //
@@ -93,6 +93,7 @@ namespace Shared_Razor_Components.FundamentalModels
                     //matricula = "30836"; //Washington
                     //matricula = "3521592"; //Washington
                     //matricula = "152027"; //Jhonny
+                    matricula = "160624"; //Jhonny
                     //matricula = "151191"; //Eu
                     //matricula = "12194"; //Eu -- RJ LESTE
                     //matricula = "3511507"; //MELO - VItor
