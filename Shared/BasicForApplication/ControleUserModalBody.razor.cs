@@ -21,13 +21,11 @@ namespace Shared_Razor_Components.Shared.BasicForApplication
         [Parameter] public bool MatriculaDisabled { get; set; } = false;
         [Parameter] public EditContext editContext { get; set; }
         [Inject] IJSRuntime JSRuntime {get;set;}
-        [Inject] public ControleUsuariosAppViewModel service { get; set; }
+        [Inject] ControleUsuariosAppViewModel service { get; set; }
         public bool ShouldRender { get; set; } = false;
-
         private FieldIdentifier Cssclass { get; set; }
         private FieldIdentifier CpfCssclass { get; set; }
         private FieldIdentifier TelefoneCssclass { get; set; }
-
         private void OnStateChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (!string.IsNullOrEmpty(e.PropertyName))
@@ -37,7 +35,6 @@ namespace Shared_Razor_Components.Shared.BasicForApplication
 
             StateHasChanged();
         }
-
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -64,13 +61,11 @@ namespace Shared_Razor_Components.Shared.BasicForApplication
 
             base.OnAfterRender(firstRender);
         }
-
         protected override async Task OnParametersSetAsync()
         {
             if (MatriculaDisabled)
                 await JSRuntime.InvokeVoidAsync("disableMatriculaInput");
         }
-
         private void ChangePerfil(object? sender, int index)
         {
             if (sender is not null)
@@ -196,3 +191,206 @@ namespace Shared_Razor_Components.Shared.BasicForApplication
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

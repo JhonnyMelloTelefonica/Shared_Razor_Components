@@ -387,8 +387,9 @@
 
         @if (Context == true)
         {
-            <a id="CloseButton3" class="bi bi-pencil-square" style="z-index: 1000; right: 31%;" href="@(IsDevelopment ? "http://localhost:5211/edit-user/" : "http://brtdtbgs0090sl:8081/edit-user/" )" @onclick="@(()=> JSRuntime.InvokeVoidAsync("CloseCardView",DotNetObjectReference.Create(this)))"> </a>
-
+            <a id="CloseButton3" class="bi bi-pencil-square" style="z-index: 1000; right: 31%;" href="@(IsDevelopment ? "http://localhost:5211/edit-user/" : "http://brtdtbgs0090sl:8081/edit-user/" )" 
+            @onclick="@(()=> JSRuntime.InvokeVoidAsync("CloseCardView",DotNetObjectReference.Create(this)))"> 
+            </a>
         }
 
         <div class="wrapper">
@@ -401,30 +402,24 @@
                 </div>
                 <div class="info" style=" width: 70%; padding-bottom: 10%;">
                     <div class="title;" style="color:white;">
-
                         <div class="infoFrontCard" style=" font-size: 20px!important; font-weight: 700;">
-                            @NomeCard(User.NOME)
+                            @User.NOME
                         </div>
-
                         <div class="infoFrontCard" style=" font-size: 18px!important;">
                             RE @(User.MATRICULA)
                         </div>
-
                         <div class="infoFrontCard" style=" font-size: 18px!important; margin-bottom: 10px;">
                             @*  @(User.CARGO.GetDisplayName()) *@
                             @CargoCard(User.CARGO.GetDisplayName())
                         </div>
-
                         <div class="infoFrontCard" style=" font-size: 15px!important; margin-right: 18px;">
                             <i class="bi bi-telephone-fill" style="margin-right: 8px;"></i> @(User.TELEFONE ?? "-")
                         </div>
-
                         <div class="infoFrontCard" style="display: flex; justify-content: center; align-items: baseline !important;">
                             <div style="font-size: 14px!important; display:flex">
                                 <i class="bi bi-envelope" style="margin-right: 17px;"></i> @(User.EMAIL.ToLower())
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -453,13 +448,13 @@
 
     string NomeCard(string nomeCompleto)
     {
-        string[] partesNome = nomeCompleto.Split(' ');
+        string[] partesNome = nomeCompleto.Split();
         return partesNome[0] + " " + partesNome[partesNome.Length - 1];
     }
 
     string CargoCard(string CargoCompleto)
     {
-        string[] partesNome = CargoCompleto.Split(' ');
+        string[] partesNome = CargoCompleto.Split();
         return partesNome[0];
     }
 

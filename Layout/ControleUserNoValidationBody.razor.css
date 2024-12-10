@@ -1,51 +1,68 @@
-﻿
-::deep .list-group-item {
+﻿.apply-component ::deep .validation-message span {
+    color: white;
+}
+
+.apply-component ::deep .validation-message svg {
+    fill: white !important;
+    stroke: red;
+    stroke-width: 0.5px;
+}
+
+.apply-component ::deep .name-badge {
+    padding: 2px 5px;
+    border-radius: 24px;
+    color: #953ec6;
+    background-color: #ffffff;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.apply-component ::deep .list-group-item {
     align-content: flex-start !important
 }
 
-::deep .form-group {
+.apply-component ::deep .form-group {
     width: 100% !important
 }
 
-::deep .positioning-region, ::deep .vertical {
+.apply-component ::deep .positioning-region, .apply-component ::deep .vertical {
     width: 100% !important;
     max-height: 200px !important;
     flex-wrap: wrap !important;
-
 }
 
-::deep .listbox {
+.apply-component ::deep .listbox {
     z-index: 100 !important;
     color: #ffffff !important;
     font-weight: 500;
 }
 
-::deep .invalid svg {
+.apply-component ::deep .invalid svg {
     fill: #e95223 !important;
     color: #ffffff !important;
     font-weight: 500;
 }
 
 .apply-component ::deep fluent-card {
-   background: linear-gradient(90deg, rgba(86, 6, 168, 1) 0%, rgba(138, 59, 194, 1) 39%, rgba(191, 74, 214, 1) 75%, rgba(236, 66, 204, 1) 100%);
-   height: auto;
-  /*background-color: white;*/
+    background: linear-gradient(90deg, rgba(86, 6, 168, 1) 0%, rgba(138, 59, 194, 1) 39%, rgba(191, 74, 214, 1) 75%, rgba(236, 66, 204, 1) 100%);
+    height: auto;
+    /*background-color: white;*/
 }
 
-::deep .fluent-input-label, ::deep .rz-fieldset-toggler {
+.apply-component ::deep .fluent-input-label, .apply-component ::deep .rz-fieldset-toggler {
     color: #ffffff !important;
     font-weight: 500;
 }
 
-::deep [aria-label="required"] {
+.apply-component ::deep [aria-label="required"] {
     color: #ffffff !important;
     font-weight: 500;
 }
 
-::deep .testform {
-    padding: 20px!important;
-}
-
-::deep .testform ::deep div {
+.apply-component ::deep .testform {
     padding: 20px !important;
 }
+
+    .apply-component ::deep .testform ::deep div {
+        padding: 20px !important;
+    }

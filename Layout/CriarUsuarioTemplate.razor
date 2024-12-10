@@ -1,0 +1,557 @@
+﻿@using JustifyContent = Microsoft.FluentUI.AspNetCore.Components.JustifyContent;
+@using Shared_Static_Class.Model_DTO;
+@using Shared_Static_Class.Converters
+@using Shared_Razor_Components.FundamentalModels;
+@using Radzen.Blazor;
+@using Microsoft.AspNetCore.Components.Forms;
+@using Microsoft.AspNetCore.Components.Web;
+@using Blazorise;
+@using Radzen;
+@using Shared_Razor_Components.Layout
+@using Shared_Razor_Components.Shared
+@using Shared_Razor_Components.VivoCustomComponents
+@using System.ComponentModel
+@using Microsoft.JSInterop
+@using Newtonsoft.Json;
+@using System.Globalization;
+@using BlazorBootstrap
+@using Microsoft.AspNetCore.Components;
+@using Shared_Static_Class.Data;
+@using Shared_Razor_Components.Services;
+@using Blazorise.LoadingIndicator;
+@using FluentValidation.Results
+@using Shared_Razor_Components.ViewModels
+@using FluentValidation
+
+<style>
+
+    .fluent-wizard-buttons {
+        justify-content: center !important;
+    }
+
+
+    .validation-message span {
+        color: white;
+    }
+
+    .validation-message svg {
+        fill: white !important;
+        stroke: red;
+        stroke-width: 0.25px;
+    }
+
+    .name-badge {
+        padding: 2px 5px;
+        border-radius: 24px;
+        color: #953ec6;
+        background-color: #ffffff;
+        font-size: 12px;
+        cursor: pointer;
+    }
+
+    .list-group-item {
+        align-content: flex-start !important
+    }
+
+    .form-group {
+        width: 100% !important
+    }
+
+    .positioning-region, .vertical {
+        width: 100% !important;
+        flex-wrap: wrap !important;
+    }
+
+    .listbox {
+        z-index: 100 !important;
+    }
+
+    .invalid svg {
+        fill: #e95223 !important;
+    }
+
+    fluent-card {
+        background: linear-gradient(90deg, rgba(86, 6, 168, 1) 0%, rgba(138, 59, 194, 1) 39%, rgba(191, 74, 214, 1) 75%, rgba(236, 66, 204, 1) 100%);
+        height: 100%;
+    }
+
+    .fluent-input-label, .rz-fieldset-toggler {
+        color: white !important;
+    }
+
+    [aria-label="required"] {
+        color: white !important;
+    }
+</style>
+
+@if (ShouldRender)
+{
+    <FluentWizard @ref=@MyWizard StepperPosition="StepperPosition.Top"
+                  DisplayStepNumber="WizardStepStatus.None"
+                  @bind-Value=Value Context="wizarditem"
+                  Border="WizardBorder.None"
+                  Class="FluentAll" StepSequence="StepSequence"
+                  OnFinish="@OnFinishedAsync"
+                  StepTitleHiddenWhen="@GridItemHidden.XsAndDown">
+        <Steps>
+            <FluentWizardStep IconCurrent="@(new Icons.Filled.Size12.Warning().WithColor("#9b40c8"))"
+                              IconNext="@(new Icons.Filled.Size12.Warning().WithColor("#A59A9A"))" Label="Dados Principais"
+                              IconPrevious="@(new Icons.Filled.Size12.Warning().WithColor("#A59A9A"))">
+                <FluentEditForm Model="formprincipal" FormName="PrinData" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInvalidSubmit" Enhance class="m-auto w-100">
+                    <ObjectGraphDataAnnotationsValidator />
+                    <FluentCard AreaRestricted="false" Class="m-auto d-table w-auto" style="min-width:70vw; max-width:100%;">
+                        <FluentStack Orientation="Microsoft.FluentUI.AspNetCore.Components.Orientation.Horizontal"
+                                     VerticalAlignment="Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Center" Class="justify-content-around"
+                                     Wrap=true>
+                            <div>
+                                <FluentNumberField Id="matricula-input" Value="@(formprincipal.MATRICULA)"
+                                                TValue="int" Placeholder="Insira um valor para MATRÍCULA" Required
+                                                   @onchange="ValidarMatricula">
+                                    <ChildContent>
+                                        <FluentIcon Value="@(new Icons.Filled.Size24.PersonPasskey().WithColor("#483d8b"))" Slot="start" />
+                                    </ChildContent>
+                                    <LabelTemplate>
+                                        <span>
+                                            @if (formprincipal.MATRICULA != 0)
+                                            {
+                                                <FluentIcon Value="@(new Icons.Filled.Size24.CheckboxChecked().WithColor("#ffffff"))" />
+                                            }
+                                            else
+                                            {
+                                                <FluentIcon Value="@(new Icons.Filled.Size20.Dismiss().WithColor("#ffffff"))" />
+                                            }
+                                            MATRÍCULA
+                                        </span>
+                                    </LabelTemplate>
+                                </FluentNumberField>
+                                <FluentValidationMessage For="() => formprincipal.MATRICULA" />
+                            </div>
+                            @if (formprincipal.MATRICULA != 0)
+                            {
+                                <div>
+                                    <FluentTextField TextFieldType="TextFieldType.Email" Style="width: 300px"
+                                                     Required Immediate Value="@formprincipal.EMAIL"
+                                                     @onchange="ValidarEmail">
+                                        <ChildContent>
+                                            <FluentIcon Value="@(new Icons.Filled.Size24.MailOpenPerson().WithColor("#483d8b"))" Slot="start" />
+                                        </ChildContent>
+                                        <LabelTemplate>
+                                            <span>
+                                                @if (!string.IsNullOrEmpty(formprincipal.EMAIL))
+                                                {
+                                                    <FluentIcon Value="@(new Icons.Filled.Size24.CheckboxChecked().WithColor("#ffffff"))" />
+                                                }
+                                                else
+                                                {
+                                                    <FluentIcon Value="@(new Icons.Filled.Size20.Dismiss().WithColor("#ffffff"))" />
+                                                }
+                                                E-MAIL
+                                            </span>
+                                        </LabelTemplate>
+                                    </FluentTextField>
+                                    <FluentValidationMessage For="() => formprincipal.EMAIL" />
+
+                                </div>
+                            }
+                        </FluentStack>
+                    </FluentCard>
+
+                </FluentEditForm>
+            </FluentWizardStep>
+            <FluentWizardStep IconCurrent="@(new Icons.Filled.Size20.PersonInfo().WithColor("#9b40c8"))"
+                              IconNext="@(new Icons.Filled.Size20.PersonInfo().WithColor("#A59A9A"))" Label="Informações Pessoais"
+                              IconPrevious="@(new Icons.Filled.Size20.PersonInfo().WithColor("#A59A9A"))">
+                <FluentEditForm Model="infopessoal" FormName="DataPessoal" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInvalidSubmit" Enhance class="m-auto w-100">
+                    <ObjectGraphDataAnnotationsValidator />
+                    <FluentCard AreaRestricted="false" Class="m-auto d-table w-auto" style="min-width:70vw; max-width:100%;">
+                        <FluentStack Orientation="Microsoft.FluentUI.AspNetCore.Components.Orientation.Horizontal"
+                                     VerticalAlignment="Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Center" Class="justify-content-between"
+                                     Wrap=true>
+                            <FluentStack Orientation="Microsoft.FluentUI.AspNetCore.Components.Orientation.Vertical" Width="auto" HorizontalAlignment="Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment.Left"
+                                         VerticalAlignment="Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Center" Class="justify-content-between"
+                                         Wrap=true>
+                                <div>
+                                    <FluentTextField Value=@formprincipal.EMAIL Disabled>
+                                        <ChildContent>
+                                            <FluentIcon Value="@(new Icons.Filled.Size24.MailOpenPerson().WithColor("#483d8b"))" Slot="start" />
+                                        </ChildContent>
+                                        <LabelTemplate>
+                                            <span>
+                                                E-MAIL
+                                            </span>
+                                        </LabelTemplate>
+                                    </FluentTextField>
+                                </div>
+                                <div>
+                                    <FluentTextField @bind-Value=infopessoal.NOME Label="NOME COMPLETO" Immediate style="width: 500px;" Required>
+                                        <FluentIcon Value="@(new Icons.Filled.Size24.LinkPerson().WithColor("#483d8b"))" Slot="start" />
+                                    </FluentTextField>
+                                    <FluentValidationMessage For="() => infopessoal.NOME" />
+                                </div>
+                                <div>
+                                    <div>
+                                        <label style="color:white;font-size:14px;font-family:Vivo-font;">
+                                            COMO VOCÊ QUER SER CHAMADO? *
+                                        </label>
+                                        <div class="d-inline-flex w-auto gap-2 justify-content-around">
+                                            @if (infopessoal.DisplayName.Any())
+                                            {
+                                                foreach (var item in infopessoal.DisplayName.Skip(1))
+                                                {
+                                                    var value = infopessoal.DisplayName.FirstOrDefault()?.ToLower() ?? "";
+
+                                                    <span class="name-badge" @onclick="@(() => infopessoal.NOME_SOCIAL = textinfo.ToTitleCase($"{value} {item.ToLower()}"))">
+                                                        @(textinfo.ToTitleCase($"{value} {item.ToLower()}"))
+                                                    </span>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <div class="d-inline-flex gap-5">
+                                        <div>
+                                            <FluentTextField @bind-Value="infopessoal.nome_social" style="width: 200px;" Required>
+                                                <FluentIcon Value="@(new Icons.Filled.Size24.Person().WithColor("#483d8b"))" Slot="start" />
+                                            </FluentTextField>
+                                            <FluentValidationMessage For="() => infopessoal.nome_social" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </FluentStack>
+
+                            <FluentStack Orientation="Microsoft.FluentUI.AspNetCore.Components.Orientation.Vertical" Width="auto" HorizontalAlignment="Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment.Left"
+                                         VerticalAlignment="Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Center" Class="justify-content-between"
+                                         Wrap=true>
+                                <div>
+                                    <FluentNumberField @bind-Value="formprincipal.MATRICULA" Disabled>
+                                        <ChildContent>
+                                            <FluentIcon Value="@(new Icons.Filled.Size24.PersonPasskey().WithColor("#483d8b"))" Slot="start" />
+                                        </ChildContent>
+                                        <LabelTemplate>
+                                            <span>
+                                                MATRÍCULA
+                                            </span>
+                                        </LabelTemplate>
+                                    </FluentNumberField>
+                                </div>
+                                <div>
+                                    <FluentTextField @bind-Value=@infopessoal.CPF Class="@(editContext.FieldCssClass(CpfCssclass))"
+                                                     Immediate Placeholder="***.***.***-**" Label="CPF" Required>
+                                        <FluentIcon Value="@(new Icons.Filled.Size24.PersonInfo().WithColor("#483d8b"))" Slot="start" />
+                                    </FluentTextField>
+                                    <FluentValidationMessage For="() => infopessoal.CPF" />
+                                </div>
+                                <div>
+                                    <FluentTextField @bind-Value=@infopessoal.TELEFONE Required
+                                                     Class="@(editContext.FieldCssClass(TelefoneCssclass))"
+                                                     Immediate Placeholder="(**) ****?-****" Label="TELEFONE">
+                                        <FluentIcon Value="@(new Icons.Filled.Size24.Call().WithColor("#483d8b"))" Slot="start" />
+                                    </FluentTextField>
+                                    <FluentValidationMessage For="() => infopessoal.TELEFONE" />
+                                </div>
+                                <div>
+                                    <FluentSelect Label="CARGO" ValueChanged="args => SetCargo(args)" Height="300px"
+                                                  Class="@(editContext.FieldCssClass(editContext.Field("CARGO")))"
+                                                  TOption="int" Position="SelectPosition.Below" Value="@infopessoal.CARGO.ToString()"
+                                                  Required>
+                                        <FluentOption Value="" Selected>Selecione</FluentOption>
+                                        @foreach (var item in Enum.GetValues(typeof(Cargos)).Cast<Cargos>().Except([Cargos.ADM, Cargos.Diretora]))
+                                        {
+                                            <FluentOption Value="@(((int)item).ToString())">@item.GetDisplayName()</FluentOption>
+                                        }
+                                    </FluentSelect>
+                                    <FluentValidationMessage For="() => infopessoal.CARGO" />
+                                </div>
+                            </FluentStack>
+                        </FluentStack>
+                    </FluentCard>
+
+                </FluentEditForm>
+            </FluentWizardStep>
+            <FluentWizardStep IconCurrent="@(new Icons.Filled.Size20.PersonHome().WithColor("#9b40c8"))"
+                              IconNext="@(new Icons.Filled.Size20.PersonHome().WithColor("#A59A9A"))" Label="Dados do PDV"
+                              IconPrevious="@(new Icons.Filled.Size20.PersonHome().WithColor("#A59A9A"))">
+                <FluentEditForm Model="dadospdv" FormName="DataPDV" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInvalidSubmit" class="m-auto w-100">
+                    <DataAnnotationsValidator />
+                    <FluentCard AreaRestricted="false" Class="m-auto d-table w-auto" style="min-width:70vw; max-width:100%;">
+                        <FluentStack Orientation="Microsoft.FluentUI.AspNetCore.Components.Orientation.Horizontal" VerticalAlignment="Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Center"
+                                     Class="justify-content-between" Width="auto"
+                                     Wrap=true>
+                            <FluentStack Orientation="Microsoft.FluentUI.AspNetCore.Components.Orientation.Vertical" Width="auto"
+                                         VerticalAlignment="Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Center" Class="justify-content-between"
+                                         Wrap=true>
+                                <div>
+                                    <FluentSelect Label="REGIONAL" Position="SelectPosition.Below" Class="@(editContext.FieldCssClass(editContext.Field("REGIONAL")))"
+                                                  @bind-Value="@dadospdv.REGIONAL" TOption="string" @onchange="@(() => dadospdv.UF = string.Empty)" Required>
+                                        <FluentOption Value="" Selected>Selecione</FluentOption>
+                                        @foreach (var item in service.CARTEIRA.Select(x => x.REGIONAL).Distinct())
+                                        {
+                                            <FluentOption Value="@(item)">@item</FluentOption>
+                                        }
+                                    </FluentSelect>
+                                    <FluentValidationMessage For="() => dadospdv.REGIONAL" />
+                                </div>
+                                <div>
+                                    <FluentSelect Label="UF" @bind-Value="@dadospdv.UF" TOption="string" Position="SelectPosition.Below"
+                                                  Placeholder="Selecione" Class="@(editContext.FieldCssClass(editContext.Field("UF")))" Required>
+                                        <FluentOption Value="" Selected>Selecione</FluentOption>
+                                        @foreach (var item in service.CARTEIRA.Where(x => x.REGIONAL == dadospdv.REGIONAL).Select(x => x.UF).Distinct())
+                                        {
+                                            <FluentOption Value="@(item)">@item</FluentOption>
+                                        }
+                                    </FluentSelect>
+                                    <FluentValidationMessage For="() => dadospdv.UF" />
+                                </div>
+                            </FluentStack>
+                            @if (service.CargosHasPDV.Contains((Cargos)infopessoal.CARGO))
+                            {
+                                <FluentStack Orientation="Microsoft.FluentUI.AspNetCore.Components.Orientation.Vertical" Width="auto"
+                                             VerticalAlignment="Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Center" Class="justify-content-between"
+                                             Wrap=true>
+                                    <div>
+                                        <FluentSelect Required Label="REDE" Position="SelectPosition.Below" Height="200px"
+                                                      Placeholder="Selecione" @bind-Value="@dadospdv.rede" TOption="string">
+                                            <FluentOption Value="">Selecione</FluentOption>
+                                            @foreach (var item in service.CARTEIRA.Where(x => x.UF == dadospdv.UF).Select(x => x.REDE).Distinct())
+                                            {
+                                                <FluentOption Value="@(item)">@item</FluentOption>
+                                            }
+                                        </FluentSelect>
+                                        <FluentValidationMessage For="() => dadospdv.rede" />
+                                    </div>
+                                    <div>
+                                        <FluentSelect Required Label="PDV" Position="SelectPosition.Below" Height="200px"
+                                                      Placeholder="Selecione" Class="@(editContext is not null ? editContext.FieldCssClass(editContext.Field("PDV")) : "")"
+                                                      TOption="string" @onchange="SetPDV" @bind-Value=dadospdv.PDV>
+                                            <FluentOption Value="">Selecione</FluentOption>
+                                            @foreach (var item in service.CARTEIRA.Where(x => x.REDE == dadospdv.rede).Select(x => x.ADABAS).Distinct())
+                                            {
+                                                <FluentOption Value="@(item)">@item</FluentOption>
+                                            }
+                                        </FluentSelect>
+                                        <FluentValidationMessage For="() => dadospdv.PDV" />
+                                    </div>
+                                </FluentStack>
+                                <FluentStack Orientation="Microsoft.FluentUI.AspNetCore.Components.Orientation.Vertical" Width="auto"
+                                             VerticalAlignment="Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Center" Class="justify-content-between"
+                                             Wrap=true>
+                                    <div>
+                                        <FluentNumberField Required Label="DDD" Height="200px" TValue="int"
+                                                           Value="@dadospdv.DDD" Placeholder="00" Disabled
+                                                           Class="@(editContext is not null ? editContext.FieldCssClass(editContext.Field("DDD")) : "")">
+                                        </FluentNumberField>
+                                        <FluentValidationMessage For="() => dadospdv.DDD" />
+
+                                    </div>
+                                </FluentStack>
+                            }
+                            else
+                            {
+                                dadospdv.PDV = "InHierarqia";
+                                <FluentStack Orientation="Microsoft.FluentUI.AspNetCore.Components.Orientation.Vertical" Width="auto"
+                                             VerticalAlignment="Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Center" Class="justify-content-between"
+                                             Wrap=true>
+                                    <div>
+                                        <FluentSelect Required Label="DDD" Height="200px" TOption="int"
+                                                      @bind-SelectedOption="@dadospdv.DDD" Placeholder="00"
+                                                      Class="@(editContext is not null ? editContext.FieldCssClass(editContext.Field("DDD")) : "")">
+                                            <FluentOption Value="">Selecione</FluentOption>
+                                            @foreach (var item in service.CARTEIRA.Where(x => x.UF == dadospdv.UF).Select(x => x.DDD.Value).Distinct())
+                                            {
+                                                <FluentOption Value="@(item.ToString())">@item</FluentOption>
+                                            }
+                                        </FluentSelect>
+                                        <FluentValidationMessage For="() => dadospdv.DDD" />
+
+                                    </div>
+                                </FluentStack>
+                            }
+                        </FluentStack>
+                    </FluentCard>
+
+                </FluentEditForm>
+            </FluentWizardStep>
+            <FluentWizardStep IconCurrent="@(new Icons.Filled.Size20.PhoneKey().WithColor("#9b40c8"))"
+                              IconNext="@(new Icons.Filled.Size20.PhoneKey().WithColor("#A59A9A"))" Label="App Vivo Task"
+                              IconPrevious="@(new Icons.Filled.Size20.PhoneKey().WithColor("#A59A9A"))">
+                <FluentEditForm Model="vivotaskusuario" FormName="AppVivoTask" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInvalidSubmit" class="m-auto w-100">
+                    <ObjectGraphDataAnnotationsValidator />
+                    <FluentCard AreaRestricted="false" Class="m-auto d-table flex-column w-auto" style="min-width:70vw; max-width:100%;">
+                        <label style="color:white">
+                            <FluentCheckbox @bind-Value=vivotaskusuario._hasVivoTask />
+                            Acesso ao Vivo Task
+                        </label>
+                        <br />
+                        <br />
+                        <FluentStack Orientation="Microsoft.FluentUI.AspNetCore.Components.Orientation.Horizontal" VerticalAlignment="Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Center"
+                                     Class="justify-content-around" Wrap=true>
+                            @if (vivotaskusuario._hasVivoTask)
+                            {
+                                <div>
+                                    <FluentTextField @bind-Value=vivotaskusuario.SENHA Label="SENHA" TextFieldType="TextFieldType.Password"
+                                                     Required Immediate Placeholder="Min. 6 caracteres">
+                                        <FluentIcon Value="@(new Icons.Filled.Size24.Password().WithColor("#483d8b"))" Slot="start" />
+                                    </FluentTextField>
+                                    <FluentValidationMessage For="() => vivotaskusuario.SENHA" />
+
+                                </div>
+
+                                <div>
+                                    <FluentTextField @bind-Value=vivotaskusuario.CONFIRMSENHA Label="CONFIRMAR SENHA" TextFieldType="TextFieldType.Password"
+                                                     Required Immediate Placeholder="Min. 6 caracteres">
+                                        <FluentIcon Value="@(new Icons.Filled.Size24.Password().WithColor("#483d8b"))" Slot="start" />
+                                    </FluentTextField>
+                                    <FluentValidationMessage For="() => vivotaskusuario.CONFIRMSENHA" />
+                                </div>
+                            }
+                        </FluentStack>
+                    </FluentCard>
+                </FluentEditForm>
+            </FluentWizardStep>
+            <FluentWizardStep IconCurrent="@(new Icons.Filled.Size20.PhoneKey().WithColor("#9b40c8"))"
+                              IconNext="@(new Icons.Filled.Size20.PhoneKey().WithColor("#A59A9A"))" Label="Giro V"
+                              IconPrevious="@(new Icons.Filled.Size20.PhoneKey().WithColor("#A59A9A"))" Disabled="@(dadospdv.REGIONAL != "NE" ? true : false )">
+                <FluentEditForm Model="girovusuario" FormName="GiroVUsuario" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInvalidSubmit" class="m-auto w-100">
+                    <ObjectGraphDataAnnotationsValidator />
+                    <FluentCard AreaRestricted="false" Class="m-auto d-table w-auto" style="min-width:70vw; max-width:100%;">
+                        <FluentStack Orientation="Microsoft.FluentUI.AspNetCore.Components.Orientation.Horizontal" VerticalAlignment="Microsoft.FluentUI.AspNetCore.Components.VerticalAlignment.Center"
+                                     Class="justify-content-around" Wrap=true>
+                            <div>
+                                <FluentRadioGroup Required="true" Label="FIXA" @bind-Value=girovusuario.FIXA Name="Seu PDV vende fibra?" Orientation="Microsoft.FluentUI.AspNetCore.Components.Orientation.Horizontal">
+                                    <FluentRadio Value="true">
+                                        <span style="color:white">Sim</span>
+                                    </FluentRadio>
+                                    <FluentRadio Value="false">
+                                        <span style="color:white">Não</span>
+                                    </FluentRadio>
+                                </FluentRadioGroup>
+                                <FluentValidationMessage For="() => girovusuario.FIXA" />
+                            </div>
+                            <div>
+                                <FluentRadioGroup Required="true" Label="ELEGÍVEL" @bind-Value=girovusuario.ELEGIVEL Name="Seu PDV vende fibra?" Orientation="Microsoft.FluentUI.AspNetCore.Components.Orientation.Horizontal">
+                                    <FluentRadio Value="true">
+                                        <span style="color:white">Sim</span>
+                                    </FluentRadio>
+                                    <FluentRadio Value="false">
+                                        <span style="color:white">Não</span>
+                                    </FluentRadio>
+                                </FluentRadioGroup>
+                                <FluentValidationMessage For="() => girovusuario.ELEGIVEL" />
+                            </div>
+                        </FluentStack>
+                    </FluentCard>
+                </FluentEditForm>
+            </FluentWizardStep>
+            <FluentWizardStep IconCurrent="@(new Icons.Filled.Size12.PersonBoard().WithColor("#9b40c8"))"
+                              IconNext="@(new Icons.Filled.Size12.PersonBoard().WithColor("#A59A9A"))" Label="Perfis do Usuário"
+                              IconPrevious="@(new Icons.Filled.Size12.PersonBoard().WithColor("#A59A9A"))">
+                <FluentEditForm Model="perfisusuario" FormName="DataPessoal" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInvalidSubmit" class="m-auto w-100">
+                    <ObjectGraphDataAnnotationsValidator />
+                    <FluentCard AreaRestricted="false" Class="m-auto d-table w-auto" style="min-width:70vw; max-width:100%;">
+                        <RadzenFieldset Collapsed="false" AllowCollapse="false">
+                            <HeaderTemplate>
+                                <span class="d-inline-flex" style="margin-right:40px;color:white">
+                                    <RadzenIcon Icon="sticky_note_2" class="me-1" />
+                                    <label><b>Perfis</b></label>
+                                </span>
+                            </HeaderTemplate>
+                            <ChildContent>
+                                @if (!perfisusuario.Perfil.Any())
+                                {
+                                    <RadzenStack Gap="0" class="rz-py-8 rz-px-12">
+                                        <RadzenAlert Title="Atenção!" AllowClose="false" AlertStyle="Radzen.AlertStyle.Danger"
+                                                     Icon="" Variant="Radzen.Variant.Flat" Shade="Radzen.Shade.Lighter" Style="color:white !important">
+                                            Este usuário não tem perfis!!
+                                        </RadzenAlert>
+                                    </RadzenStack>
+                                }
+                                else
+                                {
+                                    <div style="display: grid;grid-template-columns: 1fr 1fr 1fr;align-items: center;column-gap: 10px;row-gap: 10px;width: 100%;">
+                                        @foreach (var (item, index) in perfisusuario.Perfil.Select((value, i) => (value, i)))
+                                        {
+                                            <RadzenFieldset Style="width: 100%; margin: 20px auto;color:white" Collapsed="true" AllowCollapse="true">
+                                                <HeaderTemplate>
+                                                    <span class="d-inline-flex" style="position:relative;color:white">
+                                                        <RadzenIcon Icon="inventory_2" class="me-1" />
+                                                        @if (item != 0)
+                                                        {
+                                                            <b>
+                                                                @service.perfis.First(x => x.ID_PERFIL == item).Perfil.Replace('_', ' ')
+                                                            </b>
+                                                            if (service.perfis.First(x => x.ID_PERFIL == item).IsDismissible)
+                                                            {
+                                                                <Blazorise.Tooltip Text="Remover perfil">
+                                                                    <FluentIcon Value="@(new Icons.Filled.Size12.Dismiss().WithColor("#ffffff"))" @onclick=@(() => RemoveAlternativaAt(index))
+                                                                                Style="position:absolute; top:-7px;right:-20px;" />
+                                                                </Blazorise.Tooltip>
+                                                            }
+                                                        }
+                                                    </span>
+                                                </HeaderTemplate>
+                                                <ChildContent>
+                                                    @if (item == 0)
+                                                    {
+                                                        <RadzenDropDown Data=@(service.perfis.Where(x=> !perfisusuario.Perfil.Contains(x.ID_PERFIL))) @bind-Value=@perfisusuario.Perfil[index]
+                                                                        SelectedItemChanged="args => ChangePerfil(args,index)"
+                                                                        Multiple="false" Chips Separator=";" AllowClear="false" TValue=int
+                                                                        TextProperty="Perfil" ValueProperty="ID_PERFIL" class="@(editContext.FieldCssClass(Cssclass))"
+                                                                        AllowSelectAll="false" Style="width: 300px;height:150px;">
+                                                            <ValueTemplate Context="perfil">
+                                                                <span>
+                                                                    <b style="font-family: Vivo-font-bold">
+                                                                        @perfil.Perfil
+                                                                    </b>
+                                                                </span>
+                                                            </ValueTemplate>
+                                                            <Template Context="perfil">
+                                                                <Div Flex="Flex.InlineFlex.JustifyContent.Between">
+                                                                    <b style="font-family: Vivo-font-bold; margin-inline: 3px">
+                                                                        @perfil.Perfil.Replace('_', ' ')
+                                                                    </b>
+                                                                    <Blazorise.Tooltip Text="@perfil.obs">
+                                                                        <Blazorise.Icon Name="Blazorise.IconName.InfoCircle" TextColor="Blazorise.TextColor.Primary"></Blazorise.Icon>
+                                                                    </Blazorise.Tooltip>
+                                                                </Div>
+                                                            </Template>
+                                                        </RadzenDropDown>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div style="width: 100%; max-width: 300px; max-height:150px; height:auto; overflow:auto;">
+                                                            <span style="font-family:Vivo-font-light;font-size:14px;color:white">
+                                                                @service.perfis.First(x => x.ID_PERFIL == perfisusuario.Perfil[index]).obs
+                                                            </span>
+                                                        </div>
+                                                    }
+                                                </ChildContent>
+                                            </RadzenFieldset>
+                                        }
+                                    </div>
+                                }
+                                <br />
+                                <div class="rz-text-align-center">
+                                    <FluentButton BackgroundColor="#ffffff" @onclick="@(() => AddAlternativa())"
+                                                  Style="color:#7122b6; font-family:Vivo-font-bold;">
+                                        <FluentIcon Value="@(new Icons.Filled.Size24.Add().WithColor("#7122b6"))" />
+                                    </FluentButton>
+                                </div>
+                                <div class="w-100 text-center m-auto d-inline-flex align-content-center justify-content-center">
+                                    <span style="color:white;font-size:14px;font-family:Vivo-font;">
+                                        Adicionar perfil
+                                    </span>
+                                </div>
+                                <FluentValidationMessage For="() => perfisusuario.Perfil" />
+                            </ChildContent>
+                        </RadzenFieldset>
+                    </FluentCard>
+
+                </FluentEditForm>
+            </FluentWizardStep>
+        </Steps>
+    </FluentWizard>
+}
+else
+{
+    <span class="spinner-border spinner-border-sm"></span>
+}

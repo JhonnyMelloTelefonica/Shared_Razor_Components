@@ -95,17 +95,21 @@ namespace Shared_Razor_Components.ViewModel
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         public void TriggerPropertyChangedByTargetVM(object? args, string targetProperty)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(targetProperty));
         }
+
         public async Task ErrorModel(Response<string> data)
         {
-            await FluentDialog.ShowErrorAsync(data.Message, "Erro!");
-
-            if (JSRuntime != null && data.Errors != null && data.Errors.Any())
+            if (data != null)
             {
-                await JSRuntime.InvokeVoidAsync("console.log", string.Join(';', data.Errors));
+                await FluentDialog.ShowErrorAsync(data.Message, "Erro!");
+                if (JSRuntime != null && data.Errors != null && data.Errors.Any())
+                {
+                    await JSRuntime.InvokeVoidAsync("console.log", string.Join(';', data.Errors));
+                }
             }
         }
 

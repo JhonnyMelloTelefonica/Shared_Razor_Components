@@ -12,6 +12,7 @@ namespace Shared_Razor_Components.Services
     {
         Task<MainResponse> GetDataCarteira(string regional);
         Task<MainResponse> GetDataCarteiraNoRegional();
+        Task<MainResponse> GetCargosPDV();
         Task<MainResponse> GetUserByMatricula(int matricula);
         Task<MainResponse> ValidateProvaDisponivel(int ID_PROVA, int matricula);
     }
@@ -101,7 +102,6 @@ namespace Shared_Razor_Components.Services
                 };
             }
         }
-
         public async Task<MainResponse> GetDataCarteira(string regional)
         {
             try
@@ -146,7 +146,28 @@ namespace Shared_Razor_Components.Services
                 };
             }
         }
-
+        public async Task<MainResponse> GetCargosPDV()
+        {
+            try
+            {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri($"{BaseUrlFormJornada}/GetCargosPDV");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, client.BaseAddress);
+                return await MakeRequestAsync(request, client);
+            }
+            catch (Exception)
+            {
+                return new MainResponse
+                {
+                    Content = "",
+                    IsSuccess = false,
+                    ErrorMessage = "algum erro ocorreu"
+                };
+            }
+        }
         private async Task<MainResponse> MakeRequestAsync(HttpRequestMessage getRequest, HttpClient client)
         {
             var response = await client.SendAsync(getRequest).WaitAsync(new TimeSpan(0, 5, 0)).ConfigureAwait(true);

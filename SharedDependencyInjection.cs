@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 using Shared_Razor_Components.Shared.BasicForApplication;
 using Microsoft.AspNetCore.Server.IISIntegration;
 using System.Security.Claims;
+using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using Shared_Razor_Components.ViewModel;
 
 namespace Shared_Razor_Components
 {
@@ -28,7 +31,7 @@ namespace Shared_Razor_Components
                 #region ADM
 
                 options.AddGenericPolicy("Adm", (userRequirement, user) => userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1));
-                options.AddGenericPolicy("All", (userRequirement, user) => user.Claims.Any(x=> x.Type == ClaimTypes.Name ||x.Type == ClaimTypes.Email ||x.Type == ClaimTypes.HomePhone));
+                options.AddGenericPolicy("All", (userRequirement, user) => user.Claims.Any(x => x.Type == ClaimTypes.Name || x.Type == ClaimTypes.Email || x.Type == ClaimTypes.HomePhone));
 
                 #endregion
 
@@ -41,7 +44,7 @@ namespace Shared_Razor_Components
                     userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 4 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
 
                 options.AddGenericPolicy("JornadaRTCZCreator", (userRequirement, user) =>
-                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 2, 5 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 2, 5, 6 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
 
                 options.AddGenericPolicy("JornadaRTCZCreatorMaster", (userRequirement, user) =>
                     userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 6 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
@@ -49,6 +52,9 @@ namespace Shared_Razor_Components
                 #endregion
 
                 #region Controle Usuarios
+
+                options.AddGenericPolicy("AccessControleAcessos", (userRequirement, user) =>
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 2, 10,18,19 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
 
                 options.AddGenericPolicy("ControleAcessos", (userRequirement, user) =>
                     userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 2, 10 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
@@ -74,7 +80,7 @@ namespace Shared_Razor_Components
 
                 options.AddGenericPolicy("ControleDemandasAdm", (userRequirement, user) =>
                 userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 14, 15 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
-                
+
                 options.AddGenericPolicy("GenericUserOrDemandaAdm", (userRequirement, user) =>
                 userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 13, 14, 15, 20, 16, 17 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
 
@@ -85,16 +91,10 @@ namespace Shared_Razor_Components
                 userRequirement.Acesso.User.Perfil.Any(x => new[] { 20, 1 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
 
                 options.AddGenericPolicy("ControleDemandasManagement", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => new[] { 14,13,15, 20, 1 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                userRequirement.Acesso.User.Perfil.Any(x => new[] { 14, 13, 15, 20, 1 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
 
                 options.AddGenericPolicy("Suporte", (userRequirement, user) =>
                     userRequirement.Acesso.User.IsSuporte());
-
-                options.AddGenericPolicy("ControleQuestionsRota", (userRequirement, user) =>
-                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 3 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
-
-                options.AddGenericPolicy("ControleBoleta", (userRequirement, user) =>
-                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 11, 12 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
 
                 options.AddGenericPolicy("ControleAberturaDemandas", (userRequirement, user) =>
 
@@ -105,31 +105,30 @@ namespace Shared_Razor_Components
                 #region Cardapio Digital
 
                 options.AddGenericPolicy("CanSeeCardapio", (userRequirement, user) =>
-                    userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 21 || x.Perfil_Plataforma.ID_PERFIL == 22));
+                    userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 21 || x.Perfil_Plataforma.ID_PERFIL == 22) && userRequirement.Acesso.User.REGIONAL == "NE");
 
                 options.AddGenericPolicy("Default", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 21));
+                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 21) && userRequirement.Acesso.User.REGIONAL == "NE");
 
                 options.AddGenericPolicy("VIVOX_CARDAPIO_DIGITAL_ADM", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 22));
+                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 22) && userRequirement.Acesso.User.REGIONAL == "NE");
 
                 #endregion
 
                 #region Fórum Giro V
 
                 options.AddGenericPolicy("CanSeeForumGiroV", (userRequirement, user) =>
-                    userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 23 || x.Perfil_Plataforma.ID_PERFIL == 24));
+                    userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 23 || x.Perfil_Plataforma.ID_PERFIL == 24) && userRequirement.Acesso.User.REGIONAL == "NE");
 
                 options.AddGenericPolicy("VIVOX_FORUM_GIROV_USER", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 23));
+                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 23) && userRequirement.Acesso.User.REGIONAL == "NE");
 
                 options.AddGenericPolicy("VIVOX_FORUM_GIROV_ADM", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 24));
+                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 24) && userRequirement.Acesso.User.REGIONAL == "NE");
 
                 #endregion
 
             });
-
             services.AddSingleton<StaticUserRedecorp>(); // necessariamente Singleton pois guardam valores que são comuns a todos
             services.AddSingleton<GetUser_REDECORP>(); // necessariamente Singleton pois guardam valores que são comuns a todos
             services.AddScoped<Radzen.DialogService>();
@@ -140,6 +139,7 @@ namespace Shared_Razor_Components
             //services.AddScoped<SetFooter>();
             services.AddScoped<ControleUsuariosAppViewModel>();
             services.AddScoped<RegisterViewModel>();
+            services.AddScoped<AcessosPendentesByIdViewModel>();
             services.AddSingleton<IPainelUsuariosService, PainelUsuariosService>();
             services.AddSingleton<IPrincipalService, PrincipalService>();
             services.AddSingleton<IControleUsuariosAppService, ControleUsuariosAppService>();
@@ -184,6 +184,10 @@ namespace Shared_Razor_Components
             services.AddTransient<IAuthorizationHandler, GenericPolicyHandler>();
             services.AddAuthenticationCore();
             services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+            services.AddFluentUIComponents();
+            FluentWizard.LabelButtonPrevious = "Anterior";
+            FluentWizard.LabelButtonNext = "Próximo";
+            FluentWizard.LabelButtonDone = "Finalizar";
         }
     }
 }

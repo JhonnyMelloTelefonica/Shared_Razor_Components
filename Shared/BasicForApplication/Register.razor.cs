@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using Radzen;
 using Shared_Razor_Components.FundamentalModels;
+using Shared_Razor_Components.Layout;
 using System.ComponentModel;
 using System.Globalization;
 
@@ -10,12 +11,13 @@ namespace Shared_Razor_Components.Shared.BasicForApplication
 {
     public partial class Register
     {
-        private ControleUserModalBody ModalComponent;
+        private CriarUsuarioTemplate ModalComponent;
         public SOLICITAR_USUARIO_MODEL Criaruser { get; set; } = new();
         public TextInfo textInfo = new CultureInfo("pt-br", false).TextInfo;
         string witdhpage => registerservice.AlreadySolicitated ? "width: auto; margin: 40px auto;" : "width: 700px; margin: 40px auto;";
         public IBrowserFile file { get; set; }
         public EditContext editContext { get; set; }
+        IJSObjectReference _reference;
 
         private async Task ClickFileInput()
         {
@@ -27,11 +29,11 @@ namespace Shared_Razor_Components.Shared.BasicForApplication
             service.PropertyChanged += OnStateChanged;
             service.isBusy = true;
             await registerservice.VerifyCurrentUserExists();
-            Criaruser.MATRICULA = service.GetUser_REDECORP.GetMatricula();
-            editContext = new EditContext(Criaruser);
             service.isBusy = false;
+            editContext = new EditContext(Criaruser);
             await base.OnInitializedAsync();
         }
+
 
         public async Task ChangeAvatar(InputFileChangeEventArgs args)
         {
@@ -53,14 +55,6 @@ namespace Shared_Razor_Components.Shared.BasicForApplication
 
         private async Task CriarUser(SOLICITAR_USUARIO_MODEL user)
         {
-            var saida = editContext.Validate();
-            if (!saida)
-            {
-                await service.MessageService.Error("Informe os dados corretamente!", "Preste atenção!");
-
-                return;
-            }
-
             var OBS = await service.Swal.FireAsync(new SweetAlertOptions
             {
                 Title = "Quase lá...",
@@ -93,9 +87,7 @@ namespace Shared_Razor_Components.Shared.BasicForApplication
         public void Dispose()
         {
             if (ModalComponent is not null)
-            {
                 ModalComponent.Dispose();
-            }
             service.PropertyChanged -= OnStateChanged;
         }
 

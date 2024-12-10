@@ -1,0 +1,168 @@
+﻿@using Shared_Static_Class.Model_DTO
+@{
+    string style = item.MATRICULA?.MATRICULA == User.User.MATRICULA ? "margin-left: auto;margin-right: 0;" : "margin-left: 0;margin-right: auto;";
+}
+<div class="apply-component">
+    <RadzenFieldset AllowCollapse="false" CollapseAriaLabel="Detalhes"
+                    Style="@(style + "width: auto; margin: 5px; max-width: 80%; min-width:40vw")"
+                    Collapsed="true" ExpandAriaLabel="Detalhes">
+        <HeaderTemplate>
+            <span class="d-inline-flex align-items-center align-middle gap-3">
+                @if (item.MATRICULA is not null)
+                {
+                    <RadzenImage Path=@(item.MATRICULA.UserAvatar != null ? "data:image/png;base64," + SharedConverter.ConvertFileToString(item.MATRICULA.UserAvatar) : "images/usericon.png")
+                                 class="rz-gravatar" Style="cursor:pointer"
+                                 @onclick="@(() => JSRuntime.InvokeVoidAsync("ActivateCardView",
+                                 new ACESSOS_MOBILE_DTO {
+                                    UserAvatar = item.MATRICULA.UserAvatar,
+                                    MATRICULA = item.MATRICULA.MATRICULA,
+                                    NOME = item.MATRICULA.NOME,
+                                    NOME_SOCIAL = item.MATRICULA.NOME_SOCIAL,
+                                    EMAIL = item.MATRICULA.EMAIL,
+                                    CARGO = (Cargos)item.MATRICULA.CARGO,
+                                    PDV = item.MATRICULA.PDV,
+                                    CANAL = (Canal)item.MATRICULA.CANAL,
+                                }, DotNetObjectReference.Create(UserCard)))" />
+                }
+                <RadzenColumn Size="12" SizeMD="6" Class="rz-p-4 rz-border-radius-1" Style="border: none">
+                    <RadzenStack Gap="15px" Class="rz-text-truncate" Style="flex-direction: row !important; max-width: 50vw; width:auto">
+                        <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
+                            @if (item.MATRICULA.MATRICULA == User.User.MATRICULA)
+                            {
+                                <b>
+                                    Você
+                                </b>
+                            }
+                            else
+                            {
+                                if (item.MATRICULA is not null)
+                                {
+                                    <b>
+                                        @(item.MATRICULA.NOME_SOCIAL)
+                                    </b>
+                                }
+                                else
+                                {
+                                    <b>
+                                        Usuário não encontrado
+                                    </b>
+                                }
+                            }
+                        </RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate">
+                            <b>
+                                @if (item.STATUS == STATUS_ACESSOS_PENDENTES.REPROVADO.Value)
+                                {
+
+                                    <RadzenBadge BadgeStyle="Radzen.BadgeStyle.Danger" Text=@(item.STATUS) class="me-1" />
+                                }
+                                else if (item.STATUS == STATUS_ACESSOS_PENDENTES.ABERTO.Value)
+                                {
+
+                                    <RadzenBadge BadgeStyle="Radzen.BadgeStyle.Primary" Text=@(item.STATUS) class="me-1" />
+                                }
+                                else if (item.STATUS == STATUS_ACESSOS_PENDENTES.DEVOLVIDO_PARA_SOLICITANTE.Value)
+                                {
+
+                                    <RadzenBadge BadgeStyle="Radzen.BadgeStyle.Warning" Text=@(item.STATUS) class="me-1" />
+                                }
+                                else if (item.STATUS == STATUS_ACESSOS_PENDENTES.CANCELADO.Value)
+                                {
+
+                                    <RadzenBadge BadgeStyle="Radzen.BadgeStyle.Success" Text=@(item.STATUS) class="me-1" />
+                                }
+                                else
+                                {
+                                    <RadzenBadge BadgeStyle="Radzen.BadgeStyle.Secondary" Text=@(item.STATUS.Replace('_',' ')) class="me-1" />
+                                }
+                            </b>
+                        </RadzenText>
+                    </RadzenStack>
+                </RadzenColumn>
+            </span>
+        </HeaderTemplate>
+        <ChildContent>
+            <RadzenStack Gap="1rem">
+                <RadzenRow>
+                    <RadzenColumn Size="12" SizeMD="6" Class="rz-p-4 rz-border-radius-1" Style="border: var(--rz-grid-cell-border)">
+                        <RadzenText TextStyle="TextStyle.Subtitle1" class="rz-m-0" Style="font-family: Vivo-font-bold">Contato</RadzenText>
+                        <RadzenStack Orientation="Radzen.Orientation.Horizontal" AlignItems="Radzen.AlignItems.Center">
+                            <RadzenStack Gap="15px" Class="rz-text-truncate p-3">
+                                <FluentCard>
+                                    <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-4 rz-mb-0" Style="color: var(--rz-text-tertiary-color);">Email</RadzenText>
+                                    <RadzenText TextStyle="TextStyle.Body1">
+                                        @if (item.MATRICULA is not null)
+                                        {
+
+                                            <b>@item.MATRICULA.EMAIL</b>
+                                        }
+                                        else
+                                        {
+                                            <b>
+                                                Usuário não encontrado
+                                            </b>
+                                        }
+                                    </RadzenText>
+                                </FluentCard>
+                                <FluentCard>
+                                    <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">Data da resposta</RadzenText>
+                                    <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@item.DATA</b></RadzenText>
+                                </FluentCard>
+                            </RadzenStack>
+                        </RadzenStack>
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="6" Class="rz-p-4 rz-border-radius-1" Style="border: var(--rz-grid-cell-border)">
+                        <RadzenText TextStyle="TextStyle.Subtitle1" class="rz-m-0" Style="font-family: Vivo-font-bold">Informações da resposta</RadzenText>
+                        <RadzenStack Gap="15px" Class="rz-text-truncate p-3">
+                            <FluentCard>
+                                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">Status</RadzenText>
+                                <RadzenText TextStyle="TextStyle.Body1"><b>@(item.STATUS)</b></RadzenText>
+                            </FluentCard>
+                        </RadzenStack>
+                    </RadzenColumn>
+                </RadzenRow>
+                <FluentCard Style="width: 100%">
+                    <RadzenText TextStyle="TextStyle.Subtitle1" class="rz-m-0" Style="font-family: Vivo-font-bold">Resposta</RadzenText>
+                    <br />
+                    <div class="d-flex flex-row align-items-center p-xxl-3">
+                        @if (string.IsNullOrEmpty(item.RESPOSTA))
+                        {
+                            <p>
+                                Não foi informado nenhuma resposta
+                            </p>
+                        }
+                        else
+                        {
+                            <BlazoredTextEditor ReadOnly="true">
+                                <EditorContent>
+                                    @((MarkupString)item.RESPOSTA)
+                                </EditorContent>
+                            </BlazoredTextEditor>
+                        }
+                    </div>
+                </FluentCard>
+            </RadzenStack>
+        </ChildContent>
+        <SummaryTemplate>
+            <div class="d-flex flex-row align-items-center p-xxl-3">
+                @if (string.IsNullOrEmpty(item.RESPOSTA))
+                {
+                    <p>
+                        Não foi informado nenhuma resposta
+                    </p>
+                }
+                else
+                {
+
+                    <div>
+                        @((MarkupString)item.RESPOSTA)
+                    </div>
+                }
+            </div>
+            <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate align-self-end w-100"
+                        Style="font-family:Vivo-font-light;font-size:12px; text-align:end">
+                <b> @item.DATA </b>
+            </RadzenText>
+        </SummaryTemplate>
+    </RadzenFieldset>
+</div>

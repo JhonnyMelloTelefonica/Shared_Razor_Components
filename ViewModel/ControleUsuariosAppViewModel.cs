@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.JSInterop;
 using BlazorBootstrap;
+using Shared_Static_Class.Converters;
 
 
 namespace Shared_Razor_Components.ViewModels
@@ -42,10 +43,16 @@ namespace Shared_Razor_Components.ViewModels
 
             GetPerfisUsuario();
         }
-
         public FileContent file { get; set; }
-
         public Blazorise.Modal modalCriarUserMassivoRef;
+        public List<SOLICITAR_USUARIO_MODEL> data { get; set; } = [];
+        public List<PERFIL_PLATAFORMAS_VIVO_DISSMISS> perfis { get; set; } = [];
+        public ControleUsuariosFilterModel filter { get; set; } = new();
+        public List<JORNADA_BD_HIERARQUIum> datacarteira { get; set; }
+        public List<JORNADA_BD_CARGOS_CANAL> dataCanal_Cargo { get; set; }
+        public IEnumerable<Cargos> CargosHasPDV { get; set; } = [];
+        public GenericStatePage<SOLICITAR_USUARIO_MODEL> actual_StatePage { get; set; } = new();
+        public IEnumerable<JORNADA_BD_HIERARQUIum> CARTEIRA { get; set; } = new List<JORNADA_BD_HIERARQUIum>();
         public async Task DowloadPage()
         {
             IsBusy = true;
@@ -71,7 +78,6 @@ namespace Shared_Razor_Components.ViewModels
             IsBusy = false;
             return;
         }
-
         public async Task UpdateUsuarioMassivo(List<SOLICITAR_USUARIO_MODEL> data)
         {
             var saida = await Swal.FireAsync(new SweetAlertOptions
@@ -175,7 +181,6 @@ namespace Shared_Razor_Components.ViewModels
             }
             return;
         }
-
         public async Task<MainResponse> UpdateUserSuporte(SOLICITAR_USUARIO_MODEL user)
         {
             var result = await ControleUsuariosAppService.UpdateUsuariosSuporte(user, Userservice.User.MATRICULA);
@@ -292,8 +297,7 @@ namespace Shared_Razor_Components.ViewModels
             IsBusy = false;
             return;
         }
-        public async Task CriarUsuario(SOLICITAR_USUARIO_MODEL usuario,
-            string OBS)
+        public async Task CriarUsuario(SOLICITAR_USUARIO_MODEL usuario, string OBS)
         {
             IsBusy = true;
             try
@@ -350,8 +354,7 @@ namespace Shared_Razor_Components.ViewModels
 
             }
         }
-        public async Task CriarUsuarioMassivo(List<SOLICITAR_USUARIO_MODEL> usuarios,
-            string OBS)
+        public async Task CriarUsuarioMassivo(List<SOLICITAR_USUARIO_MODEL> usuarios, string OBS)
         {
             IsBusy = true;
             try
@@ -448,7 +451,13 @@ namespace Shared_Razor_Components.ViewModels
                         Response<string> saida = JsonConvert.DeserializeObject<Response<string>>(result.Content.ToString());
                         if (saida.Succeeded)
                         {
-                            await MessageService.Success(saida.Message, "Tudo Certo!");
+                            await MessageService.Success(saida.Message, null, options =>
+                            {
+                                options.TitleClass = "d-none";
+                                options.OkButtonText = "Avançar";
+                                options.ShowCloseButton = false;
+                            });
+
                             IsBusy = false;
                             return inteiro;
                         }
@@ -475,7 +484,12 @@ namespace Shared_Razor_Components.ViewModels
                     Response<string> saida = JsonConvert.DeserializeObject<Response<string>>(result.Content.ToString());
                     if (saida.Succeeded)
                     {
-                        await MessageService.Success(saida.Message, "Tudo Certo!");
+                            await MessageService.Success(saida.Message, null, options =>
+                            {
+                                options.TitleClass = "d-none";
+                                options.OkButtonText = "Avançar";
+                                options.ShowCloseButton = false;
+                            });
                         IsBusy = false;
                         return email;
                     }
@@ -541,13 +555,27 @@ namespace Shared_Razor_Components.ViewModels
             }
             return;
         }
-        public List<SOLICITAR_USUARIO_MODEL> data { get; set; } = [];
-        public List<PERFIL_PLATAFORMAS_VIVO_DISSMISS> perfis { get; set; } = [];
-        public ControleUsuariosFilterModel filter { get; set; } = new();
-        public List<JORNADA_BD_HIERARQUIum> datacarteira { get; set; }
-        public List<JORNADA_BD_CARGOS_CANAL> dataCanal_Cargo { get; set; }
-        public GenericStatePage<SOLICITAR_USUARIO_MODEL> actual_StatePage { get; set; } = new();
-        public IEnumerable<JORNADA_BD_HIERARQUIum> CARTEIRA { get; set; } = new List<JORNADA_BD_HIERARQUIum>();
+        public async Task LoadCargos()
+        {
+            var result = await PrincipalService.GetCargosPDV();
+
+            if (result.IsSuccess)
+            {
+                Response<object> saida = JsonConvert.DeserializeObject<Response<object>>(result.Content.ToString());
+                if (saida.Succeeded)
+                {
+                    CargosHasPDV = JsonConvert.DeserializeObject<IEnumerable<Cargos>>(saida.Data.ToString());
+                    return;
+                }
+                else
+                {
+                    var erro = JsonConvert.DeserializeObject<Response<string>>(result.Content.ToString());
+                    await ErrorModel(erro);
+                    return;
+                }
+            }
+            return;
+        }
     }
 }
 

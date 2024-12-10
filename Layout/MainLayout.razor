@@ -47,14 +47,7 @@
         <NotAuthorized>
             @if (!IsBusy)
             {
-                @if (AlreadySolicitated)
-                {
-                    <Detalhado_Acesso_Pendente id="@userSolicitado.ID" />
-                }
-                else
-                {
                     <Unauthorized />
-                }
             }
         </NotAuthorized>
     </AuthorizeView>

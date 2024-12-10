@@ -11,6 +11,7 @@ using Shared_Static_Class.Data;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Components.Routing;
+using Blazorise;
 
 namespace Shared_Razor_Components.Layout
 {
@@ -68,7 +69,6 @@ namespace Shared_Razor_Components.Layout
         public TextInfo textInfo = new CultureInfo("pt-br", false).TextInfo;
         public SOLICITAR_USUARIO_MODEL user { get; set; } = new();
         public ACESSOS_MOBILE_PENDENTE? userSolicitado { get; set; } = new();
-        public bool AlreadySolicitated { get; set; } = false;
 
         protected override async Task OnInitializedAsync()
         {
@@ -147,8 +147,10 @@ namespace Shared_Razor_Components.Layout
                             if (saidaSolicitado.ID != 0)
                             {
                                 userSolicitado = saidaSolicitado;
-                                AlreadySolicitated = true;
-                                await MessageService.Warning(saida.Message, "Solicitação em andamento");
+                                await MessageService.Warning(saida.Message, "Solicitação em andamento", options => {
+                                    options.TitleClass = "d-none";
+                                });
+                                navigationManager.NavigateTo($"ControleUsuarios/solicitacao-acesso/{saidaSolicitado.ID}");
                             }
                         }
                     }

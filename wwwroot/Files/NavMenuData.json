@@ -21,35 +21,35 @@
 			{
 				"Name": "Abrir Demanda",
 				"LinkNavigation": "demandas/solicitar",
-				"Permission": "All"
+				"Permission": "GenericUserOrDemandaAdm"
 			},
 			{
 				"Name": "Painel de Demandas",
 				"LinkNavigation": "demandas",
-				"Permission": "All"
+				"Permission": "GenericUserOrDemandaAdm"
 			},
 			{
 				"Name": "Operadores",
 				"LinkNavigation": "demandas/Operadores",
-				"Permission": "All"
+				"Permission": "ControleDemandasManagement"
 			},
 			{
 				"Name": "Filas",
 				"LinkNavigation": "demandas/filas",
-				"Permission": "All"
+				"Permission": "ControleDemandasManagement"
 			},
 			{
 				"Name": "Acessos",
 				"LinkNavigation": "demanda/acessos/create",
-				"Permission": "All"
+				"Permission": "GenericUserOrDemandaAdm"
 			},
 			{
 				"Name": "Desligamento",
 				"LinkNavigation": "demanda/desligamento/create",
-				"Permission": "All"
+				"Permission": "GenericUserOrDemandaAdm"
 			}
 		],
-		"Permission": "All"
+		"Permission": "GenericUserOrDemandaAdm"
 	},
 	{
 		"Application": "Giro V",
@@ -60,42 +60,48 @@
 		},
 		"Links": [
 			{
+				/*				
+					JornadaRTCZUser -> Usuário que apenas responde a prova
+					JornadaRTCZCreator -> Usuário que cria prova para quem está ABAIXO NA HIERARQUIA
+					JornadaRTCZCreatorMaster -> Usuário que está como gestor do Giro V atualmente
+				*/
+
 				"Name": "Criar Provas",
 				"LinkNavigation": "CriarFormulario",
-				"Permission": "All"
+				"Permission": "JornadaRTCZCreator"
 			},
 			{
 				"Name": "Resultados",
 				"LinkNavigation": "Avaliacoes",
-				"Permission": "All"
+				"Permission": "JornadaRTCZ"
 			},
 			{
 				"Name": "Provas Disponíveis",
 				"LinkNavigation": "ListaFormulario",
-				"Permission": "All"
+				"Permission": "JornadaRTCZ"
 			},
 			{
 				"Name": "Criar Prova (Específica)",
 				"LinkNavigation": "jornada/criar-form-detalhado",
-				"Permission": "All"
+				"Permission": "JornadaRTCZCreator"
 			},
 			{
 				"Name": "Minhas Provas",
 				"LinkNavigation": "PainelProvasCriadas",
-				"Permission": "All"
+				"Permission": "JornadaRTCZCreator"
 			},
 			{
 				"Name": "Criar Questões",
 				"LinkNavigation": "CreateQuestion",
-				"Permission": "All"
+				"Permission": "JornadaRTCZCreatorMaster"
 			},
 			{
 				"Name": "Gerenciar Questões",
 				"LinkNavigation": "EditQuestion",
-				"Permission": "All"
+				"Permission": "JornadaRTCZCreatorMaster"
 			}
 		],
-		"Permission": "All"
+		"Permission": "JornadaRTCZ"
 	},
 	{
 		"Application": "Controle Usuários",
@@ -108,26 +114,26 @@
 			{
 				"Name": "Criar usuários",
 				"LinkNavigation": "CriarUsuario",
-				"Permission": "All"
+				"Permission": "ControleAcessos"
 			},
 			{
 				"Name": "Gerenciamento de Usuários",
 				"LinkNavigation": "EditarUsuarios",
-				"Permission": "All"
+				"Permission": "ControleAcessos"
 			},
 			{
 				"Name": "Painel de Solicitações",
 				"LinkNavigation": "PainelUsuarios",
-				"Permission": "All"
+				"Permission": "ControleAcessos"
 			},
 			{
 				"Name": "Hierarquia/Carteira",
 				"LinkNavigation": "jornada/hierarquia",
-				"Permission": "All"
+				"Permission": "ControleHierarquiaRTCZ"
 			}
 
 		],
-		"Permission": "All"
+		"Permission": "AccessControleAcessos"
 	},
 	{
 		"Application": "Cardápio Digital",

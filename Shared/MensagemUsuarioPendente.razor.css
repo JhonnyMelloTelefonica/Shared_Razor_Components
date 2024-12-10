@@ -1,0 +1,31 @@
+﻿.apply-component {
+    border: none !important;
+    margin:auto;
+}
+
+.apply-component ::deep rz-fieldset {
+    border-radius: 30px;
+}
+
+.apply-component ::deep .rz-fieldset {
+    /*background: linear-gradient(180deg, rgb(252 252 252 / 0%) 0%, rgb(252 252 252 / 50%) 50%, rgb(252 252 252 / 70%) 75%, rgb(255 255 255 / 70%) 100%);*/
+    /*backdrop-filter: opacity(0.2) !important;*/
+}
+    
+.apply-component ::deep .rz-text-overline {
+    color: #780c93;
+}
+
+.apply-component ::deep .rz-text-subtitle1 {
+    color: white;
+}
+
+.apply-component ::deep .rz-fieldset-content-wrapper .rz-col-12 {
+    background: linear-gradient(180deg, rgba(86, 6, 168, 1) 0%, rgba(138, 59, 194, 1) 39%, rgba(191, 74, 214, 1) 75%, rgba(236, 66, 204, 1) 100%);
+    color: white !important;
+    box-shadow: 0 0 2px rgba (0, 0, 0, 0.12), 0 calc(4 * 0.5px) calc((4 * 1px)) rgba(0, 0, 0, 0.14);
+}
+
+.apply-component ::deep fluent-card {
+    padding: 1px 20px;
+}
