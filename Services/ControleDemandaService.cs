@@ -28,7 +28,7 @@ namespace Shared_Razor_Components.Services
         Task<MainResponse> GetDadosFilaByID(int id_fila);
         Task<MainResponse> GetFilas(string regional);
         Task<MainResponse> GetFilas(GenericPaginationModel<PaginationFilaDemandasModel> data);
-        Task<MainResponse> GetFiltersFilas(string regional, IEnumerable<int> Filas = default, IEnumerable<int> SubFilas = default, bool RefreshFilas = true);
+        Task<MainResponse> GetFiltersFilas(string regional, IEnumerable<int> Filas = default, IEnumerable<int> SubFilas = default, IEnumerable<int> idSub = default, IEnumerable<bool> status = default,bool RefreshFilas = true);
         Task<MainResponse> GetSubFilaById(int id);
         Task<MainResponse> InativarFilaById(int id);
         Task<IEnumerable<DEMANDA_ARQUIVOS_RESPOSTA>> GetFilesMenssageChamado(int idResposta);
@@ -308,7 +308,7 @@ namespace Shared_Razor_Components.Services
                 };
             }
         }
-        public async Task<MainResponse> GetFiltersFilas(string regional, IEnumerable<int> Filas = null, IEnumerable<int> SubFilas = null, bool RefreshFilas = true)
+        public async Task<MainResponse> GetFiltersFilas(string regional, IEnumerable<int> Filas = null, IEnumerable<int> SubFilas = null, IEnumerable<int> idSub = null, IEnumerable<bool> status = null, bool RefreshFilas = true)
         {
             try
             {
@@ -326,11 +326,29 @@ namespace Shared_Razor_Components.Services
                     uri += "&";
                     uri += string.Join('&',Filas.Select(x=> $"Filas={x}"));
                     if (SubFilas != null && SubFilas.Any())
-                    {
+                    {                  
                         uri += "&";
                         uri += string.Join('&', SubFilas.Select(x => $"SubFilas={x}"));
                     }
+
+                    if (idSub != null && idSub.Any())
+                    {
+                        //uri += $"&idSub={idSub}";
+                        uri += "&";
+                        uri += string.Join('&', idSub.Select(x => $"idSub={x}"));
+                        //uri += $"&{string.Join('&', idSub.Select(x => $"idSub={x}"))}";
+                    }
+
+
+                    if (status.Any() && status != null)
+                    {
+                        uri += "&";
+                        uri += string.Join('&', status.Select(x => $"status={x.ToString().ToLower()}"));
+                        //uri += $"&{string.Join('&', status.Select(x => $"status={x.ToString().ToLower()}"))}";
+                    }
+
                 }
+
                 client.BaseAddress = new Uri(uri);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
