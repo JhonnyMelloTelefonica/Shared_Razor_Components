@@ -1,0 +1,62 @@
+﻿@inherits LayoutComponentBase;
+@inject NavigationManager Navigation
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components;
+@using Microsoft.Extensions.Hosting;
+@inject Microsoft.AspNetCore.Authorization.IAuthorizationService Auth
+@inject NavigationManager nav
+@* @inject IUriHelper ui *@
+
+
+@if (IsAuthorized)
+{
+    @ChildContent
+}
+@* else
+{
+    nav.NavigateTo($"/unauthorized?AccessDeniedReason={AccessDeniedReason}");
+} *@
+
+@code {
+
+    bool IsDevelopment { get; set; } = false;
+    [Inject] IHostingEnvironment Env { get; set; }
+    // [Parameter] public RenderFragment Body { get; set; }
+    private bool IsAuthorized { get; set; }
+    private string AccessDanied { get; set; } = "default";
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string Policy { get; set; } = string.Empty;
+    [Parameter] public string AccessDeniedReason { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsDevelopment = Env.EnvironmentName.ToLower() == "development" ? true : false;
+
+        if (string.IsNullOrEmpty(Policy))
+        {
+            AccessDanied = "missing_policy";
+            IsAuthorized = false;
+            return;
+        }
+
+        var authResult = await Auth.AuthorizeAsync(null, null, Policy);
+
+        IsAuthorized = authResult.Succeeded;
+
+        if (!IsAuthorized)
+        {
+            AccessDeniedReason = Policy;
+        }
+
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!IsAuthorized)
+        {
+            nav.NavigateTo($"/unauthorized?Policy={AccessDeniedReason}", forceLoad: true);
+        }
+    }
+
+}

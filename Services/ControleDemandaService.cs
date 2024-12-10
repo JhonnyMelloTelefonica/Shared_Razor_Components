@@ -336,15 +336,18 @@ namespace Shared_Razor_Components.Services
                         //uri += $"&idSub={idSub}";
                         uri += "&";
                         uri += string.Join('&', idSub.Select(x => $"idSub={x}"));
+                        //uri += $"&{string.Join('&', idSub.Select(x => $"idSub={x}"))}";
+                    }
+
+
+                    if (status.Any() && status != null)
+                    {
+                        uri += "&";
+                        uri += string.Join('&', status.Select(x => $"status={x.ToString().ToLower()}"));
+                        //uri += $"&{string.Join('&', status.Select(x => $"status={x.ToString().ToLower()}"))}";
                     }
 
                 }
-
-                //if (status.Any() && status != null)
-                //{
-                //    uri += "&";
-                //    uri += string.Join('&', status.Select(x => $"status={x}"));
-                //}
 
                 client.BaseAddress = new Uri(uri);
                 client.DefaultRequestHeaders.Accept.Clear();

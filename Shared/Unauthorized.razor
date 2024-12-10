@@ -2,6 +2,8 @@
 @using Microsoft.AspNetCore.Components.Web
 @using Microsoft.AspNetCore.Components;
 @using Microsoft.Extensions.Hosting;
+@inject NavigationManager nav
+@* @inject IUriHelper ui *@
 
 <PageTitle>Usuário não autorizado</PageTitle>
 
@@ -21,7 +23,7 @@
                 </div>
 
             </div>
-            
+
         </nav>
 
         @*  <div>
@@ -31,14 +33,15 @@
         <div class="logo_text">
         VIVO X
         </div> *@
-    
+        @if (Policy == "application")
+        {
             <div style="width: 80%; height: 100%;">
-            <div style="display:flex; justify-content:center;margin-top: 6%;">
+                <div style="display:flex; justify-content:center;margin-top: 6%;">
                     <h3 class="" style="color: #454545;font-weight: 600; display: flex; justify-content: space-evenly; align-items: end; width: 50%;">
-                    <svg width="280" height="300" viewBox="0 0 280 300" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 80px; height: 80px;">
-                        <path opacity="0.5" d="M87.5 75.0001C87.5 49.5 110.25 30 140 30C169.75 30 192.5 49.5 192.5 75.0001V105H227.5V75.0001C227.5 33 189 0 140 0C91 0 52.5 33 52.5 75.0001V105H87.5V75.0001ZM166.25 187.5C166.25 175.5 154 165 140 165C126 165 113.75 175.5 113.75 187.5C113.75 193.5 117.25 199.5 122.5 204V225C122.5 234 129.5 240 140 240C150.5 240 157.5 234 157.5 225V204C162.75 199.5 166.25 193.5 166.25 187.5Z" fill="#81817E" />
-                        <path d="M227.5 105H52.5C22.75 105 0 124.5 0 150V255C0 280.5 22.75 300 52.5 300H227.5C257.25 300 280 280.5 280 255V150C280 124.5 257.25 105 227.5 105ZM157.5 204V225C157.5 234 150.5 240 140 240C129.5 240 122.5 234 122.5 225V204C117.25 199.5 113.75 193.5 113.75 187.5C113.75 175.5 126 165 140 165C154 165 166.25 175.5 166.25 187.5C166.25 193.5 162.75 199.5 157.5 204Z" fill="#FFEB0A" />
-                    </svg>
+                        <svg width="280" height="300" viewBox="0 0 280 300" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 80px; height: 80px;">
+                            <path opacity="0.5" d="M87.5 75.0001C87.5 49.5 110.25 30 140 30C169.75 30 192.5 49.5 192.5 75.0001V105H227.5V75.0001C227.5 33 189 0 140 0C91 0 52.5 33 52.5 75.0001V105H87.5V75.0001ZM166.25 187.5C166.25 175.5 154 165 140 165C126 165 113.75 175.5 113.75 187.5C113.75 193.5 117.25 199.5 122.5 204V225C122.5 234 129.5 240 140 240C150.5 240 157.5 234 157.5 225V204C162.75 199.5 166.25 193.5 166.25 187.5Z" fill="#81817E" />
+                            <path d="M227.5 105H52.5C22.75 105 0 124.5 0 150V255C0 280.5 22.75 300 52.5 300H227.5C257.25 300 280 280.5 280 255V150C280 124.5 257.25 105 227.5 105ZM157.5 204V225C157.5 234 150.5 240 140 240C129.5 240 122.5 234 122.5 225V204C117.25 199.5 113.75 193.5 113.75 187.5C113.75 175.5 126 165 140 165C154 165 166.25 175.5 166.25 187.5C166.25 193.5 162.75 199.5 157.5 204Z" fill="#FFEB0A" />
+                        </svg>
 
                         Acesso Não Autorizado
                     </h3>
@@ -52,7 +55,65 @@
                     @* <a style="font-size: 17px; background: #9147B4 !important;" href="@(IsDevelopment ? "http://localhost:5211/register" : "http://brtdtbgs0090sl:8081/register")" class="btn btn-primary-unhautorized text-button">Página de Registro</a> *@
                     <a style="font-size: 17px; background: #9147B4 !important;" href="/register" class="btn btn-primary-unhautorized text-button">Página de Registro</a>
                 </div>
-            </div>     
+            </div>
+
+        }
+        else
+        {
+
+            <div style="width: 80%;display: flex;flex-direction: column; height: 65vh;justify-content: space-between;">
+                <div style="display:flex; justify-content:center;margin-top: 1%;">
+                    <h3 class="" style="color: #454545;font-weight: 600;display: flex;justify-content: space-evenly;align-items: end;width: 75%; text-align: center;font-size: 27px; flex-direction:column; align-items:center">
+                        <svg width="280" height="300" viewBox="0 0 280 300" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 80px; height: 80px; margin: 3% 3%;">
+                            <path opacity="0.5" d="M87.5 75.0001C87.5 49.5 110.25 30 140 30C169.75 30 192.5 49.5 192.5 75.0001V105H227.5V75.0001C227.5 33 189 0 140 0C91 0 52.5 33 52.5 75.0001V105H87.5V75.0001ZM166.25 187.5C166.25 175.5 154 165 140 165C126 165 113.75 175.5 113.75 187.5C113.75 193.5 117.25 199.5 122.5 204V225C122.5 234 129.5 240 140 240C150.5 240 157.5 234 157.5 225V204C162.75 199.5 166.25 193.5 166.25 187.5Z" fill="#81817E" />
+                            <path d="M227.5 105H52.5C22.75 105 0 124.5 0 150V255C0 280.5 22.75 300 52.5 300H227.5C257.25 300 280 280.5 280 255V150C280 124.5 257.25 105 227.5 105ZM157.5 204V225C157.5 234 150.5 240 140 240C129.5 240 122.5 234 122.5 225V204C117.25 199.5 113.75 193.5 113.75 187.5C113.75 175.5 126 165 140 165C154 165 166.25 175.5 166.25 187.5C166.25 193.5 162.75 199.5 157.5 204Z" fill="#FFEB0A" />
+                        </svg>
+
+                        Você não possui perfil para acessar essa página.
+                    </h3>
+                </div>
+
+                @* <div style="display:flex; justify-content:center;">
+            <p class="" style="display:flex; justify-content: center; padding: 5%; color: #454545!important;font-weight: 200!important;font-size: 18px !important;">
+            @foreach (var profile in AllowPerfis)
+            {
+            @profile.Replace("_", "")
+            }
+            </p>
+            </div>
+            *@
+
+                <div class="dropdown" style="display: flex;justify-content: center;">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="background-color: #9147B4;color: white !important;min-width: 280px;justify-content: space-evenly;display: flex;align-items: center;">
+                        Perfis Acessados
+                    </button>
+                    @* <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                </div> *@
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    @foreach (var profile in AllowPerfis)
+                    {                     
+                            <a class="dropdown-item">@profile.Replace("_", " ")</a>                   
+                    }
+                    </div>
+                </div>
+
+                <div class="" style="display:flex; justify-content:center;">
+                    @* <a style="font-size: 17px; background: #9147B4 !important;" href="@(IsDevelopment ? "http://localhost:5211/register" : "http://brtdtbgs0090sl:8081/register")" class="btn btn-primary-unhautorized text-button">Página de Registro</a> *@
+                    @* <a style="font-size: 17px; background: #9147B4 !important;" href="/register" class="btn btn-primary-unhautorized text-button">
+                Página de Registro
+                </a> *@
+
+                    <p class="" style="display:flex; justify-content: center; padding: 2%; color: #454545!important;font-weight: 200!important;font-size: 18px !important; text-align:center">
+                        Você pode solicitar esse perfil em Gerenciamento de Usuários.
+                        <br/><br />Em caso de dúvidas, acione o SAL da sua regional.
+                    </p>
+                </div>
+            </div>
+
+        }
 
         @* <div class="footer_Unauthorized">
         Automação NE
@@ -61,15 +122,76 @@
     </div>
 </body>
 
+
 @code {
 
     bool IsDevelopment { get; set; } = false;
     [Inject] IHostingEnvironment Env { get; set; }
+    [Parameter] public RenderFragment Body { get; set; }
+    private bool isUnhauthorized = false;
 
+    [Parameter] public string AccessDeniedReason { get; set; }
+    public string? Policy { get; set; }
+    public string? Perfil { get; set; }
+    public List<string>? AllowPerfis { get; set; }
+
+
+    List<string> GetProfile(string? policy)
+    {
+        var policies = new Dictionary<string, List<string>> {
+                {
+            "ControleFilaDemandas",
+            new List<string> {"VIVOX_ACESSO_MASTER", "VIVOX_DEMANDA_FILA_CREATOR", "VIVOX_DEMANDA_FILA_USER"}
+        },  {
+            "ControleCriarFilaDemandas",
+             new List<string> {"VIVOX_ACESSO_MASTER", "VIVOX_DEMANDA_FILA_CREATOR", "VIVOX_DEMANDA_FILA_USER"}
+        }, {
+            "GenericUser",
+            new List<string> {"VIVOX_DEMANDA_USER"}
+        }, {
+            "ControleDemandasAdm",
+            new List<string> {"VIVOX_ACESSO_MASTER", "VIVOX_DEMANDA_ADM", "VIVOX_DEMANDA_ADM_LOGICO"}
+        }, {
+            "GenericUserOrDemandaAdm",
+            new List<string> {"VIVOX_ACESSO_MASTER", "VIVOX_DEMANDA_USER", "VIVOX_DEMANDA_ADM", "VIVOX_DEMANDA_ADM_LOGICO","VIVOX_DEMANDA_FILA_CREATOR", "VIVOX_DEMANDA_FILA_USER", "VIVOX_DEMANDA_GERENTE" }
+        }, {
+            "ControleDemandasLogico",
+            new List<string> {"VIVOX_ACESSO_MASTER", "VIVOX_DEMANDA_ADM_LOGICO"}
+        }, {
+            "ControleDemandasGerente",
+            new List<string> {"VIVOX_ACESSO_MASTER", "VIVOX_DEMANDA_GERENTE"}
+        }, {
+            "ControleDemandasManagement",
+            new List<string> {"VIVOX_ACESSO_MASTER", "VIVOX_DEMANDA_USER", "VIVOX_DEMANDA_ADM", "VIVOX_DEMANDA_ADM_LOGICO", "VIVOX_DEMANDA_GERENTE"}
+        }, {
+            "Suporte",
+            new List<string> {""}
+        }, {
+            "ControleQuestionsRota",
+            new List<string> {"VIVOX_ACESSO_MASTER", "VIVOX_RTCZ_EDIT_CREATOR_QUESTION"}
+        }, {
+            "ControleBoleta",
+            new List<string> {"VIVOX_ACESSO_MASTER", "VIVOX_BOLETA_ANALISTA", "VIVOX_BOLETA_USER"}
+        }, {
+            "ControleAberturaDemandas",
+            new List<string> {"VIVOX_ACESSO_MASTER", "VIVOX_DEMANDA_ADM", "VIVOX_DEMANDA_ADM_LOGICO"}
+        }
+         };
+        return policy != null && policies.TryGetValue(policy, out var profiles)
+        ? profiles : new List<string> { "nada" };
+    }
 
     protected override async Task OnInitializedAsync()
     {
         IsDevelopment = Env.EnvironmentName.ToLower() == "development" ? true : false;
 
+        var uri = new Uri(nav.Uri);
+        var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
+        Policy = query["Policy"];
+
+        AllowPerfis = GetProfile(Policy);
+
     }
+
+
 }
