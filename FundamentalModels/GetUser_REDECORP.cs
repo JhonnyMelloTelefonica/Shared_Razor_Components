@@ -79,7 +79,7 @@ namespace Shared_Razor_Components.FundamentalModels
                     //matricula = "22803"; //D'juda
                     //matricula = "158125"; //
                     //matricula = "3511507"; //
-                    //matricula = "16279"; //Carol cood. suporte
+                    matricula = "16279"; //Carol cood. suporte
                     //matricula = "80702130"; //kefson
                     //matricula = "80926613"; //Erro Controle Usuarios
                     //matricula = "30722"; //Chico
@@ -101,13 +101,13 @@ namespace Shared_Razor_Components.FundamentalModels
                     //matricula = "152664";
                     //matricula = "109296";
 
-                    matricula = "47831"; //Pessoa Inexistente
+                    //matricula = "47831"; //Pessoa Inexistente
 
                     // --------------
                     // REGIONAL MINAS
                     // --------------
                     //matricula = "155251"; //Minas
-                    //matricula = "427700"; //Minas Suporte
+                    //matricula = ("427700").TrimStart('0'); //Minas Suporte
                     //matricula = "78329"; //Loja 
 
 

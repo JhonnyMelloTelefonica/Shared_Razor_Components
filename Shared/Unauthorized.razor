@@ -43,16 +43,15 @@
                             <path d="M227.5 105H52.5C22.75 105 0 124.5 0 150V255C0 280.5 22.75 300 52.5 300H227.5C257.25 300 280 280.5 280 255V150C280 124.5 257.25 105 227.5 105ZM157.5 204V225C157.5 234 150.5 240 140 240C129.5 240 122.5 234 122.5 225V204C117.25 199.5 113.75 193.5 113.75 187.5C113.75 175.5 126 165 140 165C154 165 166.25 175.5 166.25 187.5C166.25 193.5 162.75 199.5 157.5 204Z" fill="#FFEB0A" />
                         </svg>
 
-                    Acesso Não Autorizado
-                </h3>
-            </div>
+                        Acesso Não Autorizado
+                    </h3>
+                </div>
 
-            <div style="display:flex; justify-content:center;">
-                <p class="" style="display:flex; justify-content: center; padding: 5%; color: #454545!important;font-weight: 200!important;font-size: 18px !important; ">Caso seja um erro comunique ao seu gestor ou solicite acesso abaixo.</p>
-            </div>
+                <div style="display:flex; justify-content:center;">
+                    <p class="" style="display:flex; justify-content: center; padding: 5%; color: #454545!important;font-weight: 200!important;font-size: 18px !important; ">Caso seja um erro comunique ao seu gestor ou solicite acesso abaixo.</p>
+                </div>
 
                 <div class="" style="display:flex; justify-content:center;">
-                    @* <a style="font-size: 17px; background: #9147B4 !important;" href="@(IsDevelopment ? "http://localhost:5211/register" : "http://brtdtbgs0090sl:8081/register")" class="btn btn-primary-unhautorized text-button">Página de Registro</a> *@
                     <a style="font-size: 17px; background: #9147B4 !important;" href="/register" class="btn btn-primary-unhautorized text-button">Página de Registro</a>
                 </div>
             </div>
@@ -93,22 +92,24 @@
                 <a class="dropdown-item" href="#">Something else here</a>
                 </div> *@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    @foreach (var profile in AllowPerfis)
-                    {                     
-                            <a class="dropdown-item">@profile.Replace("_", " ")</a>                   
-                    }
+                        @foreach (var profile in AllowPerfis)
+                        {
+                            <a class="dropdown-item">@profile.Replace("_", " ")</a>
+                        }
                     </div>
                 </div>
 
                 <div class="" style="display:flex; justify-content:center;">
                     @* <a style="font-size: 17px; background: #9147B4 !important;" href="@(IsDevelopment ? "http://localhost:5211/register" : "http://brtdtbgs0090sl:8081/register")" class="btn btn-primary-unhautorized text-button">Página de Registro</a> *@
-                    @* <a style="font-size: 17px; background: #9147B4 !important;" href="/register" class="btn btn-primary-unhautorized text-button">
-                Solicitar Acesso
-                </a> *@
-
+                    
+                    @* 
+                    <a style="font-size: 17px; background: #9147B4 !important;" href="/register" class="btn btn-primary-unhautorized text-button">
+                        Solicitar Acesso
+                    </a> 
+                    *@
                     <p class="" style="display:flex; justify-content: center; padding: 2%; color: #454545!important;font-weight: 200!important;font-size: 18px !important; text-align:center">
                         Você pode solicitar esse perfil em Gerenciamento de Usuários.
-                        <br/><br />Em caso de dúvidas, acione o SAL da sua regional.
+                        <br /><br />Em caso de dúvidas, acione o SAL da sua regional.
                     </p>
                 </div>
             </div>
@@ -128,9 +129,9 @@
     bool IsDevelopment { get; set; } = false;
     [Inject] IHostingEnvironment Env { get; set; }
     [Parameter] public RenderFragment Body { get; set; }
-    private bool isUnhauthorized = false;
-
     [Parameter] public string AccessDeniedReason { get; set; }
+    
+    private bool isUnhauthorized = false;
     public string? Policy { get; set; }
     public string? Perfil { get; set; }
     public List<string>? AllowPerfis { get; set; }
@@ -183,12 +184,9 @@
 
     protected override async Task OnInitializedAsync()
     {
-        IsDevelopment = Env.EnvironmentName.ToLower() == "development" ? true : false;
-
         var uri = new Uri(nav.Uri);
         var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
         Policy = query["Policy"];
-
         AllowPerfis = GetProfile(Policy);
 
     }

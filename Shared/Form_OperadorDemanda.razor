@@ -21,7 +21,7 @@
                 <RadzenDropDown Data=@(EnableOperadores)
                                 Change="@(args => NewOperador = ((IQueryable<ACESSOS_MOBILE_DTO>)args).ToList())"
                                 TValue="List<ACESSOS_MOBILE_DTO>" FilterAsYouType FilterCaseSensitivity="Radzen.FilterCaseSensitivity.CaseInsensitive"
-                                TextProperty="DISPLAY_NOME" ClearSearchAfterSelection
+                                TextProperty="NOME_SOCIAL" ClearSearchAfterSelection
                                 Multiple Chips AllowFiltering Separator=";" AllowClear="false"
                                 AllowSelectAll="false" Style="width: 100%; max-width:600px">
                     <Template Context="analista">
@@ -29,7 +29,7 @@
                                Source="@("data:image/png;base64," + SharedConverter.ConvertFileToString(analista.UserAvatar))">
                         </Blazorise.Image>
                         <span>
-                            @analista.DISPLAY_NOME
+                            @analista.NOME_SOCIAL
                         </span>
                     </Template>
                 </RadzenDropDown>

@@ -69,6 +69,9 @@ namespace Shared_Razor_Components
 
                 #region Controle de Demandas
 
+                options.AddGenericPolicy("GenericUserOrDemandaAdm", (userRequirement, user) =>
+                userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 13, 14, 15, 20, 16, 17 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+
                 options.AddGenericPolicy("ControleFilaDemandas", (userRequirement, user) =>
                 userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 16, 17 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
 
@@ -80,9 +83,6 @@ namespace Shared_Razor_Components
 
                 options.AddGenericPolicy("ControleDemandasAdm", (userRequirement, user) =>
                 userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 14, 15 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
-
-                options.AddGenericPolicy("GenericUserOrDemandaAdm", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 13, 14, 15, 20, 16, 17 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
 
                 options.AddGenericPolicy("ControleDemandasLogico", (userRequirement, user) =>
                 userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 15 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
