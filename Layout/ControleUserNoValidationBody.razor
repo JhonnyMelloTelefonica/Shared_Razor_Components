@@ -1,7 +1,7 @@
 ﻿<div class="apply-component">
     @if (ShouldRender)
     {
-        <FluentEditForm Model="user" FormName="formid" OnInvalidSubmit="HandleInvalidSubmit" OnValidSubmit="HandleValidSubmit" Enhance >
+        <FluentEditForm Model="user" FormName="formid" OnInvalidSubmit="HandleInvalidSubmit" OnValidSubmit="HandleValidSubmit" Enhance>
             <ObjectGraphDataAnnotationsValidator />
             <div class="testform" style="padding: 20px!important;">
                 <FluentCard Class="apply-component" AreaRestricted="false" Style="box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3); background: linear-gradient(90deg, rgba(86, 6, 168, 1) 0%, rgba(138, 59, 194, 1) 39%, rgba(191, 74, 214, 1) 75%, rgba(236, 66, 204, 1) 100%);">
@@ -29,8 +29,8 @@
                             <FluentValidationMessage For="@(() => user.MATRICULA)" />
                         </div>
                         <div>
-                            <FluentTextField @bind-Value=user.EMAIL TextFieldType="TextFieldType.Email" 
-                                            style="width: 300px;" Required Immediate ReadOnly=!Editable>
+                            <FluentTextField @bind-Value=user.EMAIL TextFieldType="TextFieldType.Email"
+                                             style="width: 300px;" Required Immediate ReadOnly=!Editable>
                                 <ChildContent>
                                     <FluentIcon Value="@(new Icons.Filled.Size24.MailOpenPerson().WithColor("#6900dd"))" Slot="start" />
                                 </ChildContent>
@@ -105,7 +105,7 @@
                                                       Value="@user.DDD.ToString()"
                                                       Class="@(editContext is not null ? editContext.FieldCssClass(editContext.Field("DDD")) : "")"
                                                       Disabled=!Editable TOption="int" ValueChanged="args => SetDDD(args)">
-                                                <FluentOption Value="">Selecione</FluentOption>
+                                            <FluentOption Value="">Selecione</FluentOption>
                                             @foreach (var item in service.CARTEIRA.Select(x => x.DDD).Distinct())
                                             {
                                                 <FluentOption Value="@(item.ToString())">@item</FluentOption>
@@ -224,7 +224,7 @@
                                         <RadzenStack Gap="0" class="rz-py-8 rz-px-12">
                                             <RadzenAlert Title="Atenção!" AllowClose="false" AlertStyle="Radzen.AlertStyle.Danger"
                                                          Icon="" Variant="Radzen.Variant.Flat" Shade="Radzen.Shade.Lighter"
-                                                         Style="color:black !important; background: white;">
+                                                         Style="color:white !important; background: transparent;">
                                                 Este usuário não tem perfis!!
                                             </RadzenAlert>
                                         </RadzenStack>
@@ -234,13 +234,20 @@
                                         <div style="display: grid;grid-template-columns: 1fr 1fr 1fr;align-items: center;column-gap: 10px;row-gap: 10px;width: 100%;">
                                             @foreach (var (item, index) in user.Perfil.Select((value, i) => (value, i)))
                                             {
-                                                <RadzenFieldset Style="width: 100%; margin: 20px auto;color:black; box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3); background: white;"
+                                                <RadzenFieldset Style="width: 100%; margin: 20px auto;color:white; box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3); background: transparent;"
                                                                 Collapsed="true" AllowCollapse="true">
                                                     <HeaderTemplate>
                                                         <span class="d-inline-flex" style="position:relative;color:#ffffff">
                                                             <RadzenIcon Icon="inventory_2" class="me-1" />
                                                             <b style="margin-bottom: 40px;">
-                                                                PERFIL N° @(index + 1)
+                                                                @if (item == 0)
+                                                                {
+                                                                    @($"SELECIONE ALGUM PERFIL")
+                                                                }
+                                                                else
+                                                                {
+                                                                    @Perfis_Plataforma.Where(x => x.ID_PERFIL == item).First().Perfil
+                                                                }
                                                             </b>
                                                             @if (Editable)
                                                             {
@@ -254,7 +261,7 @@
                                                     <ChildContent>
                                                         @if (item == 0)
                                                         {
-                                                            <RadzenDropDown Data=@(Perfis_Plataforma.Where(x=> !user.Perfil.Contains(x.ID_PERFIL))) @bind-Value=@user.Perfil[index] 
+                                                            <RadzenDropDown Data=@(Perfis_Plataforma.Where(x=> !user.Perfil.Contains(x.ID_PERFIL))) @bind-Value=@user.Perfil[index]
                                                                             SelectedItemChanged="args => ChangePerfil(args,index)"
                                                                             Multiple="false" Chips Separator=";" AllowClear="false" TValue=int ReadOnly=!Editable
                                                                             TextProperty="Perfil" ValueProperty="ID_PERFIL"
@@ -281,7 +288,7 @@
                                                         else
                                                         {
                                                             <div style="width: 100%; max-width: 300px; max-height:150px; height:auto; overflow:auto;">
-                                                                <span style="font-family:Vivo-font-light;font-size:14px;color:black">
+                                                                <span style="font-family:Vivo-font-light;font-size:14px;color:white">
                                                                     @Perfis_Plataforma.First(x => x.ID_PERFIL == user.Perfil[index]).obs
                                                                 </span>
                                                             </div>

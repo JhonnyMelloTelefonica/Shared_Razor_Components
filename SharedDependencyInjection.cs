@@ -38,93 +38,93 @@ namespace Shared_Razor_Components
                 #region Vivo X
 
                 options.AddGenericPolicy("JornadaRTCZ", (userRequirement, user) =>
-                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 3, 4, 5, 6 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 3, 4, 5, 6 }.Contains(x.Perfil_Plataforma.ID_PERFIL)) && userRequirement.Acesso.User.STATUS == true);
 
                 options.AddGenericPolicy("JornadaRTCZUser", (userRequirement, user) =>
-                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 4 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 4 }.Contains(x.Perfil_Plataforma.ID_PERFIL)) && userRequirement.Acesso.User.STATUS == true);
 
                 options.AddGenericPolicy("JornadaRTCZCreator", (userRequirement, user) =>
-                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 2, 5, 6 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 2, 5, 6 }.Contains(x.Perfil_Plataforma.ID_PERFIL)) && userRequirement.Acesso.User.STATUS == true);
 
                 options.AddGenericPolicy("JornadaRTCZCreatorMaster", (userRequirement, user) =>
-                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 6 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 6 }.Contains(x.Perfil_Plataforma.ID_PERFIL)) && userRequirement.Acesso.User.STATUS == true);
 
                 #endregion
 
                 #region Controle Usuarios
 
                 options.AddGenericPolicy("AccessControleAcessos", (userRequirement, user) =>
-                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 2, 10,18,19 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 2, 10,18,19 }.Contains(x.Perfil_Plataforma.ID_PERFIL)) && userRequirement.Acesso.User.STATUS == true);
 
                 options.AddGenericPolicy("ControleAcessos", (userRequirement, user) =>
-                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 2, 10 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 2, 10 }.Contains(x.Perfil_Plataforma.ID_PERFIL)) && userRequirement.Acesso.User.STATUS == true);
 
                 options.AddGenericPolicy("ControleAcessosMaster", (userRequirement, user) =>
-                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 10 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 10 }.Contains(x.Perfil_Plataforma.ID_PERFIL)) && userRequirement.Acesso.User.STATUS == true);
 
                 options.AddGenericPolicy("ControleHierarquiaRTCZ", (userRequirement, user) =>
-                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 18, 19 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 18, 19 }.Contains(x.Perfil_Plataforma.ID_PERFIL)) && userRequirement.Acesso.User.STATUS == true);
 
                 #endregion
 
                 #region Controle de Demandas
 
                 options.AddGenericPolicy("GenericUserOrDemandaAdm", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 13, 14, 15, 20, 16, 17 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 13, 14, 15, 20, 16, 17 }.Contains(x.Perfil_Plataforma.ID_PERFIL)) && userRequirement.Acesso.User.STATUS == true);
 
                 options.AddGenericPolicy("ControleFilaDemandas", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 16, 17 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 16, 17 }.Contains(x.Perfil_Plataforma.ID_PERFIL)) && userRequirement.Acesso.User.STATUS == true);
 
                 options.AddGenericPolicy("ControleCriarFilaDemandas", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 16, 17 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 16, 17 }.Contains(x.Perfil_Plataforma.ID_PERFIL)) && userRequirement.Acesso.User.STATUS == true);
 
                 options.AddGenericPolicy("GenericUser", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => new[] { 13 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                userRequirement.Acesso.User.Perfil.Any(x => new[] { 13 }.Contains(x.Perfil_Plataforma.ID_PERFIL)) && userRequirement.Acesso.User.STATUS == true);
 
                 options.AddGenericPolicy("ControleDemandasAdm", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 14, 15 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 14, 15 }.Contains(x.Perfil_Plataforma.ID_PERFIL)) && userRequirement.Acesso.User.STATUS == true);
 
                 options.AddGenericPolicy("ControleDemandasLogico", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 15 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 15 }.Contains(x.Perfil_Plataforma.ID_PERFIL)) && userRequirement.Acesso.User.STATUS == true);
 
                 options.AddGenericPolicy("ControleDemandasGerente", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => new[] { 20, 1 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                userRequirement.Acesso.User.Perfil.Any(x => new[] { 20, 1 }.Contains(x.Perfil_Plataforma.ID_PERFIL)) && userRequirement.Acesso.User.STATUS == true);
 
                 options.AddGenericPolicy("ControleDemandasManagement", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => new[] { 14, 13, 15, 20, 1 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                userRequirement.Acesso.User.Perfil.Any(x => new[] { 14, 13, 15, 20, 1 }.Contains(x.Perfil_Plataforma.ID_PERFIL)) && userRequirement.Acesso.User.STATUS == true);
 
                 options.AddGenericPolicy("Suporte", (userRequirement, user) =>
                     userRequirement.Acesso.User.IsSuporte());
 
                 options.AddGenericPolicy("ControleAberturaDemandas", (userRequirement, user) =>
 
-                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 14, 15 }.Contains(x.Perfil_Plataforma.ID_PERFIL)));
+                    userRequirement.Acesso.User.Perfil.Any(x => new[] { 1, 14, 15 }.Contains(x.Perfil_Plataforma.ID_PERFIL)) && userRequirement.Acesso.User.STATUS == true);
 
                 #endregion
 
                 #region Cardapio Digital
 
                 options.AddGenericPolicy("CanSeeCardapio", (userRequirement, user) =>
-                    userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 21 || x.Perfil_Plataforma.ID_PERFIL == 22) && userRequirement.Acesso.User.REGIONAL == "NE");
+                    userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 21 || x.Perfil_Plataforma.ID_PERFIL == 22) && userRequirement.Acesso.User.REGIONAL == "NE" && userRequirement.Acesso.User.STATUS == true);
 
                 options.AddGenericPolicy("Default", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 21) && userRequirement.Acesso.User.REGIONAL == "NE");
+                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 21) && userRequirement.Acesso.User.REGIONAL == "NE" && userRequirement.Acesso.User.STATUS == true);
 
                 options.AddGenericPolicy("VIVOX_CARDAPIO_DIGITAL_ADM", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 22) && userRequirement.Acesso.User.REGIONAL == "NE");
+                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 22) && userRequirement.Acesso.User.REGIONAL == "NE" && userRequirement.Acesso.User.STATUS == true);
 
                 #endregion
 
                 #region Fórum Giro V
 
                 options.AddGenericPolicy("CanSeeForumGiroV", (userRequirement, user) =>
-                    userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 23 || x.Perfil_Plataforma.ID_PERFIL == 24) && userRequirement.Acesso.User.REGIONAL == "NE");
+                    userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 23 || x.Perfil_Plataforma.ID_PERFIL == 24) && userRequirement.Acesso.User.REGIONAL == "NE" && userRequirement.Acesso.User.STATUS == true);
 
                 options.AddGenericPolicy("VIVOX_FORUM_GIROV_USER", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 23) && userRequirement.Acesso.User.REGIONAL == "NE");
+                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 23) && userRequirement.Acesso.User.REGIONAL == "NE" && userRequirement.Acesso.User.STATUS == true);
 
                 options.AddGenericPolicy("VIVOX_FORUM_GIROV_ADM", (userRequirement, user) =>
-                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 24) && userRequirement.Acesso.User.REGIONAL == "NE");
+                userRequirement.Acesso.User.Perfil.Any(x => x.Perfil_Plataforma.ID_PERFIL == 1 || x.Perfil_Plataforma.ID_PERFIL == 24) && userRequirement.Acesso.User.REGIONAL == "NE" && userRequirement.Acesso.User.STATUS == true);
 
                 #endregion
 

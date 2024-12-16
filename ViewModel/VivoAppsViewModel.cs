@@ -109,6 +109,8 @@ namespace Shared_Razor_Components.ViewModel
                 if (JSRuntime != null && data.Errors != null && data.Errors.Any())
                 {
                     await JSRuntime.InvokeVoidAsync("console.log", string.Join(';', data.Errors));
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "logvivox.txt");
+                    await File.AppendAllTextAsync(path, string.Join($" -> {DateTime.Now.ToString("dd/MM HH:mm")};\n", data.Errors));
                 }
             }
         }

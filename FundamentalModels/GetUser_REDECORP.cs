@@ -79,7 +79,7 @@ namespace Shared_Razor_Components.FundamentalModels
                     //matricula = "22803"; //D'juda
                     //matricula = "158125"; //
                     //matricula = "3511507"; //
-                    matricula = "16279"; //Carol cood. suporte
+                    //matricula = "16279"; //Carol cood. suporte
                     //matricula = "80702130"; //kefson
                     //matricula = "80926613"; //Erro Controle Usuarios
                     //matricula = "30722"; //Chico
@@ -96,10 +96,12 @@ namespace Shared_Razor_Components.FundamentalModels
                     //matricula = "3521592"; //Washington
                     //matricula = "152027"; //
                     //matricula = "151191"; //Eu
+                    matricula = "155741"; //Eu
+                    //matricula = "40476"; //
                     //matricula = "12194"; // -- RJ LESTE
                     //matricula = "3511507"; //MELO - VItor
                     //matricula = "152664";
-                    //matricula = "109296";
+                    //matricula = "165691";
 
                     //matricula = "47831"; //Pessoa Inexistente
 
@@ -133,7 +135,7 @@ namespace Shared_Razor_Components.FundamentalModels
                 catch (Exception ex)
                 {
                     matricula = "151191";
-                    throw new HttpRequestException("Não foi possível buscar o nome da máquina do usuário, logo não é possível seguir com a aplicação, por favor contate ne_automação.br@telefonica.com",ex.InnerException, System.Net.HttpStatusCode.Unauthorized);
+                    throw new HttpRequestException("Não foi possível buscar o nome da máquina do usuário, logo não é possível seguir com a aplicação, por favor contate ne_automação.br@telefonica.com", ex.InnerException, System.Net.HttpStatusCode.Unauthorized);
                 }
             }
 
@@ -152,7 +154,7 @@ namespace Shared_Razor_Components.FundamentalModels
             var apenasDigitos = new Regex(@"[^\d]");
             return apenasDigitos.Replace(str, "");
         }
-        
+
 
         private string RegrasRedecorp(string str)
         {
