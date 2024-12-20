@@ -3,20 +3,12 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Shared_Razor_Components.Services;
 using Shared_Razor_Components.ViewModels;
-using Shared_Razor_Components.Layout;
 using Shared_Razor_Components.Shared;
 using Shared_Static_Class.Model;
 using Shared_Razor_Components.FundamentalModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Shared_Razor_Components.Shared.BasicForApplication;
-using Microsoft.AspNetCore.Server.IISIntegration;
 using System.Security.Claims;
 using Microsoft.FluentUI.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using Shared_Razor_Components.ViewModel;
 
 namespace Shared_Razor_Components

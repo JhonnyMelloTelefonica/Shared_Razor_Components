@@ -60,7 +60,6 @@ namespace Shared_Razor_Components.ViewModel
         public IRegisterService RegisterService { get; set; } = _RegisterService;
         public IResultadosProvaService ResultadosProvaService { get; set; } = _ResultadosProvaService;
         public IForumRTCZService ForumRTCZService { get; set; } = _ForumRTCZService;
-
         public bool isBusy = false;
         public bool IsBusy
         {
@@ -80,9 +79,7 @@ namespace Shared_Razor_Components.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsBusy)));
             }
         }
-
         public bool isFilterBusy;
-
         public bool IsFilterBusy
         {
             get => isFilterBusy;
@@ -93,14 +90,11 @@ namespace Shared_Razor_Components.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsFilterBusy)));
             }
         }
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         public void TriggerPropertyChangedByTargetVM(object? args, string targetProperty)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(targetProperty));
         }
-
         public async Task ErrorModel(Response<string> data)
         {
             if (data != null)
@@ -114,6 +108,5 @@ namespace Shared_Razor_Components.ViewModel
                 }
             }
         }
-
     }
 }

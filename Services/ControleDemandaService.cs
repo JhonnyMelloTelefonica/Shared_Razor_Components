@@ -25,10 +25,10 @@ namespace Shared_Razor_Components.Services
         Task<MainResponse> AtivarFilaById(int id);
         Task<MainResponse> EditSubFila(DEMANDA_SUB_FILA_DTO data, int matricula, string regional);
         Task<MainResponse> GetAnalistasByRegional(string regional);
-        Task<MainResponse> GetDadosFilaByID(int id_fila);
+        Task<MainResponse> GetDadosFilaByID(int id_fila, string regional);
         Task<MainResponse> GetFilas(string regional);
         Task<MainResponse> GetFilas(GenericPaginationModel<PaginationFilaDemandasModel> data);
-        Task<MainResponse> GetFiltersFilas(string regional, IEnumerable<int> Filas = default, IEnumerable<int> SubFilas = default, IEnumerable<int> idSub = default, IEnumerable<bool> status = default,bool RefreshFilas = true);
+        Task<MainResponse> GetFiltersFilas(string regional, IEnumerable<int> Filas = default, IEnumerable<int> SubFilas = default, IEnumerable<int> idSub = default, IEnumerable<bool> status = default, bool RefreshFilas = true);
         Task<MainResponse> GetSubFilaById(int id);
         Task<MainResponse> InativarFilaById(int id);
         Task<IEnumerable<DEMANDA_ARQUIVOS_RESPOSTA>> GetFilesMenssageChamado(int idResposta);
@@ -38,7 +38,6 @@ namespace Shared_Razor_Components.Services
     {
         private IHostEnvironment Environment;
         private IConfiguration Config;
-
         public ControleDemandaService(IHostEnvironment environment, IConfiguration _Config)
         {
             Config = _Config;
@@ -59,7 +58,6 @@ namespace Shared_Razor_Components.Services
                 }
             }
         }
-
         public async Task<MainResponse> GetFilas(GenericPaginationModel<PaginationFilaDemandasModel> data)
         {
             try
@@ -183,7 +181,7 @@ namespace Shared_Razor_Components.Services
                 var content = new StringContent(body, Encoding.UTF8, "application/json");
                 request.Content = content;
 
-                var result =  await MakeRequestAsync(request, client);
+                var result = await MakeRequestAsync(request, client);
 
                 return result;
             }
@@ -315,7 +313,7 @@ namespace Shared_Razor_Components.Services
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
                 HttpClient client = new HttpClient();
                 string uri = $"{BaseUrl}/GetFiltersFilas?regional={regional}";
-                
+
                 if (!RefreshFilas)
                 {
                     uri += $"&RefreshFilas={RefreshFilas}";
@@ -324,9 +322,9 @@ namespace Shared_Razor_Components.Services
                 if (Filas != null && Filas.Any())
                 {
                     uri += "&";
-                    uri += string.Join('&',Filas.Select(x=> $"Filas={x}"));
+                    uri += string.Join('&', Filas.Select(x => $"Filas={x}"));
                     if (SubFilas != null && SubFilas.Any())
-                    {                  
+                    {
                         uri += "&";
                         uri += string.Join('&', SubFilas.Select(x => $"SubFilas={x}"));
                     }
@@ -365,13 +363,13 @@ namespace Shared_Razor_Components.Services
                 };
             }
         }
-        public async Task<MainResponse> GetDadosFilaByID(int id_fila)
+        public async Task<MainResponse> GetDadosFilaByID(int id_fila, string regional)
         {
             try
             {
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
                 HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri($"{BaseUrl}/GetDadosFilaByID?id_fila={id_fila}");
+                client.BaseAddress = new Uri($"{BaseUrl}/GetDadosFilaByID?id_fila={id_fila}&regional={regional}");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, client.BaseAddress);
@@ -387,7 +385,6 @@ namespace Shared_Razor_Components.Services
                 };
             }
         }
-
         public async Task<IEnumerable<DEMANDA_ARQUIVOS_RESPOSTA>> GetFilesMenssageChamado(int idResposta)
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
@@ -400,7 +397,6 @@ namespace Shared_Razor_Components.Services
 
             return JsonConvert.DeserializeObject<IEnumerable<DEMANDA_ARQUIVOS_RESPOSTA>>(saida.Content.ToString());
         }
-
         private async Task<MainResponse> MakeRequestAsync(HttpRequestMessage getRequest, HttpClient client)
         {
             var response = await client.SendAsync(getRequest).WaitAsync(new TimeSpan(0, 5, 0)).ConfigureAwait(true);
@@ -439,7 +435,5 @@ namespace Shared_Razor_Components.Services
                 };
             }
         }
-
-
     }
 }
